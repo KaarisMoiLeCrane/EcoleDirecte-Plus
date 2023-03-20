@@ -1,0 +1,36 @@
+{
+	"name": "EcoleDirecte +",
+	"description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
+	"version": "0.0.0.1",
+	"author": "Kaaris_Moi_Le_Crane",
+	"manifest_version": 3,
+	"host_permissions": [
+		"*://*.ecoledirecte.com/*",
+		"*://ecoledirecte.com/*"
+	],
+	
+	"icons": {
+		"16": "/images/icons/icon_16.png",
+		"32": "/images/icons/icon_32.png",
+		"48": "/images/icons/icon_48.png",
+		"128": "/images/icons/icon_128.png"
+	},
+	
+	"content_scripts": [
+		{
+			"run_at": "document_end",
+			"all_frames": true,
+			"js": [
+				"/functions/functions.js",
+				"/ecoledirecte-plus-features/devoirs.js",
+				"/ecoledirecte-plus-features/notes.js",
+				"/ecoledirecte-plus-features/design.js",
+				"/main.js"
+			],
+			"matches": [
+				"*://*.ecoledirecte.com/*",
+				"*://ecoledirecte.com/*"
+            ]
+		}
+	]
+}
