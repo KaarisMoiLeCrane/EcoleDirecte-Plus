@@ -98,7 +98,7 @@ There is no real prerequisite. You need Chrome or (maybe) just any web browser c
 
 ### Installation
 
-The extension is 100% pure js and I want it to still be pure js. If you want to use any library you can but I will try (or you can try) to remake the functionnalities you use in the library.
+The extension is 100% pure js and I want it to still be pure js. If you want to use any library you can but I will try (or you can try) to remake the functionnalities you use from the library.
 See [Contributing](#contributing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -111,7 +111,8 @@ See [Contributing](#contributing)
 - [x] Enhance homeworks category
 - [x] Enhance the schedule to display if homeworks were made or not
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
-- [ ] Calculate the average based on the shown grades
+- [x] Calculate the average based on the shown grades
+- [ ] Clean the code and beautify it
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
@@ -160,5 +161,5 @@ Project Link: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://gi
 ## Important
 
 - This extension isn't affiliated at all with "ecoledirecte.com". I'm just a random guy who did this project.
-- This extension needs the token by EcoleDirecte to work (to get the homeworks status in the schedule). Any suggestions are opened if you have a better way and that work like it works right now. I'm actually working on a way to listen to the requests and then get the datas (for the grades and the homeworks in their pages only)
+- This extension needs the token of the account gived by EcoleDirecte to work (to get the homeworks status in the schedule). Any suggestions are opened if you have a better way and that work like it works right now. I'm actually working on a way to listen to the requests and then get the datas (for the grades and the homeworks in their pages only)
 - All the changements are only visual. The website code isn't altered at all in any ways.
