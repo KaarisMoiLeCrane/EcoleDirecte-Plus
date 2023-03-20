@@ -41,7 +41,7 @@
   <p align="center">
     Extension Chrome pour améliorer le Site EcoleDirecte.
     <br />
-    <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus"><strong>Explore les docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus">View Demo</a>
