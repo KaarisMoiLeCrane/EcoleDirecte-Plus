@@ -126,11 +126,11 @@ Les contributions sont ce qui font de la communauté open source un endroit incr
 
 Si vous avez une suggestion qui rendrait cela meilleur, veuillez forker le dépôt et créer une pull request. Vous pouvez également simplement ouvrir un problème avec le tag “enhancement”. N’oubliez pas de donner une étoile au projet ! Merci encore !
 
-1 - Forker le projet
-2 - Créer votre branche de fonctionnalité (`git checkout -b Amazing/Features`)
-3 - Valider vos changements (`git commit -m 'Ajouter une fonctionnalité incroyable'`)
-4 - Pousser vers la branche (`git push origin Amazing/Features`)
-5 - Ouvrir une pull request
+1. Forker le projet
+2. Créer votre branche de fonctionnalité (`git checkout -b Amazing/Features`)
+3. Valider vos changements (`git commit -m 'Ajouter une fonctionnalité incroyable'`)
+4. Pousser vers la branche (`git push origin Amazing/Features`)
+5. Ouvrir une pull request
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
 
