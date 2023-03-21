@@ -52,7 +52,7 @@
   </p>
 </div>
 
-> Vous ne comprenez pas l'anglais ? Vous êtes francophone ? Regardez le [*LISEZ-MOI* français](./README.md) !
+> Vous ne comprenez pas l'anglais ? Regardez le [*LISEZ-MOI* français](./README.md) !
 
 <!-- TABLE OF CONTENTS -->
 <details>
