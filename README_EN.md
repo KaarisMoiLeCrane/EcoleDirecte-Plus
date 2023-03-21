@@ -113,6 +113,8 @@ See [Contributing](#contributing)
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
 - [x] Calculate the average based on the shown grades
 - [ ] Clean the code and beautify it
+- [ ] Add average goals
+- [ ] Allow yourself to add grades
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
