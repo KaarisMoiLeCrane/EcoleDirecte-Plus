@@ -1,17 +1,23 @@
-let data, url;
+// Get the token and the id of the aimed student
 globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
 let id = window.location.pathname.split("/")[2]
 let b = 1
 
+// Listen to all url changes
 var lastUrl = location.href;
+
+// This part of the code is the core of the code
 new MutationObserver(() => {
     var url = location.href;
     if (url !== lastUrl) {
+		// The URL changed so we replace the old url with the new and recover each time the token
         lastUrl = url;
 		globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
 		
+		// A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 		loop()
 
+		// If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
         if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
             id = window.location.pathname.split("/")[2]
 			if (id != undefined) {
@@ -36,6 +42,7 @@ new MutationObserver(() => {
 			}
         }
 		
+		// Each time the url change we remove the ed-menu css class from all element so the UI changes can be applied
 		if (document.querySelectorAll("div.menu.ed-menu"))
 			for (let i = 0; i < document.querySelectorAll("div.menu.ed-menu").length; i++)
 				document.querySelectorAll("div.menu.ed-menu")[i].classList.remove("ed-menu")
@@ -45,9 +52,12 @@ new MutationObserver(() => {
     childList: true
 });
 
+// A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 loop()
+
 loop2()
 
+// A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 function loop() {
 	globalThis.watchAnyObject(
 		window.sessionStorage,
@@ -57,27 +67,29 @@ function loop() {
 				globalThis.token = window.sessionStorage.token
 				let prom = new Promise((resolve) => {
 					new MutationObserver((mutations, observer) => {
-							for (let mutation of mutations) {
-								for (let removedNode of mutation.removedNodes) {
-									if (removedNode.tagName === 'MODAL-CONTAINER') {
-										observer.disconnect();
-										resolve();
-									}
+						for (let mutation of mutations) {
+							for (let removedNode of mutation.removedNodes) {
+								// If the relogin page is unloaded (because the user relogged) we check the page and see if there is anything to change
+								if (removedNode.tagName === 'MODAL-CONTAINER') {
+									observer.disconnect();
+									resolve();
 								}
 							}
-						})
-						.observe(document.body, {
-							childList: true,
-							subtree: true
-						});
+						}
+					}).observe(document.body, {
+						childList: true,
+						subtree: true
+					});
 				});
 
 				prom.then(() => {
 					document.waitForElement("ed-modal-reconnexion").then((elm) => {
-						window.sessionStorage.removeItem("token")
-						window.sessionStorage.setItem("a", "0")
-						window.location.reload()
+						window.sessionStorage.removeItem("token") // Remove the token item so the token can be reset with the new one
+						window.sessionStorage.setItem("a", "0") // The "a" item is the name of the item that let the whole extension to know that the user is trying to login (0) and if he logged successfully (get removed)
+						window.location.reload() // Page reloading
 					})
+					
+					// We reset the token and if the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
 					document.waitForElement(".all-devoirs").then((elm) => {
 						console.log("mhm3")
 						globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
@@ -95,7 +107,7 @@ function loop() {
 						globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
 						globalThis.notes(id)
 					})
-					loop()
+					loop() // We relaunch the loop
 				});
 			}
 		},
@@ -103,6 +115,7 @@ function loop() {
 }
 
 function loop2() {
+	// If there is the loading page we wait for it to be deleted
 	document.waitForElement("div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])").then((elm) => {
 		let prom = new Promise((resolve) => {
 			new MutationObserver((mutations, observer) => {
@@ -124,6 +137,7 @@ function loop2() {
 		});
 
 		prom.then(() => {
+			// If there is a token and the user is on the schedule or the text book or the grades we wait for a specific element to load and then we apply the changes
 			if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
 				id = window.location.pathname.split("/")[2]
 				if (id != undefined) {
@@ -141,22 +155,25 @@ function loop2() {
 					})
 				}
 			}
-			loop2()
+			loop2() // We relaunch the loop
 		});
 	})
 }
 
+// If the user logged
 if (window.sessionStorage.a != "0") {
 	document.waitForElement("ed-modal-reconnexion").then((elm) => {
+		// Wait for the relogin page to remove the token (so the website can reset his value with the new value) and we set the "a" value to 0 so we know that he have to login
 		window.sessionStorage.removeItem("token")
 		window.sessionStorage.setItem("a", "0")
-		window.location.href = "https://" + window.location.host + "/login"
+		window.location.href = "https://" + window.location.host + "/login" // We do that because the script doesn't work well
 	})
 } else {
 	window.sessionStorage.removeItem("a")
 	loop()
 }
 
+// Like in the core of the script, it do the same thing but it execute only when the user go to the website for the first time
 if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
 	id = window.location.pathname.split("/")[2]
 	document.waitForElement(".all-devoirs").then((elm) => {
@@ -170,7 +187,6 @@ if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps")
 		globalThis.cdt(id)
 	})
 }
-
 if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
 	id = window.location.pathname.split("/")[2]
 	if (id != undefined) {
@@ -183,6 +199,7 @@ if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
 
 var edMenuObserver = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
+		// Like before, each time the navigation bar change, we remove ed-menu css class from all element so the UI changes can be applied
 		if (mutation.attributeName == "class" && mutation.target.className.includes("ed-menu")) {
 			mutation.target.classList.remove("ed-menu")
 		}
