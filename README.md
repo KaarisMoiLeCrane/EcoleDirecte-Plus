@@ -111,7 +111,9 @@ Consultes [Contribution](#contribution)
 - [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
 - [x] Calculer la moyenne basé sur les moyennes affichées
-- [ ] Nettoyer le code et l'embellir
+- [ ] Nettoyer le code, l'embellir et améliorer son efficacité
+- [ ] Ajouter des objectifs de moyenne
+- [ ] Permettre d'ajouter des notes soit même
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
@@ -159,5 +161,5 @@ Lien du Projet: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://
 ## Important
 
 - Cette extension n’est pas du tout affiliée à “ecoledirecte.com”. Je suis juste un gars au hasard qui a fait ce projet.
-- Cette extension a besoin du jeton (token) du compte de l'utilisateur fournie par EcoleDirecte pour fonctionner (pour obtenir le statut des devoirs dans l'emploi du temps par exemple). Toutes les suggestions sont ouvertes si vous avez une meilleure façon et que cela fonctionne comme ça fonctionne actuellement. Je travaille actuellement sur un moyen d’écouter les requêtes et ensuite d’obtenir les données (pour les notes et les devoirs dans leurs pages distinctes uniquement)
+- Cette extension a besoin du jeton (token) du compte de l'utilisateur fournie par EcoleDirecte pour fonctionner (pour obtenir le statut des devoirs dans l'emploi du temps par exemple). Toutes les suggestions sont ouvertes si vous avez une meilleure façon et que cela fonctionne comme ça fonctionne actuellement. Je travaille actuellement sur un moyen d’écouter les requêtes et ensuite d’obtenir les données (pour les notes et les devoirs dans leurs pages distinctes uniquement).
 - Tous les changements sont uniquement visuels. Le code du site web n’est pas du tout altéré de quelque manière que ce soit.
