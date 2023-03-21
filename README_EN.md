@@ -112,7 +112,7 @@ See [Contributing](#contributing)
 - [x] Enhance the schedule to display if homeworks were made or not
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
 - [x] Calculate the average based on the shown grades
-- [ ] Clean the code and beautify it
+- [ ] Clean the code and beautify it and make it more afficient
 - [ ] Add average goals
 - [ ] Allow yourself to add grades
 
