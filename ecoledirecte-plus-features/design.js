@@ -1,5 +1,10 @@
 window.onload = () => {
+	// The file design.css can be removed but It's more easier to do css in a css file
+	
+	// If the newMenu id (id set when newMenu is loaded) doesn't exist we will apply our navigation bar changes
 	if (!document.querySelector("#newMenu")) {
+		
+		// If the css isn't loaded in the page we add it
 		if (!document.getElementById("kmlc_css")) {
 			let styleSheet = document.createElement("link");
 			styleSheet.rel = "stylesheet";
@@ -283,54 +288,75 @@ window.onload = () => {
 	}
 	`;
 			document.head.appendChild(styleSheet2);
+			// The new css is loaded
 		}
 		
-		let child = document.querySelector("#container-menu")
-		let oldParent = child.parentNode;
+		// Get the element containing all the persons in the account displayed in the navigation bar
+		let navigationBarPersons = document.querySelector("#container-menu")
+		
+		// Get the whole old navigation bar
+		let oldParent = navigationBarPersons.parentNode;
+		
+		// Creating the new navigation bar
 		let newParent = document.createElement('div');
 		newParent.setAttribute("id", "newMenu")
 
-		oldParent.replaceChild(newParent, child);
-		newParent.appendChild(child);
+		// Replace the navigationBarPersons in the DOM with the newParent/new navigation bar, and append navigationBarPersons in the new navigation bar
+		oldParent.replaceChild(newParent, navigationBarPersons);
+		newParent.appendChild(navigationBarPersons);
 
-		child.removeAttribute("id")
-		child.setAttribute("class", "sidebar")
+		// Starting the changes by deleting the id and adding the new class sidebar to the new navigation bar
+		navigationBarPersons.removeAttribute("id")
+		navigationBarPersons.setAttribute("class", "sidebar")
 		
+		// When the mouse is over the newMenu we remove all the scroll bars
 		document.querySelector("#newMenu").onmouseover = function () {
+			// It's commented because it doesn't work well and users with a low-end pc can experience lags
 			//document.getElementById("main-part").classList.add("sidebarhover");
+			
 			document.querySelector(".menu-bar").style.overflowY = "hidden";
 			document.querySelector(".menu").style.overflowY = "hidden";
 			document.querySelector(".menu-bar").style.overflowX = "hidden";
 			document.querySelector(".menu").style.overflowX = "hidden";
-			if (
-				document.querySelector(".menu-bar").scrollHeight !=
-				document.querySelector(".menu-bar").clientHeight) {
+			
+			// Checking if the scroll bar is needed or not
+			if (document.querySelector(".menu-bar").scrollHeight != document.querySelector(".menu-bar").clientHeight) {
 				document.querySelector(".menu-bar").style.overflowY = "scroll";
 			}
 		};
 		document.querySelector("#newMenu").onmouseout = function () {
+			// It's commented because it doesn't work well and users with a low-end pc can experience lags
 			//document.getElementById("main-part").classList.remove("sidebarhover");
 			document.getElementById("main-part").classList.add("sidebarnothover")
 		};
 		
+		// Recover the logged account name and the message under it (in the old navgation bar) and add them to the new header. It's located in the top of the old navigation bar
 		let header = []
 		header.push('<header><div class="image-text"><div class="text logo-text"><span class="name">' + document.getElementById("user-account-link").innerText + '</span><span class="profession">' + document.querySelector(".ed-espace-title").textContent + '</span></div></div></header>')
 		
+		// Get all the persons displayed in the navigation bar
 		let edMenu = document.querySelectorAll("ed-menu")
 		
 		for (let i = 0; i < document.querySelectorAll("ed-menu").length; i++) {
+			// Get all the sections in the navigation bar of each person in the account and append them directly under the new menu-bar in the DOM
 			let roleMenu = document.querySelectorAll("ul[role = menu]")[i]
 			roleMenu.parentElement.parentElement.appendChild(roleMenu)
 			
+			// Removing the blue rectangle wrapping all the sections
 			document.querySelector(".ed-menu-list-wrapper").remove()
 			
+			// Get the new location of the sections in the DOM and get each buttons that let the user to go from a section to another one
 			roleMenu = document.querySelectorAll("ul[role = menu]")[i]
 			let button = roleMenu.querySelectorAll("li")
 			
 			for (let j = 0; j < button.length; j++) {
+				// Append the HTML "a" element containing the link to the section of the button directly under the button in the DOM
 				button[j].appendChild(button[j].querySelector("a"))
+				
+				// We delete the element that contain the old HTML "a" element
 				button[j].querySelector("ed-menu-block-item").remove()
 				
+				// Editing the new HTML "a" element, adding the new icon and the text associated to the button
 				let a = button[j].querySelector("a")
 				a.setAttribute("class", a.getAttribute("class") + " nav-link")
 				
@@ -341,16 +367,20 @@ window.onload = () => {
 				span.setAttribute("class", span.getAttribute("class") + " text nav-text")
 			}
 			
+			// Append the picture associated to each person of the account
 			if (i > 0) header.push('<header><div class="image-text"><span class="image"><img src=' + edMenu[i].parentElement.parentElement.querySelector(".overlay").parentElement.style.backgroundImage.split("\"")[1] + '></span><div class="text"><span class="name">' + edMenu[i].parentElement.parentElement.querySelector(".overlay").innerText + '</span></div></div></header>')
 			
+			// Adding classes
 			roleMenu.parentElement.setAttribute("class", "menu")
 			roleMenu.parentElement.querySelector("a").remove()
 			roleMenu.parentElement.parentElement.setAttribute("class", "menu-bar")
 			roleMenu.setAttribute("class", roleMenu.getAttribute("class") + " menu-links")
 		}
 		
+		// If there is more than one person in the account
 		if (edMenu.length > 1) {
 			for (let i = 1; i < edMenu.length; i++) {
+				// Append the menu wrapping all the sections of each person after the picture associated to them and remove the last parts of the old navigation bar associated to the person
 				edMenu[0].children[0].appendChild(edMenu[i].children[0].children[0])
 				edMenu[i].remove()
 			}
@@ -358,15 +388,18 @@ window.onload = () => {
 		
 		document.querySelector(".ed-espace-title").remove()
 		
+		// Adding a new HTML "LI" element to add some spaces between the first and second person in the navigation bar
 		let menu = document.querySelector(".sidebar").querySelectorAll(".menu")
 		menu[0].parentElement.insertBefore(fragmentFromString(header[0]), menu[0])
 		menu[0].insertAfter(document.createElement("LI"))
 		
+		// Adding after each person in the account a new HTML "LI" element to add some spaces between each person in the navigation bar
 		for (let i = 1; i < menu.length; i++) {
 			menu[i].parentElement.insertBefore(fragmentFromString(header[i]), menu[i])
 			menu[i].insertAfter(document.createElement("LI"))
 		}
 		
+		// For each HTML "header" element with no class so for each person associated text and picture, if someone click on it, it will hide (or show) the menu wrapping all sections associated with the person
 		for (let i = 0; i < document.querySelectorAll("header:not([class])").length; i++) {
 			document.querySelectorAll("header:not([class])")[i].children[0].onclick = function () {
 				if (this.parentElement.nextElementSibling.style.visibility != 'hidden') {
@@ -381,19 +414,22 @@ window.onload = () => {
 			}
 		}
 		
+		// Replace all ed-menu-badge class with menu-badge class
 		for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
 			document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
 	}
 	
+	// Remove from all elements the class ed-menu
 	if (document.querySelectorAll("div.menu.ed-menu"))
 		for (let i = 0; i < document.querySelectorAll("div.menu.ed-menu").length; i++)
 			document.querySelectorAll("div.menu.ed-menu")[i].classList.remove("ed-menu")
 }
 
-// document.querySelector("span.name").offsetWidth
+// document.querySelector("span.name").offsetWidth can be used for a better navigation bar. It can be used to set the width of the navigation bar.
 
 document.onreadystatechange = function () {
 	if (document.readyState === 'interactive' || document.readyState === 'complete') {
+		// Replace all ed-menu-badge class with menu-badge class
 		for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
 			document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
   	}
