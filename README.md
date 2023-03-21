@@ -52,7 +52,7 @@
   </p>
 </div>
 
-> You don't understand english ? See [*READ-ME* in english](./README_EN.md) !
+> You don't understand french ? See [*READ-ME* in english](./README_EN.md) !
 
 <!-- TABLE OF CONTENTS -->
 <details>
