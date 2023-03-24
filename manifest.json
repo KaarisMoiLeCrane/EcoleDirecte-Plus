@@ -22,7 +22,8 @@
 			"all_frames": true,
 			"js": [
 				"/functions/functions.js",
-				"/ecoledirecte-plus-features/devoirs.js",
+				"/ecoledirecte-plus-features/cahierdetexte.js",
+				"/ecoledirecte-plus-features/emploidutemps.js",
 				"/ecoledirecte-plus-features/notes.js",
 				"/ecoledirecte-plus-features/design.js",
 				"/main.js"
