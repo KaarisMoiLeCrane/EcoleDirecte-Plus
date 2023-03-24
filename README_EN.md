@@ -36,7 +36,7 @@
     <img src="images/icons/icon_128.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">EcoleDirecte Plus</h3>
+<h3 align="center">EcoleDirecte Plus (May not work because I'm actually cleaing the code)</h3>
 
   <p align="center">
     Chrome extension For a Better EcoleDirecte Website
