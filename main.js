@@ -1,7 +1,6 @@
 // Get the token and the id of the aimed student
 globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
 let id = window.location.pathname.split("/")[2]
-let b = 1
 
 // Listen to all url changes
 var lastUrl = location.href;
