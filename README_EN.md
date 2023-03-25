@@ -36,7 +36,7 @@
     <img src="images/icons/icon_128.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">EcoleDirecte Plus (May not work because I'm actually cleaing the code)</h3>
+<h3 align="center">EcoleDirecte Plus</h3>
 
   <p align="center">
     Chrome extension For a Better EcoleDirecte Website
@@ -112,7 +112,7 @@ See [Contributing](#contributing)
 - [x] Enhance the schedule to display if homeworks were made or not
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
 - [x] Calculate the average based on the shown grades
-- [ ] Clean the code and beautify it and make it more efficient (pass the code through beautifier to replace all tabs with 4 spaces)
+- [x] Clean the code and beautify it and make it more efficient (pass the code through beautifier to replace all tabs with 4 spaces)
 - [ ] Add average goals
 - [ ] Allow yourself to add grades
 
