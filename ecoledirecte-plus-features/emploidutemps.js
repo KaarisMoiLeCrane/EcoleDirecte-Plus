@@ -3,7 +3,7 @@ globalThis.emploidutemps = function (id) {
     let xhr = new XMLHttpRequest();
 	console.log(window.location.pathname.split("/"))
 	console.log(window.location.pathname.split("/")[2])
-    url = `https://api.ecoledirecte.com/v3/Eleves/${window.location.pathname.split("/")[2]}/cahierdetexte.awp?verbe=get`;
+    url = `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=get`;
     data = `data={}`;
 
     xhr.open("POST", url, false);
@@ -55,7 +55,10 @@ globalThis.emploidutemps = function (id) {
 									// Search for the correct subject and then add the correct symbol for the subject
 									let mat = document.querySelectorAll("div [class *= dhx_scale_holder]")[j].getElementsByContentText(dev[date][i].matiere).startsWith
 									if (mat) {
-										if (!mat[0].outerHTML.includes(symbol)) mat[0].outerHTML = mat[0].outerHTML.replace(dev[date][i].matiere.htmlEncode(), symbol + "<br>" + dev[date][i].matiere.htmlEncode())
+										console.log(mat, document.querySelectorAll("div [class *= dhx_scale_holder]"))
+										try {
+											if (!mat[0].outerHTML.includes(symbol)) mat[0].outerHTML = mat[0].outerHTML.replace(dev[date][i].matiere.htmlEncode(), symbol + "<br>" + dev[date][i].matiere.htmlEncode())
+										} catch (e) {}
 									}
 								}
 							}
@@ -78,7 +81,7 @@ globalThis.emploidutemps = function (id) {
 				devButton.setAttribute("style", "left: 125px")
 				devButton.innerText = "Devoirs"
 				devButton.onclick = function() {
-					globalThis.emploidutemps()
+					globalThis.emploidutemps(id)
 				}
 				
 				elm.parentElement.insertBefore(devButton, elm)
@@ -103,7 +106,8 @@ globalThis.emploidutemps = function (id) {
 										/*
 										 *
 										 * TO-DO : Create a wait for delete/remove function
-										 *
+										 * PROBLEM : Crash, consum a lot and/or work only once
+										 * 
 										 */
 										 
 										if (removedNode.getAttribute("aria-label").includes("Dim")) {
@@ -124,14 +128,14 @@ globalThis.emploidutemps = function (id) {
 						// Wait for the last day (day 7) to be displayed in the schedule
 						
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps()
+							globalThis.emploidutemps(id)
 						})
 					});
 					
 					if (b) {
 						b = 0
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.cdt()
+							globalThis.emploidutemps(id)
 						})
 					}
 				}, false);
@@ -156,6 +160,7 @@ globalThis.emploidutemps = function (id) {
 										/*
 										 *
 										 * TO-DO : Create a wait for delete/remove function
+										 * PROBLEM : Crash, consum a lot and/or work only once
 										 *
 										 */
 										 
@@ -177,14 +182,14 @@ globalThis.emploidutemps = function (id) {
 						// Wait for the last day (day 7) to be displayed in the schedule
 						
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps()
+							globalThis.emploidutemps(id)
 						})
 					});
 					
 					if (b) {
 						b = 0
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps()
+							globalThis.emploidutemps(id)
 						})
 					}
 				}, false);
@@ -209,6 +214,7 @@ globalThis.emploidutemps = function (id) {
 										/*
 										 *
 										 * TO-DO : Create a wait for delete/remove function
+										 * PROBLEM : Crash, consum a lot and/or work only once
 										 *
 										 */
 										 
@@ -230,14 +236,14 @@ globalThis.emploidutemps = function (id) {
 						// Wait for the last day (day 7) to be displayed in the schedule
 						
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps()
+							globalThis.emploidutemps(id)
 						})
 					});
 					
 					if (b) {
 						b = 0
 						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps()
+							globalThis.emploidutemps(id)
 						})
 					}
 				}, false);

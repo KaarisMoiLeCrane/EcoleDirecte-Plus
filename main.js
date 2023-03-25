@@ -12,35 +12,13 @@ new MutationObserver(() => {
     if (url !== lastUrl) {
 		// The URL changed so we replace the old url with the new and recover each time the token
         lastUrl = url;
+		
 		globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
 		
 		// A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 		loop()
 
-		// If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
-        if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
-            id = window.location.pathname.split("/")[2]
-			if (id != undefined) {
-				document.waitForElement(".all-devoirs").then((elm) => {
-					console.log("mhm1")
-					globalThis.cdt(id)
-				})
-				document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
-					console.log("mhm2")
-					globalThis.cdt(id)
-				})
-			}
-        }
-		
-		if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
-            id = window.location.pathname.split("/")[2]
-			if (id != undefined) {
-				document.waitForElement("td.discipline").then((elm) => {
-					console.log("NOTES 1")
-					globalThis.notes(id)
-				})
-			}
-        }
+		main(1)
 		
 		// Each time the url change we remove the ed-menu css class from all element so the UI changes can be applied
 		if (document.querySelectorAll("div.menu.ed-menu"))
@@ -51,6 +29,43 @@ new MutationObserver(() => {
     subtree: true,
     childList: true
 });
+
+function main(num) {
+	if (!lastUrl.includes("/login")) {
+		globalThis.design();
+		
+		// If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
+		if (globalThis.token != "nada" && window.location.href.includes("CahierDeTexte")) {
+			id = window.location.pathname.split("/")[2]
+			if (id != undefined) {
+				document.waitForElement(".all-devoirs").then((elm) => {
+					console.log("CDT ", num)
+					globalThis.cahierdetexte(id)
+				})
+			}
+		}
+		
+		if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps")) {
+			id = window.location.pathname.split("/")[2]
+			if (id != undefined) {
+				document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
+					console.log("EDT ", num)
+					globalThis.emploidutemps(id)
+				})
+			}
+		}
+		
+		if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
+			id = window.location.pathname.split("/")[2]
+			if (id != undefined) {
+				document.waitForElement("td.discipline").then((elm) => {
+					console.log("NOTES ", num)
+					globalThis.notes(id)
+				})
+			}
+		}
+	}
+}
 
 // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 loop()
@@ -89,24 +104,7 @@ function loop() {
 						window.location.reload() // Page reloading
 					})
 					
-					// We reset the token and if the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
-					document.waitForElement(".all-devoirs").then((elm) => {
-						console.log("mhm3")
-						globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
-						globalThis.cdt(id)
-					})
-
-					document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
-						console.log("mhm4")
-						globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
-						globalThis.cdt(id)
-					})
-					
-					document.waitForElement("td.discipline").then((elm) => {
-						console.log("NOTES 2")
-						globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
-						globalThis.notes(id)
-					})
+					main(2)
 					loop() // We relaunch the loop
 				});
 			}
@@ -137,24 +135,7 @@ function loop2() {
 		});
 
 		prom.then(() => {
-			// If there is a token and the user is on the schedule or the text book or the grades we wait for a specific element to load and then we apply the changes
-			if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
-				id = window.location.pathname.split("/")[2]
-				if (id != undefined) {
-					document.waitForElement(".all-devoirs").then((elm) => {
-						globalThis.cdt(id)
-					})
-				}
-			}
-			if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
-				id = window.location.pathname.split("/")[2]
-				if (id != undefined) {
-					document.waitForElement("td.discipline").then((elm) => {
-						console.log("NOTES 3")
-						globalThis.notes(id)
-					})
-				}
-			}
+			main(3)
 			loop2() // We relaunch the loop
 		});
 	})
@@ -173,29 +154,7 @@ if (window.sessionStorage.a != "0") {
 	loop()
 }
 
-// Like in the core of the script, it do the same thing but it execute only when the user go to the website for the first time
-if (globalThis.token != "nada" && window.location.href.includes("EmploiDuTemps") || window.location.href.includes("CahierDeTexte")) {
-	id = window.location.pathname.split("/")[2]
-	document.waitForElement(".all-devoirs").then((elm) => {
-		console.log("mhm5")
-		globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
-		globalThis.cdt(id)
-	})
-	document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
-		console.log("mhm6")
-		globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : "nada"
-		globalThis.cdt(id)
-	})
-}
-if (globalThis.token != "nada" && window.location.href.includes("Notes")) {
-	id = window.location.pathname.split("/")[2]
-	if (id != undefined) {
-		document.waitForElement("td.discipline").then((elm) => {
-			console.log("NOTES 4")
-			globalThis.notes(id)
-		})
-	}
-}
+main(4)
 
 var edMenuObserver = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
@@ -207,7 +166,6 @@ var edMenuObserver = new MutationObserver(function(mutations) {
 });
 
 executeEdMenuObserver(edMenuObserver)
-
 
 function executeEdMenuObserver(observer) {
 	document.waitForElement(".menu-bar").then((elm) => {

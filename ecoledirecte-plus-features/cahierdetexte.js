@@ -3,7 +3,7 @@ globalThis.cahierdetexte = function (id) {
     let xhr = new XMLHttpRequest();
 	console.log(window.location.pathname.split("/"))
 	console.log(window.location.pathname.split("/")[2])
-    url = `https://api.ecoledirecte.com/v3/Eleves/${window.location.pathname.split("/")[2]}/cahierdetexte.awp?verbe=get`;
+    url = `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=get`;
     data = `data={}`;
 
     xhr.open("POST", url, false);
@@ -55,12 +55,15 @@ globalThis.cahierdetexte = function (id) {
 									// Search for the correct subject and then add the correct symbol for the subject
 									let mat = devDateCDT[j].parentElement.getElementsByContentText(" " + dev[date][i].matiere).startsWith
 									if (mat) {
-										if (!mat[0].outerHTML.includes(symbol)) mat[0].outerHTML = mat[0].outerHTML.replace(" " + dev[date][i].matiere.htmlEncode(), symbol + " " + dev[date][i].matiere.htmlEncode())
+										console.log(mat)
+										try {
+											if (!mat[0].outerHTML.includes(symbol)) mat[0].outerHTML = mat[0].outerHTML.replace(" " + dev[date][i].matiere.htmlEncode(), symbol + " " + dev[date][i].matiere.htmlEncode())
+										} catch (e) {}
 									}
 								}
 							}
 						}
-					)}
+					})
                 }
             }
         }
@@ -68,7 +71,7 @@ globalThis.cahierdetexte = function (id) {
 		// Wait for the button "À venir" in the bottom right
 		document.waitForElement("ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > a").then((elm) => {
 			elm.onclick = function() {
-				globalThis.cahierdetexte()
+				globalThis.cahierdetexte(id)
 			}
 		})
     };

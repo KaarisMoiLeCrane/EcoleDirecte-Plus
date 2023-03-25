@@ -3,7 +3,7 @@ globalThis.notes = function (id) {
     let xhr = new XMLHttpRequest();
 	console.log(window.location.pathname.split("/"))
 	console.log(window.location.pathname.split("/")[2])
-    url = `https://api.ecoledirecte.com/v3/Eleves/${window.location.pathname.split("/")[2]}/notes.awp?verbe=get`;
+    url = `https://api.ecoledirecte.com/v3/Eleves/${id}/notes.awp?verbe=get`;
     data = `data={}`;
 
     xhr.open("POST", url, false);
@@ -149,15 +149,15 @@ globalThis.notes = function (id) {
 								moyenneG = matieresMoyenne/coeffMatTot
 								
 								// If there is the overall average row we add our overall average in the second. If not, we create it and put it in the second line as well (the first line is blank)
-								if (document.querySelector("tr > td.matieresMoyenneenerale-valeur")) {
-									let overallAverageElement = document.querySelector("tr > td.matieresMoyenneenerale-valeur").cloneNode(true)
+								if (document.querySelector("tr > td.moyennegenerale-valeur")) {
+									let overallAverageElement = document.querySelector("tr > td.moyennegenerale-valeur").cloneNode(true)
 									overallAverageElement.textContent = moyenneG.toFixed(5);
-									console.log(9, document.querySelector("tr > td.matieresMoyenneenerale-valeur"))
+									console.log(9, document.querySelector("tr > td.moyennegenerale-valeur"))
 
-									document.querySelector("tr > td.matieresMoyenneenerale-valeur").innerHTML = document.querySelector("tr > td.matieresMoyenneenerale-valeur").innerHTML + "<br>" + overallAverageElement.innerHTML;
+									document.querySelector("tr > td.moyennegenerale-valeur").innerHTML = document.querySelector("tr > td.moyennegenerale-valeur").innerHTML + "<br>" + overallAverageElement.innerHTML;
 								} else {
 									let overallAverageElement = document.createElement("tr")
-									overallAverageElement.innerHTML = '<tr class="ng-star-inserted"><td colspan="2" class="text-right matieresMoyenneeneralelibelle">Moyenne générale</td><td colspan="2" class="matieresMoyenneenerale-valeur">' + moyenneG.toFixed(5); + '</td></tr>'
+									overallAverageElement.innerHTML = '<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur">' + moyenneG.toFixed(5); + '</td></tr>'
 									console.log(10, overallAverageElement, document.querySelector("table.ed-table tbody"))
 									
 									document.querySelector("table.ed-table tbody").appendChild(overallAverageElement)
@@ -175,7 +175,7 @@ globalThis.notes = function (id) {
 			function executeNotesObserver(observer) {
 				
 				// Wait for the parent containing the table that isn't modified or removed when something in the table change
-				document.waitForElement("[class *= 'tab-content main-container double-padding container-bg ng-star-inserted']").then((elm) => {
+				document.waitForElement("[class *= 'tab-content']").then((elm) => {
 					observer.observe(elm, {
 						characterData: false,
 						attributes: true,
