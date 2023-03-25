@@ -36,7 +36,7 @@
     <img src="images/icons/icon_128.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">EcoleDirecte Plus (Peut ne pas marcher car je suis entrain de nettoyer le code)</h3>
+<h3 align="center">EcoleDirecte Plus</h3>
 
   <p align="center">
     Extension Chrome pour améliorer le Site EcoleDirecte.
@@ -44,7 +44,7 @@
     <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus"><strong>Explore les docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus">View Demo</a>
+    <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus">Voir Démo</a>
     ·
     <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues">Signaler un Bug</a>
     ·
@@ -111,7 +111,7 @@ Consultes [Contribution](#contribution)
 - [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
 - [x] Calculer la moyenne basé sur les moyennes affichées
-- [ ] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en en 4 espaces)
+- [x] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en en 4 espaces)
 - [ ] Ajouter des objectifs de moyenne
 - [ ] Permettre d'ajouter des notes soit même
 
