@@ -131,7 +131,7 @@ Node.prototype.waitForElement = function (selector) {
 }
 
 globalThis.fragmentFromString = function (strHTML) {
-	return document.createRange().createContextualFragment(strHTML).childNodes[0];
+    return document.createRange().createContextualFragment(strHTML).childNodes[0];
 }
 
 String.prototype.htmlEncode = function(){
