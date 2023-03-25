@@ -131,13 +131,6 @@ globalThis.emploidutemps = function (id) {
 							globalThis.emploidutemps(id)
 						})
 					});
-					
-					if (b) {
-						b = 0
-						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps(id)
-						})
-					}
 				}, false);
 			}
 		})
@@ -185,13 +178,6 @@ globalThis.emploidutemps = function (id) {
 							globalThis.emploidutemps(id)
 						})
 					});
-					
-					if (b) {
-						b = 0
-						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps(id)
-						})
-					}
 				}, false);
 			}
 		})
@@ -239,13 +225,6 @@ globalThis.emploidutemps = function (id) {
 							globalThis.emploidutemps(id)
 						})
 					});
-					
-					if (b) {
-						b = 0
-						document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
-							globalThis.emploidutemps(id)
-						})
-					}
 				}, false);
 			}
 		})
