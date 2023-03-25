@@ -114,7 +114,7 @@ See [Contributing](#contributing)
 - [x] Calculate the average based on the shown grades
 - [x] Clean the code and beautify it and make it more efficient (pass the code through beautifier to replace all tabs with 4 spaces)
 - [ ] Add average goals
-- [ ] Allow yourself to add grades
+- [x] Allow yourself to add grades (to clean)
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
