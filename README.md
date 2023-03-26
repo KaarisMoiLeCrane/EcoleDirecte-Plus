@@ -116,6 +116,7 @@ Consultes [Contribution](#contribution)
 - [x] Permettre d'ajouter des notes soit même
 - [x] Permettre de modifier les notes déjà existantes soit même
 - [ ] Ajouter des objectifs de moyenne
+- [ ] AJouter un bouton pour lire tout les messages
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
