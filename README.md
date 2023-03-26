@@ -111,8 +111,8 @@ Consultes [Contribution](#contribution)
 - [x] Améliorer la section devoirs du site
 - [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
-- [x] Calculer la moyenne basé sur les moyennes affichées
-- [x] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en en 4 espaces)
+- [x] Calculer la moyenne basé sur les notes affichées
+- [x] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en 4 espaces)
 - [x] Permettre d'ajouter des notes soit même
 - [x] Permettre de modifier les notes déjà existantes soit même
 - [ ] Ajouter des objectifs de moyenne
