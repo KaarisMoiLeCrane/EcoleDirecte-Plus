@@ -168,7 +168,9 @@ function ajouterNote(matiere, titre, note, coeff, quotient) {
         }
     }
     
-    calculerMoyennes("kmlc-simu-moyenne-g", "color: green;", "kmlc-simu-moyenne", "color: green;")
+    calculerMoyennes("kmlc-simu-moyenne-g", "color: green;", "kmlc-simu-moyenne", "color: green;", true)
+    calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
+    mainModifierNote()
 }
 
 
@@ -253,9 +255,9 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
             if (ancienneNote) {
                 if (matiereNotes[j].className.includes("kmlc-note-modifier")) {
                     if (matiereNotes[j].getAttribute("anciennenote")) {
-                        matNote = parseFloat(matiereNotes[j].getAttribute("anciennenote").replace(/[()\/\s]/g, "").replace(",", "."));
+                        matNote = matiereNotes[j].getAttribute("anciennenote").replace(/[()\/\s]/g, "").replace(",", ".");
                     } else {
-                        matNote = parseFloat(20)
+                        matNote = "20"
                     }
                     
                 } else {
@@ -372,8 +374,10 @@ function mainModifierNote () {
     }
     
     let matNotes = document.querySelectorAll("span.valeur:not([kmlc-event-listener])")
+    console.log("croix", matNotes)
     
     for (let i = 0; i < matNotes.length; i++) {
+        console.log("gammée")
         matNotes[i].setAttribute("kmlc-event-listener", true)
         matNotes[i].addEventListener('contextmenu', function(e) {
             e.stopPropagation();
