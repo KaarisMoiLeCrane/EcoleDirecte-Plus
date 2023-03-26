@@ -62,9 +62,9 @@
       <a href="#à-propos-du-projet">À propos du projet</a>
     </li>
     <li>
-      <a href="#getting-started">Pour Débuter</a>
+      <a href="#pour-débuter">Pour Débuter</a>
       <ul>
-        <li><a href="#prerequisites">Prérequis</a></li>
+        <li><a href="#prérequis">Prérequis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
