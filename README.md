@@ -82,7 +82,7 @@
 <!-- ABOUT THE PROJECT -->
 ## À propos du projet
 
-Extension Chrome pour améliorer le Site EcoleDirecte.
+Extension web (chromium) pour améliorer le Site EcoleDirecte.
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
 
