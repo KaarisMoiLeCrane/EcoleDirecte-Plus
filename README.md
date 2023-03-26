@@ -112,9 +112,9 @@ Consultes [Contribution](#contribution)
 - [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
 - [x] Calculer la moyenne basé sur les notes affichées
-- [x] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en 4 espaces)
+- [x] Nettoyer le code, l'embellir et améliorer son efficacité (remplacer tout les tabs en 4 espaces)
 - [x] Permettre d'ajouter des notes soit même
-- [x] Permettre de modifier les notes déjà existantes soit même
+- [x] Permettre de modifier les notes soit même (clic droit sur la note)
 - [ ] Ajouter des objectifs de moyenne
 - [ ] Ajouter un bouton pour lire tout les messages
 
