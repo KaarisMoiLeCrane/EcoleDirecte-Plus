@@ -108,7 +108,7 @@ See [Contributing](#contributing)
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] MAKE A LOGO
+- [x] MAKE A LOGO
 - [x] Enhance homeworks category
 - [x] Enhance the schedule to display if homeworks were made or not
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
