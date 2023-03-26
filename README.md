@@ -89,7 +89,7 @@ Extension Chrome pour améliorer le Site EcoleDirecte.
 <!-- GETTING STARTED -->
 ## Pour Débuter
 
-Soit heureux de contribuer !
+Bienvenue ! Soit heureux de contribuer !
 
 ### Prérequis
 
