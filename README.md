@@ -107,6 +107,7 @@ Consultes [Contribution](#contribution)
 <!-- ROADMAP -->
 ## Roadmap
 
+- [x] FAIRE UN LOGO
 - [x] Améliorer la section devoirs du site
 - [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
