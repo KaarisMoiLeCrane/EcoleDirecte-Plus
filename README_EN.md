@@ -113,9 +113,9 @@ See [Contributing](#contributing)
 - [x] Enhance the schedule to display if homeworks were made or not
 - [x] Make a new UI for EcoleDirecte working with multiple peoples in the same account.
 - [x] Calculate the average based on the shown grades
-- [x] Clean the code and beautify it and make it more efficient (pass the code through beautifier to replace all tabs with 4 spaces)
+- [x] Clean the code and beautify it and make it more efficient (replace all tabs with 4 spaces)
 - [x] Allow yourself to add grades
-- [x] Allow yourself to modify existing grades
+- [x] Allow yourself to modify grades (right click on the grade)
 - [ ] Add average goals
 - [ ] Add a button to read all the messages
 
