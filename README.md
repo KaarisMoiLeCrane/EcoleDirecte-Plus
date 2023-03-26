@@ -113,6 +113,7 @@ Consultes [Contribution](#contribution)
 - [x] Calculer la moyenne basé sur les moyennes affichées
 - [x] Nettoyer le code, l'embellir et améliorer son efficacité (Passer le code sous beautifier pour remplacer tout les tabs en en 4 espaces)
 - [x] Permettre d'ajouter des notes soit même
+- [x] Permettre de modifier les notes déjà existantes soit même
 - [ ] Ajouter des objectifs de moyenne
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
