@@ -83,14 +83,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Chrome extension For a Better EcoleDirecte Website.
+Web (chromium) extension For a Better EcoleDirecte Website.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Be happy to contribute !
+Welcome ! Be happy to contribute !
 
 ### Prerequisites
 
