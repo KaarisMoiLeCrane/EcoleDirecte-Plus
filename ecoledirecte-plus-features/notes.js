@@ -58,6 +58,7 @@ function mainNotes(note) {
     try {
         mainModifierNote()
         mainAjouterNote()
+        
         console.log(456)
         // If there is already two things with the class "coef" etc, it means that our new category "Rang". If not, we apply our changes
         if (!document.querySelectorAll("th[class *= 'coef ng-star-inserted']")[1]) {
@@ -156,11 +157,15 @@ function mainAjouterNote() {
 
 
 function ajouterNote(matiere, titre, note, coeff, quotient) {
+    // Create the grade element
     let noteElement = document.createElement("BUTTON")
     noteElement.className = "kmlc-note-simu"
     
     let listMatiere = document.querySelectorAll("[class *= nommatiere]")
     
+    /*
+     * I can copy a grade and modify everything but for the moment I use the outerHTML. It's unreliable in the long term
+     */
     for (let i = 0; i < listMatiere.length; i++) {
         if (listMatiere[i].textContent == matiere) {
             listMatiere[i].parentElement.parentElement.querySelector("[class *= 'notes']").appendChild(noteElement)
@@ -173,6 +178,113 @@ function ajouterNote(matiere, titre, note, coeff, quotient) {
     mainModifierNote()
 }
 
+
+function mainModifierNote () {
+    // Check if the table in the bottom was changed
+    if (!document.querySelector("[class *= 'kmlc-text-modifier-note']")) {
+        let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
+        textSimu.className = "kmlc-text-modifier-note"
+        
+        textSimu.children[0].textContent = ""
+        textSimu.children[0].setAttribute("style", "")
+        
+        let spanElement = document.createElement("SPAN")
+        spanElement.textContent = "note"
+        spanElement.setAttribute("style", "border-bottom: 1px solid green;")
+        
+        textSimu.children[1].textContent = "Note modifiée"
+        
+        textSimu.className = "kmlc-text-modifier-note"
+        
+        document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].insertAfter(textSimu)
+        textSimu.children[0].appendChild(spanElement)
+    }
+    
+    // Get all the grades that they don't have the right click listener
+    let matNotes = document.querySelectorAll("span.valeur:not([kmlc-event-listener])")
+    console.log("No right click listener", matNotes)
+    
+    for (let i = 0; i < matNotes.length; i++) {
+        
+        // Add the class to know that the click listener has been added
+        matNotes[i].setAttribute("kmlc-event-listener", true)
+        matNotes[i].addEventListener('contextmenu', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            let nouvelleNote = prompt("Nouvelle note").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+
+            let nouveauCoeff = prompt("Nouveau coefficient").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+
+            let nouveauQuotient = prompt("Nouveau quotient").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+
+            if (nouvelleNote != "" && nouveauCoeff != "" && nouveauQuotient != "") {
+                // Add the class to know that the grade has been modified
+                if (this.getAttribute("class")) {
+                    this.setAttribute("class", this.getAttribute("class").replace("kmlc-note-modifier", "") + " kmlc-note-modifier")
+                } else {
+                    this.setAttribute("class", "kmlc-note-modifier")
+                }
+
+                // Set the the first grade, first coefficient and first quotient to parameters in the element
+                if (this.getAttribute("ancienneNote") == null)
+                    this.setAttribute("ancienneNote", this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(/[^\d+\-*/.\s]/g, ""))
+
+                if (this.querySelector("sup")) {
+                    if (this.getAttribute("ancienCoeff") == null)
+                        this.setAttribute("ancienCoeff", " (" + this.querySelector("sup").textContent.replace(/[()\/\s]/g, "") + ") ")
+                } else {
+                    if (this.getAttribute("ancienCoeff") == null)
+                        this.setAttribute("ancienCoeff", "")
+                }
+
+                if (this.querySelector("sub")) {
+                    if (this.getAttribute("ancienQuotient") == null)
+                        this.setAttribute("ancienQuotient", "/" + this.querySelector("sub").textContent.replace(/[()\/\s]/g, ""))
+                } else {
+                    if (this.getAttribute("ancienQuotient") == null)
+                        this.setAttribute("ancienQuotient", "")
+                }
+                
+                // Change the grade
+                this.childNodes[0].nodeValue = " " + nouvelleNote + " "
+                
+                // Change/Add the coefficient
+                if (this.querySelector("sup")) {
+                    this.querySelector("sup").textContent = " (" + nouveauCoeff + ") "
+                } else {
+                    let supElement = document.createElement("SUP")
+                    supElement.className = "kmlc-sup-modifier"
+                    
+                    this.appendChild(supElement)
+                    
+                    this.querySelector("sup").outerHTML = '<sup class="coef ng-star-inserted"> (' + nouveauCoeff + ') <span class="margin-whitespace"></span></sup>'
+                }
+
+                // Change/Add the quotient
+                if (this.querySelector("sub")) {
+                    this.querySelector("sub").textContent = "/" + nouveauQuotient + " "
+                } else {
+                    let subElement = document.createElement("SUB")
+                    subElement.className = "kmlc-sub-modifier"
+                    
+                    this.appendChild(subElement)
+                    
+                    this.querySelector("sub").outerHTML = '<sub class="coef ng-star-inserted"> /' + nouveauQuotient + ' <span class="margin-whitespace"></span></sub>'
+                }
+                
+                // Add the one pixel green underline
+                if (this.getAttribute("style")) {
+                    this.setAttribute("style", this.getAttribute("style").replace("border-bottom: 1px solid green;", "") + " border-bottom: 1px solid green;")
+                } else {
+                    this.setAttribute("style", "border-bottom: 1px solid green;")
+                }
+                
+                calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
+            }
+        }, false);
+    }
+}
 
 function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneStyle, ancienneNote = false, querySelectorExclusion = "") {
     // We get all the displayed grades
@@ -309,7 +421,7 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
             moyenne = (addNotes/coeffNoteTot);
             console.log(moyenne);
 
-            // Duplicate the average element of the subject to add in a the second line the average calculated by EcoleDirecte Plus
+            // Duplicate the average element of the subject to add in a new line the average calculated by EcoleDirecte Plus
             let averageElement = lignes[i].querySelector("td.relevemoyenne").cloneNode(true);
             averageElement.textContent = moyenne.toFixed(5)
             if (!lignes[i].querySelector("[class *= '" + moyenneClass + "']")) {
@@ -326,7 +438,7 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
     // We calculate the overall average
     moyenneG = matieresMoyenne/coeffMatTot
     
-    // If there is the overall average row we add our overall average in the second. If not, we create it and put it in the second line as well (the first line is blank)
+    // If there is the overall average row we add our overall average in a new line. If not, we create it and put it in a new line as well (the first line is blank)
     if (document.querySelector("tr > td.moyennegenerale-valeur")) {
         let overallAverageElement = document.querySelector("tr > td.moyennegenerale-valeur").cloneNode(true)
         overallAverageElement.textContent = moyenneG.toFixed(5);
@@ -350,103 +462,4 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
     }
 
     console.log(moyenneG, matieresMoyenne, coeffMatTot)
-}
-
-
-function mainModifierNote () {
-    if (!document.querySelector("[class *= 'kmlc-text-modifier-note']")) {
-        let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
-        textSimu.className = "kmlc-text-modifier-note"
-        
-        textSimu.children[0].textContent = ""
-        textSimu.children[0].setAttribute("style", "")
-        
-        let spanElement = document.createElement("SPAN")
-        spanElement.textContent = "note"
-        spanElement.setAttribute("style", "border-bottom: 1px solid green;")
-        
-        textSimu.children[1].textContent = "Note modifiée"
-        
-        textSimu.className = "kmlc-text-modifier-note"
-        
-        document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].insertAfter(textSimu)
-        textSimu.children[0].appendChild(spanElement)
-    }
-    
-    let matNotes = document.querySelectorAll("span.valeur:not([kmlc-event-listener])")
-    console.log("croix", matNotes)
-    
-    for (let i = 0; i < matNotes.length; i++) {
-        console.log("gammée")
-        matNotes[i].setAttribute("kmlc-event-listener", true)
-        matNotes[i].addEventListener('contextmenu', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-
-            let nouvelleNote = prompt("Nouvelle note").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-
-            let nouveauCoeff = prompt("Nouveau coefficient").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-
-            let nouveauQuotient = prompt("Nouveau quotient").replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-
-            if (nouvelleNote != "" && nouveauCoeff != "" && nouveauQuotient != "") {
-                if (this.getAttribute("class")) {
-                    this.setAttribute("class", this.getAttribute("class").replace("kmlc-note-modifier", "") + " kmlc-note-modifier")
-                } else {
-                    this.setAttribute("class", "kmlc-note-modifier")
-                }
-
-                if (this.getAttribute("ancienneNote") == null)
-                    this.setAttribute("ancienneNote", this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(/[^\d+\-*/.\s]/g, ""))
-
-                if (this.querySelector("sup")) {
-                    if (this.getAttribute("ancienCoeff") == null)
-                        this.setAttribute("ancienCoeff", " (" + this.querySelector("sup").textContent.replace(/[()\/\s]/g, "") + ") ")
-                } else {
-                    if (this.getAttribute("ancienCoeff") == null)
-                        this.setAttribute("ancienCoeff", "")
-                }
-
-                if (this.querySelector("sub")) {
-                    if (this.getAttribute("ancienQuotient") == null)
-                        this.setAttribute("ancienQuotient", "/" + this.querySelector("sub").textContent.replace(/[()\/\s]/g, ""))
-                } else {
-                    if (this.getAttribute("ancienQuotient") == null)
-                        this.setAttribute("ancienQuotient", "")
-                }
-                
-                this.childNodes[0].nodeValue = " " + nouvelleNote + " "
-                
-                if (this.querySelector("sup")) {
-                    this.querySelector("sup").textContent = " (" + nouveauCoeff + ") "
-                } else {
-                    let supElement = document.createElement("SUP")
-                    supElement.className = "kmlc-sup-modifier"
-                    
-                    this.appendChild(supElement)
-                    
-                    this.querySelector("sup").outerHTML = '<sup class="coef ng-star-inserted"> (' + nouveauCoeff + ') <span class="margin-whitespace"></span></sup>'
-                }
-
-                if (this.querySelector("sub")) {
-                    this.querySelector("sub").textContent = "/" + nouveauQuotient + " "
-                } else {
-                    let subElement = document.createElement("SUB")
-                    subElement.className = "kmlc-sub-modifier"
-                    
-                    this.appendChild(subElement)
-                    
-                    this.querySelector("sub").outerHTML = '<sub class="coef ng-star-inserted"> /' + nouveauQuotient + ' <span class="margin-whitespace"></span></sub>'
-                }
-
-                if (this.getAttribute("style")) {
-                    this.setAttribute("style", this.getAttribute("style").replace("border-bottom: 1px solid green;", "") + " border-bottom: 1px solid green;")
-                } else {
-                    this.setAttribute("style", "border-bottom: 1px solid green;")
-                }
-                
-                calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
-            }
-        }, false);
-    }
 }
