@@ -117,6 +117,7 @@ See [Contributing](#contributing)
 - [x] Allow yourself to add grades
 - [x] Allow yourself to modify existing grades
 - [ ] Add average goals
+- [ ] Add a button to read all the messages
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
