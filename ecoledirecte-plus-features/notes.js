@@ -94,6 +94,7 @@ function mainNotes(note) {
 
 
 function mainAjouterNote() {
+	// Check if the text in the bottom was changed and then add the text "Note ajoutée pour simulation" if it was not changed
     if (!document.querySelector("[class *= 'kmlc-text-note']")) {
         let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
         textSimu.className = "kmlc-text-note"
@@ -106,6 +107,7 @@ function mainAjouterNote() {
         document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].insertAfter(textSimu)
     }
     
+	// If there is no button to add the grades then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-note']")) {
         let ajoutNote = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
         ajoutNote.className = ajoutNote.className.replace("active", " kmlc-bouton-note ")
@@ -127,14 +129,21 @@ function mainAjouterNote() {
                 setTimeout(() => {this.remove()}, 500);
             })
             document.body.appendChild(backdrop)*/
+			
+			let matieres = document.querySelectorAll("span.nommatiere")
+			let promptMatiere = `Matière parmis les suivants :`
             
-            let promptMat = prompt("Matière (La même que affiché dans le tableau)");
-            if (promptMat != "") {
+			for (let i = 0; i < matieres.length; i++) promptMatiere += `
+- "` + matieres[i].textContent + "\""
+			
+            let promptMat = prompt(promptMatiere);
+            if (promptMat != "" && promptMat != null) {
+				console.log(promptMat, promptMat != "", promptMat != null)
                 promptTitre = prompt("Titre (Pour contextualiser la note)")
                 if (promptTitre == "") promptTitre = "Évaluation"
                 
                 promptNote = prompt("Note (Un nombre seulement)")
-                if (promptNote != "") {
+                if (promptNote != "" && promptNote != null) {
                     promptNote = promptNote.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                     
                     promptCoeff = prompt("Coefficient (Un nombre seulement)")
@@ -157,7 +166,7 @@ function mainAjouterNote() {
 
 
 function ajouterNote(matiere, titre, note, coeff, quotient) {
-    // Create the grade element
+    // Create the element containing the grade
     let noteElement = document.createElement("BUTTON")
     noteElement.className = "kmlc-note-simu"
     
@@ -180,7 +189,7 @@ function ajouterNote(matiere, titre, note, coeff, quotient) {
 
 
 function mainModifierNote () {
-    // Check if the table in the bottom was changed
+    // Check if the table in the bottom was changed and then add the text "Note modifiée" if it was not changed
     if (!document.querySelector("[class *= 'kmlc-text-modifier-note']")) {
         let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
         textSimu.className = "kmlc-text-modifier-note"
