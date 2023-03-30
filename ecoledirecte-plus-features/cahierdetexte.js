@@ -47,7 +47,8 @@ globalThis.cahierdetexte = function (id) {
                                     
                                     // Change the background color of the card containing the homeworks for the specific date
                                     if (devDateCDT[j].parentElement.getAttribute("style")) {
-                                        devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+										if (!devDateCDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
+											devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
                                     } else if (!devDateCDT[j].parentElement.getAttribute("style")) {
                                         devDateCDT[j].parentElement.setAttribute("style", backgroundColor)
                                     }
