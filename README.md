@@ -153,7 +153,7 @@ Distribué sous la licence Apache 2.0. Consultes `LICENSE` pour plus d'informati
 <!-- CONTACT -->
 ## Contacte
 
-KaarisMoiLeCrane - Ouvre une issue si tu veux me contacter
+KaarisMoiLeCrane - Ouvre une issue si tu veux me contacter (@KaarisMoiLeCrane)
 
 Lien du Projet: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus)
 
