@@ -116,7 +116,7 @@ See [Contributing](#contributing)
 - [x] Clean the code and beautify it and make it more efficient (replace all tabs with 4 spaces)
 - [x] Allow yourself to add grades
 - [x] Allow yourself to modify grades (right click on the grade)
-- [x] Add average goals
+- [x] Add average goals (right click on the average)
 - [ ] Add a button to read all the messages
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
