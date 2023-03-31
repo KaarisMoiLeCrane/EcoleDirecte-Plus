@@ -115,7 +115,7 @@ Consultes [Contribution](#contribution)
 - [x] Nettoyer le code, l'embellir et améliorer son efficacité (remplacer tout les tabs en 4 espaces)
 - [x] Permettre d'ajouter des notes soit même
 - [x] Permettre de modifier les notes soit même (clic droit sur la note)
-- [x] Ajouter des objectifs de moyenne (clic droit sur la note)
+- [x] Ajouter des objectifs de moyenne (clic droit sur la moyenne)
 - [ ] Ajouter un bouton pour lire tout les messages
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
