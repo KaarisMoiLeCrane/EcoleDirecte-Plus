@@ -478,6 +478,7 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
     console.log(moyenneG, matieresMoyenne, coeffMatTot)
 }
 
+
 function mainObjectif() {
 	// If there is no button to see the goals then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-objectif']")) {
@@ -493,9 +494,13 @@ function mainObjectif() {
 			browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
 				let objectifText = ``
 				
-				for (let i = 0; i < items.objectifMoyenne.length; i++) objectifText += items.objectifMoyenne[i][0] + " : " + items.objectifMoyenne[i][1] + `
+				if (!items.objectifMoyenne[id]) {
+					items.objectifMoyenne[id] = [];
+				}
+				
+				for (let i = 0; i < items.objectifMoyenne[id].length; i++) objectifText += items.objectifMoyenne[id][i][0] + " : " + items.objectifMoyenne[id][i][1] + `
 `
-
+				console.log(789, items.objectifMoyenne)
 				alert(objectifText)
 			})
         })
@@ -541,26 +546,31 @@ function mainObjectif() {
 			
 			if (objectifMoyenneVal != "" && objectifMoyenneVal != null) {
 				let matiere = this.parentElement.querySelector("[class *= 'nommatiere']").textContent
-				
+			
 				browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
 					let child = [];
+					
 					let dummy = items.objectifMoyenne;
+					if (!dummy[id]) {
+						dummy[id] = [];
+					}
 					
 					let existe = false;
-					for (let i = 0; i < dummy.length; i++) {
-						if (dummy[i][0] === matiere) {
-							dummy[i][1] = objectifMoyenneVal;
+
+					for (let j = 0; j < dummy[id].length; j++) {
+						if (dummy[id][j][0] === matiere) {
+							dummy[id][j][1] = objectifMoyenneVal;
 							existe = true;
 							break;
 						}
 					}
 					
 					if (!existe) {
-						dummy.push([matiere, objectifMoyenneVal]);
+						dummy[id].push([matiere, objectifMoyenneVal]);
 					}
 
 					browser.storage.sync.set({"objectifMoyenne": dummy});
-				})
+				});
 				
 				this.className = this.className.replace("kmlc-objectif-moyenne-set", "")
 				
@@ -595,14 +605,18 @@ function ajouterObjectifNote(objectifMoyenne) {
 	
 	console.log("objectif 1", objectifMoyenne)
 	
-	for (let i = 0; i < objectifMoyenne.length; i++) {
+	if (!objectifMoyenne[id]) {
+		objectifMoyenne[id] = [];
+	}
+	
+	for (let i = 0; i < objectifMoyenne[id].length; i++) {
 		for (let j = 0; j < nomMatieres.length; j++) {
 			try {
-				console.log(nomMatieres[j].textContent, objectifMoyenne[i][0])
-				if (nomMatieres[j].textContent == objectifMoyenne[i][0]) {
+				console.log(nomMatieres[j].textContent, objectifMoyenne[id][i][0])
+				if (nomMatieres[j].textContent == objectifMoyenne[id][i][0]) {
 					if (!moyennes[j].className.includes("kmlc-objectif-moyenne-set")) {
 						let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
-						let noteObjectif = parseFloat(objectifMoyenne[i][1])
+						let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
 						
 						if (matiereNote > noteObjectif) {
 							backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
