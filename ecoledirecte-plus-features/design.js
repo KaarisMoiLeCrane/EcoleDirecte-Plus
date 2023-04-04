@@ -417,15 +417,18 @@ globalThis.design = function () {
                 }
             }
             
-            // Replace all ed-menu-badge class with menu-badge class
-            for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
-                document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
-        
-            // Remove from all elements the class ed-menu
-            if (document.querySelectorAll("div.menu.ed-menu"))
-                for (let i = 0; i < document.querySelectorAll("div.menu.ed-menu").length; i++)
-                    document.querySelectorAll("div.menu.ed-menu")[i].classList.remove("ed-menu")
+            loop()
         }
+        
+        // Replace all ed-menu-badge class with menu-badge class
+        for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
+            document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
+
+        // Remove from all elements the class ed-menu
+        if (document.querySelectorAll("div.menu.ed-menu"))
+            for (let i = 0; i < document.querySelectorAll("div.menu.ed-menu").length; i++)
+                document.querySelectorAll("div.menu.ed-menu")[i].classList.remove("ed-menu")
+        
     } catch(e) {}
 
     // document.querySelector("span.name").offsetWidth can be used for a better navigation bar. It can be used to set the width of the navigation bar.
