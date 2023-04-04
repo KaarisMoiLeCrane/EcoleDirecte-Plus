@@ -60,9 +60,9 @@ function mainNotes(note) {
     try {
         mainModifierNote()
         mainAjouterNote()
-		mainObjectif()
-			
-		objectifFirstLaunch = 1
+        mainObjectif()
+            
+        objectifFirstLaunch = 1
         
         console.log(456)
         // If there is already two things with the class "coef" etc, it means that our new category "Rang" exist. If not, we apply our changes
@@ -99,7 +99,7 @@ function mainNotes(note) {
 
 
 function mainAjouterNote() {
-	// Check if the text in the bottom was changed and then add the text "Note ajoutée pour simulation" if it was not changed
+    // Check if the text in the bottom was changed and then add the text "Note ajoutée pour simulation" if it was not changed
     if (!document.querySelector("[class *= 'kmlc-text-note']")) {
         let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
         textSimu.className = "kmlc-text-note"
@@ -112,7 +112,7 @@ function mainAjouterNote() {
         document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].insertAfter(textSimu)
     }
     
-	// If there is no button to add the grades then we add it
+    // If there is no button to add the grades then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-note']")) {
         let ajoutNote = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
         ajoutNote.className = ajoutNote.className.replace("active", " kmlc-bouton-note ")
@@ -134,16 +134,16 @@ function mainAjouterNote() {
                 setTimeout(() => {this.remove()}, 500);
             })
             document.body.appendChild(backdrop)*/
-			
-			let matieres = document.querySelectorAll("span.nommatiere")
-			let promptMatiere = `Matière parmis les suivants :`
             
-			for (let i = 0; i < matieres.length; i++) promptMatiere += `
+            let matieres = document.querySelectorAll("span.nommatiere")
+            let promptMatiere = `Matière parmis les suivants :`
+            
+            for (let i = 0; i < matieres.length; i++) promptMatiere += `
 - "` + matieres[i].textContent + "\""
-			
+            
             let promptMat = prompt(promptMatiere);
             if (promptMat != "" && promptMat != null) {
-				console.log(promptMat, promptMat != "", promptMat != null)
+                console.log(promptMat, promptMat != "", promptMat != null)
                 promptTitre = prompt("Titre (Pour contextualiser la note)")
                 if (promptTitre == "") promptTitre = "Évaluation"
                 
@@ -480,7 +480,7 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
 
 
 function mainObjectif() {
-	// If there is no button to see the goals then we add it
+    // If there is no button to see the goals then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-objectif']")) {
         let objectifNoteButton = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
         objectifNoteButton.className = objectifNoteButton.className.replace("active", " kmlc-bouton-objectif ")
@@ -490,25 +490,25 @@ function mainObjectif() {
         objectifNoteButton.addEventListener('click', function(e) {
             e.stopPropagation()
             e.preventDefault()
-			
-			browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-				let objectifText = ``
-				
-				if (!items.objectifMoyenne[id]) {
-					items.objectifMoyenne[id] = [];
-				}
-				
-				for (let i = 0; i < items.objectifMoyenne[id].length; i++) objectifText += items.objectifMoyenne[id][i][0] + " : " + items.objectifMoyenne[id][i][1] + `
+            
+            browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+                let objectifText = ``
+                
+                if (!items.objectifMoyenne[id]) {
+                    items.objectifMoyenne[id] = [];
+                }
+                
+                for (let i = 0; i < items.objectifMoyenne[id].length; i++) objectifText += items.objectifMoyenne[id][i][0] + " : " + items.objectifMoyenne[id][i][1] + `
 `
-				console.log(789, items.objectifMoyenne)
-				alert(objectifText)
-			})
+                console.log(789, items.objectifMoyenne)
+                alert(objectifText)
+            })
         })
         
         document.querySelector("ul > li.active.nav-item.ng-star-inserted").parentElement.insertBefore(objectifNoteButton, document.querySelector("ul > li.active.nav-item.ng-star-inserted"))
-		
-		
-		let objectifNoteClearButton = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
+        
+        
+        let objectifNoteClearButton = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
         objectifNoteClearButton.className = objectifNoteClearButton.className.replace("active", " kmlc-bouton-objectif ")
         
         objectifNoteClearButton.children[0].removeAttribute("href")
@@ -516,132 +516,132 @@ function mainObjectif() {
         objectifNoteClearButton.addEventListener('click', function(e) {
             e.stopPropagation()
             e.preventDefault()
-			
-			alert("Les objectifs vont être supprimés")
-			
-			browser.storage.sync.set({"objectifMoyenne": []})
-			let matiereAvecObjectif = document.querySelectorAll("[class *= 'kmlc-objectif-moyenne-set']")
-			for (let i = 0; i < matiereAvecObjectif.length; i++) matiereAvecObjectif[i].setAttribute("style", "")
+            
+            alert("Les objectifs vont être supprimés")
+            
+            browser.storage.sync.set({"objectifMoyenne": []})
+            let matiereAvecObjectif = document.querySelectorAll("[class *= 'kmlc-objectif-moyenne-set']")
+            for (let i = 0; i < matiereAvecObjectif.length; i++) matiereAvecObjectif[i].setAttribute("style", "")
         })
         
         document.querySelector("ul > li.active.nav-item.ng-star-inserted").parentElement.insertBefore(objectifNoteClearButton, document.querySelector("ul > li.active.nav-item.ng-star-inserted"))
     }
-	
-	let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([class *= 'kmlc-objectif-moyenne'])")
-	
-	for (let i = 0; i < matieres.length; i++) {
-		if (matieres[i].getAttribute("class")) {
-			matieres[i].setAttribute("class", matieres[i].className + " kmlc-objectif-moyenne")
-		} else {
-			matieres[i].setAttribute("class", "kmlc-objectif-moyenne")
-		}
-		
-		matieres[i].addEventListener('contextmenu', function(e) {
-			e.stopPropagation();
-			e.preventDefault();
-			
-			let objectifMoyenneVal = prompt("Quel objectif voulez vous ? (celui-ci sera le même pour toutes les années)")
-			objectifMoyenneVal = " " + objectifMoyenneVal
-			objectifMoyenneVal = objectifMoyenneVal.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-			
-			if (objectifMoyenneVal != "" && objectifMoyenneVal != null) {
-				let matiere = this.parentElement.querySelector("[class *= 'nommatiere']").textContent
-			
-				browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-					let child = [];
-					
-					let dummy = items.objectifMoyenne;
-					if (!dummy[id]) {
-						dummy[id] = [];
-					}
-					
-					let existe = false;
+    
+    let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([class *= 'kmlc-objectif-moyenne'])")
+    
+    for (let i = 0; i < matieres.length; i++) {
+        if (matieres[i].getAttribute("class")) {
+            matieres[i].setAttribute("class", matieres[i].className + " kmlc-objectif-moyenne")
+        } else {
+            matieres[i].setAttribute("class", "kmlc-objectif-moyenne")
+        }
+        
+        matieres[i].addEventListener('contextmenu', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            let objectifMoyenneVal = prompt("Quel objectif voulez vous ? (celui-ci sera le même pour toutes les années)")
+            objectifMoyenneVal = " " + objectifMoyenneVal
+            objectifMoyenneVal = objectifMoyenneVal.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+            
+            if (objectifMoyenneVal != "" && objectifMoyenneVal != null) {
+                let matiere = this.parentElement.querySelector("[class *= 'nommatiere']").textContent
+            
+                browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+                    let child = [];
+                    
+                    let dummy = items.objectifMoyenne;
+                    if (!dummy[id]) {
+                        dummy[id] = [];
+                    }
+                    
+                    let existe = false;
 
-					for (let j = 0; j < dummy[id].length; j++) {
-						if (dummy[id][j][0] === matiere) {
-							dummy[id][j][1] = objectifMoyenneVal;
-							existe = true;
-							break;
-						}
-					}
-					
-					if (!existe) {
-						dummy[id].push([matiere, objectifMoyenneVal]);
-					}
+                    for (let j = 0; j < dummy[id].length; j++) {
+                        if (dummy[id][j][0] === matiere) {
+                            dummy[id][j][1] = objectifMoyenneVal;
+                            existe = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!existe) {
+                        dummy[id].push([matiere, objectifMoyenneVal]);
+                    }
 
-					browser.storage.sync.set({"objectifMoyenne": dummy});
-				});
-				
-				this.className = this.className.replace("kmlc-objectif-moyenne-set", "")
-				
-				mainAjouterObjectifMoyenne()
-			}
-		}, false);
-	}
-	
-	mainAjouterObjectifMoyenne()
+                    browser.storage.sync.set({"objectifMoyenne": dummy});
+                });
+                
+                this.className = this.className.replace("kmlc-objectif-moyenne-set", "")
+                
+                mainAjouterObjectifMoyenne()
+            }
+        }, false);
+    }
+    
+    mainAjouterObjectifMoyenne()
 }
 
 function mainAjouterObjectifMoyenne() {
-	browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-		browser.storage.sync.onChanged.addListener(function(changes, namespace) {
-			if ("objectifMoyenne" in changes) {
-				items.objectifMoyenne = changes.objectifMoyenne.newValue;
-				console.log("AAJAIJIZOAJZAO", 1)
-				ajouterObjectifNote(items.objectifMoyenne)
-			}
-		});
-		
-		if (objectifFirstLaunch) {
-			ajouterObjectifNote(items.objectifMoyenne)
-			objectifFirstLaunch = 0;
-		}
-	});
+    browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+        browser.storage.sync.onChanged.addListener(function(changes, namespace) {
+            if ("objectifMoyenne" in changes) {
+                items.objectifMoyenne = changes.objectifMoyenne.newValue;
+                console.log("AAJAIJIZOAJZAO", 1)
+                ajouterObjectifNote(items.objectifMoyenne)
+            }
+        });
+        
+        if (objectifFirstLaunch) {
+            ajouterObjectifNote(items.objectifMoyenne)
+            objectifFirstLaunch = 0;
+        }
+    });
 }
 
 function ajouterObjectifNote(objectifMoyenne) {
-	let moyennes = document.querySelectorAll("td[class *= 'relevemoyenne'][class *= 'kmlc-objectif-moyenne']")
-	let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
-	
-	console.log("objectif 1", objectifMoyenne)
-	
-	if (!objectifMoyenne[id]) {
-		objectifMoyenne[id] = [];
-	}
-	
-	for (let i = 0; i < objectifMoyenne[id].length; i++) {
-		for (let j = 0; j < nomMatieres.length; j++) {
-			try {
-				console.log(nomMatieres[j].textContent, objectifMoyenne[id][i][0])
-				if (nomMatieres[j].textContent == objectifMoyenne[id][i][0]) {
-					if (!moyennes[j].className.includes("kmlc-objectif-moyenne-set")) {
-						let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
-						let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
-						
-						if (matiereNote > noteObjectif) {
-							backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
-						} else if (matiereNote < noteObjectif) {
-							backgroundColor = " background-color: rgb(255, 0, 0, 0.5);"
-						} else {
-							backgroundColor = " background-color: rgb(255, 255, 255);"
-						}
-						
-						if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
-							backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
-						}
-						
-						console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
-						
-						moyennes[j].setAttribute("style", backgroundColor)
-						
-						if (moyennes[j].getAttribute("class")) {
-							moyennes[j].setAttribute("class", moyennes[j].getAttribute("class") + " kmlc-objectif-moyenne-set")
-						} else {
-							moyennes[j].setAttribute("class", " kmlc-objectif-moyenne-set")
-						}
-					}
-				}
-			} catch(e) {}
-		}
-	}
+    let moyennes = document.querySelectorAll("td[class *= 'relevemoyenne'][class *= 'kmlc-objectif-moyenne']")
+    let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
+    
+    console.log("objectif 1", objectifMoyenne)
+    
+    if (!objectifMoyenne[id]) {
+        objectifMoyenne[id] = [];
+    }
+    
+    for (let i = 0; i < objectifMoyenne[id].length; i++) {
+        for (let j = 0; j < nomMatieres.length; j++) {
+            try {
+                console.log(nomMatieres[j].textContent, objectifMoyenne[id][i][0])
+                if (nomMatieres[j].textContent == objectifMoyenne[id][i][0]) {
+                    if (!moyennes[j].className.includes("kmlc-objectif-moyenne-set")) {
+                        let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
+                        let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
+                        
+                        if (matiereNote > noteObjectif) {
+                            backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
+                        } else if (matiereNote < noteObjectif) {
+                            backgroundColor = " background-color: rgb(255, 0, 0, 0.5);"
+                        } else {
+                            backgroundColor = " background-color: rgb(255, 255, 255);"
+                        }
+                        
+                        if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
+                            backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
+                        }
+                        
+                        console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
+                        
+                        moyennes[j].setAttribute("style", backgroundColor)
+                        
+                        if (moyennes[j].getAttribute("class")) {
+                            moyennes[j].setAttribute("class", moyennes[j].getAttribute("class") + " kmlc-objectif-moyenne-set")
+                        } else {
+                            moyennes[j].setAttribute("class", " kmlc-objectif-moyenne-set")
+                        }
+                    }
+                }
+            } catch(e) {}
+        }
+    }
 }
