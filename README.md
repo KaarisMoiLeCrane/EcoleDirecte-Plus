@@ -53,7 +53,7 @@
 </div>
 
 > You don't understand french ? See [*READ-ME* in english](./README_EN.md) !
-<h1 align="center">Le site vient/est entrain de subir une refonte graphique pouvant causer le non fonctionnement de l'extension. Tout remarche mais je reste à jour.</h1>
+<h1 align="center">Le site vient/est entrain de subir une refonte graphique pouvant causer le non fonctionnement de l'extension. Tout remarche mais je reste à jour au niveau des modifications sur EcoleDirecte.</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
