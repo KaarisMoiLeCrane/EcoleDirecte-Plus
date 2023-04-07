@@ -53,7 +53,7 @@
 </div>
 
 > You don't understand french ? See [*READ-ME* in english](./README_EN.md) !
-<h1 align="center">Le site vient/est entrain de subir une refonte graphique causant le non fonctionnement de l'extension. Celui-ci est en réparation pour s'adapter au nouveau site.</h1>
+<h1 align="center">Le site vient/est entrain de subir une refonte graphique causant le non fonctionnement de l'extension. Celui-ci est en réparation pour s'adapter au nouveau site. Il ne reste plus qu'à régler le problème des notes et l'extension remarchera pleinement avec le nouveau design.</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
