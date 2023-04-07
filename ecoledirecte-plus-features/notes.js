@@ -26,6 +26,7 @@ globalThis.notes = function (id) {
                 console.log(2)
                 mutations.forEach(function (mutation) {
                     try {
+                        console.log(mutation.target)
                         if (mutation.target.children[0].innerText == "Moyennes" || mutation.target.children[0].innerText == "Evaluations") {
                             mainNotes(note)
                         }
@@ -38,7 +39,7 @@ globalThis.notes = function (id) {
             function executeNotesObserver(observer) {
                 
                 // Wait for the parent containing the table that isn't modified or removed when something in the table change
-                document.waitForElement("[class *= 'tab-content']").then((elm) => {
+                document.waitForElement(".eleve-note").then((elm) => {
                     console.log(789)
                     observer.observe(elm, {
                         characterData: false,
@@ -61,7 +62,7 @@ function mainNotes(note) {
         mainModifierNote()
         mainAjouterNote()
         mainObjectif()
-            
+        
         objectifFirstLaunch = 1
         
         console.log(456)
@@ -80,7 +81,7 @@ function mainNotes(note) {
             // For each coefficient element, we duplicate it to place it visually under the new "Rang" column
             for (let i = 0; i < p.length; i++) {
                 let elm = p[i].cloneNode(true)
-                let periode = document.querySelector("li.ng-star-inserted.active:not(.nav-item)")
+                let periode = document.querySelector("ul.nav-tabs > li.active")
                 let periodeNum = [...periode.parentElement.children].indexOf(periode)
                 console.log(2, periode)
                 
@@ -99,6 +100,9 @@ function mainNotes(note) {
 
 
 function mainAjouterNote() {
+    // Selector to get the "Evaluations" button
+    let buttonSelector = "ul.nav-pills > li.active"
+    
     // Check if the text in the bottom was changed and then add the text "Note ajoutée pour simulation" if it was not changed
     if (!document.querySelector("[class *= 'kmlc-text-note']")) {
         let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
@@ -114,7 +118,7 @@ function mainAjouterNote() {
     
     // If there is no button to add the grades then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-note']")) {
-        let ajoutNote = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
+        let ajoutNote = document.querySelector(buttonSelector).cloneNode(true)
         ajoutNote.className = ajoutNote.className.replace("active", " kmlc-bouton-note ")
         
         ajoutNote.children[0].removeAttribute("href")
@@ -165,7 +169,7 @@ function mainAjouterNote() {
             // ajouterNote(prompt("Matière (La même que affiché dans le tableau)"), prompt("Titre (Pour contextualiser la note)"), prompt("Note (Un nombre seulement)"), prompt("Coefficient (Un nombre seulement)"), prompt("Quotient (Un nombre seulement)"))
         })
         
-        document.querySelector("ul > li.active.nav-item.ng-star-inserted").parentElement.insertBefore(ajoutNote, document.querySelector("ul > li.active.nav-item.ng-star-inserted"))
+        document.querySelector(buttonSelector).parentElement.insertBefore(ajoutNote, document.querySelector(buttonSelector))
     }
 }
 
@@ -183,7 +187,7 @@ function ajouterNote(matiere, titre, note, coeff, quotient) {
     for (let i = 0; i < listMatiere.length; i++) {
         if (listMatiere[i].textContent == matiere) {
             listMatiere[i].parentElement.parentElement.querySelector("[class *= 'notes']").appendChild(noteElement)
-            listMatiere[i].parentElement.parentElement.querySelector("[class = 'kmlc-note-simu']").outerHTML = '<button type="button" class="kmlc-note-simu note cliquable margin-whitespace btn-simple no-background no-padding ng-star-inserted" title=" '+ titre + '"><!----><span class="valeur ng-star-inserted" style="color: green;"> ' + note + ' <!----><sup class="coef ng-star-inserted"> ' + coeff + ' <span class="margin-whitespace"></span></sup><!----><sub class="coef ng-star-inserted"> /' + quotient + ' <span class="margin-whitespace"></span></sub></span><!----><!----><!----></button>'
+            listMatiere[i].parentElement.parentElement.querySelector("[class = 'kmlc-note-simu']").outerHTML = '<button type="button" class="kmlc-note-simu btn text-normal note margin-whitespace no-background no-padding ng-star-inserted" title=" '+ titre + '"><!----><span class="valeur ng-star-inserted" style="color: green;"> ' + note + ' <!----><sup class="coef ng-star-inserted"> ' + coeff + ' <span class="margin-whitespace"></span></sup><!----><sub class="coef ng-star-inserted"> /' + quotient + ' <span class="margin-whitespace"></span></sub></span><!----><!----><!----></button>'
         }
     }
     
@@ -480,9 +484,12 @@ function calculerMoyennes(moyenneGClass, moyenneGStyle, moyenneClass, moyenneSty
 
 
 function mainObjectif() {
+    // Selector to get the "Evaluations" button
+    let buttonSelector = "ul.nav-pills > li.active"
+    
     // If there is no button to see the goals then we add it
     if (!document.querySelector("[class *= 'kmlc-bouton-objectif']")) {
-        let objectifNoteButton = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
+        let objectifNoteButton = document.querySelector(buttonSelector).cloneNode(true)
         objectifNoteButton.className = objectifNoteButton.className.replace("active", " kmlc-bouton-objectif ")
         
         objectifNoteButton.children[0].removeAttribute("href")
@@ -505,10 +512,10 @@ function mainObjectif() {
             })
         })
         
-        document.querySelector("ul > li.active.nav-item.ng-star-inserted").parentElement.insertBefore(objectifNoteButton, document.querySelector("ul > li.active.nav-item.ng-star-inserted"))
+        document.querySelector(buttonSelector).parentElement.insertBefore(objectifNoteButton, document.querySelector(buttonSelector))
         
         
-        let objectifNoteClearButton = document.querySelector("ul > li.active.nav-item.ng-star-inserted").cloneNode(true)
+        let objectifNoteClearButton = document.querySelector(buttonSelector).cloneNode(true)
         objectifNoteClearButton.className = objectifNoteClearButton.className.replace("active", " kmlc-bouton-objectif ")
         
         objectifNoteClearButton.children[0].removeAttribute("href")
@@ -524,7 +531,7 @@ function mainObjectif() {
             for (let i = 0; i < matiereAvecObjectif.length; i++) matiereAvecObjectif[i].setAttribute("style", "")
         })
         
-        document.querySelector("ul > li.active.nav-item.ng-star-inserted").parentElement.insertBefore(objectifNoteClearButton, document.querySelector("ul > li.active.nav-item.ng-star-inserted"))
+        document.querySelector(buttonSelector).parentElement.insertBefore(objectifNoteClearButton, document.querySelector(buttonSelector))
     }
     
     let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([class *= 'kmlc-objectif-moyenne'])")
