@@ -45,21 +45,33 @@ globalThis.cahierdetexte = function (id) {
                             for (let j = 0; j < devDateCDT.length; j++) {
                                 if ((devDateCDT[j].textContent.split(" ")[1] + " " + devDateCDT[j].textContent.split(" ")[2]).toLowerCase() == (parseInt(date.split("-")[2]) + " " + numToDate(date.split("-")[1]).norm).toLowerCase()) {
                                     
-                                    // Change the background color of the card containing the homeworks for the specific date
+                                    // Change the background color of the card containing the specific date
                                     if (devDateCDT[j].parentElement.getAttribute("style")) {
-										if (!devDateCDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
-											devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+                                        if (!devDateCDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
+                                            devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
                                     } else if (!devDateCDT[j].parentElement.getAttribute("style")) {
                                         devDateCDT[j].parentElement.setAttribute("style", backgroundColor)
                                     }
                                     
                                     // Search for the correct subject and then add the correct symbol for the subject
-                                    let mat = devDateCDT[j].parentElement.getElementsByContentText(" " + dev[date][i].matiere).startsWith
-                                    if (mat) {
-                                        console.log(mat)
-                                        try {
-                                            if (!mat[0].outerHTML.includes(symbol)) mat[0].outerHTML = mat[0].outerHTML.replace(" " + dev[date][i].matiere.htmlEncode(), symbol + " " + dev[date][i].matiere.htmlEncode())
-                                        } catch (e) {}
+                                    let mat = devDateCDT[j].parentElement.parentElement.getElementsByContentText(" " + dev[date][i].matiere).startsWith
+                                    if (mat[0]) {
+                                        if (!mat[0].outerHTML.includes(symbol)) {
+                                            // Change the background color of the card containing the homework of a specific date
+                                            let matCard = mat[0]
+                                            
+                                            if (matCard.getAttribute("style")) {
+                                                if (matCard.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);")) {
+                                                    matCard.setAttribute("style", matCard.getAttribute("style").replace("background-color: rgb(255, 127.5, 0, 0.5);", "") + backgroundColor)
+                                                } else {
+                                                    matCard.setAttribute("style", matCard.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+                                                }
+                                            } else {
+                                                matCard.setAttribute("style", backgroundColor)
+                                            }
+                                            
+                                            matCard.outerHTML = matCard.outerHTML.replace(" " + dev[date][i].matiere.htmlEncode(), symbol + " " + dev[date][i].matiere.htmlEncode())
+                                        }
                                     }
                                 }
                             }

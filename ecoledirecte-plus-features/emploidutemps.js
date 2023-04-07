@@ -30,7 +30,7 @@ globalThis.emploidutemps = function (id) {
                                 symbol = "/✓\\ "
                             } else if (dev[date][i].effectue == false) {
                                 // Homework not done
-                                    
+                                
                                 // Red color with 0.5 opacity
                                 backgroundColor = "background-color: rgb(255, 127.5, 0, 0.5);"
                                 symbol = "/!\\ "
@@ -47,8 +47,8 @@ globalThis.emploidutemps = function (id) {
                                     
                                     // Change the background color of the date of the homework
                                     if (devDateEDT[j].getAttribute("style")) {
-										if (!devDateEDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
-											devDateEDT[j].setAttribute("style", devDateEDT[j].getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+                                        if (!devDateEDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
+                                            devDateEDT[j].setAttribute("style", devDateEDT[j].getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
                                     } else if (!devDateEDT[j].getAttribute("style")) {
                                         devDateEDT[j].setAttribute("style", backgroundColor)
                                     }
