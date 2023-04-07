@@ -54,7 +54,7 @@
 
 > Vous ne comprenez pas l'anglais ? Regardez le [*LISEZ-MOI* français](./README.md) !
 
-<h1 align="center">The website just got/is having a graphic redesign causing the extension to not work. It is being repaired to adapt to the new website.</h1>
+<h1 align="center">The website just got/is having a graphic redesign causing the extension to not work. It is being repaired to adapt to the new website. I need to fix the problem with the grades and the extension will fully work again with the new design.</h1>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
