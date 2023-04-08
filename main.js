@@ -1,5 +1,7 @@
+const browser = window.chrome || window.browser
+
 // Get the token and the id of the aimed student
-globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : NaN
+globalThis.token = getToken()
 let id = window.location.pathname.split("/")[2]
 
 // Listen to all url changes
@@ -12,10 +14,10 @@ new MutationObserver(() => {
         // The URL changed so we replace the old url with the new and recover each time the token
         lastUrl = url;
         
-        globalThis.token = window.sessionStorage.token ? window.sessionStorage.token.split("\"")[1] : NaN
+        globalThis.token = getToken()
         
         // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
-        loop()
+        //loop()
 
         main(1)
         
@@ -39,10 +41,12 @@ function main(num) {
         globalThis.design();
         
         // If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
+		console.log(globalThis.token, window.location.href)
         if (globalThis.token && window.location.href.includes("CahierDeTexte")) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement(".all-devoirs").then((elm) => {
+					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
                     console.log("CDT ", num)
                     globalThis.cahierdetexte(id)
                 })
@@ -53,6 +57,7 @@ function main(num) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
+					document.getElementById("main-part").classList.remove("sidebarhover");
                     console.log("EDT ", num)
                     globalThis.emploidutemps(id)
                 })
@@ -63,6 +68,7 @@ function main(num) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement("td.discipline").then((elm) => {
+					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
                     console.log("NOTES ", num)
                     globalThis.notes(id)
                 })
@@ -72,7 +78,7 @@ function main(num) {
 }
 
 // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
-loop()
+//loop()
 
 loop2()
 
@@ -82,8 +88,8 @@ function loop() {
         window.sessionStorage,
         ['setItem', 'getItem', 'removeItem'],
         (method, key, ...args) => {
-            if (method == "setItem" && key == "accounts") {
-                globalThis.token = window.sessionStorage.token
+            if (method == "setItem" && key == "accounts" || key == "credentials") {
+                globalThis.token = getToken()
                 let prom = new Promise((resolve) => {
                     new MutationObserver((mutations, observer) => {
                         for (let mutation of mutations) {
@@ -103,7 +109,7 @@ function loop() {
 
                 prom.then(() => {
                     document.waitForElement("ed-modal-reconnexion").then((elm) => {
-                        window.sessionStorage.removeItem("token") // Remove the token item so the token can be reset with the new one
+                        window.sessionStorage.removeItem("credentials") // Remove the token item so the token can be reset with the new one
                         window.sessionStorage.setItem("a", "0") // The "a" item is the name of the item that let the whole extension to know that the user is trying to login (0) and if he logged successfully (get removed)
                         window.location.reload() // Page reloading
                     })
@@ -149,13 +155,13 @@ function loop2() {
 if (window.sessionStorage.a != "0") {
     document.waitForElement("ed-modal-reconnexion").then((elm) => {
         // Wait for the relogin page to remove the token (so the website can reset his value with the new value) and we set the "a" value to 0 so we know that he have to login
-        window.sessionStorage.removeItem("token")
+        window.sessionStorage.removeItem("credentials")
         window.sessionStorage.setItem("a", "0")
         window.location.href = "https://" + window.location.host + "/login" // We do that because the script doesn't work well
     })
 } else {
     window.sessionStorage.removeItem("a")
-    loop()
+    //loop()
 }
 
 main(4)
@@ -181,4 +187,12 @@ function executeEdMenuObserver(observer) {
             subtree: true
         });
     });
+}
+
+
+function getToken() {
+	if (window.sessionStorage.credentials)
+		return JSON.parse(window.sessionStorage.credentials).payload.authToken ? JSON.parse(window.sessionStorage.credentials).payload.authToken : NaN
+	
+	return NaN
 }

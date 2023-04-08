@@ -29,15 +29,15 @@ globalThis.design = function () {
             }
 
             #main-part.sidebarnothover {
-              margin-left: 58px !important;
-              width: calc(100vw - 58px) !important;
+              margin-left: 78px !important;
+              width: calc(100vw - 78px) !important;
               transition: var(--tran-05);
             }
-            #main-part.sidebarhover {
-              margin-left: 220px !important;
-              width: calc(100vw - 220px) !important;
-              transition: var(--tran-05);
-            }
+			
+			#main-part {
+			  margin-left: 78px !important;
+			  width: calc(100vw - 78px) !important;
+			}
 
             /* ===== Sidebar ===== */
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -304,8 +304,8 @@ globalThis.design = function () {
             
             // When the mouse is over the newMenu we remove all the scroll bars
             document.querySelector("#newMenu").onmouseover = function () {
-                // It's commented because it doesn't work well and users with a low-end pc can experience lags
-                //document.getElementById("main-part").classList.add("sidebarhover");
+                // It can be commented users with a low-end pc can experience lags
+                if (!window.location.href.includes("EmploiDuTemps")) document.getElementById("main-part").classList.add("sidebarhover");
                 
                 document.querySelector(".menu-bar").style.overflowY = "hidden";
                 document.querySelector(".menu").style.overflowY = "hidden";
@@ -313,13 +313,13 @@ globalThis.design = function () {
                 document.querySelector(".menu").style.overflowX = "hidden";
                 
                 // Checking if the scroll bar is needed or not
-                if (document.querySelector(".menu-bar").scrollHeight != document.querySelector(".menu-bar").clientHeight) {
-                    document.querySelector(".menu-bar").style.overflowY = "scroll";
-                }
+                //if (document.querySelector(".menu-bar").scrollHeight == document.querySelector(".menu-bar").clientHeight) {
+                    //document.querySelector(".menu-bar").style.overflowY = "scroll";
+                //}
             };
             document.querySelector("#newMenu").onmouseout = function () {
-                // It's commented because it doesn't work well and users with a low-end pc can experience lags
-                //document.getElementById("main-part").classList.remove("sidebarhover");
+                // It can be commented because users with a low-end pc can experience lags
+                document.getElementById("main-part").classList.remove("sidebarhover");
                 document.getElementById("main-part").classList.add("sidebarnothover")
             };
             
@@ -440,6 +440,12 @@ globalThis.design = function () {
             styleSheet3.innerText = `
             .sidebar {
                 width: ` + sidebarWidth + `px;
+            }` + `
+			
+			#main-part.sidebarhover {
+              margin-left: ` + (sidebarWidth - 10) + `px !important;
+              width: calc(100vw - ` + (sidebarWidth - 10) + `px) !important;
+              transition: var(--tran-05);
             }
             `;
             
@@ -460,7 +466,7 @@ globalThis.design = function () {
             document.head.appendChild(styleSheet4);
             // After getting the sidebar width we set the closed sidebar width
         }
-    } catch(e) {}
+    } catch(e) {console.log(e)}
     
     document.onreadystatechange = function () {
         if (document.readyState === 'interactive' || document.readyState === 'complete') {

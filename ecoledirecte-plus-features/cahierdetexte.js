@@ -47,19 +47,24 @@ globalThis.cahierdetexte = function (id) {
                                     
                                     // Change the background color of the card containing the specific date
                                     if (devDateCDT[j].parentElement.getAttribute("style")) {
-                                        if (!devDateCDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
-                                            devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
-                                    } else if (!devDateCDT[j].parentElement.getAttribute("style")) {
-                                        devDateCDT[j].parentElement.setAttribute("style", backgroundColor)
+                                        if (!devDateCDT[j].parentElement.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.0);")) {
+                                            devDateCDT[j].parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.0);", "") + backgroundColor.replace("0.5", "0.0"))
+                                            devDateCDT[j].parentElement.parentElement.setAttribute("style", devDateCDT[j].parentElement.getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+										}
+                                    } else {
+                                        devDateCDT[j].parentElement.setAttribute("style", backgroundColor.replace("0.5", "0.0"))
+										devDateCDT[j].parentElement.parentElement.setAttribute("style", backgroundColor)
                                     }
                                     
                                     // Search for the correct subject and then add the correct symbol for the subject
                                     let mat = devDateCDT[j].parentElement.parentElement.getElementsByContentText(" " + dev[date][i].matiere).startsWith
                                     if (mat[0]) {
-                                        if (!mat[0].outerHTML.includes(symbol)) {
+										mat = mat[mat.length - 1]
+                                        if (!mat.outerHTML.includes(symbol)) {
                                             // Change the background color of the card containing the homework of a specific date
-                                            let matCard = mat[0]
+                                            let matCard = mat.parentElement.parentElement
                                             
+											/*
                                             if (matCard.getAttribute("style")) {
                                                 if (matCard.getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);")) {
                                                     matCard.setAttribute("style", matCard.getAttribute("style").replace("background-color: rgb(255, 127.5, 0, 0.5);", "") + backgroundColor)
@@ -69,8 +74,11 @@ globalThis.cahierdetexte = function (id) {
                                             } else {
                                                 matCard.setAttribute("style", backgroundColor)
                                             }
+											*/
                                             
                                             matCard.outerHTML = matCard.outerHTML.replace(" " + dev[date][i].matiere.htmlEncode(), symbol + " " + dev[date][i].matiere.htmlEncode())
+											
+											console.log(matCard, mat, dev[date][i])
                                         }
                                     }
                                 }
