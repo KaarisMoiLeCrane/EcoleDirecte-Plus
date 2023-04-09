@@ -34,10 +34,10 @@ globalThis.design = function () {
               transition: var(--tran-05);
             }
 			
-			#main-part {
-			  margin-left: 78px !important;
-			  width: calc(100vw - 78px) !important;
-			}
+            #main-part {
+              margin-left: 78px !important;
+              width: calc(100vw - 78px) !important;
+            }
 
             /* ===== Sidebar ===== */
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -65,6 +65,11 @@ globalThis.design = function () {
               z-index: 100;
               border-radius: 0px 10px 10px 0px;
               font-family: 'Poppins', sans-serif;
+			  overflow-y: auto;
+            }
+			
+            .sidebar::-webkit-scrollbar {
+              display: none;
             }
 
             .sidebar li {
