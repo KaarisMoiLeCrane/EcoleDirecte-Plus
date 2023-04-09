@@ -168,4 +168,4 @@ Project Link: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://gi
 
 - This extension isn't affiliated at all with "ecoledirecte.com". I'm just a random guy who did this project.
 - This extension needs the token of the account gived by EcoleDirecte to work (to get the homeworks status in the schedule). Any suggestions are opened if you have a better way and that work like it works right now. I'm actually working on a way to listen to the requests and then get the datas (for the grades and the homeworks in their pages only)
-- All the changements are only visual. The website code isn't altered at all in any ways.
+- All the changements are only visual. The website code isn't altered at all in any ways (no, html isn't a programmation language).
