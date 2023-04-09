@@ -166,4 +166,4 @@ Lien du Projet: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://
 
 - Cette extension n’est pas du tout affiliée à “ecoledirecte.com”. Je suis juste un gars au hasard qui a fait ce projet.
 - Cette extension a besoin du jeton (token) du compte de l'utilisateur fournie par EcoleDirecte pour fonctionner (pour obtenir le statut des devoirs dans l'emploi du temps par exemple). Toutes les suggestions sont ouvertes si vous avez une meilleure façon et que cela fonctionne comme ça fonctionne actuellement. Je travaille actuellement sur un moyen d’écouter les requêtes et ensuite d’obtenir les données (pour les notes et les devoirs dans leurs pages distinctes uniquement).
-- Tous les changements sont uniquement visuels. Le code du site web n’est pas du tout altéré de quelque manière que ce soit.
+- Tous les changements sont uniquement visuels. Le code du site web n’est pas du tout altéré de quelque manière que ce soit (non, le html n'est pas un langage de programmation).
