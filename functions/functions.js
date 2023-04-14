@@ -24,7 +24,7 @@ globalThis.numToDate = function (month) {
             }
         case 5:
             return {
-                norm: "Mais",
+                norm: "Mai",
                     abrv: "Mai"
             }
         case 6:
