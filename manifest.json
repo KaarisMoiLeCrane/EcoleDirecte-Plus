@@ -4,6 +4,9 @@
 	"version": "0.0.0.1",
 	"author": "Kaaris_Moi_Le_Crane",
 	"manifest_version": 3,
+	"permissions": [
+		"storage"
+	],
 	"host_permissions": [
 		"*://*.ecoledirecte.com/*",
 		"*://ecoledirecte.com/*"
@@ -27,6 +30,7 @@
 				"/ecoledirecte-plus-features/emploidutemps.js",
 				"/ecoledirecte-plus-features/notes.js",
 				"/ecoledirecte-plus-features/design.js",
+				"/ecoledirecte-plus-features/messagerie.js",
 				"/main.js"
 			],
 			"matches": [

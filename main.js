@@ -74,6 +74,17 @@ function main(num) {
                 })
             }
         }
+		
+		if (globalThis.token && window.location.href.includes("Messagerie")) {
+            id = window.location.pathname.split("/")[2]
+            if (id != undefined) {
+                document.waitForElement("[class *= btn-group] > button:not([class *= dropdown])").then((elm) => {
+					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
+                    console.log("MESSAGERIE ", num)
+                    globalThis.messagerie(id)
+                })
+            }
+        }
     }
 }
 
