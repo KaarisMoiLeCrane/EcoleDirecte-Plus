@@ -53,8 +53,9 @@
 </div>
 
 > Vous ne comprenez pas l'anglais ? Regardez le [*LISEZ-MOI* français](./README.md) !
-
+<!--
 <h1 align="center">The website just got/is having a graphic redesign causing the extension to not work. Everything is working again but I stay up to date about the changes on EcoleDirecte.</h1>
+-->
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -118,7 +119,7 @@ See [Contributing](#contributing)
 - [x] Allow yourself to add grades
 - [x] Allow yourself to modify grades (right click on the grade)
 - [x] Add average goals (right click on the average)
-- [ ] Add a button to read all the messages
+- [x] Add a button to read all the messages
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
