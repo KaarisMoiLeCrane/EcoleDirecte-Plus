@@ -122,6 +122,7 @@ See [Contributing](#contributing)
 - [x] Add a button to read all the messages
 - [x] Add a curve graph of the grades and the overall average of the selected period in the order of appearance of the grades (with also statistical data)
 - [x] Add a bar chart of the number of times a grade appears in the selected period
+- [x] Restructured the files of the extension
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
