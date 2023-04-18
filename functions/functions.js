@@ -139,3 +139,8 @@ String.prototype.htmlEncode = function(){
     p.textContent = this;
     return p.innerHTML
 }
+
+String.prototype.convertToTimestamp = function() {
+  const date = new Date(this);
+  return date.getTime();
+}
