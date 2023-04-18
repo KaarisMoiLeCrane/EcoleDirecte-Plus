@@ -25,11 +25,28 @@
 			"run_at": "document_end",
 			"all_frames": true,
 			"js": [
+				"/setup.js",
+				
+				"/functions/chart.js",
 				"/functions/functions.js",
+				"/ecoledirecte-plus-features/CahierDeTexte/homework-status.js",
 				"/ecoledirecte-plus-features/cahierdetexte.js",
+				
+				"/ecoledirecte-plus-features/EmploiDuTemps/homework-status.js",
 				"/ecoledirecte-plus-features/emploidutemps.js",
+				
+				"/ecoledirecte-plus-features/Notes/functions/calculer-moyennes.js",
+				"/ecoledirecte-plus-features/Notes/modifier-note.js",
+				"/ecoledirecte-plus-features/Notes/functions/ajouter-note.js",
+				"/ecoledirecte-plus-features/Notes/ajouter-note-simulation.js",
+				"/ecoledirecte-plus-features/Notes/charts.js",
+				"/ecoledirecte-plus-features/Notes/objectif.js",
+				"/ecoledirecte-plus-features/Notes/rang.js",
 				"/ecoledirecte-plus-features/notes.js",
+				
+				"/ecoledirecte-plus-features/Design/sidebar.js",
 				"/ecoledirecte-plus-features/design.js",
+				
 				"/ecoledirecte-plus-features/messagerie.js",
 				"/main.js"
 			],

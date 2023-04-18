@@ -1,10 +1,11 @@
 globalThis.messagerie = function (id) {
     // Wait for the button "Actualiser" (refresh button) in the top
     document.waitForElement("[class *= btn-group] > button:not([class *= dropdown])").then((elm) => {
-        if (!document.querySelector("[class *= kmlc-read-all]")) {
+        if (!document.querySelector("[kmlc-read-all]")) {
+			// We duplicate the button and change it to a read all button
             let button = elm.cloneNode(true)
             button.title = "Lire tous les messages"
-            button.classList = button.classList + " kmlc-read-all"
+            button.setAttribute("kmlc-read-all", "true")
             
             elm.insertAfter(button)
             button.innerHTML = '<span style="font-weight: bold;">Tout lire</span>'
