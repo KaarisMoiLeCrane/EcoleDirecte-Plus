@@ -100,7 +100,7 @@ Il n'y a pas de réel prérequis. Tu as besoin de Chrome ou (peut être) simplem
 
 ### Installation
 
-L'extension est 100% pure js et je veux qu'il le reste. Si tu veux utiliser une quelconque bibliothèque tu peux mais je vais essayer (ou tu peux essayer)  de refaire les fonctionnalités que tu utilises de la librairie.
+L'extension est 100% pure js et je veux qu'il le reste. Si tu veux utiliser une quelconque bibliothèque tu peux, mais, je vais essayer (ou tu peux essayer) de refaire les fonctionnalités que tu utilises de la bibliothèque. Néanmoins, l'utilisation de fonctionnalités très complexe d'une bibliothèque est autorisé (par exemple Chart.js).
 Consultes [Contribution](#contribution)
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
@@ -120,6 +120,8 @@ Consultes [Contribution](#contribution)
 - [x] Permettre de modifier les notes soit même (clic droit sur la note)
 - [x] Ajouter des objectifs de moyenne (clic droit sur la moyenne)
 - [x] Ajouter un bouton pour lire tous les messages
+- [x] Ajouter un graphique en courbe des notes et de la moyenne générale de la période sélectionnée dans l'ordre d'apparition des notes (avec mais aussi des données statistiques)
+- [x] Ajouter un graphique en barre du nombre de fois qu'une note apprait sur la période sélectionnée
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
