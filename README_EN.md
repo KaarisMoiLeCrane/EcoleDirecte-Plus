@@ -100,7 +100,7 @@ There is no real prerequisite. You need Chrome or (maybe) just any web browser c
 
 ### Installation
 
-The extension is 100% pure js and I want it to still be pure js. If you want to use any library you can but I will try (or you can try) to remake the functionnalities you use from the library.
+The extension is 100% pure js and I want it to still be pure js. If you want to use any library you can but I will try (or you can try) to remake the functionalities you use from the library. Nevertheless, using very complex functionalities of a library is allowed (for example Chart.js).
 See [Contributing](#contributing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -120,6 +120,8 @@ See [Contributing](#contributing)
 - [x] Allow yourself to modify grades (right click on the grade)
 - [x] Add average goals (right click on the average)
 - [x] Add a button to read all the messages
+- [x] Add a curve graph of the grades and the overall average of the selected period in the order of appearance of the grades (with also statistical data)
+- [x] Add a bar chart of the number of times a grade appears in the selected period
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
