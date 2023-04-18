@@ -122,6 +122,7 @@ Consultes [Contribution](#contribution)
 - [x] Ajouter un bouton pour lire tous les messages
 - [x] Ajouter un graphique en courbe des notes et de la moyenne générale de la période sélectionnée dans l'ordre d'apparition des notes (avec mais aussi des données statistiques)
 - [x] Ajouter un graphique en barre du nombre de fois qu'une note apprait sur la période sélectionnée
+- [x] Restructuration des fichiers de l'extension
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
