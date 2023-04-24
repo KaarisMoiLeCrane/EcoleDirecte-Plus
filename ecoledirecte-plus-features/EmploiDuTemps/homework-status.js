@@ -38,8 +38,8 @@ globalThis.EmploiDuTemps.homeworkStatus = function (dev) {
 							
 							// Change the background color of the date of the homework
 							if (devDateEDT[j].getAttribute("style")) {
-								if (!devDateEDT[j].getAttribute("style").includes(" background-color: rgb(255, 127.5, 0, 0.5);"))
-									devDateEDT[j].setAttribute("style", devDateEDT[j].getAttribute("style").replace(" background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
+								if (!devDateEDT[j].getAttribute("style").includes("background-color: rgb(255, 127.5, 0, 0.5);"))
+									devDateEDT[j].setAttribute("style", devDateEDT[j].getAttribute("style").replace("background-color: rgb(0, 255, 0, 0.5);", "") + backgroundColor)
 							} else {
 								devDateEDT[j].setAttribute("style", backgroundColor)
 							}
