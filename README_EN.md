@@ -74,7 +74,7 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact">Contact and credit</a></li>
     <!-- <li><a href="#special-thanks">Special Thanks</a></li> -->
     <li><a href="#important">Important</a></li>
   </ol>
@@ -159,11 +159,15 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 
 <!-- CONTACT -->
-## Contact
+## Contact and credit
 
 KaarisMoiLeCrane - Open a new issue if you want to contact me
 
 Project Link: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus)
+
+Bastian Noel - Design of the sidebar (CSS that I have stolen, studied and modified)
+
+Project Link (put a star): [https://github.com/Bastian-Noel/CustomDirecte](https://github.com/Bastian-Noel/CustomDirecte)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
