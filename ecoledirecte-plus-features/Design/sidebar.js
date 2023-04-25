@@ -1,4 +1,4 @@
-// https://github.com/Bastian-Noel/CustomDirecte
+// https://github.com/Bastian-Noel/CustomDirecte (CSS volé à cette personne avec des changements mais JS à 100% par moi)
 
 globalThis.Design.sidebar = function () {
 	// If the css isn't loaded in the page we add it
