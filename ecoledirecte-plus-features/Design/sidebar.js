@@ -1,3 +1,5 @@
+// https://github.com/Bastian-Noel/CustomDirecte
+
 globalThis.Design.sidebar = function () {
 	// If the css isn't loaded in the page we add it
 	if (!document.getElementById("kmlc_css_1")) {
