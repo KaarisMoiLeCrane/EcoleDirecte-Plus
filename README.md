@@ -74,7 +74,7 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contribution">Contribution</a></li>
     <li><a href="#licence">Licence</a></li>
-    <li><a href="#contacte">Contacte</a></li>
+    <li><a href="#contacte">Contacte et crédit</a></li>
     <!-- <li><a href="#special-thanks">Special Thanks</a></li> -->
     <li><a href="#important">Important</a></li>
   </ol>
@@ -158,11 +158,15 @@ Distribué sous la licence Apache 2.0. Consultes `LICENSE` pour plus d'informati
 
 
 <!-- CONTACT -->
-## Contacte
+## Contacte et crédit
 
 KaarisMoiLeCrane - Ouvre une issue si tu veux me contacter (@KaarisMoiLeCrane)
 
 Lien du Projet: [https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus)
+
+Bastian Noel - Design de la barre de navigation (CSS que j'ai volé, étudié et modifié)
+
+Lien du Projet (mettez une étoile): [https://github.com/Bastian-Noel/CustomDirecte](https://github.com/Bastian-Noel/CustomDirecte)
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
 
