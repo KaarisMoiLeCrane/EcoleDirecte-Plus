@@ -1,5 +1,6 @@
-// https://github.com/Bastian-Noel/CustomDirecte (CSS volé à cette personne avec des changements mais JS à 100% par moi)
+// CSS (only) stolen from https://github.com/Bastian-Noel/CustomDirecte (with a little bit of changes)
 
 globalThis.design = function () {
 	globalThis.Design.sidebar()
+	globalThis.Design.credit()
 }
