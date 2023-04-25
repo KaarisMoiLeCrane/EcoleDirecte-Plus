@@ -16,7 +16,7 @@ globalThis.cahierdetexte = function (id) {
 			globalThis.CahierDeTexte.homeworkStatus(dev)
 			
 			// Wait for the button "À venir" in the bottom right
-			document.waitForElement("ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > a").then((elm) => {
+			document.waitForElement("ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button").then((elm) => {
 				if (elm.getAttribute("kmlc-click-listener") != "true") {
 					elm.setAttribute("kmlc-click-listener", "true")
 					elm.onclick = function() {
