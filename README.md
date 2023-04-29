@@ -74,7 +74,7 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contribution">Contribution</a></li>
     <li><a href="#licence">Licence</a></li>
-    <li><a href="#contacte">Contacte et crédit</a></li>
+    <li><a href="#contacte-et-crédit">Contacte et crédit</a></li>
     <!-- <li><a href="#special-thanks">Special Thanks</a></li> -->
     <li><a href="#important">Important</a></li>
   </ol>
@@ -158,7 +158,7 @@ Distribué sous la licence Apache 2.0. Consultes `LICENSE` pour plus d'informati
 
 
 
-<!-- CONTACT -->
+<!-- CONTACT AND CREDIT -->
 ## Contacte et crédit
 
 KaarisMoiLeCrane - Ouvre une issue si tu veux me contacter (@KaarisMoiLeCrane)
