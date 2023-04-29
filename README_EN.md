@@ -124,7 +124,7 @@ See [Contributing](#contributing)
 - [x] Add a bar chart of the number of times a grade appears in the selected period
 - [x] Restructure the files of the extension
 - [ ] Redo a code overhaul
-- [ ] Restore the context menu when the user performs a left-click on a grade
+- [x] Restore the context menu when the user performs a left-click on a grade
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
