@@ -74,7 +74,7 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact and credit</a></li>
+    <li><a href="#contact-and-credit">Contact and credit</a></li>
     <!-- <li><a href="#special-thanks">Special Thanks</a></li> -->
     <li><a href="#important">Important</a></li>
   </ol>
@@ -159,7 +159,7 @@ Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 
 
-<!-- CONTACT -->
+<!-- CONTACT AND CREDIT -->
 ## Contact and credit
 
 KaarisMoiLeCrane - Open a new issue if you want to contact me
