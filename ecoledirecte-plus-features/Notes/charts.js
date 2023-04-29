@@ -6,8 +6,9 @@ globalThis.Notes.charts = function (note) {
         // Add the canvas whee there will be each chart
         // document.getElementById("encart-notes").innerHTML += "<canvas id='chart-curve'></canvas><canvas id='chart-bar'></canvas>";
         /* 
-	 * NEVER use innerHTML. It break some functionnalities.
-	 */
+	     * NEVER use innerHTML. It break some functionnalities.
+	     */
+		
 		let chartCurveCanvas = document.createElement("CANVAS")
 		chartCurveCanvas.id = "chart-curve"
 
@@ -514,7 +515,9 @@ Revient à: ${(Number(tooltipItems[i].raw) * 20/notesur).toFixed(2)}/20`
                                 fontFamily: "Arial",
                                 labels: {
                                     generateLabels: (chart) => {
-                                        let maxLeft = (document.querySelector("#chart-bar").width/2)-20; // chart length/2 to get the middle and minus 20 because the length of the legend box color is 41 and 41/2 is around 20
+                                        let maxLeft = (document.querySelector("#chart-bar").width/2)-31; // chart length/2 to get the middle and
+										// minus 31 is a number that I took somewhat arbitrarily to better position the gradient. 
+										// If a person only sees red, the number should be increased, and if they only see green, the number should be decreased.
                                         let maxWidth = 41; // The length of the legend box color is 41
                                         
                                         // The gradient as to be positioned manually in the exact same coordinate as the legend box color
