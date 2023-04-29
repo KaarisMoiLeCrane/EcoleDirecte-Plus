@@ -5,7 +5,9 @@ globalThis.Notes.charts = function (note) {
     if (!document.querySelector("[id = 'chart-curve']")) {
         // Add the canvas whee there will be each chart
         // document.getElementById("encart-notes").innerHTML += "<canvas id='chart-curve'></canvas><canvas id='chart-bar'></canvas>";
-        
+        /* 
+	 * NEVER use innerHTML. It break some functionnalities.
+	 */
 		let chartCurveCanvas = document.createElement("CANVAS")
 		chartCurveCanvas.id = "chart-curve"
 
