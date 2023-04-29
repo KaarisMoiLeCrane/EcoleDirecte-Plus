@@ -35,13 +35,15 @@ globalThis.messagerie = function (id) {
 								for (let i = 0; i < messages.length; i++) {
 									setTimeout(() => {
 										let xhr2 = new XMLHttpRequest();
-										xhr2.open("POST", "https://api.ecoledirecte.com/v3/" + type + "/" + id + "/messages/" + messages[i].id + ".awp?verbe=get&mode=destinataire", true);
+										xhr2.open("POST", "https://api.ecoledirecte.com/v3/" + type + "/" + id + "/messages/" + messages[i].id + ".awp?verbe=get&mode=destinataire", false);
 										xhr2.setRequestHeader("Content-Type", "text/plain");
 										xhr2.setRequestHeader("X-Token", globalThis.token);
 										
 										xhr2.send(data);
 									}, 100)
 								}
+								
+								// console.log(messages, type, id)
 								
 								alert("Tous les messages ont été lus")
 							} else {
