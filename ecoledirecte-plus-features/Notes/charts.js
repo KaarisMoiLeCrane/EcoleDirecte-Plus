@@ -1,9 +1,20 @@
+let chartCurve, chartBar
+
 globalThis.Notes.charts = function (note) {
     // Check if a chart exist (if there is one, the other one is here)
     if (!document.querySelector("[id = 'chart-curve']")) {
         // Add the canvas whee there will be each chart
-        document.getElementById("encart-notes").innerHTML += "<canvas id='chart-curve'></canvas><canvas id='chart-bar'></canvas>";
+        // document.getElementById("encart-notes").innerHTML += "<canvas id='chart-curve'></canvas><canvas id='chart-bar'></canvas>";
         
+		let chartCurveCanvas = document.createElement("CANVAS")
+		chartCurveCanvas.id = "chart-curve"
+
+		let chartBarCanvas = document.createElement("CANVAS")
+		chartBarCanvas.id = "chart-bar"
+
+		document.getElementById("encart-notes").appendChild(chartCurveCanvas)
+		document.getElementById("encart-notes").appendChild(chartBarCanvas)
+		
         // Get the actual selected periode and init all the variables
         let periode = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']").textContent
         let codePeriode, dateDebut, dateFin;
@@ -589,10 +600,10 @@ Revient à: ${(Number(tooltipItems[i].raw) * 20/notesur).toFixed(2)}/20`
                 }
                  
                 // We create the chart with the "generateLabels" function modified so we can change the legend box color
-                window.chartBar = new Chart(document.getElementById("chart-bar").getContext('2d'), datasBar);
+                chartBar = new Chart(document.getElementById("chart-bar").getContext('2d'), datasBar);
             }
             
-            window.chartBar.update()
+            chartBar.update()
         }
     }
 }
