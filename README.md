@@ -123,7 +123,7 @@ Consultes [Contribution](#contribution)
 - [x] Ajouter un graphique en courbe des notes et de la moyenne générale de la période sélectionnée dans l'ordre d'apparition des notes (avec mais aussi des données statistiques)
 - [x] Ajouter un graphique en barre du nombre de fois qu'une note apprait sur la période sélectionnée
 - [x] Restructurer les fichiers de l'extension
-- [ ] Refaire une refonte du code
+- [x] Refaire une refonte du code
 - [x] Rétablir le menu contextuel quand l'utilisateur réalise un clique gauche sur une note
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
