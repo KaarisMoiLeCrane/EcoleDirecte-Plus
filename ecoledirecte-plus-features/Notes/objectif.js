@@ -146,7 +146,7 @@ function ajouterObjectifNote(objectifMoyenne) {
                 // If the name of the subject and the name of the subject of the average are the same then we apply our changes
                 if (nomMatieres[j].textContent == objectifMoyenne[id][i][0]) {
                     if (!moyennes[j].getAttribute("kmlc-objectif-moyenne-set")) {
-                        let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
+                        let matiereNote = parseFloat(moyennes[j].querySelector("[kmlc-moyenne]").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
                         let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
                         
                         if (matiereNote > noteObjectif) {
