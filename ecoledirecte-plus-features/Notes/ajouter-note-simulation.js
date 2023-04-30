@@ -39,8 +39,7 @@ globalThis.Notes.ajouterNoteSimulation = function () {
             if (promptMat != "" && promptMat != null) {
                 // console.log(promptMat, promptMat != "", promptMat != null)
                 promptTitre = prompt("Titre (Pour contextualiser la note)")
-                // if (promptTitre == "") promptTitre = "Évaluation"
-				promptTitre = promptTitre == "" ? "Évaluation" :
+                if (promptTitre == "") promptTitre = "Évaluation"
                 
                 promptNote = prompt("Note (Un nombre seulement)")
                 if (promptNote != "" && promptNote != null) {
@@ -48,13 +47,11 @@ globalThis.Notes.ajouterNoteSimulation = function () {
                     
                     promptCoeff = prompt("Coefficient (Un nombre seulement)")
                     promptCoeff = promptCoeff.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-                    // if (promptCoeff == "") promptCoeff = 1
-					promptCoeff = promptCoeff == "" ? 1 :
+                    if (promptCoeff == "") promptCoeff = 1
                     
                     promptQuotient = prompt("Quotient (Un nombre seulement)")
                     promptQuotient = promptQuotient.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-                    // if (promptQuotient == "") promptQuotient = 20
-					promptQuotient = promptQuotient == "" ? 20 :
+                    if (promptQuotient == "") promptQuotient = 20
                     
 					// We add the grade
                     globalThis.Notes.ajouterNote(promptMat, promptTitre, promptNote, promptCoeff, promptQuotient)

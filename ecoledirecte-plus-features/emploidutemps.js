@@ -28,6 +28,10 @@ globalThis.emploidutemps = function (id) {
 					devButton.setAttribute("style", "left: 125px")
 					devButton.innerText = "Devoirs"
 					devButton.onclick = function() {
+						let x = scrollX
+						let y = scrollY + document.querySelector("div.dhx_cal_header").getBoundingClientRect().y + 1
+						scrollTo(x, y)
+						
 						globalThis.EmploiDuTemps.homeworkStatus(dev)
 					}
 					
@@ -176,6 +180,24 @@ globalThis.emploidutemps = function (id) {
 					}, false);
 				}
 			})
+			
+			
+			// document.waitForElement(".filtres-agenda > *:nth-child(2)").then((elm) => {
+				// elm = elm.parentElement
+				// for (let i = 0; i < elm.children.length; i++) {
+					// if (!elm.children[i].getAttribute("kmlc-filtre-button")) {
+						// elm.children[i].setAttribute("kmlc-filtre-button", "true")
+						// elm.children[i].addEventListener('click', function(e) {
+							// e.stopPropagation()
+							// e.preventDefault()
+							
+							// document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
+								// globalThis.EmploiDuTemps.homeworkStatus(dev)
+							// })
+						// }, false);
+					// }
+				// }
+			// })
         }
     };
 	

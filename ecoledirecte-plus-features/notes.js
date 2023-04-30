@@ -6,7 +6,7 @@ globalThis.notes = function (id) {
     url = "https://api.ecoledirecte.com/v3/Eleves/" + id + "/notes.awp?verbe=get";
     data = `data={}`;
 
-    xhr.open("POST", url, true);
+    xhr.open("POST", url, false);
     xhr.setRequestHeader("Content-Type", "text/plain");
     xhr.setRequestHeader("X-Token", globalThis.token);
     xhr.onreadystatechange = function() {

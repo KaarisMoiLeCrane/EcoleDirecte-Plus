@@ -149,10 +149,6 @@ function ajouterObjectifNote(objectifMoyenne) {
                         let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
                         let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
                         
-						backgroundColor = matiereNote > noteObjectif ? " background-color: rgb(0, 255, 0, 0.5);" : matiereNote < noteObjectif ? " background-color: rgb(255, 0, 0, 0.5);" : " background-color: rgb(255, 255, 255);"
-                        backgroundColor = matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0] ? " background-color: rgb(255, 127.5, 0, 0.5);" :
-						
-						/*
 						if (matiereNote > noteObjectif) {
                             backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
                         } else if (matiereNote < noteObjectif) {
@@ -164,7 +160,6 @@ function ajouterObjectifNote(objectifMoyenne) {
 						if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
                             backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
                         }
-						*/
                         
                         // console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
                         
