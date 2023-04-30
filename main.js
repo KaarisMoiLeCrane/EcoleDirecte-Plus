@@ -41,12 +41,12 @@ function main(num) {
         globalThis.design();
         
         // If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
-		// console.log(globalThis.token, window.location.href)
+        // console.log(globalThis.token, window.location.href)
         if (globalThis.token && window.location.href.includes("CahierDeTexte")) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement(".all-devoirs").then((elm) => {
-					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
+                    if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
                     // console.log("CDT ", num)
                     globalThis.cahierdetexte(id)
                 })
@@ -57,7 +57,7 @@ function main(num) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
-					document.getElementById("main-part").classList.remove("sidebarhover");
+                    document.getElementById("main-part").classList.remove("sidebarhover");
                     // console.log("EDT ", num)
                     globalThis.emploidutemps(id)
                 })
@@ -68,18 +68,18 @@ function main(num) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement("td.discipline").then((elm) => {
-					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
+                    if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
                     // console.log("NOTES ", num)
                     globalThis.notes(id)
                 })
             }
         }
-		
-		if (globalThis.token && window.location.href.includes("Messagerie")) {
+        
+        if (globalThis.token && window.location.href.includes("Messagerie")) {
             id = window.location.pathname.split("/")[2]
             if (id != undefined) {
                 document.waitForElement("[class *= btn-group] > button:not([class *= dropdown])").then((elm) => {
-					if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
+                    if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
                     // console.log("MESSAGERIE ", num)
                     globalThis.messagerie(id)
                 })
@@ -202,8 +202,8 @@ function executeEdMenuObserver(observer) {
 
 
 function getToken() {
-	if (window.sessionStorage.credentials)
-		return JSON.parse(window.sessionStorage.credentials).payload.authToken ? JSON.parse(window.sessionStorage.credentials).payload.authToken : NaN
-	
-	return NaN
+    if (window.sessionStorage.credentials)
+        return JSON.parse(window.sessionStorage.credentials).payload.authToken ? JSON.parse(window.sessionStorage.credentials).payload.authToken : NaN
+    
+    return NaN
 }

@@ -50,14 +50,14 @@ globalThis.Notes.objectifSetup = function () {
         
         document.querySelector(buttonSelector).parentElement.insertBefore(objectifNoteClearButton, document.querySelector(buttonSelector))
     }
-	
-	fixerObjectif()
+    
+    fixerObjectif()
     
     objectifValueListener()
 }
 
 function fixerObjectif() {
-	// Get all the average without the average goal attribute (to know that the right click listener has been set)
+    // Get all the average without the average goal attribute (to know that the right click listener has been set)
     let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([kmlc-objectif-moyenne])")
 
     // For each average box set the right click listener (that let the user to set an average goal)
@@ -122,8 +122,8 @@ function objectifValueListener() {
                 ajouterObjectifNote(items.objectifMoyenne)
             }
         });
-		
-		ajouterObjectifNote(items.objectifMoyenne)
+        
+        ajouterObjectifNote(items.objectifMoyenne)
     });
 }
 
@@ -138,7 +138,7 @@ function ajouterObjectifNote(objectifMoyenne) {
     if (!objectifMoyenne[id]) {
         objectifMoyenne[id] = [];
     }
-    	
+        
     // For each goal and each subject name
     for (let i = 0; i < objectifMoyenne[id].length; i++) {
         for (let j = 0; j < nomMatieres.length; j++) {
@@ -149,15 +149,15 @@ function ajouterObjectifNote(objectifMoyenne) {
                         let matiereNote = parseFloat(moyennes[j].children[0].textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
                         let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
                         
-						if (matiereNote > noteObjectif) {
+                        if (matiereNote > noteObjectif) {
                             backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
                         } else if (matiereNote < noteObjectif) {
                             backgroundColor = " background-color: rgb(255, 0, 0, 0.5);"
                         } else {
                             backgroundColor = " background-color: rgb(255, 255, 255);"
                         }
-						
-						if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
+                        
+                        if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
                             backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
                         }
                         

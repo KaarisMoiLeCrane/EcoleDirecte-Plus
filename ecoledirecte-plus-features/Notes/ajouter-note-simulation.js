@@ -18,7 +18,7 @@ globalThis.Notes.ajouterNoteSimulation = function () {
     if (!document.querySelector("[kmlc-bouton-note]")) {
         let ajoutNote = document.querySelector(buttonSelector).cloneNode(true)
         ajoutNote.className = ajoutNote.className.replace("active", "")
-		ajoutNote.setAttribute("kmlc-bouton-note", "true")
+        ajoutNote.setAttribute("kmlc-bouton-note", "true")
         
         ajoutNote.children[0].removeAttribute("href")
         ajoutNote.children[0].children[0].textContent = "Ajouter une note"
@@ -26,15 +26,15 @@ globalThis.Notes.ajouterNoteSimulation = function () {
             e.stopPropagation()
             e.preventDefault()
             
-			// We get all the subjects name
+            // We get all the subjects name
             let matieres = document.querySelectorAll("span.nommatiere")
             let promptMatiere = `Ajoute une note dans l'une des matières suivantes :`
             
-			// We sum them in the same string so the user can know what to right exactly to select the exact subject
+            // We sum them in the same string so the user can know what to right exactly to select the exact subject
             for (let i = 0; i < matieres.length; i++) promptMatiere += `
 - "` + matieres[i].textContent + "\""
             
-			// We ask which subject and then the grade, the coefficient and the quotient
+            // We ask which subject and then the grade, the coefficient and the quotient
             let promptMat = prompt(promptMatiere);
             if (promptMat != "" && promptMat != null) {
                 // console.log(promptMat, promptMat != "", promptMat != null)
@@ -53,7 +53,7 @@ globalThis.Notes.ajouterNoteSimulation = function () {
                     promptQuotient = promptQuotient.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                     if (promptQuotient == "") promptQuotient = 20
                     
-					// We add the grade
+                    // We add the grade
                     globalThis.Notes.ajouterNote(promptMat, promptTitre, promptNote, promptCoeff, promptQuotient)
                 }
             }

@@ -74,7 +74,7 @@ globalThis.watchAnyObject = function (
     callbackBefore = function() {},
     callbackAfter = function() {},
 ) {
-	// May get removed
+    // May get removed
     for (let method of methods) {
         const original = object[method].bind(object);
         const newMethod = function(...args) {

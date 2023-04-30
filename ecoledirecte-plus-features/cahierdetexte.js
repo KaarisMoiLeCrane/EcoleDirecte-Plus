@@ -13,17 +13,17 @@ globalThis.cahierdetexte = function (id) {
         if (xhr.readyState === 4) {
             // When we receive all the homeworks we save it and send it
             let dev = JSON.parse(xhr.responseText).data
-			globalThis.CahierDeTexte.homeworkStatus(dev)
-			
-			// Wait for the button "À venir" in the bottom right
-			document.waitForElement("ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button").then((elm) => {
-				if (elm.getAttribute("kmlc-click-listener") != "true") {
-					elm.setAttribute("kmlc-click-listener", "true")
-					elm.onclick = function() {
-						globalThis.CahierDeTexte.homeworkStatus(dev)
-					}
-				}
-			})
+            globalThis.CahierDeTexte.homeworkStatus(dev)
+            
+            // Wait for the button "À venir" in the bottom right
+            document.waitForElement("ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button").then((elm) => {
+                if (elm.getAttribute("kmlc-click-listener") != "true") {
+                    elm.setAttribute("kmlc-click-listener", "true")
+                    elm.onclick = function() {
+                        globalThis.CahierDeTexte.homeworkStatus(dev)
+                    }
+                }
+            })
         }
     };
 

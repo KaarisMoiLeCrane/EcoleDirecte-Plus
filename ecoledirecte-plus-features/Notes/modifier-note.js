@@ -31,16 +31,16 @@ globalThis.Notes.modifierNote = function () {
             e.preventDefault();
             
             let pass = 0;
-			
-			// Ask for the new grade, coefficient and quotient
+            
+            // Ask for the new grade, coefficient and quotient
             let nouvelleNote = prompt("Nouvelle note")
             let nouveauCoeff = prompt("Nouveau coefficient")
             let nouveauQuotient = prompt("Nouveau quotient")
             
-			// If nothing return
+            // If nothing return
             if ((!nouvelleNote && !nouveauCoeff && !nouveauQuotient)) return
             
-			// If he put a new value but it's the same than the old one or he put an invalid value we add 1 to the pass variable
+            // If he put a new value but it's the same than the old one or he put an invalid value we add 1 to the pass variable
             if (nouvelleNote) {
                 nouvelleNote = nouvelleNote.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 
@@ -84,13 +84,13 @@ globalThis.Notes.modifierNote = function () {
                 }
             }
             
-			// If pass == 3 it means that no changes have to be done
+            // If pass == 3 it means that no changes have to be done
             if (pass == 3) return
 
-			// Another check but I don't know if we really need it because of the other checks
+            // Another check but I don't know if we really need it because of the other checks
             if (nouvelleNote != "" && nouveauCoeff != "" && nouveauQuotient != "") {
                 // Add the attribute to know that the grade has been modified
-				this.setAttribute("kmlc-note-modifier", "true")
+                this.setAttribute("kmlc-note-modifier", "true")
 
                 // Set the the first grade, first coefficient and first quotient to parameters in the element
                 if (this.getAttribute("ancienneNote") == null)
@@ -147,7 +147,7 @@ globalThis.Notes.modifierNote = function () {
                 }
                 
                 globalThis.Notes.calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
-			}
+            }
         }, false);
     }
 }

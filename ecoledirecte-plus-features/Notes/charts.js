@@ -6,18 +6,18 @@ globalThis.Notes.charts = function (note) {
         // Add the canvas whee there will be each chart
         // document.getElementById("encart-notes").innerHTML += "<canvas id='chart-curve'></canvas><canvas id='chart-bar'></canvas>";
         /* 
-	     * NEVER use innerHTML. It break some functionnalities.
-	     */
-		
-		let chartCurveCanvas = document.createElement("CANVAS")
-		chartCurveCanvas.id = "chart-curve"
+         * NEVER use innerHTML. It break some functionnalities.
+         */
+        
+        let chartCurveCanvas = document.createElement("CANVAS")
+        chartCurveCanvas.id = "chart-curve"
 
-		let chartBarCanvas = document.createElement("CANVAS")
-		chartBarCanvas.id = "chart-bar"
+        let chartBarCanvas = document.createElement("CANVAS")
+        chartBarCanvas.id = "chart-bar"
 
-		document.getElementById("encart-notes").appendChild(chartCurveCanvas)
-		document.getElementById("encart-notes").appendChild(chartBarCanvas)
-		
+        document.getElementById("encart-notes").appendChild(chartCurveCanvas)
+        document.getElementById("encart-notes").appendChild(chartBarCanvas)
+        
         // Get the actual selected periode and init all the variables
         let periode = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']").textContent
         let codePeriode, dateDebut, dateFin;
@@ -463,13 +463,13 @@ Revient à: ${(Number(tooltipItems[i].raw) * 20/notesur).toFixed(2)}/20`
                 let percentageOrange = 0;
                 let percentageVert = 0;
                 let effectifPercentage = labelsBar.length;
-				
-				let tempMoyennG = Number(document.querySelector("[kmlc-moyenne-g]").textContent)
+                
+                let tempMoyennG = Number(document.querySelector("[kmlc-moyenne-g]").textContent)
                 
                 // Set the color of each bar and add one to the color number (that I can divide by the total number to get the percentage)
                 for (let i = 0; i < labelsBar.length; i++) {
-					let tempNote = labelsBar[i]
-					
+                    let tempNote = labelsBar[i]
+                    
                     if (tempNote > tempMoyennG) {
                         tempBarColor = "rgba(0, 255, 0, 1)"
                         percentageVert += 1
@@ -479,8 +479,8 @@ Revient à: ${(Number(tooltipItems[i].raw) * 20/notesur).toFixed(2)}/20`
                     } else {
                         tempBarColor = "rgba(0, 0, 0, 1)"
                     }
-					
-					if (tempNote.toString().split(".")[0] == tempMoyennG.toString().split(".")[0]) {
+                    
+                    if (tempNote.toString().split(".")[0] == tempMoyennG.toString().split(".")[0]) {
                         tempBarColor = "rgba(255, 127.5, 0, 1)"
                         percentageOrange += 1
                     }
@@ -516,8 +516,8 @@ Revient à: ${(Number(tooltipItems[i].raw) * 20/notesur).toFixed(2)}/20`
                                 labels: {
                                     generateLabels: (chart) => {
                                         let maxLeft = (document.querySelector("#chart-bar").width/2)-31; // chart length/2 to get the middle and
-										// minus 31 is a number that I took somewhat arbitrarily to better position the gradient. 
-										// If a person only sees red, the number should be increased, and if they only see green, the number should be decreased.
+                                        // minus 31 is a number that I took somewhat arbitrarily to better position the gradient. 
+                                        // If a person only sees red, the number should be increased, and if they only see green, the number should be decreased.
                                         let maxWidth = 41; // The length of the legend box color is 41
                                         
                                         // The gradient as to be positioned manually in the exact same coordinate as the legend box color
