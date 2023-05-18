@@ -148,20 +148,33 @@ function ajouterObjectifNote(objectifMoyenne) {
                     if (!moyennes[j].getAttribute("kmlc-objectif-moyenne-set")) {
                         let matiereNote = parseFloat(moyennes[j].querySelector("[kmlc-moyenne]").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
                         let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
+						let tooltipClass = "tooltipp-red"
                         
                         if (matiereNote > noteObjectif) {
                             backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
+							tooltipClass = " tooltipp-green"
                         } else if (matiereNote < noteObjectif) {
                             backgroundColor = " background-color: rgb(255, 0, 0, 0.5);"
+							tooltipClass = " tooltipp-red"
                         } else {
                             backgroundColor = " background-color: rgb(255, 255, 255);"
+							tooltipClass = ""
                         }
                         
                         if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
                             backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
+							tooltipClass = " tooltipp-orange"
                         }
                         
                         // console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
+						
+						moyennes[j].className += " note-parent"
+						
+						let dummy = moyennes[j].querySelector("span").cloneNode(true)
+						dummy.className += tooltipClass
+						dummy.textContent = "Objectif de " + noteObjectif
+						
+						moyennes[j].appendChild(dummy)
                         
                         moyennes[j].setAttribute("style", backgroundColor)
                         

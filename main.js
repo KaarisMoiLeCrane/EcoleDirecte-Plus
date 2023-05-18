@@ -39,6 +39,8 @@ function main(num) {
             globalThis.design();
         }
         globalThis.design();
+		
+		loop2();
         
         // If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
         // console.log(globalThis.token, window.location.href)
@@ -162,6 +164,7 @@ function loop2() {
     })
 }
 
+
 // If the user logged
 if (window.sessionStorage.a != "0") {
     document.waitForElement("ed-modal-reconnexion").then((elm) => {
@@ -175,7 +178,9 @@ if (window.sessionStorage.a != "0") {
     //loop()
 }
 
+
 main(4)
+
 
 var edMenuObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {

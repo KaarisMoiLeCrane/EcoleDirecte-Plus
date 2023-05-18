@@ -1,7 +1,7 @@
 {
 	"name": "EcoleDirecte +",
 	"description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "Kaaris_Moi_Le_Crane",
 	"manifest_version": 3,
 	"permissions": [
@@ -36,12 +36,14 @@
 				"/ecoledirecte-plus-features/emploidutemps.js",
 				
 				"/ecoledirecte-plus-features/Notes/functions/calculer-moyennes.js",
+				"/ecoledirecte-plus-features/Notes/functions/calculer-variation-moyenne.js",
 				"/ecoledirecte-plus-features/Notes/modifier-note.js",
 				"/ecoledirecte-plus-features/Notes/functions/ajouter-note.js",
 				"/ecoledirecte-plus-features/Notes/ajouter-note-simulation.js",
 				"/ecoledirecte-plus-features/Notes/charts.js",
 				"/ecoledirecte-plus-features/Notes/objectif.js",
 				"/ecoledirecte-plus-features/Notes/rang.js",
+				"/ecoledirecte-plus-features/Notes/variation-moyenne.js",
 				"/ecoledirecte-plus-features/notes.js",
 				
 				"/ecoledirecte-plus-features/Design/sidebar.js",

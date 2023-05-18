@@ -1,4 +1,4 @@
-globalThis.Notes.calculerMoyennes = function (moyenneGAttr, moyenneGStyle, moyenneAttr, moyenneStyle, ancienneNote = false, querySelectorExclusion = "") {
+globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr = "", moyenneGStyle = "", moyenneAttr = "", moyenneStyle = "", ancienneNote = false, querySelectorExclusion = "", disciplineElmExclusion = "") {
     // We get all the displayed grades
     let matNotes = document.querySelectorAll("span.valeur" + querySelectorExclusion);
     // console.log(3, matNotes)
@@ -14,8 +14,21 @@ globalThis.Notes.calculerMoyennes = function (moyenneGAttr, moyenneGStyle, moyen
     for (let i = 0; i < matNotes.length; i++) {
         let parent = matNotes[i].parentElement.parentElement.parentElement;
         // console.log(4, parent, matNotes[i])
-        if (!lignes.includes(parent)) {
-            lignes.push(parent);
+        
+        if (disciplineElmExclusion instanceof HTMLElement) {
+            if (!lignes.includes(parent) && parent.querySelector("[class *= 'discipline']") != disciplineElmExclusion) {
+                lignes.push(parent);
+            }
+        } else if (disciplineElmExclusion instanceof Object) {
+            for (let j = 0; j < disciplineElmExclusion.length; j++) {
+                if (!lignes.includes(parent) && parent.querySelector("[class *= 'discipline']") != disciplineElmExclusion[j]) {
+                    lignes.push(parent);
+                }
+            }
+        } else {
+            if (!lignes.includes(parent)) {
+                lignes.push(parent);
+            }
         }
     }
 
@@ -136,10 +149,12 @@ globalThis.Notes.calculerMoyennes = function (moyenneGAttr, moyenneGStyle, moyen
             // Duplicate the average element of the subject to add in a new line the average calculated by EcoleDirecte Plus
             let averageElement = lignes[i].querySelector("td.relevemoyenne").cloneNode(true);
             averageElement.textContent = moyenne.toFixed(5)
-            if (!lignes[i].querySelector("[" + moyenneAttr + "]")) {
-                lignes[i].querySelector("td.relevemoyenne").innerHTML = lignes[i].querySelector("td.relevemoyenne").innerHTML + '<br><span ' + moyenneAttr + '="true" style="' + moyenneStyle + '">' + averageElement.innerHTML + '</span>';
-            } else {
-                lignes[i].querySelector("[" + moyenneAttr + "]").textContent = moyenne.toFixed(5)
+            if (ajouternote) {
+                if (!lignes[i].querySelector("[" + moyenneAttr + "]")) {
+                    lignes[i].querySelector("td.relevemoyenne").innerHTML = lignes[i].querySelector("td.relevemoyenne").innerHTML + '<br><span ' + moyenneAttr + '="true" style="' + moyenneStyle + '">' + averageElement.innerHTML + '</span>';
+                } else {
+                    lignes[i].querySelector("[" + moyenneAttr + "]").textContent = moyenne.toFixed(5)
+                }
             }
             
             // We multiply the average of the subject with his coefficient and we add it to the overall average
@@ -151,27 +166,31 @@ globalThis.Notes.calculerMoyennes = function (moyenneGAttr, moyenneGStyle, moyen
     moyenneG = matieresMoyenne/coeffMatTot
     
     // If there is the overall average row we add our overall average in a new line. If not, we create it and put it in a new line as well (the first line is blank)
-    if (document.querySelector("tr > td.moyennegenerale-valeur")) {
-        let overallAverageElement = document.querySelector("tr > td.moyennegenerale-valeur").cloneNode(true)
-        overallAverageElement.textContent = moyenneG.toFixed(5);
-        // console.log(9, document.querySelector("tr > td.moyennegenerale-valeur"))
+    if (ajouternote) {
+        if (document.querySelector("tr > td.moyennegenerale-valeur")) {
+            let overallAverageElement = document.querySelector("tr > td.moyennegenerale-valeur").cloneNode(true)
+            overallAverageElement.textContent = moyenneG.toFixed(5);
+            // console.log(9, document.querySelector("tr > td.moyennegenerale-valeur"))
 
-        if (!document.querySelector("[" + moyenneGAttr + "]")) {
-            document.querySelector("tr > td.moyennegenerale-valeur").innerHTML = document.querySelector("tr > td.moyennegenerale-valeur").innerHTML + '<br><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + overallAverageElement.innerHTML + '</span>'
+            if (!document.querySelector("[" + moyenneGAttr + "]")) {
+                document.querySelector("tr > td.moyennegenerale-valeur").innerHTML = document.querySelector("tr > td.moyennegenerale-valeur").innerHTML + '<br><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + overallAverageElement.innerHTML + '</span>'
+            } else {
+                document.querySelector("[" + moyenneGAttr + "]").textContent = moyenneG.toFixed(5)
+            }
         } else {
-            document.querySelector("[" + moyenneGAttr + "]").textContent = moyenneG.toFixed(5)
-        }
-    } else {
-        let overallAverageElement = document.createElement("tr")
-        overallAverageElement.innerHTML = '<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + moyenneG.toFixed(5); + '</span></td></tr>'
-        // console.log(10, overallAverageElement, document.querySelector("table.ed-table tbody"))
-        
-        if (!document.querySelector("[" + moyenneGAttr + "]")) {
-            document.querySelector("table.ed-table tbody").appendChild(overallAverageElement)
-        } else {
-            document.querySelector("[" + moyenneGAttr + "]").textContent = moyenneG.toFixed(5)
+            let overallAverageElement = document.createElement("tr")
+            overallAverageElement.innerHTML = '<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + moyenneG.toFixed(5); + '</span></td></tr>'
+            // console.log(10, overallAverageElement, document.querySelector("table.ed-table tbody"))
+            
+            if (!document.querySelector("[" + moyenneGAttr + "]")) {
+                document.querySelector("table.ed-table tbody").appendChild(overallAverageElement)
+            } else {
+                document.querySelector("[" + moyenneGAttr + "]").textContent = moyenneG.toFixed(5)
+            }
         }
     }
+    
+    return moyenneG.toFixed(5)
 
     // console.log(moyenneG, matieresMoyenne, coeffMatTot)
 }

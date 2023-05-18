@@ -19,8 +19,8 @@ globalThis.Notes.ajouterNote = function (matiere, titre, note, coeff, quotient) 
     }
     
     // We calculate the averages
-    globalThis.Notes.calculerMoyennes("kmlc-simu-moyenne-g", "color: green;", "kmlc-simu-moyenne", "color: green;", true)
-    globalThis.Notes.calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
+    globalThis.Notes.calculerMoyennes(true, "kmlc-simu-moyenne-g", "color: green;", "kmlc-simu-moyenne", "color: green;", true)
+    globalThis.Notes.calculerMoyennes(true, "kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
     
     globalThis.Notes.modifierNote()
 }

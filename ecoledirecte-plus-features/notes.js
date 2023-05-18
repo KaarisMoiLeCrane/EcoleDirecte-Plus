@@ -18,7 +18,7 @@ globalThis.notes = function (id) {
             let note = JSON.parse(xhr.responseText).data
             document.waitForElement("[class *= 'tab-content']").then((elm) => {
                 globalThis.Notes.rang(note)
-                globalThis.Notes.calculerMoyennes("kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
+                globalThis.Notes.calculerMoyennes(true, "kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
                 
                 globalThis.Notes.charts(note)
                 
@@ -26,6 +26,8 @@ globalThis.notes = function (id) {
                 globalThis.Notes.modifierNote()
                 
                 globalThis.Notes.objectifSetup()
+                
+                globalThis.Notes.variationMoyenne()
             })
             // console.log(1)
             var notesObserver = new MutationObserver(function (mutations) {
@@ -35,7 +37,7 @@ globalThis.notes = function (id) {
                         // console.log(mutation.target)
                         if (mutation.target.children[0].innerText == "Moyennes" || mutation.target.children[0].innerText == "Evaluations") {
                             globalThis.Notes.rang(note)
-                            globalThis.Notes.calculerMoyennes("kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
+                            globalThis.Notes.calculerMoyennes(true, "kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
                             
                             globalThis.Notes.charts(note)
                             
@@ -43,6 +45,8 @@ globalThis.notes = function (id) {
                             globalThis.Notes.modifierNote()
                             
                             globalThis.Notes.objectifSetup()
+                            
+                            globalThis.Notes.variationMoyenne()
                         }
                     } catch(e){
                         // console.log(e)

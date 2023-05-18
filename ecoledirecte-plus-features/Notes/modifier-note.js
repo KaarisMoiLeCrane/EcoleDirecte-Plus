@@ -146,7 +146,7 @@ globalThis.Notes.modifierNote = function () {
                     this.setAttribute("style", "border-bottom: 1px solid green;")
                 }
                 
-                globalThis.Notes.calculerMoyennes("kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
+                globalThis.Notes.calculerMoyennes(true, "kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
             }
         }, false);
     }
