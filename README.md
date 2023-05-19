@@ -126,7 +126,7 @@ Consultes [Contribution](#contribution)
 - [x] Restructurer les fichiers de l'extension
 - [x] Refaire une refonte du code
 - [x] Rétablir le menu contextuel quand l'utilisateur réalise un clique gauche sur une note
-- [x] Ajouter à quel point la moyenne influe sur la moyenne générale
+- [x] Ajouter à quel point la moyenne d'une matière influe sur la moyenne générale
 - [x] Refonte du design des objectifs (ajout des tooltips et des pop-ups) /!\ Bug mineur visuel à corriger (au lieu d'avoir le nom de la matière pui le nom du prof c'est l'inverse au premier lancement)
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
