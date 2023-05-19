@@ -1,4 +1,4 @@
-globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, ajouterVariation = false) {
+globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, ajouterVariation = false, periodeNote = false, note = false) {
     let moyenneMat = 0
     let moyennes = document.querySelectorAll("[kmlc-moyenne]")
     let moyenneG = parseFloat(document.querySelector("[kmlc-moyenne-g]").innerText.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
@@ -42,25 +42,30 @@ globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, aj
     if (variation > 0.2) {
         style = "background-color: rgb(0, 255, 0, 0.250); border-radius: 3px;"
         signe = "très positive"
-        tooltipClass = " tooltipp-green"
+        tooltipClass = " kmlc-tooltip-green"
     } else if (variation <= 0.2 && variation > 0) {
         style = "background-color: rgb(255, 127.5, 0, 0.250); border-radius: 3px;"
         signe = "positive"
-        tooltipClass = " tooltipp-orange"
+        tooltipClass = " kmlc-tooltip-orange"
     } else {
         style = "background-color: rgb(255, 0, 0, 0.250); border-radius: 3px;"
         signe = "négative"
-        tooltipClass = " tooltipp-red"
+        tooltipClass = " kmlc-tooltip-red"
     }
     
     if (ajouterVariation) {
-        let span;
-        
-        span = document.createElement("SPAN")
+        let span = document.createElement("SPAN")
         span.style = style
         span.setAttribute("kmlc-variation", "true")
+        
+        let numMatiere = disciplineElmExclusion.parentElement
+        numMatiere = Array.from(numMatiere.parentNode.children).indexOf(numMatiere)
 
         if (disciplineElmExclusion instanceof HTMLElement) {
+            let observerConfig = {
+                childList: true
+            };
+
             for (let i = 0; i < disciplineElmExclusion.children.length; i++) {
                 if (!disciplineElmExclusion.querySelector("[kmlc-variation]"))
                     disciplineElmExclusion.appendChild(span)
@@ -69,12 +74,12 @@ globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, aj
                     disciplineElmExclusion.querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion.children[i])
             }
             
-            if (!disciplineElmExclusion.className.includes("note-parent")) {
+            if (!disciplineElmExclusion.className.includes("kmlc-note-parent")) {
                 let dummy = document.createElement("SPAN")
                 dummy.textContent = "Variation " + signe + " de " + variation
                 dummy.className = tooltipClass
                 
-                disciplineElmExclusion.className += " note-parent"
+                disciplineElmExclusion.className += " kmlc-note-parent"
                 disciplineElmExclusion.appendChild(dummy)
             }
             
@@ -90,12 +95,12 @@ globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, aj
                         disciplineElmExclusion[i].querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion[i].children[j])
                 }
                 
-                if (!disciplineElmExclusion[i].className.includes("note-parent")) {
+                if (!disciplineElmExclusion[i].className.includes("kmlc-note-parent")) {
                     let dummy = document.createElement("SPAN")
-                    dummy.textContent = "Variation " + signe + " de " + variation
+                    dummy.textContent = "Variation commune " + signe + " de " + variation
                     dummy.className = tooltipClass
                     
-                    disciplineElmExclusion[i].className += " note-parent"
+                    disciplineElmExclusion[i].className += " kmlc-note-parent"
                     disciplineElmExclusion[i].appendChild(dummy)
                 }
 

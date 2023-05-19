@@ -13,19 +13,18 @@
 }
 
 #main-part.sidebarnothover {
-  margin-left: 58px !important;
-  width: calc(100vw - 58px) !important;
+  margin-left: 78px !important;
+  width: calc(100vw - 78px) !important;
   transition: var(--tran-05);
 }
-#main-part.sidebarhover {
-  margin-left: 220px !important;
-  width: calc(100vw - 220px) !important;
-  transition: var(--tran-05);
+
+#main-part {
+  margin-left: 78px !important;
+  width: calc(100vw - 78px) !important;
 }
 
 /* ===== Sidebar ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 
 :root {
   --body-color: #ffffff;
@@ -39,29 +38,22 @@
   --tran-05: all 0.3s ease;
 }
 
-
-
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px;
   padding: 10px 14px;
   background: var(--sidebar-color);
   transition: var(--tran-05);
   z-index: 100;
   border-radius: 0px 10px 10px 0px;
   font-family: 'Poppins', sans-serif;
+  overflow-y: auto;
 }
 
-.sidebar:hover {
-  width: 250px;
-  transition: var(--tran-05);
-}
-
-.sidebar:not(:hover) {
-  width: 88px;
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar li {
@@ -182,6 +174,7 @@ header .image-text .profession {
   border-radius: 6px;
   text-decoration: none;
   transition: var(--tran-03);
+  padding-right: 21px;
 }
 
 .sidebar li a:hover {
@@ -232,7 +225,6 @@ header .image-text .profession {
   border-radius: 20px;
 }
 
-
 .sidebar .menu-bar .mode {
   border-radius: 6px;
   background-color: var(--primary-color-light);
@@ -261,141 +253,10 @@ header .image-text .profession {
 }
 
 .menu-badge {
-	position: absolute;
-	padding: 5px;
-	background: var(--secondary-color);
-	color: #fff;
-	font-size: 11px;
-	transition: all .5s;
-}
-
-.note-parent {
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.tooltipp-green {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #ffffff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(0, 255, 0, 1);
-  white-space: nowrap;
-  display: flex;
-}
-
-.tooltipp-green::before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(0, 255, 0, 1);
-}
-
-.note-parent:hover .tooltipp-green {
-  top: -20px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.tooltipp-green,
-.tooltipp-green::before {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-
-.tooltipp-orange {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #ffffff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(255, 127.5, 0, 1);
-  white-space: nowrap;
-  display: flex;
-}
-
-.tooltipp-orange::before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(255, 127.5, 0, 1);
-}
-
-.note-parent:hover .tooltipp-orange {
-  top: -20px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.tooltipp-orange,
-.tooltipp-orange::before {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-
-.tooltipp-red {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #ffffff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(255, 0, 0, 1);
-  white-space: nowrap;
-  display: flex;
-}
-
-.tooltipp-red::before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background: rgba(255, 0, 0, 1);
-}
-
-.note-parent:hover .tooltipp-red {
-  top: -30px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.tooltipp-red,
-.tooltipp-red::before {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  background: var(--secondary-color);
+  color: #fff;
+  font-size: 11px;
+  transition: all .5s;
 }

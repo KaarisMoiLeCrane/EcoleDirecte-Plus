@@ -17,6 +17,9 @@ globalThis.notes = function (id) {
             // When we receive all the homeworks
             let note = JSON.parse(xhr.responseText).data
             document.waitForElement("[class *= 'tab-content']").then((elm) => {
+                let periode = document.querySelector("#onglets-periodes > ul > li.active.nav-item")
+                periode = Array.from(periode.parentNode.children).indexOf(periode)
+                
                 globalThis.Notes.rang(note)
                 globalThis.Notes.calculerMoyennes(true, "kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
                 
@@ -27,7 +30,7 @@ globalThis.notes = function (id) {
                 
                 globalThis.Notes.objectifSetup()
                 
-                globalThis.Notes.variationMoyenne()
+                globalThis.Notes.variationMoyenne(periode, note)
             })
             // console.log(1)
             var notesObserver = new MutationObserver(function (mutations) {
@@ -36,6 +39,9 @@ globalThis.notes = function (id) {
                     try {
                         // console.log(mutation.target)
                         if (mutation.target.children[0].innerText == "Moyennes" || mutation.target.children[0].innerText == "Evaluations") {
+                            let periode = document.querySelector("#onglets-periodes > ul > li.active.nav-item")
+                            periode = Array.from(periode.parentNode.children).indexOf(periode)
+                            
                             globalThis.Notes.rang(note)
                             globalThis.Notes.calculerMoyennes(true, "kmlc-moyenne-g", "", "kmlc-moyenne", "", true, ":not([class *= 'simu'])")
                             
@@ -46,7 +52,7 @@ globalThis.notes = function (id) {
                             
                             globalThis.Notes.objectifSetup()
                             
-                            globalThis.Notes.variationMoyenne()
+                            globalThis.Notes.variationMoyenne(periode, note)
                         }
                     } catch(e){
                         // console.log(e)

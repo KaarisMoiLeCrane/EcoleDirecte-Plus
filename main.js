@@ -1,4 +1,5 @@
 const browser = window.chrome || window.browser
+let backdropScript = true
 
 // Get the token of the account and the id of the aimed student
 globalThis.token = getToken()
@@ -39,8 +40,8 @@ function main(num) {
             globalThis.design();
         }
         globalThis.design();
-		
-		loop2();
+        
+        // loop2();
         
         // If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
         // console.log(globalThis.token, window.location.href)
@@ -71,7 +72,7 @@ function main(num) {
             if (id != undefined) {
                 document.waitForElement("td.discipline").then((elm) => {
                     if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
-                    // console.log("NOTES ", num)
+                    console.log("NOTES ", num)
                     globalThis.notes(id)
                 })
             }
@@ -93,7 +94,7 @@ function main(num) {
 // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 //loop()
 
-loop2()
+// loop2()
 
 // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 function loop() {
@@ -137,31 +138,35 @@ function loop() {
 
 function loop2() {
     // If there is the loading page we wait for it to be deleted
-    document.waitForElement("div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])").then((elm) => {
-        let prom = new Promise((resolve) => {
-            new MutationObserver((mutations, observer) => {
-                for (let mutation of mutations) {
-                    for (let removedNode of mutation.removedNodes) {
-                        try {
-                            if (removedNode.getAttribute("class").includes("ng-tns") && removedNode.getAttribute("class").includes("ng-busy") && !removedNode.getAttribute("class").includes("backdrop")) {
-                                observer.disconnect();
-                                resolve();
-                            }
-                        } catch(e) {}
+    if (backdropScript) {
+        document.waitForElement("div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])").then((elm) => {
+            backdropScript = false
+            let prom = new Promise((resolve) => {
+                new MutationObserver((mutations, observer) => {
+                    for (let mutation of mutations) {
+                        for (let removedNode of mutation.removedNodes) {
+                            try {
+                                if (removedNode.getAttribute("class").includes("ng-tns") && removedNode.getAttribute("class").includes("ng-busy") && !removedNode.getAttribute("class").includes("backdrop")) {
+                                    observer.disconnect();
+                                    resolve();
+                                }
+                            } catch(e) {}
+                        }
                     }
-                }
-            })
-            .observe(document.body, {
-                subtree: true,
-                childList: true
+                })
+                .observe(document.body, {
+                    subtree: true,
+                    childList: true
+                });
             });
-        });
 
-        prom.then(() => {
-            main(3)
-            loop2() // We relaunch the loop
-        });
-    })
+            prom.then(() => {
+                backdropScript = true
+                main(3)
+                loop2() // We relaunch the loop
+            });
+        })
+    }
 }
 
 

@@ -3,4 +3,6 @@
 globalThis.design = function () {
     globalThis.Design.sidebar()
     globalThis.Design.credit()
+    globalThis.Design.popup()
+    globalThis.Design.tooltip()
 }

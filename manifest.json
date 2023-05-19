@@ -1,7 +1,7 @@
 {
 	"name": "EcoleDirecte +",
 	"description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": "Kaaris_Moi_Le_Crane",
 	"manifest_version": 3,
 	"permissions": [
@@ -48,6 +48,8 @@
 				
 				"/ecoledirecte-plus-features/Design/sidebar.js",
 				"/ecoledirecte-plus-features/Design/credit.js",
+				"/ecoledirecte-plus-features/Design/popup.js",
+				"/ecoledirecte-plus-features/Design/tooltip.js",
 				"/ecoledirecte-plus-features/design.js",
 				
 				"/ecoledirecte-plus-features/messagerie.js",
