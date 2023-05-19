@@ -101,6 +101,7 @@ There is no real prerequisite. You need Chrome or (maybe) just any web browser c
 ### Installation
 
 The extension is 100% pure js and I want it to still be pure js. If you want to use any library you can but I will try (or you can try) to remake the functionalities you use from the library. Nevertheless, using very complex functionalities of a library is allowed (for example Chart.js).
+
 See [Contributing](#contributing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -125,6 +126,8 @@ See [Contributing](#contributing)
 - [x] Restructure the files of the extension
 - [x] Redo a code overhaul
 - [x] Restore the context menu when the user performs a left-click on a grade
+- [x] Add how much the subject average affects the overall average
+- [x] Overhaul of the design of the objectives (addition of tooltips and pop-ups) /!\ Minor visual bug to be corrected (instead of having the name of the subject and then the name of the teacher, it's the opposite in first launch)
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
