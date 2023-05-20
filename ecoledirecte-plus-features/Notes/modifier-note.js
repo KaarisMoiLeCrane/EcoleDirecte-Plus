@@ -44,9 +44,9 @@ globalThis.Notes.modifierNote = function () {
             if (nouvelleNote) {
                 nouvelleNote = nouvelleNote.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 
-                if (nouvelleNote == this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(/[^\d+\-*/.\s]/g, "")) pass += 1
+                if (nouvelleNote == this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")) pass += 1
             } else {
-                nouvelleNote = this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(/[^\d+\-*/.\s]/g, "")
+                nouvelleNote = this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 pass += 1
             }
             
@@ -54,13 +54,13 @@ globalThis.Notes.modifierNote = function () {
                 nouveauCoeff = nouveauCoeff.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 
                 if (this.querySelector("sup")) {
-                    if (nouveauCoeff == this.querySelector("sup").textContent.replace(/[()\/\s]/g, "")) pass += 1
+                    if (nouveauCoeff == this.querySelector("sup").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")) pass += 1
                 } else {
                     if (nouveauCoeff == 1) pass += 1
                 }
             } else {
                 if (this.querySelector("sup")) {
-                    nouveauCoeff = this.querySelector("sup").textContent.replace(/[()\/\s]/g, "")
+                    nouveauCoeff = this.querySelector("sup").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 } else {
                     nouveauCoeff = 1.0
                     pass += 1
@@ -71,13 +71,13 @@ globalThis.Notes.modifierNote = function () {
                 nouveauQuotient = nouveauQuotient.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 
                 if (this.querySelector("sub")) {
-                    if (nouveauQuotient == this.querySelector("sub").textContent.replace(/[()\/\s]/g, "")) pass += 1
+                    if (nouveauQuotient == this.querySelector("sub").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")) pass += 1
                 } else {
                     if (nouveauQuotient == 20) pass += 1
                 }
             } else {
                 if (this.querySelector("sub")) {
-                    nouveauQuotient = this.querySelector("sub").textContent.replace(/[()\/\s]/g, "")
+                    nouveauQuotient = this.querySelector("sub").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
                 } else {
                     nouveauQuotient = 20.0
                     pass += 1
@@ -94,11 +94,11 @@ globalThis.Notes.modifierNote = function () {
 
                 // Set the the first grade, first coefficient and first quotient to parameters in the element
                 if (this.getAttribute("ancienneNote") == null)
-                    this.setAttribute("ancienneNote", this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(/[^\d+\-*/.\s]/g, ""))
+                    this.setAttribute("ancienneNote", this.childNodes[0].nodeValue.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
 
                 if (this.querySelector("sup")) {
                     if (this.getAttribute("ancienCoeff") == null)
-                        this.setAttribute("ancienCoeff", " (" + this.querySelector("sup").textContent.replace(/[()\/\s]/g, "") + ") ")
+                        this.setAttribute("ancienCoeff", " (" + this.querySelector("sup").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "") + ") ")
                 } else {
                     if (this.getAttribute("ancienCoeff") == null)
                         this.setAttribute("ancienCoeff", "")
@@ -106,7 +106,7 @@ globalThis.Notes.modifierNote = function () {
 
                 if (this.querySelector("sub")) {
                     if (this.getAttribute("ancienQuotient") == null)
-                        this.setAttribute("ancienQuotient", "/" + this.querySelector("sub").textContent.replace(/[()\/\s]/g, ""))
+                        this.setAttribute("ancienQuotient", "/" + this.querySelector("sub").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
                 } else {
                     if (this.getAttribute("ancienQuotient") == null)
                         this.setAttribute("ancienQuotient", "")

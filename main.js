@@ -60,7 +60,7 @@ function main(num) {
             if (id != undefined) {
                 document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
                     document.getElementById("main-part").classList.remove("sidebarhover");
-                    console.log("EDT ", num)
+                    // console.log("EDT ", num)
                     globalThis.emploidutemps(id)
                 })
             }
@@ -71,7 +71,7 @@ function main(num) {
             if (id != undefined) {
                 document.waitForElement("td.discipline").then((elm) => {
                     if (document.querySelector(".sidebar:hover")) document.getElementById("main-part").classList.add("sidebarhover");
-                    console.log("NOTES ", num)
+                    // console.log("NOTES ", num)
                     globalThis.notes(id)
                 })
             }
