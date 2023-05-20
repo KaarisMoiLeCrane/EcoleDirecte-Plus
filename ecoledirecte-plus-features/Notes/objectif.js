@@ -279,6 +279,16 @@ function fixerObjectif() {
     // For each average box set the right click listener (that let the user to set an average goal)
     for (let i = 0; i < matieres.length; i++) {
         matieres[i].setAttribute("kmlc-objectif-moyenne", "true")
+    }
+}
+
+function fixerObjectif2() {
+    // Get all the average without the average goal attribute (to know that the right click listener has been set)
+    let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([kmlc-objectif-moyenne])")
+
+    // For each average box set the right click listener (that let the user to set an average goal)
+    for (let i = 0; i < matieres.length; i++) {
+        matieres[i].setAttribute("kmlc-objectif-moyenne", "true")
         
         // Add a right click listener
         matieres[i].addEventListener('contextmenu', function(e) {

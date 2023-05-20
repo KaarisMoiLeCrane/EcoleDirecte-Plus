@@ -1,5 +1,4 @@
 const browser = window.chrome || window.browser
-let backdropScript = true
 
 // Get the token of the account and the id of the aimed student
 globalThis.token = getToken()
@@ -61,7 +60,7 @@ function main(num) {
             if (id != undefined) {
                 document.waitForElement(".dhx_cal_data > div:nth-child(7)").then((elm) => {
                     document.getElementById("main-part").classList.remove("sidebarhover");
-                    // console.log("EDT ", num)
+                    console.log("EDT ", num)
                     globalThis.emploidutemps(id)
                 })
             }

@@ -60,18 +60,14 @@ globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, aj
         
         let numMatiere = disciplineElmExclusion.parentElement
         numMatiere = Array.from(numMatiere.parentNode.children).indexOf(numMatiere)
-
+        
         if (disciplineElmExclusion instanceof HTMLElement) {
-            let observerConfig = {
-                childList: true
-            };
-
-            for (let i = 0; i < disciplineElmExclusion.children.length; i++) {
+            for (let i = 0; i < note.periodes[periodeNote].ensembleMatieres.disciplines[numMatiere].professeurs.length + 1; i++) {
                 if (!disciplineElmExclusion.querySelector("[kmlc-variation]"))
                     disciplineElmExclusion.appendChild(span)
                 
-                if (disciplineElmExclusion.children[i] != disciplineElmExclusion.querySelector("[kmlc-variation]"))
-                    disciplineElmExclusion.querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion.children[i])
+                if (disciplineElmExclusion.children[0] != disciplineElmExclusion.querySelector("[kmlc-variation]"))
+                    disciplineElmExclusion.querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion.children[0])
             }
             
             if (!disciplineElmExclusion.className.includes("kmlc-note-parent")) {
@@ -87,12 +83,12 @@ globalThis.Notes.calculerVariationMoyenne = function (disciplineElmExclusion, aj
             
         } else if (disciplineElmExclusion instanceof Object) {
             for (let i = 0; i < disciplineElmExclusion.length; i++) {
-                for (let j = 0; j < disciplineElmExclusion[i].children.length; j++) {
+                for (let j = 0; j < note.periodes[periodeNote].ensembleMatieres.disciplines[numMatiere].professeurs.length + 1; j++) {
                     if (!disciplineElmExclusion[i].querySelector("[kmlc-variation]"))
                         disciplineElmExclusion[i].appendChild(span)
                     
-                    if (disciplineElmExclusion[i].children[j] != disciplineElmExclusion[i].querySelector("[kmlc-variation]"))
-                        disciplineElmExclusion[i].querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion[i].children[j])
+                    if (disciplineElmExclusion[i].children[0] != disciplineElmExclusion[i].querySelector("[kmlc-variation]"))
+                        disciplineElmExclusion[i].querySelector("[kmlc-variation]").appendChild(disciplineElmExclusion[i].children[0])
                 }
                 
                 if (!disciplineElmExclusion[i].className.includes("kmlc-note-parent")) {
