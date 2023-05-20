@@ -127,7 +127,7 @@ See [Contributing](#contributing)
 - [x] Redo a code overhaul
 - [x] Restore the context menu when the user performs a left-click on a grade
 - [x] Add how much the subject average affects the overall average
-- [x] Overhaul of the design of the objectives (addition of tooltips and pop-ups) /!\ Minor visual bug to be corrected (instead of having the name of the subject and then the name of the teacher, it's the opposite in first launch)
+- [x] Overhaul of the design of the objectives (addition of tooltips and pop-ups)
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
