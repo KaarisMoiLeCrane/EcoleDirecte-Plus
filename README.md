@@ -113,7 +113,7 @@ Consultes [Contribution](#contribution)
 
 - [x] FAIRE UN LOGO
 - [x] Améliorer la section devoirs du site
-- [x] Améliorer l'emploi du temps pour afficher si les dévooirs sont fait ou non
+- [x] Améliorer l'emploi du temps pour afficher si les devoirs sont fait ou non
 - [x] Faire une nouvelle interface utilisateur pour EcoleDirecte qui marche avec plusieurs personnes dans le même compte
 - [x] Calculer la moyenne basé sur les notes affichées
 - [x] Nettoyer le code, l'embellir et améliorer son efficacité (remplacer tout les tabs en 4 espaces)
@@ -127,7 +127,7 @@ Consultes [Contribution](#contribution)
 - [x] Refaire une refonte du code
 - [x] Rétablir le menu contextuel quand l'utilisateur réalise un clique gauche sur une note
 - [x] Ajouter à quel point la moyenne d'une matière influe sur la moyenne générale
-- [x] Refonte du design des objectifs (ajout des tooltips et des pop-ups) /!\ Bug mineur visuel à corriger (au lieu d'avoir le nom de la matière pui le nom du prof c'est l'inverse au premier lancement)
+- [x] Refonte du design des objectifs (ajout des tooltips et des pop-ups)
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
