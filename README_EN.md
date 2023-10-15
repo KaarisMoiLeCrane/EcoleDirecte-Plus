@@ -80,7 +80,7 @@
   </ol>
 </details>
 
-
+# UNDER DEVELOPMENT, A NEW VERSION WILL BE RELEASED DURING THE HOLIDAYS
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
