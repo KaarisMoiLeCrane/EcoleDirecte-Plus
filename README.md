@@ -80,7 +80,7 @@
   </ol>
 </details>
 
-
+# EN COURS DE DEVELOPPEMENT, UNE NOUVELLE VERSION SERA PUBLIÉE PENDANT LES VACANCES
 
 <!-- ABOUT THE PROJECT -->
 ## À propos du projet
