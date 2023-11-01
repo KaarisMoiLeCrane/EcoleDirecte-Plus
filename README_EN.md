@@ -126,6 +126,9 @@ See [Contributing](#contributing)
 - [x] Restore the context menu when the user performs a left-click on a grade
 - [x] Add how much the subject average affects the overall average
 - [x] Overhaul of the design of the objectives (addition of tooltips and pop-ups)
+- [ ] A new code overhaul for better optimization
+- [ ] Complete code overhaul to replace certain codes with a module
+- [ ] Porting HTTPS requests to the background and creating an ecoledirecte.js (functions specific to EcoleDirecte)
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 
