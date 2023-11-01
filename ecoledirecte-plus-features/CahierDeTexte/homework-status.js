@@ -34,8 +34,8 @@ globalThis.CahierDeTexte.homeworkStatus = function (dev) {
                     
                     // For each homeworks check until we find the correct date and then apply the changes
                     for (let j = 0; j < devDateCDT.length; j++) {
-                        // console.log(123, (devDateCDT[j].textContent.split(" ")[1] + " " + devDateCDT[j].textContent.split(" ")[2]).toLowerCase(), (parseInt(date.split("-")[2]) + " " + numToDate(date.split("-")[1]).norm).toLowerCase())
-                        if ((devDateCDT[j].textContent.split(" ")[1] + " " + devDateCDT[j].textContent.split(" ")[2]).toLowerCase() == (parseInt(date.split("-")[2]) + " " + numToDate(date.split("-")[1]).norm).toLowerCase()) {
+                        // console.log(123, (devDateCDT[j].textContent.split(" ")[1] + " " + devDateCDT[j].textContent.split(" ")[2]).toLowerCase(), (parseInt(date.split("-")[2]) + " " + globalThis.Utils.numToDate(date.split("-")[1]).norm).toLowerCase())
+                        if ((devDateCDT[j].textContent.split(" ")[1] + " " + devDateCDT[j].textContent.split(" ")[2]).toLowerCase() == (parseInt(date.split("-")[2]) + " " + globalThis.Utils.numToDate(date.split("-")[1]).norm).toLowerCase()) {
                             
                             // Change the background color of the card containing the specific date
                             if (devDateCDT[j].parentElement.getAttribute("style")) {

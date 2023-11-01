@@ -3,6 +3,7 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
     let matNotes = document.querySelectorAll("span.valeur" + querySelectorExclusion);
     // console.log(3, matNotes)
     let lignes = [];
+	let brMetaData = moyenneGAttr.includes("simu") ? 'kmlc-simu="true"' : ''
     
     // We init the overall average, the value of all the subjects average, the excessed coefficients (coefficients counted when there are no grades) and the total coefficients (that he will divide all the grades to get the overall average)
     let moyenneG = 0.0
@@ -42,17 +43,17 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
         let addNotes = 0.0;
         let coeffNoteTot = 0.0;
         
-        // For each grades of the suject, get his coefficient and his quotient and we calculate everything. We convert the grade to be /20 and we multiply it with his coefficient. We add the coefficient to the coeffNoteTot
+        // For each grades of the suject, get his coefficient and his quotient and we calculate everything. We convert the grade to be /20 or something else (globalThis.quotient) and we multiply it with his coefficient. We add the coefficient to the coeffNoteTot
         for (let j = 0; j < matiereNotes.length; j++) {
             let coeff = 1.0
-            let quotient = 20.0
+            let quotient = globalThis.quotient
             let matNote = 0.0
             
             // Get the coefficient of the grade
             if (matiereNotes[j].querySelector("sup")) {
                 // Regex to replace "," with "." and the spaces with nothing and / with nothing
                 if (ancienneNote) {
-                    if (matiereNotes[j].getAttribute("kmlc-note-modifier")) {
+                    if (matiereNotes[j].parentElement.getAttribute("kmlc-note-simu-modifier")) {
                         if (matiereNotes[j].getAttribute("anciencoeff")) {
                             coeff = parseFloat(matiereNotes[j].getAttribute("anciencoeff").replace(/[()\/\s]/g, "").replace(",", "."));
                         } else {
@@ -72,11 +73,11 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
             if (matiereNotes[j].querySelector("sub")) {
                 // Regex to replace "," with "." and the spaces with nothing and / with nothing
                 if (ancienneNote) {
-                    if (matiereNotes[j].getAttribute("kmlc-note-modifier")) {
+                    if (matiereNotes[j].parentElement.getAttribute("kmlc-note-simu-modifier")) {
                         if (matiereNotes[j].getAttribute("ancienquotient")) {
                             quotient = parseFloat(matiereNotes[j].getAttribute("ancienquotient").replace(/[()\/\s]/g, "").replace(",", "."));
                         } else {
-                            quotient = parseFloat(20)
+                            quotient = globalThis.quotient
                         }
                         
                     } else {
@@ -88,13 +89,17 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
                 }
             }
 
-            // Get the grade and replace all the spaces and letters with nothing and the "," with "."
+            // Get the grade and replace all the white spaces and letters with nothing and the "," with "."
             if (ancienneNote) {
-                if (matiereNotes[j].getAttribute("kmlc-note-modifier")) {
+                if (matiereNotes[j].parentElement.getAttribute("kmlc-note-simu-modifier")) {
                     if (matiereNotes[j].getAttribute("anciennenote")) {
-                        matNote = matiereNotes[j].getAttribute("anciennenote").replace(/[()\/\s]/g, "").replace(",", ".");
+                        if (matiereNotes[j].getAttribute("anciennenote").replace(/[^\d+\-.\s]/g, "") != "") {
+							matNote = matiereNotes[j].getAttribute("anciennenote").replace(/[^\d+\-.\s]/g, "")
+						} else {
+							matNote = NaN
+						}
                     } else {
-                        matNote = "20"
+                        matNote = matiereNotes[j].childNodes[0].nodeValue
                     }
                     
                 } else {
@@ -107,19 +112,19 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
             
             // A grade between two parentheses is not a grade
             if (!matNote.includes("(") && !matNote.includes(")")) {
-                matNote = matNote.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+                matNote = matNote.replace(/[\/\s]/g, "").replace(",", ".").replace(/[^\d+\-.\s]/g, "")
             } else {
                 matNote = NaN
             }
             
             // console.log(6, matNote, matiereNotes[j].childNodes[0].nodeValue)
 
-            // If there is a grade (0 is a grade but nothing and a grade between two parentheses is not a grade). matNote is a string so ``if ("0" && "0.0") //console.log(1)`` will log 1
+            // If there is a grade (0 is a grade but nothing and a grade between two parentheses is not a grade). matNote is a string so ``if ("0" && "0.0")`` is true
             if (matNote) {
                 // console.log(6.1, matNote)
                 
-                // Convert the grade to /20
-                matNote = parseFloat(matNote)*20.0/quotient
+                // Convert the grade to /20 or something else (globalThis.quotient)
+                matNote = parseFloat(matNote)*globalThis.quotient/quotient
                 // console.log(6.2, matNote, coeff)
                 
                 // Multiply it with the coefficient of the grade, add it to the average value of the subject and add the coefficient with the total of coefficients of the subject
@@ -130,7 +135,7 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
         }
         
         // Get the coefficient of the subject
-        let coeffMat = parseFloat(lignes[i].querySelector("td.coef:not([class *= 'text-center'])").innerText.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""));
+        let coeffMat = parseFloat(lignes[i].querySelector("td.coef").innerText.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""));
         // console.log(7, coeffMat)
         
         // If the total of coefficients of the subject is 0 (so no grades to count)
@@ -151,7 +156,7 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
             averageElement.textContent = moyenne.toFixed(5)
             if (ajouternote) {
                 if (!lignes[i].querySelector("[" + moyenneAttr + "]")) {
-                    lignes[i].querySelector("td.relevemoyenne").innerHTML = lignes[i].querySelector("td.relevemoyenne").innerHTML + '<br><span ' + moyenneAttr + '="true" style="' + moyenneStyle + '">' + averageElement.innerHTML + '</span>';
+                    lignes[i].querySelector("td.relevemoyenne").innerHTML = lignes[i].querySelector("td.relevemoyenne").innerHTML + '<br ' + brMetaData + '><span ' + moyenneAttr + '="true" style="' + moyenneStyle + '">' + averageElement.innerHTML + '</span>';
                 } else {
                     lignes[i].querySelector("[" + moyenneAttr + "]").textContent = moyenne.toFixed(5)
                 }
@@ -166,14 +171,14 @@ globalThis.Notes.calculerMoyennes = function (ajouternote = false, moyenneGAttr 
     moyenneG = matieresMoyenne/coeffMatTot
     
     // If there is the overall average row we add our overall average in a new line. If not, we create it and put it in a new line as well (the first line is blank)
-    if (ajouternote) {
+    if (ajouternote) {		
         if (document.querySelector("tr > td.moyennegenerale-valeur")) {
             let overallAverageElement = document.querySelector("tr > td.moyennegenerale-valeur").cloneNode(true)
             overallAverageElement.textContent = moyenneG.toFixed(5);
             // console.log(9, document.querySelector("tr > td.moyennegenerale-valeur"))
 
             if (!document.querySelector("[" + moyenneGAttr + "]")) {
-                document.querySelector("tr > td.moyennegenerale-valeur").innerHTML = document.querySelector("tr > td.moyennegenerale-valeur").innerHTML + '<br><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + overallAverageElement.innerHTML + '</span>'
+                document.querySelector("tr > td.moyennegenerale-valeur").innerHTML = document.querySelector("tr > td.moyennegenerale-valeur").innerHTML + '<br ' + brMetaData + '><span ' + moyenneGAttr + '="true" style="' + moyenneGStyle + '">' + overallAverageElement.innerHTML + '</span>'
             } else {
                 document.querySelector("[" + moyenneGAttr + "]").textContent = moyenneG.toFixed(5)
             }

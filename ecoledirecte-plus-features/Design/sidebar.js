@@ -403,7 +403,7 @@ header .image-text .profession {
         
         // Adding a new HTML "LI" element to add some spaces between the first and second person in the navigation bar
         let menu = document.querySelector(".sidebar").querySelectorAll(".menu")
-        menu[0].parentElement.insertBefore(fragmentFromString(header[0]), menu[0])
+        menu[0].parentElement.insertBefore(globalThis.Utils.fragmentFromString(header[0]), menu[0])
         
         let ul = document.createElement("UL")
         ul.role = "menu"
@@ -417,7 +417,7 @@ header .image-text .profession {
         
         // Adding after each person in the account a new HTML "LI" element to add some spaces between each person in the navigation bar
         for (let i = 1; i < menu.length; i++) {
-            menu[i].parentElement.insertBefore(fragmentFromString(header[i]), menu[i])
+            menu[i].parentElement.insertBefore(globalThis.Utils.fragmentFromString(header[i]), menu[i])
             
             let ul = document.createElement("UL")
             ul.role = "menu"
@@ -495,10 +495,17 @@ header .image-text .profession {
         
         document.onreadystatechange = function () {
             if (document.readyState === 'interactive' || document.readyState === 'complete') {
-                // Replace all ed-menu-badge class with menu-badge class
-                for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
-                    document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
+                replaceEdMenuBadge()
             }
         }
+		
+		replaceEdMenuBadge()
     }
+	
+	function replaceEdMenuBadge() {
+		// Replace all ed-menu-badge class with menu-badge class
+		if (document.getElementsByClassName("ed-menu-badge"))
+			for (let i = 0; i < document.getElementsByClassName("ed-menu-badge").length; i++)
+				document.getElementsByClassName("ed-menu-badge")[i].className = document.getElementsByClassName("ed-menu-badge")[i].className.replace("ed-menu-badge", "menu-badge")
+	}
 }

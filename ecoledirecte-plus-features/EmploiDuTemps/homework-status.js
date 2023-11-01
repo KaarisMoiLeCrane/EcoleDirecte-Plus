@@ -34,7 +34,7 @@ globalThis.EmploiDuTemps.homeworkStatus = function (dev) {
                     
                     // For each homeworks check until we find the correct date and then apply the changes
                     for (let j = 0; j < devDateEDT.length; j++) {
-                        if ((devDateEDT[j].textContent.split(" ")[1] + " " + devDateEDT[j].textContent.split(" ")[2]).toLowerCase() == (parseInt(date.split("-")[2]) + " " + numToDate(date.split("-")[1]).abrv).toLowerCase()) {
+                        if ((devDateEDT[j].textContent.split(" ")[1] + " " + devDateEDT[j].textContent.split(" ")[2]).toLowerCase() == (parseInt(date.split("-")[2]) + " " + globalThis.Utils.numToDate(date.split("-")[1]).abrv).toLowerCase()) {
                             
                             // Change the background color of the date of the homework
                             if (devDateEDT[j].getAttribute("style")) {

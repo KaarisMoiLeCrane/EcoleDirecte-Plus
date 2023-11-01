@@ -3,420 +3,450 @@ globalThis.Notes.objectifSetup = function () {
     let buttonSelector = "ul.nav-pills > li.active"
     
     // If there is no button to see the goals then we add it
-    if (!document.querySelector("[kmlc-bouton-objectif]")) {
-        /*
-        // We duplicate the "Evaluations" button, we add the attribute to know that he exist, and we add the click listener
-        let objectifNoteButton = document.querySelector(buttonSelector).cloneNode(true)
-        objectifNoteButton.setAttribute("kmlc-bouton-objectif", "true")
-        
-        objectifNoteButton.children[0].removeAttribute("href")
-        objectifNoteButton.children[0].children[0].textContent = "Voir les objectifs"
-        objectifNoteButton.addEventListener('click', function(e) {
-            e.stopPropagation()
-            e.preventDefault()
-            
-            // We get the goals and we add them to a multi-line string
-            browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-                let objectifText = ``
-                
-                if (!items.objectifMoyenne[id]) {
-                    items.objectifMoyenne[id] = [];
-                }
-                
-                for (let i = 0; i < items.objectifMoyenne[id].length; i++) objectifText += items.objectifMoyenne[id][i][0] + " : " + items.objectifMoyenne[id][i][1] + `
-`
-                // console.log(789, items.objectifMoyenne)
-                alert(objectifText)
-            })
-        })
-        
-        document.querySelector(buttonSelector).parentElement.insertBefore(objectifNoteButton, document.querySelector(buttonSelector))
-        
-        // We duplicate the "Evaluations" button, we add the attribute to know that he exist, and we add the click listener
-        let objectifNoteClearButton = document.querySelector(buttonSelector).cloneNode(true)
-        objectifNoteClearButton.setAttribute("kmlc-bouton-objectif", "true")
-        
-        objectifNoteClearButton.children[0].removeAttribute("href")
-        objectifNoteClearButton.children[0].children[0].textContent = "Supprimer les objectifs"
-        objectifNoteClearButton.addEventListener('click', function(e) {
-            e.stopPropagation()
-            e.preventDefault()
-            
-            alert("Les objectifs vont être supprimés")
-            
-            browser.storage.sync.set({"objectifMoyenne": []})
-            let matiereAvecObjectif = document.querySelectorAll("[kmlc-objectif-moyenne-set]")
-            for (let i = 0; i < matiereAvecObjectif.length; i++) matiereAvecObjectif[i].setAttribute("style", "")
-        })
-        
-        document.querySelector(buttonSelector).parentElement.insertBefore(objectifNoteClearButton, document.querySelector(buttonSelector))
-        */
-        
-        // We duplicate the "Evaluations" button, we add the attribute to know that he exist, and we add the click listener
+    if (!document.querySelector("#kmlc-bouton-objectif")) {
+		
+		// We duplicate the "Evaluations" button, we add the attribute to know that he exist, and we add the click listener
         let objectifButton = document.querySelector(buttonSelector).cloneNode(true)
-        objectifButton.setAttribute("kmlc-bouton-objectif", "true")
+        objectifButton.id = "kmlc-bouton-objectif"
         
         objectifButton.children[0].removeAttribute("href")
         objectifButton.children[0].children[0].textContent = "Objectifs"
-        objectifButton.addEventListener('click', function(e) {
+        objectifButton.addEventListener('click', async function(e) {
             e.stopPropagation()
             e.preventDefault()
             
             // We get the goals and we add them to a multi-line string
-            browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-                let objectifText = ``
-                
-                if (!items.objectifMoyenne[id]) {
-                    items.objectifMoyenne[id] = [];
-                }
-                
-                let popup = document.querySelector("[kmlc-popup]")
-                let blur = document.querySelector("[kmlc-blur]")
-                
-                if (!popup) {
-                    // console.log(789, items.objectifMoyenne)
-                    blur = document.createElement("DIV")
-                    blur.className = "kmlc-blur"
-                    blur.setAttribute("kmlc-blur", "true")
-                    
-                    popup = document.createElement("DIV")
-                    popup.className = "kmlc-popup"
-                    popup.setAttribute("kmlc-popup", "true")
-                    
-                    document.body.appendChild(popup)
-                    document.body.appendChild(blur)
-                    
-                    popup = document.querySelector("[kmlc-popup]")
-                    blur = document.querySelector("[kmlc-blur]")
-                    
-                    changePopupInnerHTML(popup, items)
-                    
-                    // Ouvrir la popup
-                    function openPopup() {
-                        popup.style.display = 'block';
-                        blur.style.display = 'block';
-                    }
+            // browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+			
+			// browser.storage.sync.remove("objectifMoyenne")
+			
+			await globalThis.Utils.initUserObjectif(globalThis.userId)
+			let objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+			// console.log(objectifMoyenne)
+				
+			// console.log(dummy == customSerialize(dummy))
+			
+			// let passInit = true
+			
+			// if (!Array.isArray(objectifMoyenne)) {
+				// objectifMoyenne = [{"id": globalThis.userId, "periodes": []}]
+				
+				// await globalThis.Utils.setData("objectifMoyenne", objectifMoyenne)
+				
+				// passInit = false
+			// }
+			
+			// let userContent = objectifMoyenne.find(item => {
+				// if (item) if (item.id) return item.id == globalThis.userId
+			// });
+			
+			// console.log(userContent)
+			
+			// if (!userContent) {
+				// userContent = {"id": globalThis.userId, "periodes": []}
+				
+				// console.log(userContent, userContent.periodes)
+				
+				// if (!userContent.periodes.length) {
+					// console.log(3)
+					// await globalThis.Utils.initUserObjectif(globalThis.userId);
+					// console.log(4)
+				// }
+			// }
+			
+			// console.log(userContent)
+			
+			// if (!passInit) await globalThis.Utils.initUserObjectif(globalThis.userId)
+			
+			let popupID = "kmlc-objectif-popup"
+			let blurID = "kmlc-objectif-blur"
+			
+			let popup = document.querySelector("#" + popupID)
+			let blur = document.querySelector("#" + blurID)
+			
+			if (!popup) {
+				// console.log(789, items.objectifMoyenne)
+				let popupDatas = globalThis.Utils.initPopup(popupID, blurID)
+				popup = popupDatas[0]
+				blur = popupDatas[1]
+				
+				await changePopupInnerHTML(popup, blur)
 
-                    // Fermer la popup
-                    function closePopup() {
-                        popup.classList.add('kmlc-popup-close');
-                        blur.style.display = 'none';
-                    }
+				// Fermer la popup
+				function closePopup() {
+					popup.classList.add('kmlc-popup-close');
+					blur.classList.add('kmlc-blur-close')
+				}
 
-                    // Événement pour ouvrir la popup
-                    document.addEventListener('click', function(event) {
-                        if (event.target.classList.contains('kmlc-open-popup')) {
-                            openPopup();
-                        }
-                    });
+				// Événement pour fermer la popup en cliquant à l'extérieur
+				blur.addEventListener('click', function(event) {
+					if (event.target.classList.contains('kmlc-blur')) {
+						closePopup();
+					}
+				});
+				
+				let goalInputs = document.querySelectorAll('[id *= kmlc-goal-input]');
 
-                    // Événement pour fermer la popup en cliquant à l'extérieur
-                    blur.addEventListener('click', function(event) {
-                        if (event.target.classList.contains('kmlc-blur')) {
-                            closePopup();
-                        }
-                    });
-                    
-                    let goalInputs = document.querySelectorAll('.kmlc-goal-input');
+				goalInputs.forEach(function(input) {
+					input.addEventListener('keypress', function(event) {
+						let charCode = event.which ? event.which : event.keyCode;
+						
+						// console.log(charCode)
 
-                    goalInputs.forEach(function(input) {
-                        input.addEventListener('keypress', function(event) {
-                            let charCode = event.which ? event.which : event.keyCode;
+						if (
+							charCode !== 8 && // Touche de suppression (Backspace)
+							charCode !== 44 && // Virgule (,)
+							charCode !== 46 && // Point (.)
+							charCode < 48 || // Chiffres (0-9)
+							charCode > 57
+						) {
+							event.preventDefault();
+						}
+					});
+				});
 
-                            if (
-                                charCode !== 8 && // Touche de suppression (Backspace)
-                                charCode !== 44 && // Virgule (,)
-                                charCode !== 46 && // Point (.)
-                                charCode < 48 || // Chiffres (0-9)
-                                charCode > 57
-                            ) {
-                                event.preventDefault();
-                            }
-                        });
-                    });
-
-                    // Réinitialiser la popup après l'animation de fermeture
-                    popup.addEventListener('animationend', function(event) {
-                        if (event.animationName === 'kmlc-popupCloseAnimation') {
-                            popup.style.display = 'none';
-                            popup.classList.remove('kmlc-popup-close');
-                            
-                            let inputBox = document.querySelectorAll('li[class = "kmlc-subject-item"] > input[type="text"][class = "kmlc-goal-input"]')
-                            let matieres = document.querySelectorAll("[class *= 'nommatiere']")
-                            
-                            browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-                                let dummy = items.objectifMoyenne;
-                                
-                                for (let i = 0; i < inputBox.length; i++) {
-                                    let inputBoxValue = inputBox[i].value.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-                                    
-                                    if (inputBoxValue != '') {
-                                        // If exist add it
-                                        
-                                        let matiere = matieres[i]
-                                        let child = [];
-                                        
-                                        // Check if the user already add a goal for the student. If not we create the goal array under the student object.
-                                        if (!dummy[id]) {
-                                            dummy[id] = [];
-                                        }
-                                        
-                                        let existe = false;
-
-                                        for (let j = 0; j < dummy[id].length; j++) {
-                                            // If the subject exist we add the goal
-                                            if (dummy[id][j][0] === matiere.textContent) {
-                                                dummy[id][j][1] = inputBoxValue;
-                                                existe = true;
-                                                break;
-                                            }
-                                        }
-                                        
-                                        // If the subject not exist we add it and with the goal
-                                        if (!existe) {
-                                            dummy[id].push([matiere.textContent, inputBoxValue]);
-                                        }
-                                    }
-                                }
-                                
-                                browser.storage.sync.set({"objectifMoyenne": dummy});
-                                
-                                changePopupInnerHTML(popup, items)
-                                
-                                objectifValueListener()
-                            });
-                        }
-                    });
-                }
-                
-                if (popup) {
-                    popup.setAttribute("style", "");
-                    blur.setAttribute("style", "");
-                };
-            })
+				// Réinitialiser la popup après l'animation de fermeture
+				popup.addEventListener('animationend', function(event) {
+					if (event.animationName === 'kmlc-popupCloseAnimation') {
+						// Hide the elements
+						popup.style.display = 'none';
+						blur.style.display = 'none'
+						
+						// Reset the animation
+						popup.classList.remove('kmlc-popup-close');
+						blur.classList.remove('kmlc-blur-close')
+					}
+				});
+			}
+			
+			popup.setAttribute("style", "width: 80%; height: 80%;");
+			blur.setAttribute("style", "");
+            // })
         })
         
         document.querySelector(buttonSelector).parentElement.insertBefore(objectifButton, document.querySelector(buttonSelector))
     }
     
-    fixerObjectif()
-    
-    objectifValueListener()
-}
+	// browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+		// ajouterObjectifNote(items.objectifMoyenne)
+	// })
+	
+	async function changePopupInnerHTML(popup, blur) {
+		// browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
+		// console.log(items.objectifMoyenne)
+		let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
+		let objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+		let periodeElm = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']")
 
-function changePopupInnerHTML(popup, items) {
-    let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
-
-    let popupHTML = `
-<h2>Objectif de note</h2>
-<ul class="kmlc-subject-list">
+		let popupHTML = `
+<h2>Objectif de Note pour l'Année</h2>
+<ul class="kmlc-list">
 `
 
-    for (let i = 0; i < nomMatieres.length; i++) {
-        let pass = true
-            
-        if (items.objectifMoyenne[id]) {
-            for (let j = 0; j < items.objectifMoyenne[id].length; j++) {
-                if (nomMatieres[i].textContent == items.objectifMoyenne[id][j][0]) {
-                    popupHTML += `
-  <li class="kmlc-subject-item">
-    <label class="kmlc-subject-label">` + items.objectifMoyenne[id][j][0] + `</label>
-    <input type="text" class="kmlc-goal-input" placeholder="Entrez votre objectif de note pour ` + items.objectifMoyenne[id][j][0] + `" value="` + items.objectifMoyenne[id][j][1] + `">
+		for (let i = 0; i < nomMatieres.length; i++) {
+			let pass = true
+			let nomMatiere = nomMatieres[i].textContent
+			let nomMatiereSerialized = nomMatiere.replaceAll(/[^a-zA-Z0-9 ]/g, '').replaceAll(" ", "_")
+			
+			let userContent = objectifMoyenne.find(item => {
+				if (item) if (item.id) return item.id == globalThis.userId
+			});
+			
+			// console.log(userContent)
+			
+			if (userContent.periodes) {
+				// console.log(111111)
+				for (let j = 0; j < userContent.periodes.length; j++) {
+					// console.log(222222)
+					let noteMatiere = userContent.periodes[j].objectif[nomMatieres[i].textContent]
+					// console.log(notesMatiere)
+					if (!noteMatiere) break
+					
+					// console.log(333333)
+					// console.log(periodeElm.getAttribute("dateDebut") <= userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin") >= userContent.periodes[j].dateFin)
+					if (Number(periodeElm.getAttribute("dateDebut")) <= userContent.periodes[j].dateDebut && userContent.periodes[j].dateFin <= Number(periodeElm.getAttribute("dateFin"))) {
+						popupHTML += `
+  <li class="kmlc-item">
+    <label class="kmlc-label">` + nomMatiere + `</label>
+    <input type="text" class="kmlc-input" id="kmlc-goal-input-` + nomMatiereSerialized + `" subject="` + nomMatiere + `" placeholder="Entrez votre objectif de note pour ` + nomMatiere + `" value="` + noteMatiere.note + `">
+	<div class="kmlc-label">
+      <input type="checkbox" class="kmlc-checkbox" id="kmlc-goal-button-save-` + nomMatiereSerialized + `">
+	  <label for="kmlc-goal-button-save-` + nomMatiereSerialized + `" class="kmlc-checkbox-label">Sauvegarder</label>
+    </div>
   </li>`
-                    pass = false
-                    break
-                }
-            }
-        }
-    
-        if (pass) {
-            popupHTML += `
-  <li class="kmlc-subject-item">
-    <label class="kmlc-subject-label">` + nomMatieres[i].textContent + `</label>
-    <input type="text" class="kmlc-goal-input" placeholder="Entrez votre objectif de note pour ` + nomMatieres[i].textContent + `">
-  </li>`
-        }
-    }
+						pass = false
+						break
+					}
+				}
+			}
 
-    popupHTML += `
+			if (pass) {
+				let nomMatiere = nomMatieres[i].textContent
+				let nomMatiereSerialized = nomMatiere.replaceAll(/[^a-zA-Z0-9 ]/g, '').replaceAll(" ", "_")
+				
+				popupHTML += `
+  <li class="kmlc-item">
+    <label class="kmlc-label">` + nomMatiere + `</label>
+    <input type="text" class="kmlc-input" id="kmlc-goal-input-` + nomMatiereSerialized + `" subject="` + nomMatiere + `" placeholder="Entrez votre objectif de note pour ` + nomMatiere + `">
+	<div class="kmlc-label">
+	  <input type="checkbox" class="kmlc-checkbox" id="kmlc-goal-button-save-` + nomMatiereSerialized + `">
+	  <label for="kmlc-goal-button-save-` + nomMatiereSerialized + `" class="kmlc-checkbox-label">Sauvegarder</label>
+	</div>
+  </li>`
+			}
+		}
+
+		popupHTML += `
 </ul>
-<div class="kmlc-delete-button-container">
-  <button kmlc-bouton-supprimer-objectif="true" class="kmlc-delete-button">Supprimer les objectifs</button>
+<div class="kmlc-button-container">
+  <button id="kmlc-remove-objectif-button" class="kmlc-remove-button">Supprimer les objectifs</button>
+  <button id="kmlc-add-objectif-button" class="kmlc-add-button">Valider les objectifs</button>
 </div>
 `
 
-    popup.innerHTML = popupHTML
-    
-    popup.querySelector("[kmlc-bouton-supprimer-objectif]").addEventListener('click', function(e) {
-        e.stopPropagation()
-        e.preventDefault()
-        
-        let inputBox = document.querySelectorAll('li[class = "kmlc-subject-item"] > input[type="text"][class = "kmlc-goal-input"]')
-        for (let i = 0; i < inputBox.length; i++) {
-            inputBox[i].value = ''
-        }
-        
-        browser.storage.sync.set({"objectifMoyenne": []})
-        
-        let tooltip = document.querySelectorAll("[class *= kmlc-tooltip]")
-        for (let i = 0; i < tooltip.length; i++) {
-            tooltip[i].remove()
-        }
-        
-        let moyenneSet = document.querySelectorAll("[kmlc-objectif-moyenne-set]")
-        for (let i = 0; i < moyenneSet.length; i++) {
-            moyenneSet[i].removeAttribute("kmlc-objectif-moyenne-set")
-            moyenneSet[i].removeAttribute("style")
-            moyenneSet[i].className = moyenneSet[i].className.replace(" kmlc-note-parent")
-        }
-    })
-}
+		popup.innerHTML = popupHTML
+		
+		popup.querySelector("#kmlc-remove-objectif-button").addEventListener('click', async function(e) {
+			e.stopPropagation()
+			e.preventDefault()
+			
+			let inputBox = document.querySelectorAll('li[class = "kmlc-subject-item"] > input[type="text"][id *= kmlc-goal-input]')
+			for (let i = 0; i < inputBox.length; i++) {
+				inputBox[i].value = ''
+			}
+			
+			// let dummy = items.objectifMoyenne
+			// dummy[id] = []
+			
+			await globalThis.Utils.initUserObjectif(globalThis.userId)
+			let objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+			
+			// console.log(objectifMoyenne)
+			
+			let userContent = objectifMoyenne.find(item => {
+				if (item) if (item.id) return item.id == globalThis.userId
+			})
+			
+			let index = objectifMoyenne.indexOf(userContent)
+			
+			userContent = {"id": globalThis.userId, "periodes": []}
+			
+			if (!objectifMoyenne[index]) objectifMoyenne.push(userContent)
+			else objectifMoyenne[index] = userContent
+			
+			// console.log(dummy, userContent, index)
+			
+			await globalThis.Utils.setData("objectifMoyenne", objectifMoyenne)
+			
+			// browser.storage.sync.set({["simulationNote"]: dummy}, function () {
+				// if (browser.runtime.lastError) {
+				  // console.error("Error setting data:", browser.runtime.lastError);
+				// } else {
+				  // console.log("Data set successfully.");
+				// }
+			  // });
+			// console.log(1)
+			
+			await globalThis.Utils.initUserObjectif(globalThis.userId)
+			// console.log(5)
+			
+			// applyGradeSimualtionGoal(popup)
+			await changePopupInnerHTML(popup, blur)
+			
+			// browser.storage.sync.set({"objectifMoyenne": dummy})
+			
+			let tooltip = document.querySelectorAll("[kmlc-objectif][class *= kmlc-tooltip]")
+			for (let i = 0; i < tooltip.length; i++) {
+				tooltip[i].remove()
+			}
+			
+			let moyenneSet = document.querySelectorAll("[kmlc-objectif-moyenne-set]")
+			for (let i = 0; i < moyenneSet.length; i++) {
+				moyenneSet[i].removeAttribute("kmlc-objectif-moyenne-set")
+				moyenneSet[i].removeAttribute("style")
+				moyenneSet[i].className = moyenneSet[i].className.replace(" kmlc-note-parent")
+			}
+		})
+		
+		popup.querySelector("#kmlc-add-objectif-button").addEventListener('click', async function(e) {
+			e.stopPropagation()
+			e.preventDefault()
+			
+			blur.click()
+			
+			let inputBox = document.querySelectorAll('[id *= kmlc-goal-input-]')
+			
+			for (let i = 0; i < inputBox.length; i++) {
+				let inputBoxValue = inputBox[i].value.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+				// console.log(inputBoxValue)
+				
+				// if (inputBoxValue != '') {
+					let subjectGrade = inputBox[i].getAttribute("subject")
+					let subjectGradeSerialized = subjectGrade.replaceAll(/[^a-zA-Z0-9 ]/g, '').replaceAll(" ", "_")
+					
+					// console.log(this, subjectGrade, this.parentElement, this.parentElement.parentElement)
+					
+					let gradeValue = inputBox[i].value.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
+					let save = this.parentElement.parentElement.querySelector("#" + "kmlc-goal-button-save-" + subjectGradeSerialized).checked
+					
+					// if (gradeValue != "" && gradeValue != null) {
+						let dateNow = Date.now();
+						
+						await applyMeanGoal(subjectGrade, gradeValue, dateNow, save)
+						
+						// globalThis.Notes.calculerMoyennes(true, "kmlc-simu-moyenne-g", "color: green;", "kmlc-simu-moyenne", "color: green;", true)
+						// globalThis.Notes.calculerMoyennes(true, "kmlc-simu-modifier-moyenne-g", "border-bottom: 1px solid green; color: green;", "kmlc-simu-modifier-moyenne", "border-bottom: 1px solid green; color: green;")
+					// }
+				// }
+			}
+		})
+		// })
+	}
 
-function fixerObjectif() {
-    // Get all the average without the average goal attribute (to know that the right click listener has been set)
-    let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([kmlc-objectif-moyenne])")
+	async function applyMeanGoal(subjectGrade, gradeValue, idGrade, save) {
+		globalThis.Notes.ajouterObjectifNote(subjectGrade, gradeValue, idGrade)
+		// console.log(1111)
+		if (!save) return
+		
+		await globalThis.Utils.initUserObjectif(globalThis.userId)
+		let objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+		// let dataPeriodes = globalThis.Notes.dataPeriodes
+		
+		// Create the goal section associated with the id of the student
+		let userContent = objectifMoyenne.find(item => {
+			if (item) if (item.id) return item.id == globalThis.userId
+		});
+		
+		let index = objectifMoyenne.indexOf(userContent)
+		
+		// Check if the user already add a goal for the student. If not we create the goal array under the student object.
+		// if (!userContent.periodes) {
+			// console.log(2)
+			// await globalThis.Utils.initUserObjectif(globalThis.userId)
+			// console.log(6)
+			
+			// objectifMoyenne = browser.storage.sync.get({"objectifMoyenne": []})
+			
+			// objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+		// }
+		
+		let periodeElm = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']")
 
-    // For each average box set the right click listener (that let the user to set an average goal)
-    for (let i = 0; i < matieres.length; i++) {
-        matieres[i].setAttribute("kmlc-objectif-moyenne", "true")
-    }
-}
+		for (let j = 0; j < userContent.periodes.length; j++) {
+			// If the subject exist we add the goal
+			
+			// console.log(periodeElm.getAttribute("dateDebut"), userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin"), userContent.periodes[j].dateFin)
+			// console.log((Number(periodeElm.getAttribute("dateDebut")) <= userContent.periodes[j].dateDebut), (userContent.periodes[j].dateFin <= Number(periodeElm.getAttribute("dateFin"))))
+			
+			if ((Number(periodeElm.getAttribute("dateDebut")) <= userContent.periodes[j].dateDebut) && (userContent.periodes[j].dateFin <= Number(periodeElm.getAttribute("dateFin")))) {
+				userContent.periodes[j].objectif[subjectGrade] = {}
+				// console.log(userContent, userContent.periodes[j].objectif, userContent.periodes[j].objectif[subjectGrade])				
+				userContent.periodes[j].objectif[subjectGrade]["note"] = gradeValue
+				userContent.periodes[j].objectif[subjectGrade]["id"] = idGrade
+				
+				if (gradeValue == "") delete userContent.periodes[j].objectif[subjectGrade]
+			}
+		}
+		
+		// browser.storage.sync.set({["objectifMoyenne"]: objectifMoyenne}, function () {
+			// if (browser.runtime.lastError) {
+			  // console.error("Error setting data:", browser.runtime.lastError);
+			// } else {
+			  // console.log("Data set successfully.");
+			// }
+		  // });
+		  
+		objectifMoyenne[index] = userContent
+		
+		// console.log(subjectGrade, objectifMoyenne)
+		
+		await globalThis.Utils.setData("objectifMoyenne", objectifMoyenne)
+		
+		// console.log(objectifMoyenne)
+	}
+	
+	async function reloadObjectifNote() {
+		// console.log(123456789) 
+		
+		await globalThis.Utils.initUserObjectif(globalThis.userId)
+		let objectifMoyenne = await globalThis.Utils.getData("objectifMoyenne")
+		// let passInit = true
+		
+		// if (!Array.isArray(objectifMoyenne)) {
+			// objectifMoyenne = [{"id": globalThis.userId, "periodes": []}]
+			
+			// await globalThis.Utils.setData("objectifMoyenne", objectifMoyenne)
+			
+			// passInit = false
+		// }
+		
+		let userContent = objectifMoyenne.find(item => {
+			if (item) if (item.id) return item.id == globalThis.userId
+		})
+		
+		// let index = objectifMoyenne.indexOf(userContent)
+		
+		// if (!userContent) {
+			// userContent = {"id": globalThis.userId, "periodes": []}
+			
+			// console.log(userContent, userContent.periodes)
+			
+			// if (!userContent.periodes.length) {
+				// console.log(3)
+				// await globalThis.Utils.initUserObjectif(globalThis.userId);
+				// console.log(4)
+			// }
+		// } else {
+			// for (let j = 0; j < userContent.periodes.length; j++) {
+				// if (userContent.periodes[j].objectif) {
+					// for (let key in userContent.periodes[j].objectif) {
+						// if (userContent.periodes[j].objectif.hasOwnProperty(key)) {
+							// if (Array.isArray(userContent.periodes[j].objectif[key])) {
+								// userContent.periodes[j].objectif[key] = {
+									// "note": userContent.periodes[j].objectif[key][userContent.periodes[j].objectif[key].length - 1].note,
+									// "id": Date.now()
+								// }
+							// }
+						// }
+					// }
+				// }
+			// }
+			
+			// console.log(userContent, index, objectifMoyenne)
+			
+			// objectifMoyenne[index] = userContent
+			
+			// await globalThis.Utils.setData("objectifMoyenne", objectifMoyenne)
+		// }
+		
+		// if (!passInit) await globalThis.Utils.initUserObjectif(globalThis.userId)
+		
+		let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
+		let periodeElm = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']")
+		
+		// console.log(userContent)
 
-function fixerObjectif2() {
-    // Get all the average without the average goal attribute (to know that the right click listener has been set)
-    let matieres = document.querySelectorAll("td[class *= 'relevemoyenne']:not([kmlc-objectif-moyenne])")
-
-    // For each average box set the right click listener (that let the user to set an average goal)
-    for (let i = 0; i < matieres.length; i++) {
-        matieres[i].setAttribute("kmlc-objectif-moyenne", "true")
-        
-        // Add a right click listener
-        matieres[i].addEventListener('contextmenu', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            
-            // Ask for the goal
-            let objectifMoyenneVal = prompt("Quel objectif voulez vous ? (celui-ci sera le même pour toutes les années)")
-            objectifMoyenneVal = " " + objectifMoyenneVal
-            objectifMoyenneVal = objectifMoyenneVal.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, "")
-            
-            // If exist add it
-            if (objectifMoyenneVal != "" && objectifMoyenneVal != null) {
-                let matiere = this.parentElement.querySelector("[class *= 'nommatiere']").textContent
-            
-                browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-                    let child = [];
-                    
-                    // Check if the user already add a goal for the student. If not we create the goal array under the student object.
-                    let dummy = items.objectifMoyenne;
-                    if (!dummy[id]) {
-                        dummy[id] = [];
-                    }
-                    
-                    let existe = false;
-
-                    for (let j = 0; j < dummy[id].length; j++) {
-                        // If the subject exist we add the goal
-                        if (dummy[id][j][0] === matiere) {
-                            dummy[id][j][1] = objectifMoyenneVal;
-                            existe = true;
-                            break;
-                        }
-                    }
-                    
-                    // If the subject not exist we add it and with the goal
-                    if (!existe) {
-                        dummy[id].push([matiere, objectifMoyenneVal]);
-                    }
-
-                    browser.storage.sync.set({"objectifMoyenne": dummy});
-                });
-                
-                this.removeAttribute("kmlc-objectif-moyenne-set")
-                
-                objectifValueListener()
-            }
-        }, false);
-    }
-}
-
-function objectifValueListener() {
-    browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-        browser.storage.sync.onChanged.addListener(function(changes, namespace) {
-            if ("objectifMoyenne" in changes) {
-                items.objectifMoyenne = changes.objectifMoyenne.newValue;
-                ajouterObjectifNote(items.objectifMoyenne)
-            }
-        });
-        
-        ajouterObjectifNote(items.objectifMoyenne)
-    });
-}
-
-function ajouterObjectifNote(objectifMoyenne) {
-    // Get all the averages boxes and all the subject name
-    let moyennes = document.querySelectorAll("td[class *= 'relevemoyenne'][kmlc-objectif-moyenne]")
-    let nomMatieres = document.querySelectorAll("[class *= 'nommatiere'] > b")
-    
-    // console.log("objectif 1", objectifMoyenne)
-    
-    // Create the goal section associated with the id of the student
-    if (!objectifMoyenne[id]) {
-        objectifMoyenne[id] = [];
-    }
-        
-    // For each goal and each subject name
-    for (let i = 0; i < objectifMoyenne[id].length; i++) {
-        for (let j = 0; j < nomMatieres.length; j++) {
-            try {
-                // If the name of the subject and the name of the subject of the average are the same then we apply our changes
-                if (nomMatieres[j].textContent == objectifMoyenne[id][i][0]) {
-                    let matiereNote = parseFloat(moyennes[j].querySelector("[kmlc-moyenne]").textContent.replace(/[()\/\s]/g, "").replace(",", ".").replace(/[^\d+\-*/.\s]/g, ""))
-                    let noteObjectif = parseFloat(objectifMoyenne[id][i][1])
-                    let tooltipClass = " kmlc-tooltip-red"
-                    
-                    if (matiereNote > noteObjectif) {
-                        backgroundColor = " background-color: rgb(0, 255, 0, 0.5);"
-                        tooltipClass = " kmlc-tooltip-green"
-                    } else if (matiereNote < noteObjectif) {
-                        backgroundColor = " background-color: rgb(255, 0, 0, 0.5);"
-                        tooltipClass = " kmlc-tooltip-red"
-                    } else {
-                        backgroundColor = " background-color: rgb(255, 255, 255);"
-                        tooltipClass = ""
-                    }
-                    
-                    if (matiereNote.toString().split(".")[0] == noteObjectif.toString().split(".")[0]) {
-                        backgroundColor = " background-color: rgb(255, 127.5, 0, 0.5);"
-                        tooltipClass = " kmlc-tooltip-orange"
-                    }
-                    
-                    if (!moyennes[j].getAttribute("kmlc-objectif-moyenne-set")) {
-                        // console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
-                        
-                        moyennes[j].className += " kmlc-note-parent"
-                        
-                        let dummy = moyennes[j].querySelector("span").cloneNode(true)
-                        dummy.className += tooltipClass
-                        dummy.textContent = "Objectif de " + noteObjectif
-                        dummy.removeAttribute("kmlc-moyenne")
-                        
-                        moyennes[j].appendChild(dummy)
-                        
-                        moyennes[j].setAttribute("style", backgroundColor)
-                        
-                        moyennes[j].setAttribute("kmlc-objectif-moyenne-set", "true")
-                    } else {
-                        // console.log("objectif 2", backgroundColor, noteObjectif, matiereNote)
-                        
-                        let dummy = moyennes[j].querySelector("span:[class *= 'kmlc-tooltip']")
-                        dummy.className = tooltipClass
-                        dummy.textContent = "Objectif de " + noteObjectif
-                        
-                        moyennes[j].setAttribute("style", backgroundColor)
-                    }
-                }
-            } catch(e) {}
-        }
-    }
+		for (let i = 0; i < nomMatieres.length; i++) {
+			let pass = true
+			let nomMatiere = nomMatieres[i].textContent
+			
+			if (userContent.periodes) {
+				for (let j = 0; j < userContent.periodes.length; j++) {
+					// console.log(periodeElm.getAttribute("dateDebut"), userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin"), userContent.periodes[j].dateFin)
+					if (Number(periodeElm.getAttribute("dateDebut")) <= userContent.periodes[j].dateDebut && userContent.periodes[j].dateFin <= Number(periodeElm.getAttribute("dateFin"))) {
+						let noteMatiere = userContent.periodes[j].objectif[nomMatieres[i].textContent]
+						if (!noteMatiere) break
+						
+						let subjectGrade = nomMatieres[i].textContent
+						let gradeValue = noteMatiere.note
+						let idGrade = noteMatiere.id
+						
+						globalThis.Notes.ajouterObjectifNote(subjectGrade, gradeValue, idGrade)
+					}
+				}
+			}
+		}
+	}
+	
+	reloadObjectifNote()
 }

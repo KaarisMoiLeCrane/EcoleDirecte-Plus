@@ -1,6 +1,6 @@
-globalThis.messagerie = function (id) {
+globalThis.messagerie = function () {
     // Wait for the button "Actualiser" (refresh button) in the top
-    document.waitForElement("[class *= btn-group] > button:not([class *= dropdown])").then((elm) => {
+    document.waitForElement("[class *= btn-group] > button[class *= btn-secondary]:not([class *= dropdown])").then((elm) => {
         if (!document.querySelector("[kmlc-read-all]")) {
             // We duplicate the button and change it to a read all button
             let button = elm.cloneNode(true)
@@ -11,14 +11,12 @@ globalThis.messagerie = function (id) {
             button.innerHTML = '<span style="font-weight: bold;">Tout lire</span>'
             
             button.onclick = function() {
-                let type = getAccountType()
-                
-                if (type) {
+                if (globalThis.accountType) {
                     // Make an http request to get the messages
                     let xhr = new XMLHttpRequest();
                     // console.log(window.location.pathname.split("/"))
                     // console.log(window.location.pathname.split("/")[2])
-                    url = "https://api.ecoledirecte.com/v3/" + type + "/" + id + "/messages.awp?force=true&typeRecuperation=received&orderBy=date&order=desc&onlyRead=0&getAll=1&verbe=get";
+                    url = "https://api.ecoledirecte.com/v3/" + globalThis.accountType + "/" + globalThis.userId + "/messages.awp?force=true&typeRecuperation=received&orderBy=date&order=desc&onlyRead=0&getAll=1&verbe=get";
                     data = `data={}`;
 
                     xhr.open("POST", url, false);
@@ -35,7 +33,7 @@ globalThis.messagerie = function (id) {
                                 for (let i = 0; i < messages.length; i++) {
                                     setTimeout(() => {
                                         let xhr2 = new XMLHttpRequest();
-                                        xhr2.open("POST", "https://api.ecoledirecte.com/v3/" + type + "/" + id + "/messages/" + messages[i].id + ".awp?verbe=get&mode=destinataire", false);
+                                        xhr2.open("POST", "https://api.ecoledirecte.com/v3/" + globalThis.accountType + "/" + globalThis.userId + "/messages/" + messages[i].id + ".awp?verbe=get&mode=destinataire", false);
                                         xhr2.setRequestHeader("Content-Type", "text/plain");
                                         xhr2.setRequestHeader("X-Token", globalThis.token);
                                         
@@ -43,7 +41,7 @@ globalThis.messagerie = function (id) {
                                     }, 100)
                                 }
                                 
-                                // console.log(messages, type, id)
+                                // console.log(messages, globalThis.accountType, globalThis.userId)
                                 
                                 alert("Tous les messages ont été lus")
                             } else {
@@ -54,16 +52,9 @@ globalThis.messagerie = function (id) {
 
                     xhr.send(data);
                 } else {
-                    console.log(type, JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte)
+                    // console.log(globalThis.accountType, JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte)
                 }
             }
         }
     })
-}
-
-function getAccountType() {
-    if (window.sessionStorage.accounts)
-        return JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte == "'E'" ? "eleves" : "familles"
-    
-    return NaN
 }

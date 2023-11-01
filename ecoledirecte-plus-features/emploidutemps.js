@@ -1,11 +1,11 @@
 let backdropScript = true
 
-globalThis.emploidutemps = function (id) {
+globalThis.emploidutemps = function () {
     // Make an http request to get the homeworks
     let xhr = new XMLHttpRequest();
     // console.log(window.location.pathname.split("/"))
     // console.log(window.location.pathname.split("/")[2])
-    url = "https://api.ecoledirecte.com/v3/Eleves/" + id + "/cahierdetexte.awp?verbe=get";
+    url = "https://api.ecoledirecte.com/v3/Eleves/" + globalThis.userId + "/cahierdetexte.awp?verbe=get";
     data = `data={}`;
 
     xhr.open("POST", url, false);

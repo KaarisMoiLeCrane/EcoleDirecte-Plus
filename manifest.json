@@ -1,7 +1,7 @@
 {
 	"name": "EcoleDirecte +",
 	"description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-	"version": "1.1.2",
+	"version": "1.3.0",
 	"author": "Kaaris_Moi_Le_Crane",
 	"manifest_version": 3,
 	"permissions": [
@@ -25,11 +25,16 @@
 			"run_at": "document_end",
 			"all_frames": true,
 			"js": [
+				"/popup/chromeExtensionPopupDevTools-ContentScript.js",
+				
 				"/setup.js",
 				
 				"/functions/chart.js",
 				"/functions/functions.js",
+				"/functions/utils.js",
+				
 				"/ecoledirecte-plus-features/CahierDeTexte/homework-status.js",
+				"/ecoledirecte-plus-features/CahierDeTexte/homework-refresh.js",
 				"/ecoledirecte-plus-features/cahierdetexte.js",
 				
 				"/ecoledirecte-plus-features/EmploiDuTemps/homework-status.js",
@@ -37,12 +42,18 @@
 				
 				"/ecoledirecte-plus-features/Notes/functions/calculer-moyennes.js",
 				"/ecoledirecte-plus-features/Notes/functions/calculer-variation-moyenne.js",
-				"/ecoledirecte-plus-features/Notes/modifier-note.js",
+				"/ecoledirecte-plus-features/Notes/functions/modifier-note.js",
+				
 				"/ecoledirecte-plus-features/Notes/functions/ajouter-note.js",
+				"/ecoledirecte-plus-features/Notes/functions/ajouter-objectif-note.js",
+				
 				"/ecoledirecte-plus-features/Notes/ajouter-note-simulation.js",
+				"/ecoledirecte-plus-features/Notes/modifier-note-simulation.js",
+				
 				"/ecoledirecte-plus-features/Notes/charts.js",
 				"/ecoledirecte-plus-features/Notes/objectif.js",
 				"/ecoledirecte-plus-features/Notes/rang.js",
+				"/ecoledirecte-plus-features/Notes/coeff.js",
 				"/ecoledirecte-plus-features/Notes/variation-moyenne.js",
 				"/ecoledirecte-plus-features/notes.js",
 				
