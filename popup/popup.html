@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chrome Extension Popup DevTools</title>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+  <script src="popup.js"></script>
+</head>
+<body>
+  <div class="button-container">
+    <h2>Chrome Extension Popup DevTools</h2>
+    <p>Select the property key:</p>
+    <select id="selectData"></select>
+    <button id="logData">Log Data</button>
+    <button id="clearData">Clear Data</button>
+    <button id="reloadExtension">Reload Extension</button>
+    <button id="sendMessage">Send General Message</button>
+    <div class="message-input">
+      <input type="text" id="messageInput" placeholder="Message to Content" />
+    </div>
+    <ul class="kmlc-list">
+      <li class="kmlc-item">
+        <button id="sendMessageToContentScript">Send to Content</button>
+      </li>
+      <li class="kmlc-item">
+        <button id="sendMessageToBackgroundScript">Send to Background</button>
+      </li>
+    </ul>
+    <div id="messageContainer"></div>
+  </div>
+</body>
+</html>

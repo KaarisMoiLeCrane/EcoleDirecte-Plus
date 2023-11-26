@@ -1,0 +1,109 @@
+body {
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message-input {
+  margin: 5px; /* Equal gap above and below the input */
+}
+
+input#messageInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.kmlc-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Align items horizontally in the center */
+  margin: -5px;
+}
+
+.kmlc-item {
+  margin: 5px; /* Add margin between items for spacing */
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+select {
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 5px;
+}
+
+#clearData {
+  background-color: #e74c3c;
+}
+
+#clearData:hover {
+  background-color: #c0392b;
+}
+
+#reloadExtension, #sendMessage {
+  background-color: #27ae60;
+}
+
+#reloadExtension:hover, #sendMessage:hover {
+  background-color: #219e54;
+}
+
+h2 {
+  margin: 5px;
+  font-size: 18px;
+}
+
+p {
+  margin: 5px;
+  font-size: 14px;
+  color: #888;
+}
+
+#messageContainer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 12px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+#sendMessageToContentScript,
+#sendMessageToBackgroundScript {
+  width: 170px; /* Adjust the width to your preference */
+}
