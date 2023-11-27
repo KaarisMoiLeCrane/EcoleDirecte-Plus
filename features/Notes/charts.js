@@ -96,7 +96,7 @@
       // console.log(notes)
 
       // If there is a grade
-      if (gradesDataClean != []) {
+      if (gradesDataClean.length) {
         const subjectMeanAndCoefficientEvolution = [];
 
         const gradesSumOfValuesEvolution = [];
@@ -767,11 +767,11 @@ Revient à: ${(
           document.getElementById('chart-bar').getContext('2d'),
           datasBar
         );
-      }
 
-      chartBar.update();
+        chartBar.update();
+      }
     }
-  };
+  }
 
   exports({charts}).to('./features/Notes/charts.js');
 })();
