@@ -93,6 +93,7 @@
         (totalSubjectGradeCoefficients - summedGrades)
     ).toFixed(5);
 
+    // If it's NaN, it means that there is not enough grades means to calculate it
     if (calculatedVariationValue == NaN) return NaN;
 
     let variationStyle =
