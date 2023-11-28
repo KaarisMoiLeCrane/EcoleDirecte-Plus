@@ -1,13 +1,4 @@
 (() => {
-  const initPopup = imports('initPopup').from('./utils/utils.js');
-
-  const getData = imports('getData').from('./utils/utils.js');
-  const setData = imports('setData').from('./utils/utils.js');
-
-  const initUserSimulationNote = imports('initUserSimulationNote').from(
-    './utils/utils.js'
-  );
-
   const ajouterNote = imports('ajouterNote').from(
     './features/Notes/functions/ajouter-note.js'
   );
@@ -26,7 +17,7 @@
     ) {
       const legendGradeSimulationElement = document
         .querySelector('table caption')
-        .parentElement.kmlcGetElementsByContentText('(note)')
+        .parentElement.getElementsByContentText('(note)')
         .startsWith[0].cloneNode(true);
       legendGradeSimulationElement.setAttribute('kmlc-text-note', 'true');
 
@@ -38,24 +29,13 @@
 
       document
         .querySelector('table caption')
-        .parentElement.kmlcGetElementsByContentText('(note)')
-        .startsWith[0].kmlcInsertAfter(legendGradeSimulationElement);
+        .parentElement.getElementsByContentText('(note)')
+        .startsWith[0].insertAfter(legendGradeSimulationElement);
     }
 
     // If there is no button to add the grades then we add it
     if (!document.querySelector('[kmlc-bouton-note]')) {
       const activeButton = document.querySelector(buttonSelector);
-
-      const popupID = 'kmlc-simulationNote-popup';
-      const blurID = 'kmlc-simulationNote-blur';
-
-      let popup = document.querySelector('#' + popupID);
-      let blur = document.querySelector('#' + blurID);
-
-      if (popup) {
-        popup.remove();
-        blur.remove();
-      }
 
       const buttonAddGrade = activeButton.cloneNode(true);
       buttonAddGrade.className = buttonAddGrade.className.replace('active', '');
@@ -68,12 +48,15 @@
         e.stopPropagation();
         e.preventDefault();
 
-        popup = document.querySelector('#' + popupID);
-        blur = document.querySelector('#' + blurID);
+        const popupID = 'kmlc-simulationNote-popup';
+        const blurID = 'kmlc-simulationNote-blur';
+
+        let popup = document.querySelector('#' + popupID);
+        let blur = document.querySelector('#' + blurID);
 
         if (!popup) {
           // console.log(789, items.objectifMoyenne)
-          const popupDatas = initPopup(popupID, blurID);
+          const popupDatas = globalThis.Utils.initPopup(popupID, blurID);
           popup = popupDatas[0];
           blur = popupDatas[1];
 
@@ -139,8 +122,8 @@
   }
 
   async function changePopupInnerHTML(popup, blur) {
-    await initUserSimulationNote(globalThis.userId);
-    const simulationNote = await getData('simulationNote');
+    await globalThis.Utils.initUserSimulationNote(globalThis.userId);
+    const simulationNote = await globalThis.Utils.getData('simulationNote');
 
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const actualPeriodeElement = document.querySelector(
@@ -197,6 +180,8 @@
 
               break;
             }
+          } else {
+            break;
           }
         }
       }
@@ -271,8 +256,8 @@
           inputBoxes[i].value = '';
         }
 
-        await initUserSimulationNote(globalThis.userId);
-        const simulationNote = await getData('simulationNote');
+        await globalThis.Utils.initUserSimulationNote(globalThis.userId);
+        const simulationNote = await globalThis.Utils.getData('simulationNote');
 
         // console.log(simulationNote)
 
@@ -289,8 +274,8 @@
 
         // console.log(dummy, userContent, index, simulationNote)
 
-        await setData('simulationNote', simulationNote);
-        await initUserSimulationNote(globalThis.userId);
+        await globalThis.Utils.setData('simulationNote', simulationNote);
+        await globalThis.Utils.initUserSimulationNote(globalThis.userId);
 
         await changePopupInnerHTML(popup);
 
@@ -324,7 +309,7 @@
         e.preventDefault();
 
         blur.click();
-        calculerMoyennes(3,
+        calculerMoyennes(
           true,
           'kmlc-simu-moyenne-g',
           'color: green;',
@@ -332,7 +317,7 @@
           'color: green;',
           true
         );
-        calculerMoyennes(4,
+        calculerMoyennes(
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',
@@ -433,8 +418,8 @@
 
     if (!saveGrade) return;
 
-    await initUserSimulationNote(globalThis.userId);
-    const simulationNote = await getData('simulationNote');
+    await globalThis.Utils.initUserSimulationNote(globalThis.userId);
+    const simulationNote = await globalThis.Utils.getData('simulationNote');
     const userContent = simulationNote.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;
     });
@@ -479,17 +464,25 @@
       }
     }
 
+    // browser.storage.sync.set({["simulationNote"]: simulationNote}, function () {
+    // if (browser.runtime.lastError) {
+    // console.error("Error setting data:", browser.runtime.lastError);
+    // } else {
+    // console.log("Data set successfully.");
+    // }
+    // });
+
     simulationNote[index] = userContent;
 
     // console.log(userContent)
 
-    await setData('simulationNote', simulationNote);
+    await globalThis.Utils.setData('simulationNote', simulationNote);
   }
 
   async function reloadNoteSimulation() {
-    await initUserSimulationNote(globalThis.userId);
+    await globalThis.Utils.initUserSimulationNote(globalThis.userId);
 
-    const simulationNote = await getData('simulationNote');
+    const simulationNote = await globalThis.Utils.getData('simulationNote');
     const userContent = simulationNote.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;
     });
@@ -498,8 +491,6 @@
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
     );
-
-    const addedGradesListDatas = []
 
     for (let i = 0; i < subjectNames.length; i++) {
       const subjectName = subjectNames[i].textContent;
@@ -522,43 +513,30 @@
               const subjectGradeName = subjectName;
               const gradeTitle = subjectGrade.titre;
               const gradeValue = subjectGrade.note;
-              const gradeCoefficient = subjectGrade.coeff;
+              const gradeCpefficient = subjectGrade.coeff;
               const gradeQuotient = subjectGrade.quotient;
               const gradeId = subjectGrade.id;
               const save = true;
-              
-              addedGradesListDatas.push({
-                subjectName: subjectGradeName,
-                title: gradeTitle,
-                value: gradeValue,
-                coefficient: gradeCoefficient,
-                quotient: gradeQuotient,
-                id: gradeId,
-                save: save
-              })
+              let calculateGlobalMean = false;
+
+              if (k == subjectGrades.length - 1) {
+                calculateGlobalMean = true;
+              }
+
+              ajouterNote(
+                subjectGradeName,
+                gradeTitle,
+                gradeValue,
+                gradeCpefficient,
+                gradeQuotient,
+                gradeId,
+                save,
+                calculateGlobalMean
+              );
             }
           }
         }
       }
-    }
-
-    for (let i = 0; i < addedGradesListDatas.length; i++) {
-      let calculateGlobalMean = false;
-
-      if (i == addedGradesListDatas.length - 1) {
-        calculateGlobalMean = true;
-      }
-
-      ajouterNote(
-        addedGradesListDatas[i].subjectName,
-        addedGradesListDatas[i].title,
-        addedGradesListDatas[i].value,
-        addedGradesListDatas[i].coefficient,
-        addedGradesListDatas[i].quotient,
-        addedGradesListDatas[i].id,
-        addedGradesListDatas[i].save,
-        calculateGlobalMean
-      );
     }
   }
   exports({ajouterNoteSimulation}).to('./features/Notes/ajouter-note-simulation.js');
