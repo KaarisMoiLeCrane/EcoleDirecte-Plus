@@ -397,25 +397,26 @@
   }
 
   async function applyGradeSimulationGoal(
-    subjectGrade,
-    titleGrade,
+    subjectName,
+    gradeTitle,
     gradeValue,
-    coeffGrade,
-    quotientGrade,
-    idGrade,
-    save
+    gradeCoefficient,
+    gradeQuotient,
+    gradeId,
+    saveGrade
   ) {
     ajouterNote(
-      subjectGrade,
-      titleGrade,
+      subjectName,
+      gradeTitle,
       gradeValue,
-      coeffGrade,
-      quotientGrade,
-      idGrade,
-      save
+      gradeCoefficient,
+      gradeQuotient,
+      gradeId,
+      saveGrade,
+      false // Calculate global mean
     );
 
-    if (!save) return;
+    if (!saveGrade) return;
 
     await globalThis.Utils.initUserSimulationNote(globalThis.userId);
     const simulationNote = await globalThis.Utils.getData('simulationNote');
@@ -438,26 +439,26 @@
           userContentPeriode.dateDebut &&
         userContentPeriode.dateFin <= Number(actualPeriodeElement.getAttribute('dateFin'))
       ) {
-        if (userContentPeriode.notes.ajouter[subjectGrade]) {
-          userContentPeriode.notes[subjectGrade].ajouter.push({
-            titre: titleGrade,
+        if (userContentPeriode.notes.ajouter[subjectName]) {
+          userContentPeriode.notes[subjectName].ajouter.push({
+            titre: gradeTitle,
             note: gradeValue,
-            coeff: coeffGrade,
-            quotient: quotientGrade,
-            id: idGrade
+            coeff: gradeCoefficient,
+            quotient: gradeQuotient,
+            id: gradeId
           });
           skip = !true;
         }
 
         // If the subject not exist we add it and with the goal
         if (skip) {
-          userContentPeriode.notes.ajouter[subjectGrade] = [];
-          userContentPeriode.notes.ajouter[subjectGrade].push({
-            titre: titleGrade,
+          userContentPeriode.notes.ajouter[subjectName] = [];
+          userContentPeriode.notes.ajouter[subjectName].push({
+            titre: gradeTitle,
             note: gradeValue,
-            coeff: coeffGrade,
-            quotient: quotientGrade,
-            id: idGrade
+            coeff: gradeCoefficient,
+            quotient: gradeQuotient,
+            id: gradeId
           });
         }
       }
@@ -516,6 +517,11 @@
               const gradeQuotient = subjectGrade.quotient;
               const gradeId = subjectGrade.id;
               const save = true;
+              let calculateGlobalMean = false;
+
+              if (k == subjectGrades.length - 1) {
+                calculateGlobalMean = true;
+              }
 
               ajouterNote(
                 subjectGradeName,
@@ -524,7 +530,8 @@
                 gradeCpefficient,
                 gradeQuotient,
                 gradeId,
-                save
+                save,
+                calculateGlobalMean
               );
             }
           }
