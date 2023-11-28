@@ -93,7 +93,7 @@
         (totalSubjectGradeCoefficients - summedGrades)
     ).toFixed(5);
 
-    if (calculatedVariationValue == NaN) return NaN
+    if (calculatedVariationValue == NaN) return NaN;
 
     let variationStyle =
       'background-color: rgb(255, 255, 255, 0.250); border-radius: 3px;';
