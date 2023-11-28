@@ -87,22 +87,24 @@
       }
     }
 
-    const calculatedValue = (
+    const calculatedVariationValue = (
       globalMean -
       (globalMean * totalSubjectGradeCoefficients - subjectMean * summedGrades) /
         (totalSubjectGradeCoefficients - summedGrades)
     ).toFixed(5);
+
+    if (calculatedVariationValue == NaN) return NaN
 
     let variationStyle =
       'background-color: rgb(255, 255, 255, 0.250); border-radius: 3px;';
     let variationImpact = 'neutre';
     let tooltipClass = '';
 
-    if (calculatedValue > 0.2) {
+    if (calculatedVariationValue > 0.2) {
       variationStyle = 'background-color: rgb(0, 255, 0, 0.250); border-radius: 3px;';
       variationImpact = 'très positive';
       tooltipClass = ' kmlc-tooltip-green';
-    } else if (calculatedValue <= 0.2 && calculatedValue > 0) {
+    } else if (calculatedVariationValue <= 0.2 && calculatedVariationValue > 0) {
       variationStyle = 'background-color: rgb(255, 127.5, 0, 0.250); border-radius: 3px;';
       variationImpact = 'positive';
       tooltipClass = ' kmlc-tooltip-orange';
@@ -154,7 +156,7 @@
         if (!elementDisciplineSubjectToCalculate.className.includes('kmlc-note-parent')) {
           const variationTooltipElement = document.createElement('SPAN');
           variationTooltipElement.textContent =
-            'Variation ' + variationImpact + ' de ' + calculatedValue;
+            'Variation ' + variationImpact + ' de ' + calculatedVariationValue;
           variationTooltipElement.className = tooltipClass;
 
           elementDisciplineSubjectToCalculate.className += ' kmlc-note-parent';
@@ -198,7 +200,7 @@
           ) {
             const variationTooltipElement = document.createElement('SPAN');
             variationTooltipElement.textContent =
-              'Variation commune ' + variationImpact + ' de ' + calculatedValue;
+              'Variation commune ' + variationImpact + ' de ' + calculatedVariationValue;
             variationTooltipElement.className = tooltipClass;
 
             elementDisciplineSubjectToCalculate[i].className += ' kmlc-note-parent';
@@ -210,7 +212,7 @@
       }
     }
 
-    return calculatedValue;
+    return calculatedVariationValue;
   }
 
   exports({calculerVariationMoyenne}).to(
