@@ -1,6 +1,8 @@
 (() => {
-  const calculerMoyennes = imports("calculerMoyennes").from('./features/Notes/functions/calculer-moyennes.js');
-  
+  const calculerMoyennes = imports('calculerMoyennes').from(
+    './features/Notes/functions/calculer-moyennes.js'
+  );
+
   function ajouterNote(
     subjectName,
     gradeTitle,
@@ -24,10 +26,10 @@
        */
 
       for (let i = 0; i < listSubjects.length; i++) {
-        const subject = listSubjects[i]
+        const subject = listSubjects[i];
 
         if (subject.textContent == subjectName) {
-          const subjectRow = subject.parentElement.parentElement;
+          let subjectRow = subject.parentElement.parentElement;
 
           if (subjectRow.className.includes('kmlc-note-parent'))
             subjectRow = subjectRow.parentElement;
