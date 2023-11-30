@@ -173,7 +173,7 @@
       );
     }
 
-    // globalThis.Notes.modifierNoteSimulation()
+    // modifierNoteSimulation()
 
     return skip;
   }

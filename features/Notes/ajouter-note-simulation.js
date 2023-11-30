@@ -464,14 +464,6 @@
       }
     }
 
-    // browser.storage.sync.set({["simulationNote"]: simulationNote}, function () {
-    // if (browser.runtime.lastError) {
-    // console.error("Error setting data:", browser.runtime.lastError);
-    // } else {
-    // console.log("Data set successfully.");
-    // }
-    // });
-
     simulationNote[index] = userContent;
 
     // console.log(userContent)

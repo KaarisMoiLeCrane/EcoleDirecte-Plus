@@ -1,4 +1,4 @@
-// I didn't find any updated version that works probably because of the import()
+// I didn't find any updated version that works because of the import()
 
 /*!
  * Chart.js v3.9.1
