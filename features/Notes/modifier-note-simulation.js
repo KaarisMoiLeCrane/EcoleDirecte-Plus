@@ -1,4 +1,13 @@
 (() => {
+  const initPopup = imports('initPopup').from('./utils/utils.js');
+
+  const getData = imports('setData').from('./utils/utils.js');
+  const setData = imports('setData').from('./utils/utils.js');
+
+  const initUserSimulationNote = imports('initUserSimulationNote').from(
+    './utils/utils.js'
+  );
+
   const calculerMoyennes = imports('calculerMoyennes').from(
     './features/Notes/functions/calculer-moyennes.js'
   );
@@ -58,7 +67,7 @@
           let blur = document.querySelector('#' + blurID);
 
           if (!popup) {
-            const popupDatas = globalThis.Utils.initPopup(popupID, blurID);
+            const popupDatas = initPopup(popupID, blurID);
             popup = popupDatas[0];
             blur = popupDatas[1];
           }
@@ -123,8 +132,8 @@
   }
 
   async function changePopupInnerHTML(popup, blur, gradeId, gradeElement) {
-    await globalThis.Utils.initUserSimulationNote(globalThis.userId);
-    const simulationNote = await globalThis.Utils.getData('simulationNote');
+    await initUserSimulationNote(globalThis.userId);
+    const simulationNote = await getData('simulationNote');
 
     const userContent = simulationNote.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;
@@ -401,8 +410,8 @@
         e.stopPropagation();
         e.preventDefault();
 
-        await globalThis.Utils.initUserSimulationNote(globalThis.userId);
-        const simulationNote = await globalThis.Utils.getData('simulationNote');
+        await initUserSimulationNote(globalThis.userId);
+        const simulationNote = await getData('simulationNote');
 
         const userContent = simulationNote.find((item) => {
           if (item) if (item.id) return item.id == globalThis.userId;
@@ -418,8 +427,8 @@
 
         simulationNote[indexOfUserContent] = userContent;
 
-        await globalThis.Utils.setData('simulationNote', simulationNote);
-        await globalThis.Utils.initUserSimulationNote(globalThis.userId);
+        await setData('simulationNote', simulationNote);
+        await initUserSimulationNote(globalThis.userId);
 
         const allSimulationSubjectMeansElements = Array.from(
           document.querySelectorAll('*')
@@ -523,8 +532,8 @@
     if (!save) return;
 
     if (go) {
-      await globalThis.Utils.initUserSimulationNote(globalThis.userId);
-      const simulationNote = await globalThis.Utils.getData('simulationNote');
+      await initUserSimulationNote(globalThis.userId);
+      const simulationNote = await getData('simulationNote');
 
       const userContent = simulationNote.find((item) => {
         if (item) if (item.id) return item.id == globalThis.userId;
@@ -588,15 +597,15 @@
       }
 
       simulationNote[indexOfUserContent] = userContent;
-      await globalThis.Utils.setData('simulationNote', simulationNote);
+      await setData('simulationNote', simulationNote);
     } else {
       console.log('You are asking a very hard work');
     }
   }
 
   async function reloadNoteSimulation() {
-    await globalThis.Utils.initUserSimulationNote(globalThis.userId);
-    const simulationNote = await globalThis.Utils.getData('simulationNote');
+    await initUserSimulationNote(globalThis.userId);
+    const simulationNote = await getData('simulationNote');
 
     const userContent = simulationNote.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;

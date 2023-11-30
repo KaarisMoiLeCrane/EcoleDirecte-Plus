@@ -1,4 +1,6 @@
 (() => {
+  const numToDate = imports('numToDate').from('./utils/utils.js');
+
   function homeworkStatus(homeworks) {
     // For each day with homeworks
     const homeworksDates = Object.keys(homeworks);
@@ -60,7 +62,7 @@
               (
                 parseInt(date.split('-')[2]) +
                 ' ' +
-                globalThis.Utils.numToDate(date.split('-')[1]).norm
+                numToDate(date.split('-')[1]).norm
               ).toLowerCase()
             );
             */
@@ -73,7 +75,7 @@
               (
                 parseInt(homeworksDate.split('-')[2]) +
                 ' ' +
-                globalThis.Utils.numToDate(homeworksDate.split('-')[1]).norm
+                numToDate(homeworksDate.split('-')[1]).norm
               ).toLowerCase()
             ) {
               // Change the background color of the card containing the specific date
