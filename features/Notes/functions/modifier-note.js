@@ -9,20 +9,18 @@
     gradeValue,
     gradeCoefficient,
     gradeQuotient,
-    gradeModifId,
+    gradeModificationId,
     gradeElement = false,
-    gradeSimulationId = false,
+    gradeId = false,
     saveGradeModification = false,
     calulateGlobalMean = true
   ) {
     let skip = !false;
 
-    if (!gradeSimulationId) skip = false;
-
     if (!gradeElement || typeof gradeElement != 'object') {
-      if (document.querySelector("[id = '" + gradeSimulationId + "']")) {
+      if (document.querySelector("[id = '" + gradeId + "']")) {
         gradeElement = document
-          .querySelector("[id = '" + gradeSimulationId + "']")
+          .querySelector("[id = '" + gradeId + "']")
           .querySelector('[class *= valeur]');
         skip = !false;
       } else {
@@ -54,7 +52,7 @@
 				is not a big deal, it will edit one of them and have the intended effect.
 				
 				KMLC
-			*/
+			  */
       }
     }
 
@@ -128,7 +126,7 @@
 
         gradeElement.appendChild(coefficientElement);
 
-        gradeElementCoefficient.outerHTML =
+        gradeElement.querySelector('sup').outerHTML =
           '<sup class="coef ng-star-inserted"> (' +
           gradeCoefficient +
           ') <span class="margin-whitespace"></span></sup>';
@@ -143,8 +141,8 @@
 
         gradeElement.appendChild(quotientElement);
 
-        gradeElementQuotient.outerHTML =
-          '<sub class="coef ng-star-inserted"> /' +
+        gradeElement.querySelector('sub').outerHTML =
+          '<sub class="quotient ng-star-inserted"> /' +
           gradeQuotient +
           ' <span class="margin-whitespace"></span></sub>';
       }

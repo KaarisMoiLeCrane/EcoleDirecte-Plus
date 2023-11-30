@@ -248,20 +248,20 @@
 
         // console.log(gradeElement, subjectGrade)
 
-        const newGradeTitle = this.parentElement.parentElement.querySelector(
+        let newGradeTitle = this.parentElement.parentElement.querySelector(
           '#kmlc-modification-grade-simulation-input-title'
         ).value;
-        const newGradeValue = this.parentElement.parentElement
+        let newGradeValue = this.parentElement.parentElement
           .querySelector('#kmlc-modification-grade-simulation-input-grade')
           .value.replace(/[()\/\s]/g, '')
           .replace(',', '.')
           .replace(/[^\d+\-*/.\s]/g, '');
-        const newGradeCoefficient = this.parentElement.parentElement
+        let newGradeCoefficient = this.parentElement.parentElement
           .querySelector('#kmlc-modification-grade-simulation-input-coeff')
           .value.replace(/[()\/\s]/g, '')
           .replace(',', '.')
           .replace(/[^\d+\-*/.\s]/g, '');
-        const newGradeQuotient = this.parentElement.parentElement
+        let newGradeQuotient = this.parentElement.parentElement
           .querySelector('#kmlc-modification-grade-simulation-input-quotient')
           .value.replace(/[()\/\s]/g, '')
           .replace(',', '.')
@@ -271,13 +271,12 @@
         ).checked;
 
         // console.log(123)
-
         // If nothing return
         if (
-          newGradeTitle != '' &&
-          newGradeValue != '' &&
-          newGradeCoefficient != '' &&
-          newGradeQuotient != ''
+          newGradeTitle == '' &&
+          newGradeValue == '' &&
+          newGradeCoefficient == '' &&
+          newGradeQuotient == ''
         )
           return;
 
@@ -530,6 +529,7 @@
     );
 
     if (!save) return;
+    if (!gradeId) return;
 
     if (go) {
       await initUserSimulationNote(globalThis.userId);
@@ -634,36 +634,24 @@
             if (!notesMatiere) continue;
 
             for (let k = 0; k < notesMatiere.length; k++) {
-              let subjectGrade = subjectGrades[i].textContent;
-              let titleGrade = notesMatiere[k].titre;
-              let gradeValue = notesMatiere[k].note;
-              let coeffGrade = notesMatiere[k].coeff;
-              let quotientGrade = notesMatiere[k].quotient;
-              let gradeSimulationId = notesMatiere[k].gradeSimulationId;
-              let gradeModifId = notesMatiere[k].gradeModifId;
-              let save = true;
-
-              console.log(
-                subjectGrade,
-                titleGrade,
-                gradeValue,
-                coeffGrade,
-                quotientGrade,
-                gradeModifId,
-                false,
-                gradeSimulationId,
-                save
-              );
+              const subjectGrade = subjectGrades[i].textContent;
+              const gradeTitle = notesMatiere[k].titre;
+              const gradeValue = notesMatiere[k].note;
+              const gradeCoefficient = notesMatiere[k].coeff;
+              const gradeQuotient = notesMatiere[k].quotient;
+              const gradeId = notesMatiere[k].gradeSimulationId;
+              const gradeModificationId = notesMatiere[k].gradeModifId;
+              const save = true;
 
               modifierNote(
                 subjectGrade,
-                titleGrade,
+                gradeTitle,
                 gradeValue,
-                coeffGrade,
-                quotientGrade,
-                gradeModifId,
+                gradeCoefficient,
+                gradeQuotient,
+                gradeModificationId,
                 false,
-                gradeSimulationId,
+                gradeId,
                 save
               );
             }
