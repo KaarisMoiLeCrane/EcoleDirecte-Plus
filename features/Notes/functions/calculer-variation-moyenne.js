@@ -9,7 +9,8 @@
     const globalMean = parseFloat(
       document
         .querySelector('[kmlc-moyenne-g]')
-        .innerText.replace(/[()\/\s]/g, '')
+        .innerText.split(' ')[0]
+        .replace(/[()\/\s]/g, '')
         .replace(',', '.')
         .replace(/[^\d+\-*/.\s]/g, '')
     );

@@ -1,11 +1,11 @@
 (() => {
   function calculerMoyennes(
-    withAddedGrade = false,
+    displayCalculatedMeansValues = false,
     attributeGlobalMean = '',
     styleGlobalMean = '',
     attributeMean = '',
     styleMean = '',
-    withOldGrade = false,
+    withOldGradeDatas = false,
     attributeOfSubjectsToCalculate = '',
     elementDisciplineSubjectToExclude = ''
   ) {
@@ -78,7 +78,7 @@
         // Get the coefficient of the grade
 
         // Regex to replace "," with "." and the spaces with nothing and / with nothing
-        if (withOldGrade) {
+        if (withOldGradeDatas) {
           if (subjectGrade.parentElement.getAttribute('kmlc-note-simu-modifier')) {
             const subjectGradeOldCoefficient = subjectGrade.getAttribute('anciencoeff');
 
@@ -110,7 +110,7 @@
 
         // Get the quotient of the grade
         // Regex to replace "," with "." and the spaces with nothing and / with nothing
-        if (withOldGrade) {
+        if (withOldGradeDatas) {
           if (subjectGrade.parentElement.getAttribute('kmlc-note-simu-modifier')) {
             const subjectGradeOldQuotient = subjectGrade.getAttribute('ancienquotient');
 
@@ -139,7 +139,7 @@
         skip = !false;
 
         // Get the grade and replace all the white spaces and letters with nothing and the "," with "."
-        if (withOldGrade) {
+        if (withOldGradeDatas) {
           if (subjectGrade.parentElement.getAttribute('kmlc-note-simu-modifier')) {
             let subjectGradeOldValue = subjectGrade.getAttribute('anciennenote');
 
@@ -225,7 +225,7 @@
           .querySelector('td.relevemoyenne')
           .cloneNode(true);
         averageElement.textContent = subjectMean.toFixed(5);
-        if (withAddedGrade) {
+        if (displayCalculatedMeansValues) {
           if (!subjectRow.querySelector('[' + attributeMean + ']')) {
             subjectRow.querySelector('td.relevemoyenne').innerHTML =
               subjectRow.querySelector('td.relevemoyenne').innerHTML +
@@ -251,14 +251,17 @@
 
     // We calculate the overall average
     calculatedGlobalMean = allSubjectsMeans / allSubjectsCoefficients;
+    const calculatedGlobalMeanRound5 = calculatedGlobalMean.toFixed(5);
+    const calculatedGlobalMeanRound2 = calculatedGlobalMean.toFixed(2);
 
     // If there is the overall average row we add our overall average in a new line. If not, we create it and put it in a new line as well (the first line is blank)
-    if (withAddedGrade) {
+    if (displayCalculatedMeansValues) {
       if (document.querySelector('tr > td.moyennegenerale-valeur')) {
         const overallAverageElement = document
           .querySelector('tr > td.moyennegenerale-valeur')
           .cloneNode(true);
-        overallAverageElement.textContent = calculatedGlobalMean.toFixed(5);
+        overallAverageElement.textContent =
+          calculatedGlobalMeanRound5 + ' (' + calculatedGlobalMeanRound2 + ')';
         // console.log(9, document.querySelector("tr > td.moyennegenerale-valeur"))
 
         if (!document.querySelector('[' + attributeGlobalMean + ']')) {
@@ -275,7 +278,7 @@
             '</span>';
         } else {
           document.querySelector('[' + attributeGlobalMean + ']').textContent =
-            calculatedGlobalMean.toFixed(5);
+            calculatedGlobalMeanRound5 + ' (' + calculatedGlobalMeanRound2 + ')';
         }
       } else {
         const overallAverageElement = document.createElement('tr');
@@ -285,7 +288,10 @@
           '="true" style="' +
           styleGlobalMean +
           '">' +
-          calculatedGlobalMean.toFixed(5);
+          calculatedGlobalMeanRound5 +
+          ' (' +
+          calculatedGlobalMeanRound2 +
+          ')';
         +'</span></td></tr>';
         // console.log(10, overallAverageElement, document.querySelector("table.ed-table tbody"))
 
@@ -295,12 +301,12 @@
             .appendChild(overallAverageElement);
         } else {
           document.querySelector('[' + attributeGlobalMean + ']').textContent =
-            calculatedGlobalMean.toFixed(5);
+            calculatedGlobalMeanRound5 + ' (' + calculatedGlobalMeanRound2 + ')';
         }
       }
     }
 
-    return calculatedGlobalMean.toFixed(5);
+    return calculatedGlobalMeanRound5, calculatedGlobalMeanRound2;
 
     // console.log(moyenneG, matieresMoyenne, coeffMatTot)
   }
