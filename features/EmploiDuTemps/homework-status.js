@@ -4,7 +4,7 @@
     const homeworksDates = Object.keys(homeworks);
     for (let i = 0; i < homeworksDates.length; i++) {
       const homeworksDate = homeworksDates[i];
-      document.waitForElement('div [class *= dhx_scale_holder]:nth-child(7)').then(() => {
+      document.kmlcWaitForElement('div [class *= dhx_scale_holder]:nth-child(7)').then(() => {
         // Get the date of each day displayed in the schedule
         const scheduleDates = document.querySelectorAll('[class *= dhx_scale_bar]');
 
@@ -81,13 +81,13 @@
               // Search for the correct subject and then add the correct symbol for the subject
               const subjects = document
                 .querySelectorAll('div [class *= dhx_scale_holder]')
-                [k].getElementsByContentText(homework.matiere).startsWith;
+                [k].kmlcGetElementsByContentText(homework.matiere).startsWith;
               if (subjects) {
                 for (let l = 0; l < subjects.length; l++) {
                   if (!subjects[l].outerHTML.includes(symbol))
                     subjects[l].outerHTML = subjects[l].outerHTML.replace(
-                      homework.matiere.htmlEncode(),
-                      symbol + '<br>' + homework.matiere.htmlEncode()
+                      homework.matiere.kmlcHtmlEncode(),
+                      symbol + '<br>' + homework.matiere.kmlcHtmlEncode()
                     );
                 }
               }

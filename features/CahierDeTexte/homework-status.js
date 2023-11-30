@@ -3,7 +3,7 @@
     // For each day with homeworks
     const homeworksDates = Object.keys(homeworks);
 
-    document.waitForElement('h3[class *= date]').then(() => {
+    document.kmlcWaitForElement('h3[class *= date]').then(() => {
       for (let i = 0; i < homeworksDates.length; i++) {
         const homeworksDate = homeworksDates[i];
         // Get the date of each homework displayed on the homework section
@@ -112,7 +112,7 @@
               // Search for the correct subject and then add the correct symbol for the subject
               let cahierDeTexteHomeworkSubject = cahierDeTexteDates[
                 k
-              ].parentElement.parentElement.getElementsByContentText(
+              ].parentElement.parentElement.kmlcGetElementsByContentText(
                 ' ' + homework.matiere
               ).startsWith;
 
@@ -125,8 +125,8 @@
                     cahierDeTexteHomeworkSubject.parentElement.parentElement;
 
                   subjectCard.outerHTML = subjectCard.outerHTML.replace(
-                    ' ' + homework.matiere.htmlEncode(),
-                    symbol + ' ' + homework.matiere.htmlEncode()
+                    ' ' + homework.matiere.kmlcHtmlEncode(),
+                    symbol + ' ' + homework.matiere.kmlcHtmlEncode()
                   );
 
                   /*

@@ -21,7 +21,7 @@
       homeworkStatus(homeworksData);
 
       // Wait for the button to return to today in the schedule
-      document.waitForElement('#export-pdf').then((buttonExportPDF) => {
+      document.kmlcWaitForElement('#export-pdf').then((buttonExportPDF) => {
         // Check if the button to get the homeworks exist
 
         if (!document.querySelector('#devoirs')) {
@@ -48,7 +48,7 @@
       });
 
       // Wait for the previous button to appear and add a click listener
-      document.waitForElement('.dhx_cal_prev_button').then((buttonPreviousSchedule) => {
+      document.kmlcWaitForElement('.dhx_cal_prev_button').then((buttonPreviousSchedule) => {
         if (!buttonPreviousSchedule.getAttribute('kmlc-prev-button')) {
           buttonPreviousSchedule.setAttribute('kmlc-prev-button', 'true');
           buttonPreviousSchedule.addEventListener(
@@ -88,7 +88,7 @@
               prom.then(() => {
                 // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.waitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
+                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
                   homeworkStatus(homeworksData);
                 });
               });
@@ -99,7 +99,7 @@
       });
 
       // Wait for the next button to appear and add a click listener
-      document.waitForElement('.dhx_cal_next_button').then((buttonNextSchedule) => {
+      document.kmlcWaitForElement('.dhx_cal_next_button').then((buttonNextSchedule) => {
         if (!buttonNextSchedule.getAttribute('kmlc-next-button')) {
           buttonNextSchedule.setAttribute('kmlc-next-button', 'true');
           buttonNextSchedule.addEventListener(
@@ -138,7 +138,7 @@
               prom.then(() => {
                 // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.waitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
+                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
                   homeworkStatus(homeworksData);
                 });
               });
@@ -149,7 +149,7 @@
       });
 
       // Wait for the button to return to today in the schedule to appear and add a click listener
-      document.waitForElement('#view-today').then((buttonTodaySchedule) => {
+      document.kmlcWaitForElement('#view-today').then((buttonTodaySchedule) => {
         if (!buttonTodaySchedule.getAttribute('kmlc-today-button')) {
           buttonTodaySchedule.setAttribute('kmlc-today-button', 'true');
           buttonTodaySchedule.addEventListener(
@@ -188,7 +188,7 @@
               prom.then(() => {
                 // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.waitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
+                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
                   homeworkStatus(homeworksData);
                 });
               });
@@ -198,7 +198,7 @@
         }
       });
 
-      // document.waitForElement(".filtres-agenda > *:nth-child(2)").then((elm) => {
+      // document.kmlcWaitForElement(".filtres-agenda > *:nth-child(2)").then((elm) => {
       // elm = elm.parentElement
       // for (let i = 0; i < elm.children.length; i++) {
       // if (!elm.children[i].getAttribute("kmlc-filtre-button")) {
@@ -207,7 +207,7 @@
       // e.stopPropagation()
       // e.preventDefault()
 
-      // document.waitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
+      // document.kmlcWaitForElement("div.dhx_scale_holder:nth-child(7)").then((elm) => {
       // homeworkStatus(dev)
       // })
       // }, false);
@@ -222,7 +222,7 @@
     if (backdropScript) {
       backdropScript = false;
       document
-        .waitForElement(
+        .kmlcWaitForElement(
           "div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])"
         )
         .then(() => {

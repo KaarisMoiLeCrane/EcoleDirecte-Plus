@@ -443,7 +443,7 @@ header .image-text .profession {
 
       ul.appendChild(li);
 
-      menu[0].insertAfter(ul);
+      menu[0].kmlcInsertAfter(ul);
 
       // Adding after each person in the account a new HTML "LI" element to add some spaces between each person in the navigation bar
       for (let i = 1; i < menu.length; i++) {
@@ -460,7 +460,7 @@ header .image-text .profession {
 
         ul.appendChild(li);
 
-        menu[i].insertAfter(ul);
+        menu[i].kmlcInsertAfter(ul);
       }
 
       // For each HTML "header" element with no class so for each person associated text and picture, if someone click on it, it will hide (or show) the menu wrapping all sections associated with the person

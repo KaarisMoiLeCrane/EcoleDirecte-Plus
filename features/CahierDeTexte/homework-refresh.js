@@ -61,7 +61,7 @@
   }
 
   function executeHomeworkRefreshObserver(observer) {
-    document.waitForElement('.cahierdetexteimprimable').then((elm) => {
+    document.kmlcWaitForElement('.cahierdetexteimprimable').then((elm) => {
       observer.observe(elm, {
         attributes: true,
         childList: true,

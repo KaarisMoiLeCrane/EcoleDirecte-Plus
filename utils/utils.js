@@ -158,12 +158,12 @@ globalThis.Utils.newYear = function () {
 	// let oldDataPeriodes = globalThis.Notes.oldDataPeriodes
 
 	for (let i = 0; i < dataPeriodes.length; i++) {
-		dateDebutArr.push(dataPeriodes[i].dateDebut.convertToTimestamp());
-		dateFinArr.push(dataPeriodes[i].dateFin.convertToTimestamp());
+		dateDebutArr.push(dataPeriodes[i].dateDebut.kmlcConvertToTimestamp());
+		dateFinArr.push(dataPeriodes[i].dateFin.kmlcConvertToTimestamp());
 	}
 	// for (let i = 0; i < oldDataPeriodes.length; i++) {
-	// oldDateDebutArr.push(oldDataPeriodes[i].dateDebut.convertToTimestamp())
-	// oldDateFinArr.push(oldDataPeriodes[i].dateFin.convertToTimestamp())
+	// oldDateDebutArr.push(oldDataPeriodes[i].dateDebut.kmlcConvertToTimestamp())
+	// oldDateFinArr.push(oldDataPeriodes[i].dateFin.kmlcConvertToTimestamp())
 	// }
 
 	// oldDateDebutArr.sort(function(a, b) {
@@ -223,8 +223,8 @@ globalThis.Utils.initUserSimulationNote = async function (id) {
 			let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
 
 			userContent.periodes.push({
-				dateDebut: dataPeriodes[i].dateDebut.convertToTimestamp(),
-				dateFin: dataPeriodes[i].dateFin.convertToTimestamp(),
+				dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
+				dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
 				relevee: isR,
 				notes: {
 					ajouter: {
@@ -281,8 +281,8 @@ globalThis.Utils.initUserSimulationNote = async function (id) {
 				let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
 
 				userContent.periodes.push({
-					dateDebut: dataPeriodes[i].dateDebut.convertToTimestamp(),
-					dateFin: dataPeriodes[i].dateFin.convertToTimestamp(),
+					dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
+					dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
 					relevee: isR,
 					notes: {
 						ajouter: {
@@ -332,9 +332,9 @@ globalThis.Utils.initUserSimulationNote = async function (id) {
 			let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
 
 			userContent.periodes[i].dateDebut =
-				dataPeriodes[i].dateDebut.convertToTimestamp();
+				dataPeriodes[i].dateDebut.kmlcConvertToTimestamp();
 			userContent.periodes[i].dateFin =
-				dataPeriodes[i].dateFin.convertToTimestamp();
+				dataPeriodes[i].dateFin.kmlcConvertToTimestamp();
 			userContent.periodes[i].relevee = isR;
 
 			if (userContent.periodes[i].notes) {
@@ -481,8 +481,8 @@ globalThis.Utils.initUserObjectif = async function (id) {
 			}
 
 			userContent.periodes.push({
-				dateDebut: dataPeriodes[i].dateDebut.convertToTimestamp(),
-				dateFin: dataPeriodes[i].dateFin.convertToTimestamp(),
+				dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
+				dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
 				relevee: isR,
 				objectif: objectifData,
 			});
@@ -493,8 +493,8 @@ globalThis.Utils.initUserObjectif = async function (id) {
 				let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
 
 				userContent.periodes.push({
-					dateDebut: dataPeriodes[i].dateDebut.convertToTimestamp(),
-					dateFin: dataPeriodes[i].dateFin.convertToTimestamp(),
+					dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
+					dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
 					relevee: isR,
 					objectif: {
 						/*
@@ -516,9 +516,9 @@ globalThis.Utils.initUserObjectif = async function (id) {
 			let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
 
 			userContent.periodes[i].dateDebut =
-				dataPeriodes[i].dateDebut.convertToTimestamp();
+				dataPeriodes[i].dateDebut.kmlcConvertToTimestamp();
 			userContent.periodes[i].dateFin =
-				dataPeriodes[i].dateFin.convertToTimestamp();
+				dataPeriodes[i].dateFin.kmlcConvertToTimestamp();
 			userContent.periodes[i].relevee = isR;
 
 			if (!userContent.periodes[i].objectif) {
@@ -595,8 +595,8 @@ globalThis.Utils.initUserObjectif = async function (id) {
 	// let isR = dataPeriodes[i].codePeriode.includes("R") ? true : false
 
 	// userContent.periodes.push({
-	// "dateDebut": dataPeriodes[i].dateDebut.convertToTimestamp(),
-	// "dateFin": dataPeriodes[i].dateFin.convertToTimestamp(),
+	// "dateDebut": dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
+	// "dateFin": dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
 	// "relevee": isR,
 	// "objectif": {
 	// /*

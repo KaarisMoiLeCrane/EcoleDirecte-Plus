@@ -1,10 +1,10 @@
-Node.prototype.insertAfter = function (newNode) {
+Node.prototype.kmlcInsertAfter = function (newNode) {
 	if (this.nextElementSibling)
 		this.parentNode.insertBefore(newNode, this.nextElementSibling);
 	else this.parentNode.appendChild(newNode);
 };
 
-Node.prototype.getElementsByContentText = function (text) {
+Node.prototype.kmlcGetElementsByContentText = function (text) {
 	text = text.toLowerCase();
 	let DOMElements = [...this.getElementsByTagName('*')];
 	let obj = {
@@ -23,7 +23,7 @@ Node.prototype.getElementsByContentText = function (text) {
 	return obj;
 };
 
-Node.prototype.waitForElement = function (selector) {
+Node.prototype.kmlcWaitForElement = function (selector) {
 	return new Promise(resolve => {
 		if (this.querySelector(selector)) {
 			return resolve(this.querySelector(selector));
@@ -43,13 +43,13 @@ Node.prototype.waitForElement = function (selector) {
 	});
 };
 
-String.prototype.htmlEncode = function () {
+String.prototype.kmlcHtmlEncode = function () {
 	let p = document.createElement('p');
 	p.textContent = this;
 	return p.innerHTML;
 };
 
-String.prototype.convertToTimestamp = function () {
+String.prototype.kmlcConvertToTimestamp = function () {
 	const date = new Date(this);
 	return date.getTime();
 };
