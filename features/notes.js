@@ -2,14 +2,27 @@
   function main(id, token) {
     const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
 
+    const coeff = imports('coeff').from('./features/Notes/coeff.js');
+    const rang = imports({rang}).from('./features/Notes/rang.js');
+
     const calculerMoyennes = imports('calculerMoyennes').from(
       './features/Notes/functions/calculer-moyennes.js'
     );
+
+    const charts = imports('charts').from('./features/Notes/charts.js');
+
     const ajouterNoteSimulation = imports('ajouterNoteSimulation').from(
       './features/Notes/ajouter-note-simulation.js'
     );
-    const coeff = imports('coeff').from('./features/Notes/coeff.js');
-    const charts = imports("charts").from('./features/Notes/charts.js');
+    const modifierNoteSimulation = imports('modifierNoteSimulation').from(
+      './features/Notes/modifier-note-simulation.js'
+    );
+
+    const objectifSetup = imports('ajouterObjectifNote').from(
+      './features/Notes/objectif.js'
+    );
+
+    const variationMoyenne = imports("variationMoyenne").from("./features/Notes/variation-moyenne.js")
 
     const account = new EcoleDirecte(id, token);
 
@@ -26,7 +39,7 @@
       setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
       coeff(gradesData);
-      globalThis.Notes.rang(gradesData);
+      rang(gradesData);
 
       calculerMoyennes(
         true,
@@ -41,11 +54,11 @@
       charts(gradesData);
 
       ajouterNoteSimulation();
-      globalThis.Notes.modifierNoteSimulation();
+      modifierNoteSimulation();
 
-      globalThis.Notes.objectifSetup();
+      objectifSetup();
 
-      globalThis.Notes.variationMoyenne(periode, gradesData);
+      variationMoyenne(periode, gradesData);
     });
     // console.log(1)
     var notesObserver = new MutationObserver(function (mutations) {
@@ -68,7 +81,7 @@
             setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
             coeff(gradesData);
-            globalThis.Notes.rang(gradesData);
+            rang(gradesData);
 
             calculerMoyennes(
               true,
@@ -83,11 +96,11 @@
             charts(gradesData);
 
             ajouterNoteSimulation();
-            globalThis.Notes.modifierNoteSimulation();
+            modifierNoteSimulation();
 
-            globalThis.Notes.objectifSetup();
+            objectifSetup();
 
-            globalThis.Notes.variationMoyenne(periode, gradesData);
+            variationMoyenne(periode, gradesData);
           }
         } catch (e) {
           // console.log(e)

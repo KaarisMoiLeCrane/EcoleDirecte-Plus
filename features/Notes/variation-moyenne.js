@@ -1,8 +1,22 @@
-globalThis.Notes.variationMoyenne = function (periode, note) {
-    const calculerVariationMoyenne = imports("calculerVariationMoyenne").from("./features/Notes/functions/calculer-variation-moyenne.js")
-    let matieres = document.querySelectorAll("[kmlc-moyenne]");
-    
+(() => {
+  const calculerVariationMoyenne = imports('calculerVariationMoyenne').from(
+    './features/Notes/functions/calculer-variation-moyenne.js'
+  );
+
+  function variationMoyenne(periodeData, gradeData) {
+    const subjectNames = document.querySelectorAll('[kmlc-moyenne]');
+
     for (let i = 0; i < matieres.length; i++) {
-        calculerVariationMoyenne(matieres[i].parentElement.parentElement.querySelector("[class *= 'discipline']"), true, periode, note)
+      calculerVariationMoyenne(
+        subjectNames[i].parentElement.parentElement.querySelector(
+          "[class *= 'discipline']"
+        ),
+        true,
+        periodeData,
+        gradeData
+      );
     }
-}
+  }
+
+  exports({variationMoyenne}).to('./features/Notes/variation-moyenne.js');
+})();

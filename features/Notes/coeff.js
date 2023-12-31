@@ -1,12 +1,11 @@
 (() => {
   function coeff(gradesData) {
-    const meanColumnTitleClass = "'relevemoyenne ng-star-inserted'";
-    const meanColumnTitleElement = document.querySelector(
-      'th[class *= ' + meanColumnTitleClass + ']'
-    );
-
     // If there is already an element with the class "Coef", it means that the category "Coef" exist. If not, we apply our changes
     if (!document.querySelector("th[class *= 'coef ng-star-inserted']")) {
+      const meanColumnTitleClass = "'relevemoyenne ng-star-inserted'";
+      const meanColumnTitleElement = document.querySelector(
+        'th[class *= ' + meanColumnTitleClass + ']'
+      );
       // We clone the "MOYENNES" element and append it to his parent (the top part of the table) and then modify the text to "COEF."
       const coefficientColumnTitleElement = meanColumnTitleElement.cloneNode(true);
       coefficientColumnTitleElement.innerText = 'COEF.';
@@ -37,11 +36,11 @@
         // console.log(2, periode)
 
         // We change the mean with the "Coef" value
-        const rangCase = subjectMeanElementToCoefficient.children[0]
+        const coefficientCase = subjectMeanElementToCoefficient.children[0]
           ? subjectMeanElementToCoefficient.children[0]
           : subjectMeanElementToCoefficient;
 
-        rangCase.innerText =
+        coefficientCase.innerText =
           gradesData.periodes[actualPeriodeIndex].ensembleMatieres.disciplines[i].coef;
 
         // For each element we add the class "text-center"

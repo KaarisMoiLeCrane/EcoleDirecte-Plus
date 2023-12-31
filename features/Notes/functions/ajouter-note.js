@@ -3,6 +3,10 @@
     './features/Notes/functions/calculer-moyennes.js'
   );
 
+  const modifierNoteSimulation = imports('modifierNoteSimulation').from(
+    './features/Notes/modifier-note-simulation.js'
+  );
+
   function ajouterNote(
     subjectName,
     gradeTitle,
@@ -83,7 +87,7 @@
       }
     }
 
-    globalThis.Notes.modifierNoteSimulation();
+    modifierNoteSimulation();
   }
 
   exports({ajouterNote}).to('./features/Notes/functions/ajouter-note.js');
