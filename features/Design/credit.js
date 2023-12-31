@@ -1,7 +1,7 @@
 (() => {
   function credit() {
     if (!document.querySelector('[kmlc_credit]')) {
-      document.waitForElement('#footer ul').then((footerButtons) => {
+      document.kmlcWaitForElement('#footer ul').then((footerButtons) => {
         const creditButton = document.createElement('LI');
         creditButton.setAttribute('kmlc_credit', 'true');
 

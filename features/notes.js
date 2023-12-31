@@ -30,7 +30,7 @@
 
     globalThis.Notes.dataPeriodes = gradesData.periodes;
 
-    document.waitForElement("[class *= 'tab-content']").then((elm) => {
+    document.kmlcWaitForElement("[class *= 'tab-content']").then((elm) => {
       let periode = document.querySelector('#onglets-periodes > ul > li.active.nav-item');
       periode = Array.from(periode.parentNode.children).indexOf(periode);
 
@@ -110,7 +110,7 @@
 
     function executeNotesObserver(observer) {
       // Wait for the parent containing the table that isn't modified or removed when something in the table change
-      document.waitForElement('.eleve-note').then((elm) => {
+      document.kmlcWaitForElement('.eleve-note').then((elm) => {
         // console.log(789)
         observer.observe(elm, {
           characterData: false,
@@ -134,11 +134,11 @@
           if (periodes[j].periode == elmPeriodes[i].textContent) {
             elmPeriodes[i].setAttribute(
               'dateDebut',
-              periodes[j].dateDebut.convertToTimestamp()
+              periodes[j].dateDebut.kmlcConvertToTimestamp()
             );
             elmPeriodes[i].setAttribute(
               'dateFin',
-              periodes[j].dateFin.convertToTimestamp()
+              periodes[j].dateFin.kmlcConvertToTimestamp()
             );
             elmPeriodes[i].setAttribute('codePeriode', periodes[j].codePeriode);
 

@@ -4,7 +4,7 @@
   function main(id, token) {
     // Wait for the button "Actualiser" (refresh button) in the top
     document
-      .waitForElement(
+      .kmlcWaitForElement(
         '[class *= btn-group] > button[class *= btn-secondary]:not([class *= dropdown])'
       )
       .then((buttonReloadMessages) => {
@@ -14,7 +14,7 @@
           buttonReadAll.title = 'Lire tous les messages';
           buttonReadAll.setAttribute('kmlc-read-all', 'true');
 
-          buttonReloadMessages.insertAfter(buttonReadAll);
+          buttonReloadMessages.kmlcInsertAfter(buttonReadAll);
           buttonReadAll.innerHTML = '<span style="font-weight: bold;">Tout lire</span>';
 
           buttonReadAll.onclick = function () {

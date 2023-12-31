@@ -15,7 +15,7 @@
     ) {
       const tableCaptionElement = tableCaptionTitleElement.parentElement;
       const tableCaptionItemElement = tableCaptionElement
-        .getElementsByContentText('(note)')
+        .kmlcGetElementsByContentText('(note)')
         .startsWith[0].cloneNode(true);
       tableCaptionItemElement.setAttribute('kmlc-text-modifier-note', 'true');
       tableCaptionItemElement.children[0].textContent = '';
@@ -28,8 +28,8 @@
       tableCaptionTextElement.setAttribute('style', 'border-bottom: 1px solid green;');
 
       tableCaptionElement
-        .getElementsByContentText('(note)')
-        .startsWith[0].insertAfter(tableCaptionItemElement);
+        .kmlcGetElementsByContentText('(note)')
+        .startsWith[0].kmlcInsertAfter(tableCaptionItemElement);
       tableCaptionItemElement.children[0].appendChild(tableCaptionTextElement);
     }
 

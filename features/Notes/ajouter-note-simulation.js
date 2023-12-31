@@ -17,7 +17,7 @@
     ) {
       const legendGradeSimulationElement = document
         .querySelector('table caption')
-        .parentElement.getElementsByContentText('(note)')
+        .parentElement.kmlcGetElementsByContentText('(note)')
         .startsWith[0].cloneNode(true);
       legendGradeSimulationElement.setAttribute('kmlc-text-note', 'true');
 
@@ -29,8 +29,8 @@
 
       document
         .querySelector('table caption')
-        .parentElement.getElementsByContentText('(note)')
-        .startsWith[0].insertAfter(legendGradeSimulationElement);
+        .parentElement.kmlcGetElementsByContentText('(note)')
+        .startsWith[0].kmlcInsertAfter(legendGradeSimulationElement);
     }
 
     // If there is no button to add the grades then we add it

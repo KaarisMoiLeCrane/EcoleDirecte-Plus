@@ -50,7 +50,7 @@ function main(num) {
     // console.log(globalThis.token, window.location.href)
     if (globalThis.token && window.location.href.includes('CahierDeTexte')) {
       if (globalThis.userId != undefined) {
-        document.waitForElement('.all-devoirs').then(() => {
+        document.kmlcWaitForElement('.all-devoirs').then(() => {
           if (document.querySelector('.sidebar:hover'))
             document.getElementById('main-part').classList.add('sidebarhover');
 
@@ -61,7 +61,7 @@ function main(num) {
 
     if (globalThis.token && window.location.href.includes('EmploiDuTemps')) {
       if (globalThis.userId != undefined) {
-        document.waitForElement('.dhx_cal_data > div:nth-child(7)').then(() => {
+        document.kmlcWaitForElement('.dhx_cal_data > div:nth-child(7)').then(() => {
           document.getElementById('main-part').classList.remove('sidebarhover');
 
           EmploiDuTemps.main(globalThis.userId, globalThis.token);
@@ -71,7 +71,7 @@ function main(num) {
 
     if (globalThis.token && window.location.href.includes('Notes')) {
       if (globalThis.userId != undefined) {
-        document.waitForElement('td.discipline').then(() => {
+        document.kmlcWaitForElement('td.discipline').then(() => {
           if (document.querySelector('.sidebar:hover'))
             document.getElementById('main-part').classList.add('sidebarhover');
 
@@ -83,7 +83,7 @@ function main(num) {
     if (globalThis.token && window.location.href.includes('Messagerie')) {
       if (globalThis.userId != undefined) {
         document
-          .waitForElement('[class *= btn-group] > button:not([class *= dropdown])')
+          .kmlcWaitForElement('[class *= btn-group] > button:not([class *= dropdown])')
           .then(() => {
             if (document.querySelector('.sidebar:hover'))
               document.getElementById('main-part').classList.add('sidebarhover');
@@ -126,7 +126,7 @@ function loop() {
         });
 
         prom.then(() => {
-          document.waitForElement('ed-modal-reconnexion').then((elm) => {
+          document.kmlcWaitForElement('ed-modal-reconnexion').then((elm) => {
             window.sessionStorage.removeItem('credentials'); // Remove the token item so the token can be reset with the new one
             window.sessionStorage.setItem('a', '0'); // The "a" item is the name of the item that let the whole extension to know that the user is trying to login (0) and if he logged successfully (get removed)
             window.location.reload(); // Page reloading
@@ -144,7 +144,7 @@ function loop2() {
   // If there is the loading page we wait for it to be deleted
   if (backdropScript) {
     document
-      .waitForElement(
+      .kmlcWaitForElement(
         "div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])"
       )
       .then((elm) => {
@@ -182,7 +182,7 @@ function loop2() {
 
 // If the user logged
 if (window.sessionStorage.a != '0') {
-  document.waitForElement('ed-modal-reconnexion').then((elm) => {
+  document.kmlcWaitForElement('ed-modal-reconnexion').then((elm) => {
     // Wait for the relogin page to remove the token (so the website can reset his value with the new value) and we set the "a" value to 0 so we know that he have to login
     window.sessionStorage.removeItem('credentials');
     window.sessionStorage.setItem('a', '0');
@@ -210,7 +210,7 @@ var edMenuObserver = new MutationObserver(function (mutations) {
 executeEdMenuObserver(edMenuObserver);
 
 function executeEdMenuObserver(observer) {
-  document.waitForElement('.menu-bar').then((elm) => {
+  document.kmlcWaitForElement('.menu-bar').then((elm) => {
     observer.observe(elm, {
       characterData: false,
       attributes: true,
