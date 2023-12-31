@@ -1,7 +1,7 @@
 (() => {
   const initPopup = imports('initPopup').from('./utils/utils.js');
 
-  const getData = imports('setData').from('./utils/utils.js');
+  const getData = imports('getData').from('./utils/utils.js');
   const setData = imports('setData').from('./utils/utils.js');
 
   const initUserSimulationNote = imports('initUserSimulationNote').from(
@@ -46,6 +46,17 @@
     if (!document.querySelector('[kmlc-bouton-note]')) {
       const activeButton = document.querySelector(buttonSelector);
 
+      const popupID = 'kmlc-simulationNote-popup';
+      const blurID = 'kmlc-simulationNote-blur';
+
+      let popup = document.querySelector('#' + popupID);
+      let blur = document.querySelector('#' + blurID);
+
+      if (popup) {
+        popup.remove();
+        blur.remove();
+      }
+
       const buttonAddGrade = activeButton.cloneNode(true);
       buttonAddGrade.className = buttonAddGrade.className.replace('active', '');
       buttonAddGrade.setAttribute('kmlc-bouton-note', 'true');
@@ -57,11 +68,8 @@
         e.stopPropagation();
         e.preventDefault();
 
-        const popupID = 'kmlc-simulationNote-popup';
-        const blurID = 'kmlc-simulationNote-blur';
-
-        let popup = document.querySelector('#' + popupID);
-        let blur = document.querySelector('#' + blurID);
+        popup = document.querySelector('#' + popupID);
+        blur = document.querySelector('#' + blurID);
 
         if (!popup) {
           // console.log(789, items.objectifMoyenne)
@@ -189,8 +197,6 @@
 
               break;
             }
-          } else {
-            break;
           }
         }
       }
@@ -477,7 +483,7 @@
 
     // console.log(userContent)
 
-    await globalThis.Utils.setData('simulationNote', simulationNote);
+    await setData('simulationNote', simulationNote);
   }
 
   async function reloadNoteSimulation() {

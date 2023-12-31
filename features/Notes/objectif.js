@@ -1,12 +1,10 @@
 (() => {
   const initPopup = imports('initPopup').from('./utils/utils.js');
 
-  const getData = imports('setData').from('./utils/utils.js');
+  const getData = imports('getData').from('./utils/utils.js');
   const setData = imports('setData').from('./utils/utils.js');
 
-  const initUserObjectif = imports('initUserObjectif').from(
-    './features/Notes/functions/ajouter-objectif-note.js'
-  );
+  const initUserObjectif = imports('initUserObjectif').from('./utils/utils.js');
 
   const ajouterObjectifNote = imports('ajouterObjectifNote').from(
     './features/Notes/functions/ajouter-objectif-note.js'
@@ -23,6 +21,17 @@
       const objectifButton = document.querySelector(buttonSelector).cloneNode(true);
       objectifButton.id = 'kmlc-bouton-objectif';
 
+      const popupID = 'kmlc-objectif-popup';
+      const blurID = 'kmlc-objectif-blur';
+
+      let popup = document.querySelector('#' + popupID);
+      let blur = document.querySelector('#' + blurID);
+
+      if (popup) {
+        popup.remove();
+        blur.remove();
+      }
+
       objectifButton.children[0].removeAttribute('href');
       objectifButton.children[0].children[0].textContent = 'Objectifs';
       objectifButton.addEventListener('click', async function (e) {
@@ -32,14 +41,9 @@
         // We get the goals and we add them to a multi-line string
 
         await initUserObjectif(globalThis.userId);
-        const meansGoals = await getData('objectifMoyenne');
-        // console.log(objectifMoyenne)
 
-        const popupID = 'kmlc-objectif-popup';
-        const blurID = 'kmlc-objectif-blur';
-
-        let popup = document.querySelector('#' + popupID);
-        let blur = document.querySelector('#' + blurID);
+        popup = document.querySelector('#' + popupID);
+        blur = document.querySelector('#' + blurID);
 
         if (!popup) {
           // console.log(789, items.objectifMoyenne)
@@ -95,7 +99,6 @@
 
         popup.setAttribute('style', 'width: 80%; height: 80%;');
         blur.setAttribute('style', '');
-        // })
       });
 
       activeButton.parentElement.insertBefore(objectifButton, activeButton);
@@ -105,8 +108,6 @@
   }
 
   async function changePopupInnerHTML(popup, blur) {
-    // browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
-    // console.log(items.objectifMoyenne)
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
@@ -140,7 +141,6 @@
           const userContentPeriode = userContent.periodes[j];
           // console.log(222222)
           const addedSubjectGrades = userContentPeriode.objectif[subjectName];
-          // console.log(notesMatiere)
 
           if (addedSubjectGrades) {
             if (
@@ -149,13 +149,9 @@
               userContentPeriode.dateFin <=
                 Number(actualPeriodeElement.getAttribute('dateFin'))
             ) {
-              addedSubjectGradeValue =
-                addedSubjectGrades[addedSubjectGrades.length - 1].note;
-
+              addedSubjectGradeValue = addedSubjectGrades.note;
               break;
             }
-          } else {
-            break;
           }
         }
       }

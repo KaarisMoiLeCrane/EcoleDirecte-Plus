@@ -12,7 +12,9 @@
       const chartBarCanvas = document.createElement('CANVAS');
       chartBarCanvas.id = 'chart-bar';
 
-      const globalMean = Number(document.querySelector('[kmlc-moyenne-g]').textContent);
+      const globalMean = Number(
+        document.querySelector('[kmlc-moyenne-g]').textContent.split(' ')[0]
+      );
 
       document.getElementById('encart-notes').appendChild(chartCurveCanvas);
       document.getElementById('encart-notes').appendChild(chartBarCanvas);
@@ -53,7 +55,8 @@
           // We check if each grade is between the date of start and end
           if (
             actualPeriodeIsR &&
-            actualDateStart <= gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() &&
+            actualDateStart <=
+              gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() &&
             gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() <= actualDateEnd
           )
             skip = !false;
@@ -61,7 +64,8 @@
             !actualPeriodeIsR &&
             actualDateStart <=
               gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() &&
-            gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() <= actualDateEnd
+            gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() <=
+              actualDateEnd
           )
             skip = !false;
 

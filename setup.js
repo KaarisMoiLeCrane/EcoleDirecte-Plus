@@ -51,8 +51,4 @@ imports = (...args) => ({
   }
 });
 
-globalThis.CahierDeTexte = {};
-globalThis.Design = {};
-globalThis.EmploiDuTemps = {};
 globalThis.Notes = {};
-globalThis.Utils = {};

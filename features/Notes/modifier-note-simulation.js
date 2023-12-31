@@ -1,7 +1,7 @@
 (() => {
   const initPopup = imports('initPopup').from('./utils/utils.js');
 
-  const getData = imports('setData').from('./utils/utils.js');
+  const getData = imports('getData').from('./utils/utils.js');
   const setData = imports('setData').from('./utils/utils.js');
 
   const initUserSimulationNote = imports('initUserSimulationNote').from(
@@ -517,7 +517,7 @@
     gradeId,
     save
   ) {
-    let go = globalThis.Notes.modifierNote(
+    let go = modifierNote(
       subjectGrade,
       gradeTitle,
       gradeValue,

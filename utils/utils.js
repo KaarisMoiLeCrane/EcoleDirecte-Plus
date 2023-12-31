@@ -145,7 +145,7 @@
     });
   }
 
-  function newYear() {
+  function getNewYear() {
     let newYear = true;
     let todayMs = Date.now();
 
@@ -193,7 +193,7 @@
   async function initUserSimulationNote(id) {
     let simulationNote = await getData('simulationNote');
     let dummy = [...simulationNote];
-    let newYear = newYear();
+    let newYear = getNewYear();
 
     // console.log(dummy)
 
@@ -395,14 +395,14 @@
 
     simulationNote[index] = userContent;
 
-    await globalThis.Utils.setData('simulationNote', simulationNote);
+    await setData('simulationNote', simulationNote);
   }
 
   async function initUserObjectif(id) {
     let objectifMoyenne = await getData('objectifMoyenne');
     let dummy = [...objectifMoyenne];
     let isOldObjectif = false;
-    let newYear = newYear();
+    let newYear = getNewYear();
 
     // console.log(dummy)
 
@@ -514,7 +514,7 @@
 
     objectifMoyenne[index] = userContent;
 
-    await globalThis.Utils.setData('objectifMoyenne', objectifMoyenne);
+    await setData('objectifMoyenne', objectifMoyenne);
   }
 
   exports({
@@ -524,7 +524,7 @@
     initPopup,
     setData,
     getData,
-    newYear,
+    getNewYear,
     initUserSimulationNote,
     initUserObjectif
   }).to('./utils/utils.js');
