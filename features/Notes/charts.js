@@ -96,7 +96,7 @@
       // console.log(notes)
 
       // If there is a grade
-      if (gradesDataClean) {
+      if (gradesDataClean != []) {
         const subjectMeanAndCoefficientEvolution = [];
 
         const gradesSumOfValuesEvolution = [];
