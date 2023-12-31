@@ -67,7 +67,7 @@
 
     // We calculate the averages
     if (calculateMeans) {
-      calculerMoyennes(
+      calculerMoyennes(6,
         true,
         'kmlc-simu-moyenne-g',
         'color: green;',
@@ -77,7 +77,7 @@
       );
 
       if (document.querySelector('[kmlc-note-simu-modifier]')) {
-        calculerMoyennes(
+        calculerMoyennes(7,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',

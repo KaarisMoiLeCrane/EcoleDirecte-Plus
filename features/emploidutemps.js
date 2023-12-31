@@ -25,78 +25,97 @@
         // Check if the button to get the homeworks exist
 
         if (!document.querySelector('#devoirs')) {
-          // Creating the button to get the homeworks
+          document.kmlcWaitForElement('#export-pdf').then((buttonViewToday) => {
+            // Creating the button to get the homeworks
+            // const buttonViewTodayComputedStyle = getComputedStyle(buttonViewToday)
 
-          const devButton = document.createElement('div');
-          devButton.setAttribute('id', 'devoirs');
-          devButton.setAttribute('class', 'dhx_cal_today_button');
-          devButton.setAttribute('style', 'left: 125px');
-          devButton.innerText = 'Devoirs';
-          devButton.onclick = function () {
-            const x = scrollX;
-            const y =
-              scrollY +
-              document.querySelector('div.dhx_cal_header').getBoundingClientRect().y +
-              1;
-            scrollTo(x, y);
+            // let devButtonStyle = 'left: 125px; '
+            // devButtonStyle += 'text-align: ' + buttonViewTodayComputedStyle.getPropertyValue("text-align") + '; '
+            // devButtonStyle += 'font-size: ' + buttonViewTodayComputedStyle.getPropertyValue("font-size") + '; '
+            // devButtonStyle += 'font-weight: ' + buttonViewTodayComputedStyle.getPropertyValue("font-weight") + '; '
+            // devButtonStyle += 'color: ' + buttonViewTodayComputedStyle.getPropertyValue("color") + '; '
+            // devButtonStyle += 'right: ' + buttonViewTodayComputedStyle.getPropertyValue("right") + '; '
+            // devButtonStyle += 'width: ' + buttonViewTodayComputedStyle.getPropertyValue("width") + '; '
+            // devButtonStyle += 'border: ' + buttonViewTodayComputedStyle.getPropertyValue("border") + '; '
+            // devButtonStyle += 'border-radius: ' + buttonViewTodayComputedStyle.getPropertyValue("border-radius") + '; '
 
-            homeworkStatus(homeworksData);
-          };
+            const devButton = document.createElement('div');
+            devButton.setAttribute('id', 'devoirs');
+            devButton.setAttribute('class', 'dhx_cal_today_button');
+            devButton.setAttribute('style', 'left: 125px;');
+            // devButton.setAttribute('style', devButtonStyle);
+            devButton.innerText = 'Devoirs';
+            devButton.onclick = function () {
+              this.innerText = 'Devoirs';
+              const x = scrollX;
+              const y =
+                scrollY +
+                document.querySelector('div.dhx_cal_header').getBoundingClientRect().y +
+                1;
+              scrollTo(x, y);
 
-          buttonExportPDF.parentElement.insertBefore(devButton, buttonExportPDF);
+              homeworkStatus(homeworksData);
+            };
+
+            buttonExportPDF.parentElement.insertBefore(devButton, buttonExportPDF);
+          });
         }
       });
 
       // Wait for the previous button to appear and add a click listener
-      document.kmlcWaitForElement('.dhx_cal_prev_button').then((buttonPreviousSchedule) => {
-        if (!buttonPreviousSchedule.getAttribute('kmlc-prev-button')) {
-          buttonPreviousSchedule.setAttribute('kmlc-prev-button', 'true');
-          buttonPreviousSchedule.addEventListener(
-            'click',
-            function (e) {
-              e.stopPropagation();
-              e.preventDefault();
+      document
+        .kmlcWaitForElement('.dhx_cal_prev_button')
+        .then((buttonPreviousSchedule) => {
+          if (!buttonPreviousSchedule.getAttribute('kmlc-prev-button')) {
+            buttonPreviousSchedule.setAttribute('kmlc-prev-button', 'true');
+            buttonPreviousSchedule.addEventListener(
+              'click',
+              function (e) {
+                e.stopPropagation();
+                e.preventDefault();
 
-              const prom = new Promise((resolve) => {
-                new MutationObserver((mutations, observer) => {
-                  for (let mutation of mutations) {
-                    for (let removedNode of mutation.removedNodes) {
-                      try {
-                        // Wait until the schedule to change and then apply changes
+                const prom = new Promise((resolve) => {
+                  new MutationObserver((mutations, observer) => {
+                    for (let mutation of mutations) {
+                      for (let removedNode of mutation.removedNodes) {
+                        try {
+                          // Wait until the schedule to change and then apply changes
 
-                        /*
-                         *
-                         * TO-DO   : Create a wait for delete/remove function
-                         * PROBLEM : When the funciton was created first,
-                         *     it crash, consum a lot and/or work only once
-                         *
-                         */
+                          /*
+                           *
+                           * TO-DO   : Create a wait for delete/remove function
+                           * PROBLEM : When the funciton was created first,
+                           *     it crash, consum a lot and/or work only once
+                           *
+                           */
 
-                        if (removedNode.getAttribute('aria-label').includes('Dim')) {
-                          observer.disconnect();
-                          resolve();
-                        }
-                      } catch (e) {}
+                          if (removedNode.getAttribute('aria-label').includes('Dim')) {
+                            observer.disconnect();
+                            resolve();
+                          }
+                        } catch (e) {}
+                      }
                     }
-                  }
-                }).observe(document.body, {
-                  subtree: true,
-                  childList: true
+                  }).observe(document.body, {
+                    subtree: true,
+                    childList: true
+                  });
                 });
-              });
 
-              prom.then(() => {
-                // Wait for the last day (day 7) to be displayed in the schedule
+                prom.then(() => {
+                  // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
-                  homeworkStatus(homeworksData);
+                  document
+                    .kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)')
+                    .then(() => {
+                      homeworkStatus(homeworksData);
+                    });
                 });
-              });
-            },
-            false
-          );
-        }
-      });
+              },
+              false
+            );
+          }
+        });
 
       // Wait for the next button to appear and add a click listener
       document.kmlcWaitForElement('.dhx_cal_next_button').then((buttonNextSchedule) => {
@@ -138,9 +157,11 @@
               prom.then(() => {
                 // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
-                  homeworkStatus(homeworksData);
-                });
+                document
+                  .kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)')
+                  .then(() => {
+                    homeworkStatus(homeworksData);
+                  });
               });
             },
             false
@@ -188,9 +209,11 @@
               prom.then(() => {
                 // Wait for the last day (day 7) to be displayed in the schedule
 
-                document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
-                  homeworkStatus(homeworksData);
-                });
+                document
+                  .kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)')
+                  .then(() => {
+                    homeworkStatus(homeworksData);
+                  });
               });
             },
             false

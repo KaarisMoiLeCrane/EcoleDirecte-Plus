@@ -16,6 +16,7 @@
   );
 
   function modifierNoteSimulation() {
+    console.log(1829281902899)
     // If the table in the bottom was changed and then we add the text "Note modifiée"
     const tableCaptionTitleElement = document.querySelector('table caption');
     if (
@@ -480,7 +481,7 @@
         e.preventDefault();
 
         blur.click();
-        calculerMoyennes(
+        calculerMoyennes(5,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',
@@ -516,7 +517,7 @@
     gradeId,
     save
   ) {
-    let go = modifierNote(
+    let go = modifierNote(11,
       subjectGrade,
       gradeTitle,
       gradeValue,
@@ -618,46 +619,69 @@
 
     // console.log(userContent)
 
-    for (let i = 0; i < subjectGrades.length; i++) {
-      if (userContent.periodes) {
-        for (let j = 0; j < userContent.periodes.length; j++) {
-          // console.log(periodeElm.getAttribute("dateDebut"), userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin"), userContent.periodes[j].dateFin)
-          if (
-            Number(actualPeriodeElement.getAttribute('dateDebut')) <=
-              userContent.periodes[j].dateDebut &&
-            userContent.periodes[j].dateFin <=
-              Number(actualPeriodeElement.getAttribute('dateFin'))
-          ) {
-            let notesMatiere =
-              userContent.periodes[j].notes.modifier[subjectGrades[i].textContent];
-            // console.log(notesMatiere, nomMatieres[i].textContent, userContent)
-            if (!notesMatiere) continue;
+    const addedAndEditedGradesListDatas = []
 
-            for (let k = 0; k < notesMatiere.length; k++) {
-              const subjectGrade = subjectGrades[i].textContent;
-              const gradeTitle = notesMatiere[k].titre;
-              const gradeValue = notesMatiere[k].note;
-              const gradeCoefficient = notesMatiere[k].coeff;
-              const gradeQuotient = notesMatiere[k].quotient;
-              const gradeId = notesMatiere[k].gradeSimulationId;
-              const gradeModificationId = notesMatiere[k].gradeModifId;
+    if (userContent.periodes) {
+      for (let i = 0; i < userContent.periodes.length; i++) {
+        if (
+          Number(actualPeriodeElement.getAttribute('dateDebut')) <=
+            userContent.periodes[i].dateDebut &&
+          userContent.periodes[i].dateFin <=
+            Number(actualPeriodeElement.getAttribute('dateFin'))
+        ) {
+          for (let j = 0; j < subjectGrades.length; j++) {
+            // console.log(periodeElm.getAttribute("dateDebut"), userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin"), userContent.periodes[j].dateFin)
+          
+            const gradesData =
+              userContent.periodes[i].notes.modifier[subjectGrades[j].textContent];
+            // console.log(notesMatiere, nomMatieres[i].textContent, userContent)
+            if (!gradesData) continue;
+
+            for (let k = 0; k < gradesData.length; k++) {
+              const subjectGradeName = subjectGrades[j].textContent;
+              const gradeTitle = gradesData[k].titre;
+              const gradeValue = gradesData[k].note;
+              const gradeCoefficient = gradesData[k].coeff;
+              const gradeQuotient = gradesData[k].quotient;
+              const gradeId = gradesData[k].gradeSimulationId;
+              const gradeModificationId = gradesData[k].gradeModifId;
               const save = true;
 
-              modifierNote(
-                subjectGrade,
-                gradeTitle,
-                gradeValue,
-                gradeCoefficient,
-                gradeQuotient,
-                gradeModificationId,
-                false,
-                gradeId,
-                save
-              );
+              addedAndEditedGradesListDatas.push({
+                subjectName: subjectGradeName,
+                title: gradeTitle,
+                value: gradeValue,
+                coefficient: gradeCoefficient,
+                quotient: gradeQuotient,
+                id: gradeId,
+                idModification: gradeModificationId,
+                save: save
+              })
             }
           }
         }
       }
+    }
+
+    for (let i = 0; i < addedAndEditedGradesListDatas.length; i++) {
+      let calculateGlobalMean = false;
+
+      if (i == addedAndEditedGradesListDatas.length - 1) {
+        calculateGlobalMean = true;
+      }
+
+      modifierNote(12,
+        addedAndEditedGradesListDatas[i].subjectName,
+        addedAndEditedGradesListDatas[i].title,
+        addedAndEditedGradesListDatas[i].value,
+        addedAndEditedGradesListDatas[i].coefficient,
+        addedAndEditedGradesListDatas[i].quotient,
+        addedAndEditedGradesListDatas[i].idModification,
+        false,
+        addedAndEditedGradesListDatas[i].id,
+        addedAndEditedGradesListDatas[i].save,
+        calculateGlobalMean
+      );
     }
   }
 

@@ -31,10 +31,17 @@
         "/features/CahierDeTexte/homework-refresh.js",
 				"/features/cahierdetexte.js",
 
+        
         "/features/EmploiDuTemps/homework-status.js",
         "/features/emploidutemps.js",
 
+
+        "/features/Notes/rang.js",
+        "/features/Notes/coeff.js",
+
         "/features/Notes/functions/calculer-moyennes.js",
+
+        "/features/Notes/charts.js",
 
         "/features/Notes/functions/calculer-variation-moyenne.js",
         "/features/Notes/variation-moyenne.js",
@@ -46,11 +53,9 @@
         "/features/Notes/ajouter-note-simulation.js",
         
         "/features/Notes/functions/ajouter-objectif-note.js",
+        "/features/Notes/functions/calculer-objectif-moyenne.js",
         "/features/Notes/objectif.js",
 
-        "/features/Notes/charts.js",
-        "/features/Notes/rang.js",
-        "/features/Notes/coeff.js",
 
         "/features/notes.js",
 
