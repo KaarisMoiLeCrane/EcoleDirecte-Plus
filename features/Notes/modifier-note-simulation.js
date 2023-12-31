@@ -16,7 +16,7 @@
   );
 
   function modifierNoteSimulation() {
-    console.log(1829281902899)
+    // console.log(1829281902899)
     // If the table in the bottom was changed and then we add the text "Note modifiée"
     const tableCaptionTitleElement = document.querySelector('table caption');
     if (
@@ -600,7 +600,7 @@
       simulationNote[indexOfUserContent] = userContent;
       await setData('simulationNote', simulationNote);
     } else {
-      console.log('You are asking a very hard work');
+      // console.log('You are asking a very hard work');
     }
   }
 

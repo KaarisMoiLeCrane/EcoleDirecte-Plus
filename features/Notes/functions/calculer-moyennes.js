@@ -9,7 +9,7 @@
     attributeOfSubjectsToCalculate = '',
     elementDisciplineSubjectToExclude = ''
   ) {
-    console.log(num, withOldGradeDatas)
+    // console.log(num, withOldGradeDatas)
     // We get all the displayed grades
     const allGrades = document.querySelectorAll(
       'span.valeur' + attributeOfSubjectsToCalculate
@@ -185,7 +185,7 @@
         // console.log(6, matNote, matiereNotes[j].childNodes[0].nodeValue)
 
         // If there is a grade (0 is a grade but nothing and a grade between two parentheses is not a grade). matNote is a string so ``if ("0" && "0.0")`` is true
-        console.log(gradeValue, gradeQuotient, gradeCoefficient); ///////////////////////////////////////////////////////////////////////////////////////
+        // console.log(gradeValue, gradeQuotient, gradeCoefficient); ///////////////////////////////////////////////////////////////////////////////////////
         if (gradeValue) {
           // console.log(6.1, matNote)
 
