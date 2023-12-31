@@ -1,9 +1,11 @@
 (() => {
+  const numToDate = imports('numToDate').from('./utils/utils.js');
+
   function homeworkStatus(homeworks) {
     // For each day with homeworks
     const homeworksDates = Object.keys(homeworks);
 
-    document.waitForElement('h3[class *= date]').then(() => {
+    document.kmlcWaitForElement('h3[class *= date]').then(() => {
       for (let i = 0; i < homeworksDates.length; i++) {
         const homeworksDate = homeworksDates[i];
         // Get the date of each homework displayed on the homework section
@@ -60,7 +62,7 @@
               (
                 parseInt(date.split('-')[2]) +
                 ' ' +
-                globalThis.Utils.numToDate(date.split('-')[1]).norm
+                numToDate(date.split('-')[1]).norm
               ).toLowerCase()
             );
             */
@@ -73,7 +75,7 @@
               (
                 parseInt(homeworksDate.split('-')[2]) +
                 ' ' +
-                globalThis.Utils.numToDate(homeworksDate.split('-')[1]).norm
+                numToDate(homeworksDate.split('-')[1]).norm
               ).toLowerCase()
             ) {
               // Change the background color of the card containing the specific date
@@ -112,7 +114,7 @@
               // Search for the correct subject and then add the correct symbol for the subject
               let cahierDeTexteHomeworkSubject = cahierDeTexteDates[
                 k
-              ].parentElement.parentElement.getElementsByContentText(
+              ].parentElement.parentElement.kmlcGetElementsByContentText(
                 ' ' + homework.matiere
               ).startsWith;
 
@@ -125,8 +127,8 @@
                     cahierDeTexteHomeworkSubject.parentElement.parentElement;
 
                   subjectCard.outerHTML = subjectCard.outerHTML.replace(
-                    ' ' + homework.matiere.htmlEncode(),
-                    symbol + ' ' + homework.matiere.htmlEncode()
+                    ' ' + homework.matiere.kmlcHtmlEncode(),
+                    symbol + ' ' + homework.matiere.kmlcHtmlEncode()
                   );
 
                   /*

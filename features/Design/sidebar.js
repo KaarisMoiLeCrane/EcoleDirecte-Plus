@@ -1,6 +1,8 @@
 // CSS (only) stolen from https://github.com/Bastian-Noel/CustomDirecte (with a little bit of changes)
 
 (() => {
+  const fragmentFromString = imports('fragmentFromString').from('./utils/utils.js');
+
   function sidebar() {
     // If the css isn't loaded in the page we add it
     if (!document.getElementById('kmlc_css_1')) {
@@ -430,10 +432,7 @@ header .image-text .profession {
 
       // Adding a new HTML "LI" element to add some spaces between the first and second person in the navigation bar
       let menu = document.querySelector('.sidebar').querySelectorAll('.menu');
-      menu[0].parentElement.insertBefore(
-        globalThis.Utils.fragmentFromString(header[0]),
-        menu[0]
-      );
+      menu[0].parentElement.insertBefore(fragmentFromString(header[0]), menu[0]);
 
       let ul = document.createElement('UL');
       ul.role = 'menu';
@@ -443,14 +442,11 @@ header .image-text .profession {
 
       ul.appendChild(li);
 
-      menu[0].insertAfter(ul);
+      menu[0].kmlcInsertAfter(ul);
 
       // Adding after each person in the account a new HTML "LI" element to add some spaces between each person in the navigation bar
       for (let i = 1; i < menu.length; i++) {
-        menu[i].parentElement.insertBefore(
-          globalThis.Utils.fragmentFromString(header[i]),
-          menu[i]
-        );
+        menu[i].parentElement.insertBefore(fragmentFromString(header[i]), menu[i]);
 
         let ul = document.createElement('UL');
         ul.role = 'menu';
@@ -460,7 +456,7 @@ header .image-text .profession {
 
         ul.appendChild(li);
 
-        menu[i].insertAfter(ul);
+        menu[i].kmlcInsertAfter(ul);
       }
 
       // For each HTML "header" element with no class so for each person associated text and picture, if someone click on it, it will hide (or show) the menu wrapping all sections associated with the person

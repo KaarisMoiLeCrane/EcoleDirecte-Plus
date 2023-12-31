@@ -1,4 +1,6 @@
 (() => {
+  const numToDate = imports('numToDate').from('./utils/utils.js');
+
   function homeworkRefresh(homeworks) {
     if (homeworkRefreshObserver) {
       homeworkRefreshObserver.disconnect();
@@ -27,7 +29,7 @@
               (
                 parseInt(homeworksDate.split('-')[2]) +
                 ' ' +
-                globalThis.Utils.numToDate(homeworksDate.split('-')[1]).norm
+                numToDate(homeworksDate.split('-')[1]).norm
               ).toLowerCase()
             ) {
               for (let j = 0; j < homeworks[homeworksDate].length; j++) {
@@ -61,7 +63,7 @@
   }
 
   function executeHomeworkRefreshObserver(observer) {
-    document.waitForElement('.cahierdetexteimprimable').then((elm) => {
+    document.kmlcWaitForElement('.cahierdetexteimprimable').then((elm) => {
       observer.observe(elm, {
         attributes: true,
         childList: true,

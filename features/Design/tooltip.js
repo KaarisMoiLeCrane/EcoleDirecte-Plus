@@ -6,7 +6,7 @@
       styleSheet.type = 'text/css';
       styleSheet.id = 'kmlc_css_tooltip';
       styleSheet.innerText = `
-.kmlc-note-parent {
+.kmlc-note-parent, .kmlc-global-mean-parent {
   position: relative;
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -41,7 +41,7 @@
   background: rgba(0, 255, 0, 1);
 }
 
-.kmlc-note-parent:hover .kmlc-tooltip-green {
+.kmlc-note-parent:hover .kmlc-tooltip-green, .kmlc-global-mean-parent:hover .kmlc-tooltip-green {
   top: -30px;
   opacity: 1;
   visibility: visible;
@@ -83,7 +83,7 @@
   background: rgba(255, 127.5, 0, 1);
 }
 
-.kmlc-note-parent:hover .kmlc-tooltip-orange {
+.kmlc-note-parent:hover .kmlc-tooltip-orange, .kmlc-global-mean-parent:hover .kmlc-tooltip-orange {
   top: -30px;
   opacity: 1;
   visibility: visible;
@@ -125,7 +125,7 @@
   background: rgba(255, 0, 0, 1);
 }
 
-.kmlc-note-parent:hover .kmlc-tooltip-red {
+.kmlc-note-parent:hover .kmlc-tooltip-red, .kmlc-global-mean-parent:hover .kmlc-tooltip-red {
   top: -30px;
   opacity: 1;
   visibility: visible;

@@ -1,5 +1,5 @@
 {
-  "name": "EcoleDirecte +",
+  "name": "EcoleDirecte DEVELOP +",
   "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
   "version": "2.0.0",
   "author": "Kaaris_Moi_Le_Crane",
@@ -20,43 +20,57 @@
       "all_frames": true,
       "js": [
         "/setup.js",
+        
 				"/vendor/ecoledirecte.js",
+        "/vendor/chart.js",
+        "/utils/functions.js",
+        "/utils/utils.js",
+
 
 				"/features/CahierDeTexte/homework-status.js",
         "/features/CahierDeTexte/homework-refresh.js",
 				"/features/cahierdetexte.js",
 
+        
         "/features/EmploiDuTemps/homework-status.js",
-				"/features/emploidutemps.js",
+        "/features/emploidutemps.js",
 
-        "/vendor/chart.js",
-        "/utils/functions.js",
-        "/utils/utils.js",
 
-        "/features/Notes/functions/calculer-moyennes.js",
-        "/features/Notes/functions/calculer-variation-moyenne.js",
-        "/features/Notes/functions/modifier-note.js",
-
-        "/features/Notes/functions/ajouter-note.js",
-        "/features/Notes/functions/ajouter-objectif-note.js",
-
-        "/features/Notes/ajouter-note-simulation.js",
-        "/features/Notes/modifier-note-simulation.js",
-
-        "/features/Notes/charts.js",
-        "/features/Notes/objectif.js",
         "/features/Notes/rang.js",
         "/features/Notes/coeff.js",
+
+        "/features/Notes/functions/calculer-moyennes.js",
+
+        "/features/Notes/charts.js",
+
+        "/features/Notes/functions/calculer-variation-moyenne.js",
         "/features/Notes/variation-moyenne.js",
+
+        "/features/Notes/functions/modifier-note.js",
+        "/features/Notes/modifier-note-simulation.js",
+        
+        "/features/Notes/functions/ajouter-note.js",
+        "/features/Notes/ajouter-note-simulation.js",
+        
+        "/features/Notes/functions/ajouter-objectif-note.js",
+        "/features/Notes/functions/calculer-objectif-moyenne.js",
+        "/features/Notes/objectif.js",
+
+
         "/features/notes.js",
+
 
         "/features/Design/sidebar.js",
         "/features/Design/credit.js",
         "/features/Design/popup.js",
         "/features/Design/tooltip.js",
+        
         "/features/design.js",
 
+
         "/features/messagerie.js",
+
+
         "/main.js"
       ],
       "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]

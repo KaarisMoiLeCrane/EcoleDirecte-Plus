@@ -12,7 +12,9 @@
       const chartBarCanvas = document.createElement('CANVAS');
       chartBarCanvas.id = 'chart-bar';
 
-      const globalMean = Number(document.querySelector('[kmlc-moyenne-g]').textContent);
+      const globalMean = Number(
+        document.querySelector('[kmlc-moyenne-g]').textContent.split(' ')[0]
+      );
 
       document.getElementById('encart-notes').appendChild(chartCurveCanvas);
       document.getElementById('encart-notes').appendChild(chartBarCanvas);
@@ -41,7 +43,7 @@
 
       // For each grade
       for (let i = 0; i < gradesDataDuplicate.notes.length; i++) {
-        // console.log(dateDebut, varNote.notes[i].date.convertToTimestamp(), varNote.notes[i].dateSaisie.convertToTimestamp(), dateFin)
+        // console.log(dateDebut, varNote.notes[i].date.kmlcConvertToTimestamp(), varNote.notes[i].dateSaisie.kmlcConvertToTimestamp(), dateFin)
 
         // We check if the grade is significant or not (if the note has to be counted or not)
         if (gradesDataDuplicate.notes[i].nonSignificatif == false) {
@@ -53,19 +55,21 @@
           // We check if each grade is between the date of start and end
           if (
             actualPeriodeIsR &&
-            actualDateStart <= gradesDataDuplicate.notes[i].date.convertToTimestamp() &&
-            gradesDataDuplicate.notes[i].date.convertToTimestamp() <= actualDateEnd
+            actualDateStart <=
+              gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() &&
+            gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() <= actualDateEnd
           )
             skip = !false;
           if (
             !actualPeriodeIsR &&
             actualDateStart <=
-              gradesDataDuplicate.notes[i].dateSaisie.convertToTimestamp() &&
-            gradesDataDuplicate.notes[i].dateSaisie.convertToTimestamp() <= actualDateEnd
+              gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() &&
+            gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() <=
+              actualDateEnd
           )
             skip = !false;
 
-          // if ((codePeriode.includes(note.notes[i].codePeriode) && note.notes[i].nonSignificatif == false) && (dateDebut <= note.notes[i].dateSaisie.convertToTimestamp() && note.notes[i].dateSaisie.convertToTimestamp() <= dateFin) || (dateDebut <= note.notes[i].date.convertToTimestamp() && note.notes[i].date.convertToTimestamp() <= dateFin)) {
+          // if ((codePeriode.includes(note.notes[i].codePeriode) && note.notes[i].nonSignificatif == false) && (dateDebut <= note.notes[i].dateSaisie.kmlcConvertToTimestamp() && note.notes[i].dateSaisie.kmlcConvertToTimestamp() <= dateFin) || (dateDebut <= note.notes[i].date.kmlcConvertToTimestamp() && note.notes[i].date.kmlcConvertToTimestamp() <= dateFin)) {
           if (skip) {
             // If it is he pass and we convert the values that we need to numbers
             let tempNote = Number(

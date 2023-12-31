@@ -19,7 +19,7 @@
 
     // Wait for the button "À venir" in the bottom right
     document
-      .waitForElement(
+      .kmlcWaitForElement(
         'ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button'
       )
       .then((buttonAVenir) => {

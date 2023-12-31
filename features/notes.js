@@ -2,14 +2,27 @@
   function main(id, token) {
     const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
 
+    const rang = imports('rang').from('./features/Notes/rang.js');
+    const coeff = imports('coeff').from('./features/Notes/coeff.js');
+
     const calculerMoyennes = imports('calculerMoyennes').from(
       './features/Notes/functions/calculer-moyennes.js'
+    );
+
+    const charts = imports('charts').from('./features/Notes/charts.js');
+
+    const variationMoyenne = imports('variationMoyenne').from(
+      './features/Notes/variation-moyenne.js'
+    );
+
+    const modifierNoteSimulation = imports('modifierNoteSimulation').from(
+      './features/Notes/modifier-note-simulation.js'
     );
     const ajouterNoteSimulation = imports('ajouterNoteSimulation').from(
       './features/Notes/ajouter-note-simulation.js'
     );
-    const coeff = imports('coeff').from('./features/Notes/coeff.js');
-    const charts = imports("charts").from('./features/Notes/charts.js');
+
+    const objectifSetup = imports('objectifSetup').from('./features/Notes/objectif.js');
 
     const account = new EcoleDirecte(id, token);
 
@@ -19,16 +32,17 @@
 
     globalThis.Notes.dataPeriodes = gradesData.periodes;
 
-    document.waitForElement("[class *= 'tab-content']").then((elm) => {
+    document.kmlcWaitForElement("[class *= 'tab-content']").then((elm) => {
       let periode = document.querySelector('#onglets-periodes > ul > li.active.nav-item');
       periode = Array.from(periode.parentNode.children).indexOf(periode);
 
       setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
+      rang(gradesData);
       coeff(gradesData);
-      globalThis.Notes.rang(gradesData);
 
       calculerMoyennes(
+        1,
         true,
         'kmlc-moyenne-g',
         '',
@@ -40,12 +54,12 @@
 
       charts(gradesData);
 
+      modifierNoteSimulation();
       ajouterNoteSimulation();
-      globalThis.Notes.modifierNoteSimulation();
 
-      globalThis.Notes.objectifSetup();
+      objectifSetup();
 
-      globalThis.Notes.variationMoyenne(periode, gradesData);
+      variationMoyenne(periode, gradesData);
     });
     // console.log(1)
     var notesObserver = new MutationObserver(function (mutations) {
@@ -67,10 +81,11 @@
 
             setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
+            rang(gradesData);
             coeff(gradesData);
-            globalThis.Notes.rang(gradesData);
 
             calculerMoyennes(
+              2,
               true,
               'kmlc-moyenne-g',
               '',
@@ -82,12 +97,12 @@
 
             charts(gradesData);
 
+            modifierNoteSimulation();
             ajouterNoteSimulation();
-            globalThis.Notes.modifierNoteSimulation();
 
-            globalThis.Notes.objectifSetup();
+            objectifSetup();
 
-            globalThis.Notes.variationMoyenne(periode, gradesData);
+            variationMoyenne(periode, gradesData);
           }
         } catch (e) {
           // console.log(e)
@@ -99,7 +114,7 @@
 
     function executeNotesObserver(observer) {
       // Wait for the parent containing the table that isn't modified or removed when something in the table change
-      document.waitForElement('.eleve-note').then((elm) => {
+      document.kmlcWaitForElement('.eleve-note').then((elm) => {
         // console.log(789)
         observer.observe(elm, {
           characterData: false,
@@ -123,11 +138,11 @@
           if (periodes[j].periode == elmPeriodes[i].textContent) {
             elmPeriodes[i].setAttribute(
               'dateDebut',
-              periodes[j].dateDebut.convertToTimestamp()
+              periodes[j].dateDebut.kmlcConvertToTimestamp()
             );
             elmPeriodes[i].setAttribute(
               'dateFin',
-              periodes[j].dateFin.convertToTimestamp()
+              periodes[j].dateFin.kmlcConvertToTimestamp()
             );
             elmPeriodes[i].setAttribute('codePeriode', periodes[j].codePeriode);
 
