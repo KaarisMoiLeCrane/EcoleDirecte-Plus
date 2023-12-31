@@ -17,7 +17,7 @@
   ) {
     let skip = !false;
 
-    console.log(num, 1)
+    // console.log(num, 1)
     if (!gradeElement || typeof gradeElement != 'object') {
       if (document.querySelector("[id = '" + gradeId + "']")) {
         gradeElement = document
@@ -25,7 +25,7 @@
           .querySelector('[class *= valeur]');
         skip = !false;
       } else {
-        console.log('You are asking a very hard thing');
+        // console.log('You are asking a very hard thing');
 
         skip = !true;
 
