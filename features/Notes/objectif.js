@@ -111,7 +111,7 @@
 
     for (let i = 0; i < subjectNamesElement.length; i++) {
       let skip = !false;
-      const subjectName = subjectName[i].textContent;
+      const subjectName = subjectNamesElement[i].textContent;
       const serializedSubjectName = subjectName
         .replaceAll(/[^a-zA-Z0-9 ]/g, '')
         .replaceAll(' ', '_');
@@ -130,7 +130,7 @@
         for (let j = 0; j < userContent.periodes.length; j++) {
           const userContentPeriode = userContent.periodes[j];
           // console.log(222222)
-          const addedSubjectGrades = userContentPeriode.notes.ajouter[subjectName];
+          const addedSubjectGrades = userContentPeriode.objectif[subjectName];
           // console.log(notesMatiere)
 
           if (addedSubjectGrades) {
