@@ -1,123 +1,118 @@
-var count = 0
+(() => {
+	function modifierNoteSimulation() {
+		const calculerMoyennes = imports("calculerMoyennes").from('./features/Notes/functions/calculer-moyennes.js');
+		const modifierNote = imports("modifierNote").from("./features/Notes/functions/modifier-note.js")
+		
+			// If the table in the bottom was changed and then we add the text "Note modifiée"
+			const tableCaptionTitleElement = document.querySelector("table caption")
+			if (!document.querySelector("[kmlc-text-modifier-note]") && tableCaptionTitleElement) {
+				const tableCaptionElement = tableCaptionTitleElement.parentElement
+					const tableCaptionItemElement = tableCaptionElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
+					tableCaptionItemElement.setAttribute("kmlc-text-modifier-note", "true")
+					tableCaptionItemElement.children[0].textContent = ""
+					tableCaptionItemElement.children[0].setAttribute("style", "")
+					tableCaptionItemElement.children[1].textContent = "Note modifiée"
+					tableCaptionItemElement.setAttribute("kmlc-text-modifier-note", "true")
 
-globalThis.Notes.modifierNoteSimulation = function () {
-	const calculerMoyennes = imports("calculerMoyennes").from('./features/Notes/functions/calculer-moyennes.js');
-	const modifierNote = imports("modifierNote").from("./features/Notes/functions/modifier-note.js")
-	
-    // If the table in the bottom was changed and then we add the text "Note modifiée"
-    if (!document.querySelector("[kmlc-text-modifier-note]") && document.querySelector("table caption")) {
-        let textSimu = document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].cloneNode(true)
-        textSimu.setAttribute("kmlc-text-modifier-note", "true")
-        
-        textSimu.children[0].textContent = ""
-        textSimu.children[0].setAttribute("style", "")
-        
-        let spanElement = document.createElement("SPAN")
-        spanElement.textContent = "note"
-        spanElement.setAttribute("style", "border-bottom: 1px solid green;")
-        
-        textSimu.children[1].textContent = "Note modifiée"
-        
-        textSimu.setAttribute("kmlc-text-modifier-note", "true")
-        
-        document.querySelector("table caption").parentElement.getElementsByContentText("(note)").startsWith[0].insertAfter(textSimu)
-        textSimu.children[0].appendChild(spanElement)
-    }
-    
-    // Get all the grades that they don't have the right click listener
-    let matNotes = document.querySelectorAll("span.valeur:not([kmlc-event-listener])")
-    // console.log("No right click listener", matNotes)
-    
-    for (let i = 0; i < matNotes.length; i++) {
-		// console.log(matNotes[i])
-        // Add the attribute to know that the click listener has been added
-        matNotes[i].setAttribute("kmlc-event-listener", "true")
-        matNotes[i].addEventListener('contextmenu', async function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            
-            let pass = 0;
-			let gradeModifId = Date.now()
-			let gradeElement = this
-			
-			let popupID = "kmlc-modifierNote-popup"
-			let blurID = "kmlc-modifierNote-blur"
-			
-			let popup = document.querySelector("#" + popupID)
-			let blur = document.querySelector("#" + blurID)
-			
-			if (!popup) {
-				let popupDatas = globalThis.Utils.initPopup(popupID, blurID)
-				popup = popupDatas[0]
-				blur = popupDatas[1]
-			}
-				
-			let gradeSimulationId = gradeElement.parentElement.getAttribute("id")
-			if (!gradeSimulationId) gradeSimulationId = false
-			
-			await changePopupInnerHTML(popup, blur, gradeSimulationId, gradeElement)
-
-			// Fermer la popup
-			function closePopup() {
-				popup.classList.add('kmlc-popup-close');
-				blur.classList.add('kmlc-blur-close')
-			}
-
-			// Événement pour fermer la popup en cliquant à l'extérieur
-			blur.addEventListener('click', function(event) {
-				if (event.target.classList.contains('kmlc-blur')) {
-					closePopup();
-				}
-			});
-			
-			let gradeSimulationInputs = document.querySelectorAll('[id *= kmlc-grade-simulation-input]:not([id *= title])')
-
-			gradeSimulationInputs.forEach(function(input) {
-				input.addEventListener('keypress', function(event) {
-					let charCode = event.which ? event.which : event.keyCode;
+					const tableCaptionTextElement = document.createElement("SPAN")
+					tableCaptionTextElement.textContent = "note"
+					tableCaptionTextElement.setAttribute("style", "border-bottom: 1px solid green;")
 					
-					// console.log(charCode)
+					tableCaptionElement.getElementsByContentText("(note)").startsWith[0].insertAfter(tableCaptionItemElement)
+					tableCaptionItemElement.children[0].appendChild(tableCaptionTextElement)
+			}
+			
+			// Get all the grades that they don't have the right click listener
+			const allNonListenedGrades = document.querySelectorAll("span.valeur:not([kmlc-event-listener])")
+			// console.log("No right click listener", matNotes)
+			
+			for (let i = 0; i < allNonListenedGrades.length; i++) {
+			// console.log(matNotes[i])
+					// Add the attribute to know that the click listener has been added
+					allNonListenedGrades[i].setAttribute("kmlc-event-listener", "true")
+					allNonListenedGrades[i].addEventListener('contextmenu', async function(e) {
+							e.stopPropagation();
+							e.preventDefault();
+				const gradeModificationId = Date.now()
+				const gradeElement = this
+				
+				const popupID = "kmlc-modifierNote-popup"
+				const blurID = "kmlc-modifierNote-blur"
+				
+				let popup = document.querySelector("#" + popupID)
+				let blur = document.querySelector("#" + blurID)
+				
+				if (!popup) {
+					const popupDatas = globalThis.Utils.initPopup(popupID, blurID)
+					popup = popupDatas[0]
+					blur = popupDatas[1]
+				}
+					
+				let gradeId = gradeElement.parentElement.getAttribute("id")
+				if (!gradeId) gradeId = false
+				
+				await changePopupInnerHTML(popup, blur, gradeId, gradeElement)
 
-					if (
-						charCode !== 8 && // Touche de suppression (Backspace)
-						charCode !== 44 && // Virgule (,)
-						charCode !== 46 && // Point (.)
-						charCode < 48 || // Chiffres (0-9)
-						charCode > 57
-					) {
-						event.preventDefault();
+				// Fermer la popup
+				function closePopup() {
+					popup.classList.add('kmlc-popup-close');
+					blur.classList.add('kmlc-blur-close')
+				}
+
+				// Événement pour fermer la popup en cliquant à l'extérieur
+				blur.addEventListener('click', function(event) {
+					if (event.target.classList.contains('kmlc-blur')) {
+						closePopup();
 					}
 				});
-			});
+				
+				const editGradeSimulationInputs = document.querySelectorAll('[id *= kmlc-grade-simulation-input]:not([id *= title])')
 
-			// Réinitialiser la popup après l'animation de fermeture
-			popup.addEventListener('animationend', function(event) {
-				if (event.animationName === 'kmlc-popupCloseAnimation') {
-					// Hide the elements
-					popup.style.display = 'none';
-					blur.style.display = 'none'
-					
-					// Reset the animation
-					popup.classList.remove('kmlc-popup-close');
-					blur.classList.remove('kmlc-blur-close')
-				}
-			});
-			
-			popup.setAttribute("style", "width: 80%; height: 80%;");
-			blur.setAttribute("style", "");
-    }, false)
+				editGradeSimulationInputs.forEach(function(input) {
+					input.addEventListener('keypress', function(event) {
+						const characterCode = event.which ? event.which : event.keyCode;
+						if (
+							characterCode !== 8 && // Touche de suppression (Backspace)
+							characterCode !== 44 && // Virgule (,)
+							characterCode !== 46 && // Point (.)
+							characterCode < 48 || // Chiffres (0-9)
+							characterCode > 57
+						) {
+							event.preventDefault();
+						}
+					});
+				});
+
+				// Réinitialiser la popup après l'animation de fermeture
+				popup.addEventListener('animationend', function(event) {
+					if (event.animationName === 'kmlc-popupCloseAnimation') {
+						// Hide the elements
+						popup.style.display = 'none';
+						blur.style.display = 'none'
+						
+						// Reset the animation
+						popup.classList.remove('kmlc-popup-close');
+						blur.classList.remove('kmlc-blur-close')
+					}
+				});
+				
+				popup.setAttribute("style", "width: 80%; height: 80%;");
+				blur.setAttribute("style", "");
+			}, false)
+		}
+		reloadNoteSimulation()
 	}
-	
-	async function changePopupInnerHTML(popup, blur, gradeSimulationId, gradeElement) {
+
+	async function changePopupInnerHTML(popup, blur, gradeId, gradeElement) {
 		await globalThis.Utils.initUserSimulationNote(globalThis.userId)
-		let simulationNote = await globalThis.Utils.getData("simulationNote")
+		const simulationNote = await globalThis.Utils.getData("simulationNote")
 		
-		let userContent = simulationNote.find(item => {
+		const userContent = simulationNote.find(item => {
 			if (item) if (item.id) return item.id == globalThis.userId
 		})
 		
-		let nomMatiere = gradeElement.parentElement.parentElement.parentElement.querySelector("[class *= nommatiere] > b").textContent
-		let periodeElm = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']")
+		let gradeSubject = gradeElement.parentElement.parentElement.parentElement.querySelector("[class *= nommatiere] > b").textContent
+		let actualPeriodeElement = document.querySelector("ul[class *= 'tabs'] > li > [class *= 'nav-link active']")
 		
 		// let nomMatiereSerialized = nomMatiere.replaceAll(/[^a-zA-Z0-9 ]/g, '').replaceAll(" ", "_")
 		
@@ -131,7 +126,7 @@ globalThis.Notes.modifierNoteSimulation = function () {
 		popupHTML += `
   <ul class="kmlc-list">
     <li class="kmlc-item">
-      <label class="kmlc-label">` + nomMatiere + `</label>
+      <label class="kmlc-label">` + gradeSubject + `</label>
     </li>
     <li class="kmlc-item">
       <input type="text" class="kmlc-input" id="kmlc-modification-grade-simulation-input-title" placeholder="Entrez votre titre pour la note" value="` + gradeElement.parentElement.getAttribute("title").substring(1) + `">
@@ -144,8 +139,8 @@ globalThis.Notes.modifierNoteSimulation = function () {
 	<input type="checkbox" class="kmlc-checkbox" id="kmlc-modification-grade-simulation-button-save">
 	<label for="kmlc-modification-grade-simulation-button-save" class="kmlc-modification-checkbox-label">Sauvegarder</label>
 	<li class="kmlc-button-container" style="text-align: center;">
-      <button id="kmlc-modification-add-grade-simulation-button" class="kmlc-add-button" subject="` + nomMatiere + `">Modifier la note</button>
-      <button id="kmlc-modification-clear-grade-simulation-button" class="kmlc-remove-button" subject="` + nomMatiere + `">Réinitialiser</button>
+      <button id="kmlc-modification-add-grade-simulation-button" class="kmlc-add-button" subject="` + gradeSubject + `">Modifier la note</button>
+      <button id="kmlc-modification-clear-grade-simulation-button" class="kmlc-remove-button" subject="` + gradeSubject + `">Réinitialiser</button>
 	</li>
   </ul>`
 
@@ -237,7 +232,7 @@ globalThis.Notes.modifierNoteSimulation = function () {
 					// If pass == 4 it means that no changes have to be done
 					if (pass == 4) return
 					
-					await applyGradeSimulationGoal(subjectGrade, nouveauTitre, nouvelleNote, nouveauCoeff, nouveauQuotient, dateNow, gradeElement, gradeSimulationId, save)
+					await applyGradeSimulationGoal(subjectGrade, nouveauTitre, nouvelleNote, nouveauCoeff, nouveauQuotient, dateNow, gradeElement, gradeId, save)
 					
 					clearInputsAndButtons(this.parentElement.parentElement)
 				
@@ -397,8 +392,6 @@ globalThis.Notes.modifierNoteSimulation = function () {
 		}
 	}
 	
-	// console.log(++count)
-	
 	async function reloadNoteSimulation() {
 		await globalThis.Utils.initUserSimulationNote(globalThis.userId)
 		let simulationNote = await globalThis.Utils.getData("simulationNote")
@@ -443,6 +436,4 @@ globalThis.Notes.modifierNoteSimulation = function () {
 			}
 		}
 	}
-	
-	reloadNoteSimulation()
-}
+})
