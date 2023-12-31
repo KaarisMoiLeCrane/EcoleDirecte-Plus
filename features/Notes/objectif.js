@@ -1,4 +1,13 @@
 (() => {
+  const initPopup = imports('initPopup').from('./utils/utils.js');
+
+  const getData = imports('setData').from('./utils/utils.js');
+  const setData = imports('setData').from('./utils/utils.js');
+
+  const initUserObjectif = imports('initUserObjectif').from(
+    './features/Notes/functions/ajouter-objectif-note.js'
+  );
+
   const ajouterObjectifNote = imports('ajouterObjectifNote').from(
     './features/Notes/functions/ajouter-objectif-note.js'
   );
@@ -22,8 +31,8 @@
 
         // We get the goals and we add them to a multi-line string
 
-        await globalThis.Utils.initUserObjectif(globalThis.userId);
-        const meansGoals = await globalThis.Utils.getData('objectifMoyenne');
+        await initUserObjectif(globalThis.userId);
+        const meansGoals = await getData('objectifMoyenne');
         // console.log(objectifMoyenne)
 
         const popupID = 'kmlc-objectif-popup';
@@ -34,7 +43,7 @@
 
         if (!popup) {
           // console.log(789, items.objectifMoyenne)
-          const popupDatas = globalThis.Utils.initPopup(popupID, blurID);
+          const popupDatas = initPopup(popupID, blurID);
           popup = popupDatas[0];
           blur = popupDatas[1];
 
@@ -99,7 +108,7 @@
     // browser.storage.sync.get({"objectifMoyenne": []}, function(items) {
     // console.log(items.objectifMoyenne)
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
-    const meansGoals = await globalThis.Utils.getData('objectifMoyenne');
+    const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
     );
@@ -201,8 +210,8 @@
         // let dummy = items.objectifMoyenne
         // dummy[id] = []
 
-        await globalThis.Utils.initUserObjectif(globalThis.userId);
-        const meansGoals = await globalThis.Utils.getData('objectifMoyenne');
+        await initUserObjectif(globalThis.userId);
+        const meansGoals = await getData('objectifMoyenne');
 
         // console.log(objectifMoyenne)
 
@@ -219,7 +228,7 @@
 
         // console.log(dummy, userContent, index)
 
-        await globalThis.Utils.setData('objectifMoyenne', meansGoals);
+        await setData('objectifMoyenne', meansGoals);
 
         // browser.storage.sync.set({["simulationNote"]: dummy}, function () {
         // if (browser.runtime.lastError) {
@@ -230,7 +239,7 @@
         // });
         // console.log(1)
 
-        await globalThis.Utils.initUserObjectif(globalThis.userId);
+        await initUserObjectif(globalThis.userId);
         // console.log(5)
 
         // applyGradeSimualtionGoal(popup)
@@ -301,16 +310,16 @@
     // console.log(1111)
     if (!save) return;
 
-    await globalThis.Utils.initUserObjectif(globalThis.userId);
-    const goalsMeans = await globalThis.Utils.getData('objectifMoyenne');
+    await initUserObjectif(globalThis.userId);
+    const meansGoals = await getData('objectifMoyenne');
     // let dataPeriodes = globalThis.Notes.dataPeriodes
 
     // Create the goal section associated with the id of the student
-    const userContent = goalsMeans.find((item) => {
+    const userContent = meansGoals.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;
     });
 
-    const indexOfUserContent = goalsMeans.indexOf(userContent);
+    const indexOfUserContent = meansGoals.indexOf(userContent);
 
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
@@ -334,11 +343,11 @@
       }
     }
 
-    goalsMeans[indexOfUserContent] = userContent;
+    meansGoals[indexOfUserContent] = userContent;
 
     // console.log(subjectGrade, objectifMoyenne)
 
-    await globalThis.Utils.setData('objectifMoyenne', goalsMeans);
+    await setData('objectifMoyenne', meansGoals);
 
     // console.log(objectifMoyenne)
   }
@@ -346,8 +355,8 @@
   async function reloadObjectifNote() {
     // console.log(123456789)
 
-    await globalThis.Utils.initUserObjectif(globalThis.userId);
-    const goalsMeans = await globalThis.Utils.getData('objectifMoyenne');
+    await initUserObjectif(globalThis.userId);
+    const goalsMeans = await getData('objectifMoyenne');
 
     const userContent = goalsMeans.find((item) => {
       if (item) if (item.id) return item.id == globalThis.userId;

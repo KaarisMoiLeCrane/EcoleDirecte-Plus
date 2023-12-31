@@ -1,6 +1,8 @@
 // Listen to all url changes
 var lastUrl = location.href;
 
+const watchAnyObject = imports('watchAnyObject').from('./utils/utils.js');
+
 const CahierDeTexte = {main: imports('main').from('./features/cahierdetexte.js')};
 const EmploiDuTemps = {main: imports('main').from('./features/emploidutemps.js')};
 const Messagerie = {main: imports('main').from('./features/messagerie.js')};
@@ -102,7 +104,7 @@ function main(num) {
 
 // A kind of loop. It listen for any changes in sessionStorage (work but not perfectly, so I reload the page to make it work) and for each changes we recover the token and we check the page and see if there is anything to change
 function loop() {
-  globalThis.Utils.watchAnyObject(
+  watchAnyObject(
     window.sessionStorage,
     ['setItem', 'getItem', 'removeItem'],
     (method, key, ...args) => {
