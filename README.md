@@ -127,8 +127,8 @@ Consultes [Contribution](#contribution)
 - [x] Ajouter à quel point la moyenne d'une matière influe sur la moyenne générale
 - [x] Refonte du design des objectifs (ajout des tooltips et des pop-ups)
 - [ ] Une nouvelle refonte du code pour une meilleure optimisation
-- [ ] Refonte complète du code pour remplacer certains codes par un module
-- [ ] Portage des requêtes HTTPS vers le background et création d'un ecoledirecte.js (fonctions propres à EcoleDirecte)
+- [x] Refonte complète du code pour remplacer certains codes par un module (création de imports/exports (import/export personnalisé et adapté pour les content scripts))
+- [x] Portage des requêtes HTTPS vers le background et création d'un ecoledirecte.js (fonctions propres à EcoleDirecte)
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
