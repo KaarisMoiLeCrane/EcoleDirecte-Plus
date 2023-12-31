@@ -10,6 +10,10 @@
     './features/Notes/functions/ajouter-objectif-note.js'
   );
 
+  const calculerObjectifNote = imports('calculerObjectifNote').from(
+    './features/Notes/functions/calculer-objectif-moyenne.js'
+  );
+
   function objectifSetup() {
     // Selector to get the "Evaluations" button
     const buttonSelector = 'ul.nav-pills > li.active';
@@ -226,22 +230,11 @@
 
         await setData('objectifMoyenne', meansGoals);
 
-        // browser.storage.sync.set({["simulationNote"]: dummy}, function () {
-        // if (browser.runtime.lastError) {
-        // console.error("Error setting data:", browser.runtime.lastError);
-        // } else {
-        // console.log("Data set successfully.");
-        // }
-        // });
-        // console.log(1)
-
         await initUserObjectif(globalThis.userId);
         // console.log(5)
 
         // applyGradeSimualtionGoal(popup)
         await changePopupInnerHTML(popup, blur);
-
-        // browser.storage.sync.set({"objectifMoyenne": dummy})
 
         const allMeansTooltips = document.querySelectorAll(
           '[kmlc-objectif][class *= kmlc-tooltip]'
@@ -250,6 +243,8 @@
           allMeansTooltips[i].remove();
         }
 
+        document.querySelector("[kmlc-global-mean-objectif][class *= kmlc-tooltip]").remove()
+
         const allSetMeansGoalsWithTooltips = document.querySelectorAll(
           '[kmlc-objectif-moyenne-set]'
         );
@@ -257,8 +252,15 @@
           allSetMeansGoalsWithTooltips[i].removeAttribute('kmlc-objectif-moyenne-set');
           allSetMeansGoalsWithTooltips[i].removeAttribute('style');
           allSetMeansGoalsWithTooltips[i].className =
-            allSetMeansGoalsWithTooltips[i].className.replace(' kmlc-note-parent');
+            allSetMeansGoalsWithTooltips[i].className.replace(' kmlc-note-parent', "");
         }
+
+        const globalMeanWithTooltip = document.querySelector("[kmlc-global-mean-objectif-set]")
+        globalMeanWithTooltip.removeAttribute("kmlc-global-mean-objectif-set")
+        globalMeanWithTooltip.removeAttribute("style")
+        globalMeanWithTooltip.className.replace("kmlc-global-mean-parent", "")
+
+        
       });
 
     popup
@@ -302,7 +304,12 @@
   }
 
   async function applyMeanGoal(subjectGoalMean, goalMeanValue, goalMeanId, save) {
-    ajouterObjectifNote(subjectGoalMean, goalMeanValue, goalMeanId);
+    ajouterObjectifNote(subjectGoalMean, goalMeanValue, goalMeanId, 'kmlc-objectif-moyenne-set', 'kmlc-note-parent', 'kmlc-objectif');
+    ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
     // console.log(1111)
     if (!save) return;
 
@@ -382,11 +389,13 @@
             const gradeValue = goalMeanDatas.note;
             const gradeId = goalMeanDatas.id;
 
-            ajouterObjectifNote(subjectGrade, gradeValue, gradeId);
+            ajouterObjectifNote(subjectGrade, gradeValue, gradeId, 'kmlc-objectif-moyenne-set', 'kmlc-note-parent', 'kmlc-objectif');
           }
         }
       }
     }
+
+    calculerObjectifNote(goalsMeans)
   }
 
   exports({objectifSetup}).to('./features/Notes/objectif.js');

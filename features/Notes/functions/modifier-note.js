@@ -3,7 +3,7 @@
     './features/Notes/functions/calculer-moyennes.js'
   );
 
-  function modifierNote(
+  function modifierNote(num,
     subjectName,
     gradeTitle,
     gradeValue,
@@ -17,6 +17,7 @@
   ) {
     let skip = !false;
 
+    console.log(num, 1)
     if (!gradeElement || typeof gradeElement != 'object') {
       if (document.querySelector("[id = '" + gradeId + "']")) {
         gradeElement = document
@@ -162,7 +163,7 @@
 
     // We calculate the averages
     if (calulateGlobalMean) {
-      calculerMoyennes(
+      calculerMoyennes(8,
         true,
         'kmlc-simu-modifier-moyenne-g',
         'border-bottom: 1px solid green; color: green;',

@@ -2,9 +2,15 @@
   function main(id, token) {
     const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
 
+    const rang = imports('rang').from('./features/Notes/rang.js');
+    const coeff = imports('coeff').from('./features/Notes/coeff.js');
+
     const calculerMoyennes = imports('calculerMoyennes').from(
       './features/Notes/functions/calculer-moyennes.js'
     );
+
+    const charts = imports('charts').from('./features/Notes/charts.js');
+
     const variationMoyenne = imports('variationMoyenne').from(
       './features/Notes/variation-moyenne.js'
     );
@@ -17,10 +23,6 @@
     );
 
     const objectifSetup = imports('objectifSetup').from('./features/Notes/objectif.js');
-
-    const charts = imports('charts').from('./features/Notes/charts.js');
-    const rang = imports('rang').from('./features/Notes/rang.js');
-    const coeff = imports('coeff').from('./features/Notes/coeff.js');
 
     const account = new EcoleDirecte(id, token);
 
@@ -36,10 +38,11 @@
 
       setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
-      coeff(gradesData);
       rang(gradesData);
+      coeff(gradesData);
 
       calculerMoyennes(
+        1,
         true,
         'kmlc-moyenne-g',
         '',
@@ -78,10 +81,11 @@
 
             setPeriodesInfos(globalThis.Notes.dataPeriodes);
 
-            coeff(gradesData);
             rang(gradesData);
+            coeff(gradesData);
 
             calculerMoyennes(
+              2,
               true,
               'kmlc-moyenne-g',
               '',

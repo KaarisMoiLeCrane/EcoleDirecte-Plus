@@ -324,7 +324,7 @@
         e.preventDefault();
 
         blur.click();
-        calculerMoyennes(
+        calculerMoyennes(3,
           true,
           'kmlc-simu-moyenne-g',
           'color: green;',
@@ -332,7 +332,7 @@
           'color: green;',
           true
         );
-        calculerMoyennes(
+        calculerMoyennes(4,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',
@@ -499,6 +499,8 @@
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
     );
 
+    const addedGradesListDatas = []
+
     for (let i = 0; i < subjectNames.length; i++) {
       const subjectName = subjectNames[i].textContent;
 
@@ -520,30 +522,43 @@
               const subjectGradeName = subjectName;
               const gradeTitle = subjectGrade.titre;
               const gradeValue = subjectGrade.note;
-              const gradeCpefficient = subjectGrade.coeff;
+              const gradeCoefficient = subjectGrade.coeff;
               const gradeQuotient = subjectGrade.quotient;
               const gradeId = subjectGrade.id;
               const save = true;
-              let calculateGlobalMean = false;
-
-              if (k == subjectGrades.length - 1) {
-                calculateGlobalMean = true;
-              }
-
-              ajouterNote(
-                subjectGradeName,
-                gradeTitle,
-                gradeValue,
-                gradeCpefficient,
-                gradeQuotient,
-                gradeId,
-                save,
-                calculateGlobalMean
-              );
+              
+              addedGradesListDatas.push({
+                subjectName: subjectGradeName,
+                title: gradeTitle,
+                value: gradeValue,
+                coefficient: gradeCoefficient,
+                quotient: gradeQuotient,
+                id: gradeId,
+                save: save
+              })
             }
           }
         }
       }
+    }
+
+    for (let i = 0; i < addedGradesListDatas.length; i++) {
+      let calculateGlobalMean = false;
+
+      if (i == addedGradesListDatas.length - 1) {
+        calculateGlobalMean = true;
+      }
+
+      ajouterNote(
+        addedGradesListDatas[i].subjectName,
+        addedGradesListDatas[i].title,
+        addedGradesListDatas[i].value,
+        addedGradesListDatas[i].coefficient,
+        addedGradesListDatas[i].quotient,
+        addedGradesListDatas[i].id,
+        addedGradesListDatas[i].save,
+        calculateGlobalMean
+      );
     }
   }
   exports({ajouterNoteSimulation}).to('./features/Notes/ajouter-note-simulation.js');
