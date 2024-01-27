@@ -71,9 +71,6 @@
         "/features/messagerie.js",
 
 
-        "/features/notifications.js",
-
-
         "/main.js"
       ],
       "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]

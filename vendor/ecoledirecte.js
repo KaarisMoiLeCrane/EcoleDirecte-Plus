@@ -4,7 +4,7 @@
       idOrUser,
       tokenOrPassword,
       isUserPasswordPair = false,
-      idByDefault = NaN
+      idByDefaultIfUserPasswordPair = NaN
     ) {
       this.extension = location.protocol.includes('-extension:');
 
@@ -12,7 +12,7 @@
         this.id = idOrUser;
         this.token = tokenOrPassword;
       } else {
-        if (idByDefault) this.id = idByDefault;
+        if (idByDefaultIfUserPasswordPair) this.id = idByDefaultIfUserPasswordPair;
 
         this.user = idOrUser;
         this.password = tokenOrPassword;
