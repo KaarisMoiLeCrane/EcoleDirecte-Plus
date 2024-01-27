@@ -223,6 +223,12 @@ function executeEdMenuObserver(observer) {
   });
 }
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action == 'getCredential') {
+    sendResponse({token: getToken(), id: window.location.pathname.split('/')[2]});
+  }
+});
+
 function getToken() {
   if (window.sessionStorage.credentials)
     return JSON.parse(window.sessionStorage.credentials).payload.authToken

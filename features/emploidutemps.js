@@ -38,15 +38,14 @@
             // devButtonStyle += 'width: ' + buttonViewTodayComputedStyle.getPropertyValue("width") + '; '
             // devButtonStyle += 'border: ' + buttonViewTodayComputedStyle.getPropertyValue("border") + '; '
             // devButtonStyle += 'border-radius: ' + buttonViewTodayComputedStyle.getPropertyValue("border-radius") + '; '
-
             const devButton = document.createElement('div');
             devButton.setAttribute('id', 'devoirs');
-            devButton.setAttribute('class', 'dhx_cal_today_button');
-            devButton.setAttribute('style', 'left: 125px;');
+            devButton.setAttribute('class', '');
+            devButton.setAttribute('style', 'left: 125px; cursor:pointer; background-color:none; background-repeat:no-repeat; height:30px; text-align:center; font-size:inherit; font-weight:700; color:#747473; right:123px; background-image:none; background-position:-62px 0; width:80px; border:1px solid #cecece; border-radius:5px; text-decoration:none; text-transform:none; line-height:30px; margin:0; padding:0; box-sizing:content-box;');
             // devButton.setAttribute('style', devButtonStyle);
             devButton.innerText = 'Devoirs';
             devButton.onclick = function () {
-              this.innerText = 'Devoirs';
+              this.innerText = "Devoirs";
               const x = scrollX;
               const y =
                 scrollY +
@@ -56,7 +55,7 @@
 
               homeworkStatus(homeworksData);
             };
-
+if (document.querySelector('#devoirs')) return;
             buttonExportPDF.parentElement.insertBefore(devButton, buttonExportPDF);
           });
         }

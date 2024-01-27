@@ -1,4 +1,26 @@
-const browser = window.chrome || window.browser;
+var browser;
+
+if (location.protocol.includes('-extension:')) {
+  // Check for Chrome
+  if (chrome && chrome.runtime) {
+    browser = chrome;
+  }
+  // Check for Firefox
+  else if (browser && browser.runtime) {
+    // No need to change anything; already assigned to browser
+  }
+  // Check for Edge
+  else if (msBrowser && msBrowser.runtime) {
+    browser = msBrowser;
+  }
+  // Check for other browsers with standard WebExtension API support
+  else if (browserPolyfill && browserPolyfill.runtime) {
+    browser = browserPolyfill;
+  }
+} else {
+  browser = window.chrome || window.browser || window.msBrowser || window.browserPolyfill;
+  globalThis.Notes = {};
+}
 
 var exports, imports;
 
@@ -50,5 +72,3 @@ imports = (...args) => ({
     return result;
   }
 });
-
-globalThis.Notes = {};
