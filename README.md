@@ -156,7 +156,7 @@ Si vous avez une suggestion qui rendrait cela meilleur, veuillez forker le dép�
 <!-- LICENSE -->
 ## Licence
 
-Distribué sous la licence Apache 2.0. Consultes `LICENSE` pour plus d'information.
+Distribué sous la licence `GPL 3.0`. Consultes `LICENSE` pour plus d'information.
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
 
