@@ -13,6 +13,7 @@
     gradeValue,
     gradePower,
     gradeQuotient,
+    globalQuotient,
     gradeId,
     saveGrade = false,
     calculateMeans = true
@@ -68,6 +69,7 @@
     // We calculate the averages
     if (calculateMeans) {
       calculerMoyennes(6,
+        globalQuotient,
         true,
         'kmlc-simu-moyenne-g',
         'color: green;',
@@ -78,6 +80,7 @@
 
       if (document.querySelector('[kmlc-note-simu-modifier]')) {
         calculerMoyennes(7,
+          globalQuotient,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',

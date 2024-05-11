@@ -1,7 +1,7 @@
 (() => {
   let chartBar;
 
-  function charts(gradesData) {
+  function charts(gradesData, globalQuotient) {
     // Check if a chart exist (if there is one, the other one is here)
     if (!document.querySelector("[id = 'chart-curve']") && gradesData.notes.length) {
       // Add the canvas whee there will be each chart
@@ -31,7 +31,10 @@
       const actualCodePeriode = actualPeriodeElement.getAttribute('codePeriode');
       const actualDateStart = Number(actualPeriodeElement.getAttribute('dateDebut'));
       const actualDateEnd = Number(actualPeriodeElement.getAttribute('dateFin'));
-      const actualPeriodeIsR = Boolean(actualPeriodeElement.getAttribute('R'));
+
+      const actualPeriodeIsR = JSON.parse(actualPeriodeElement.getAttribute('R'));
+      const actualPeriodeIsX = JSON.parse(actualPeriodeElement.getAttribute('X'));
+      const actualPeriodeIsZ = JSON.parse(actualPeriodeElement.getAttribute('Z'));
 
       // console.log(codePeriode, dateDebut, dateFin, isR)
 
@@ -49,28 +52,53 @@
         if (gradesDataDuplicate.notes[i].nonSignificatif == false) {
           // Is significant
           let skip = !true;
+          const dateSaisie =
+            gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp();
+          const date = gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp();
 
           // console.log(codePeriode, codePeriode.includes("R"))
-
           // We check if each grade is between the date of start and end
           if (
             actualPeriodeIsR &&
-            actualDateStart <=
-              gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() &&
-            gradesDataDuplicate.notes[i].date.kmlcConvertToTimestamp() <= actualDateEnd
-          )
-            skip = !false;
-          if (
-            !actualPeriodeIsR &&
-            actualDateStart <=
-              gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() &&
-            gradesDataDuplicate.notes[i].dateSaisie.kmlcConvertToTimestamp() <=
-              actualDateEnd
+            !actualPeriodeIsX &&
+            !actualPeriodeIsZ &&
+            actualDateStart <= date &&
+            date <= actualDateEnd
           )
             skip = !false;
 
-          // if ((codePeriode.includes(note.notes[i].codePeriode) && note.notes[i].nonSignificatif == false) && (dateDebut <= note.notes[i].dateSaisie.kmlcConvertToTimestamp() && note.notes[i].dateSaisie.kmlcConvertToTimestamp() <= dateFin) || (dateDebut <= note.notes[i].date.kmlcConvertToTimestamp() && note.notes[i].date.kmlcConvertToTimestamp() <= dateFin)) {
+          if (
+            !actualPeriodeIsR &&
+            !actualPeriodeIsX &&
+            !actualPeriodeIsZ &&
+            actualDateStart <= dateSaisie &&
+            dateSaisie <= actualDateEnd
+          )
+            skip = !false;
+
+          if (
+            !actualPeriodeIsR &&
+            actualPeriodeIsX &&
+            !actualPeriodeIsZ &&
+            actualDateStart <= dateSaisie &&
+            dateSaisie <= actualDateEnd &&
+            gradesDataDuplicate.notes[i].codePeriode.includes(actualCodePeriode)
+          )
+            skip = !false;
+
+          if (
+            !actualPeriodeIsR &&
+            !actualPeriodeIsX &&
+            actualPeriodeIsZ &&
+            actualDateStart <= dateSaisie &&
+            dateSaisie <= actualDateEnd
+          )
+            skip = !false;
+
           if (skip) {
+            // console.log(gradesDataDuplicate.notes[i], actualPeriodeIsR, actualCodePeriode, actualDateStart, actualDateEnd)
+
+            // if ((codePeriode.includes(note.notes[i].codePeriode) && note.notes[i].nonSignificatif == false) && (dateDebut <= note.notes[i].dateSaisie.kmlcConvertToTimestamp() && note.notes[i].dateSaisie.kmlcConvertToTimestamp() <= dateFin) || (dateDebut <= note.notes[i].date.kmlcConvertToTimestamp() && note.notes[i].date.kmlcConvertToTimestamp() <= dateFin)) {
             // If it is he pass and we convert the values that we need to numbers
             let tempNote = Number(
               ('' + gradesDataDuplicate.notes[i].valeur)
@@ -118,20 +146,23 @@
         const gradesVarianceEvolution = [];
         const gradesStandardDeviationEvolution = [];
 
-        const gradesCoefficientAndQuotient = [];
+        const gradesCoefficientQuotientAndSubject = [];
 
         // For each grade
         for (let i = 0; i < gradesDataClean.length; i++) {
           const ascendingGradesValue = [];
           let gradesSum = 0;
 
-          gradesCoefficientAndQuotient.push([
+          // console.log(gradesDataClean);
+
+          gradesCoefficientQuotientAndSubject.push([
             Number(gradesDataClean[i].coef),
-            Number(gradesDataClean[i].noteSur)
+            Number(gradesDataClean[i].noteSur),
+            gradesDataClean[i].libelleMatiere
           ]);
 
           // We get all the grades before the actual grade and the actual grade and we push the whole array to notesTri
-          // In notesOrdreCroissant, this is only the value of the grade that his pushed because it will be sorted later from the smallest to the highest value
+          // In ascendingGradesValue, this is only the value of the grade that his pushed because it will be sorted later from the smallest to the highest value
           // And also the coefficient to calculate the quartiles and the median
 
           let tempGradesSortBySubject = {};
@@ -147,7 +178,7 @@
 
             ascendingGradesValue.push([
               (
-                (gradesDataClean[j].valeur * globalThis.quotient) /
+                (gradesDataClean[j].valeur * globalQuotient) /
                 gradesDataClean[j].noteSur
               ).toFixed(2),
               gradesDataClean[j].coef
@@ -206,6 +237,7 @@
 
           // For each grade
           for (let j = 0; j < sortedGrades.length; j++) {
+            // console.log(sortedGrades);
             let sumOfGradesWithCoefficient = 0;
             let sumOfCoefficientsOfAllSubjectGrades = 0;
 
@@ -216,7 +248,7 @@
             for (let k = 0; k < sortedGrades[j].length; k++) {
               // console.log(notesTri[j])
               sumOfGradesWithCoefficient +=
-                ((sortedGrades[j][k].valeur * globalThis.quotient) /
+                ((sortedGrades[j][k].valeur * globalQuotient) /
                   sortedGrades[j][k].noteSur) *
                 sortedGrades[j][k].coef;
               sumOfCoefficientsOfAllSubjectGrades += sortedGrades[j][k].coef;
@@ -241,6 +273,7 @@
                         .coef;
                   }
                 }
+                break;
               }
             }
 
@@ -274,7 +307,7 @@
         for (let i = 0; i < gradesDataClean.length; i++) {
           allGradesValueOnly.push(
             (
-              (gradesDataClean[i].valeur * globalThis.quotient) /
+              (gradesDataClean[i].valeur * globalQuotient) /
               gradesDataClean[i].noteSur
             ).toFixed(2)
           );
@@ -408,7 +441,11 @@
                 tension: tension,
                 pointRadius: radius,
                 pointHoverRadius: pointHoverRadius,
-                hidden: true
+                hidden: true,
+                fill: {
+                  target: 'origin',
+                  above: 'rgba(255, 140, 0, 0.5)'
+                }
               },
               {
                 label: 'Médiane',
@@ -426,7 +463,11 @@
                 tension: tension,
                 pointRadius: radius,
                 pointHoverRadius: pointHoverRadius,
-                hidden: true
+                hidden: true,
+                fill: {
+                  target: '-2',
+                  above: 'rgba(184, 134, 11, 0.5)'
+                }
               },
               {
                 label: 'Différence interquartile',
@@ -446,47 +487,57 @@
                 callbacks: {
                   footer: function (tooltipItems) {
                     let gradeCoefficient = 1;
-                    let gradeQuotient = globalThis.quotient;
+                    let gradeQuotient = globalQuotient;
+                    let gradeSubject = 'NaN';
 
                     for (let i = 0; i < tooltipItems.length; i++) {
                       if (tooltipItems[i].dataset.label == 'Notes') {
                         gradeCoefficient =
-                          gradesCoefficientAndQuotient[tooltipItems[i].dataIndex][0];
+                          gradesCoefficientQuotientAndSubject[
+                            tooltipItems[i].dataIndex
+                          ][0];
                         gradeQuotient =
-                          gradesCoefficientAndQuotient[tooltipItems[i].dataIndex][1];
+                          gradesCoefficientQuotientAndSubject[
+                            tooltipItems[i].dataIndex
+                          ][1];
+                        gradeSubject =
+                          gradesCoefficientQuotientAndSubject[
+                            tooltipItems[i].dataIndex
+                          ][2];
 
-                        if (gradeQuotient == globalThis.quotient) {
-                          if (tooltipItems[i].dataIndex - 1 >= 0) {
-                            return `Coefficient: ${gradeCoefficient}
-Note sur: ${gradeQuotient}
-Variation de la moyenne générale de: ${(
-                              globalMeanEvolution[tooltipItems[i].dataIndex] -
-                              globalMeanEvolution[tooltipItems[i].dataIndex - 1]
-                            ).toFixed(3)}`;
-                          } else {
-                            return `Coefficient: ${gradeCoefficient}
+                        if (gradeQuotient == globalQuotient) {
+                          return `Matière: ${gradeSubject}
+Coefficient: ${gradeCoefficient}
 Note sur: ${gradeQuotient}`;
-                          }
                         } else {
-                          if (tooltipItems[i].dataIndex - 1 >= 0) {
-                            return `Coefficient: ${gradeCoefficient}
+                          return `Matière: ${gradeSubject}
+Coefficient: ${gradeCoefficient}
 Note sur: ${gradeQuotient}
 Revient à: ${(
-                              (Number(tooltipItems[i].raw) * globalThis.quotient) /
-                              gradeQuotient
-                            ).toFixed(2)}/${globalThis.quotient}
+                            (Number(tooltipItems[i].raw) * globalQuotient) /
+                            gradeQuotient
+                          ).toFixed(2)}/${globalQuotient}`;
+                        }
+                      }
+
+                      if (
+                        tooltipItems[i].dataset.label ==
+                        'Evolution de la moyenne générale en fonction des notes'
+                      ) {
+                        if (tooltipItems[i].dataIndex - 1 >= 0) {
+                          return `Écart avec la moyenne générale actuelle de: ${Math.abs(
+                            globalMeanEvolution[tooltipItems[i].dataIndex] -
+                              actualGlobalMeanForChart[0]
+                          ).toFixed(3)}
 Variation de la moyenne générale de: ${(
-                              globalMeanEvolution[tooltipItems[i].dataIndex] -
-                              globalMeanEvolution[tooltipItems[i].dataIndex - 1]
-                            ).toFixed(3)}`;
-                          } else {
-                            return `Coefficient: ${gradeCoefficient}
-Note sur: ${gradeQuotient}
-Revient à: ${(
-                              (Number(tooltipItems[i].raw) * globalThis.quotient) /
-                              gradeQuotient
-                            ).toFixed(2)}/${globalThis.quotient}`;
-                          }
+                            globalMeanEvolution[tooltipItems[i].dataIndex] -
+                            globalMeanEvolution[tooltipItems[i].dataIndex - 1]
+                          ).toFixed(3)}`;
+                        } else {
+                          return `Écart avec la moyenne générale actuelle de: ${Math.abs(
+                            globalMeanEvolution[tooltipItems[i].dataIndex] -
+                              actualGlobalMeanForChart[0]
+                          ).toFixed(3)}`;
                         }
                       }
                     }
@@ -496,11 +547,14 @@ Revient à: ${(
               title: {
                 display: true,
                 text: 'Evolution des notes'
+              },
+              filler: {
+                propagate: false
               }
             },
             scales: {
               y: {
-                suggestedMax: globalThis.quotient,
+                suggestedMax: globalQuotient,
                 suggestedMin: 0,
                 ticks: {
                   suggestedMax: 1

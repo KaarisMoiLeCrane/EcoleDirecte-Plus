@@ -14,7 +14,7 @@
     './features/Notes/functions/calculer-objectif-moyenne.js'
   );
 
-  function objectifSetup() {
+  function objectifSetup(userId) {
     // Selector to get the "Evaluations" button
     const buttonSelector = 'ul.nav-pills > li.active';
     const activeButton = document.querySelector(buttonSelector);
@@ -44,7 +44,7 @@
 
         // We get the goals and we add them to a multi-line string
 
-        await initUserObjectif(globalThis.userId);
+        await initUserObjectif(userId);
 
         popup = document.querySelector('#' + popupID);
         blur = document.querySelector('#' + blurID);
@@ -55,7 +55,7 @@
           popup = popupDatas[0];
           blur = popupDatas[1];
 
-          await changePopupInnerHTML(popup, blur);
+          await changePopupInnerHTML(userId, popup, blur);
 
           // Fermer la popup
           function closePopup() {
@@ -108,10 +108,10 @@
       activeButton.parentElement.insertBefore(objectifButton, activeButton);
     }
 
-    reloadObjectifNote();
+    reloadObjectifNote(userId);
   }
 
-  async function changePopupInnerHTML(popup, blur) {
+  async function changePopupInnerHTML(userId, popup, blur) {
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
@@ -131,7 +131,7 @@
         .replaceAll(' ', '_');
 
       const userContent = meansGoals.find((item) => {
-        if (item) if (item.id) return item.id == globalThis.userId;
+        if (item) if (item.id) return item.id == userId;
       });
 
       // console.log(userContent)
@@ -210,18 +210,18 @@
         // let dummy = items.objectifMoyenne
         // dummy[id] = []
 
-        await initUserObjectif(globalThis.userId);
+        await initUserObjectif(userId);
         const meansGoals = await getData('objectifMoyenne');
 
         // console.log(objectifMoyenne)
 
         let userContent = meansGoals.find((item) => {
-          if (item) if (item.id) return item.id == globalThis.userId;
+          if (item) if (item.id) return item.id == userId;
         });
 
         let indexOfUserContent = meansGoals.indexOf(userContent);
 
-        userContent = {id: globalThis.userId, periodes: []};
+        userContent = {id: userId, periodes: []};
 
         if (!meansGoals[indexOfUserContent]) meansGoals.push(userContent);
         else meansGoals[indexOfUserContent] = userContent;
@@ -230,11 +230,11 @@
 
         await setData('objectifMoyenne', meansGoals);
 
-        await initUserObjectif(globalThis.userId);
+        await initUserObjectif(userId);
         // console.log(5)
 
         // applyGradeSimualtionGoal(popup)
-        await changePopupInnerHTML(popup, blur);
+        await changePopupInnerHTML(userId, popup, blur);
 
         const allMeansTooltips = document.querySelectorAll(
           '[kmlc-objectif][class *= kmlc-tooltip]'
@@ -303,7 +303,7 @@
       });
   }
 
-  async function applyMeanGoal(subjectGoalMean, goalMeanValue, goalMeanId, save) {
+  async function applyMeanGoal(userId, subjectGoalMean, goalMeanValue, goalMeanId, save) {
     ajouterObjectifNote(subjectGoalMean, goalMeanValue, goalMeanId, 'kmlc-objectif-moyenne-set', 'kmlc-note-parent', 'kmlc-objectif');
     ////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -313,13 +313,12 @@
     // console.log(1111)
     if (!save) return;
 
-    await initUserObjectif(globalThis.userId);
+    await initUserObjectif(userId);
     const meansGoals = await getData('objectifMoyenne');
-    // let dataPeriodes = globalThis.Notes.dataPeriodes
 
     // Create the goal section associated with the id of the student
     const userContent = meansGoals.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const indexOfUserContent = meansGoals.indexOf(userContent);
@@ -355,14 +354,14 @@
     // console.log(objectifMoyenne)
   }
 
-  async function reloadObjectifNote() {
+  async function reloadObjectifNote(userId) {
     // console.log(123456789)
 
-    await initUserObjectif(globalThis.userId);
+    await initUserObjectif(userId);
     const goalsMeans = await getData('objectifMoyenne');
 
     const userContent = goalsMeans.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
@@ -395,7 +394,7 @@
       }
     }
 
-    calculerObjectifNote(goalsMeans)
+    calculerObjectifNote(userId, goalsMeans)
   }
 
   exports({objectifSetup}).to('./features/Notes/objectif.js');

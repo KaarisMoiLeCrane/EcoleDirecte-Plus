@@ -57,6 +57,10 @@
   box-sizing: border-box;
 }
 
+.kmlc-input:focus {
+  backdrop-filter: blur(0px);
+}
+
 .kmlc-blur {
   backdrop-filter: blur(3px);
   z-index: 9998;

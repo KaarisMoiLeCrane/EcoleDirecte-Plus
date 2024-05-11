@@ -38,6 +38,7 @@
 
         "/features/Notes/rang.js",
         "/features/Notes/coeff.js",
+        "/features/Notes/ajouter-note-id.js",
 
         "/features/Notes/functions/calculer-moyennes.js",
 
@@ -64,6 +65,7 @@
         "/features/Design/credit.js",
         "/features/Design/popup.js",
         "/features/Design/tooltip.js",
+        "/features/Design/login.js",
         
         "/features/design.js",
 

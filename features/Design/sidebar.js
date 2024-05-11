@@ -18,6 +18,15 @@
       styleSheet.type = 'text/css';
       styleSheet.id = 'kmlc_css_2';
       styleSheet.innerText = `
+body::-webkit-scrollbar {
+  display: none;  /* Hide scrollbar for WebKit (Chrome, Safari) */
+}
+body {
+  /* Hide scrollbar for WebKit (Chrome, Safari) */
+  scrollbar-width: auto;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+    
 #newMenu {
   position: absolute;
   top: 0;
@@ -438,7 +447,6 @@ header .image-text .profession {
       ul.role = 'menu';
       let li = document.createElement('LI');
       li.role = 'menuitem';
-      li.title = 'space';
 
       ul.appendChild(li);
 

@@ -94,7 +94,7 @@
         });
       } else {
         const loginData = this._makeRequest(url, data, false, true);
-        console.log(loginData);
+        // console.log(loginData);
 
         try {
           if (loginData.code === 200) {
@@ -118,28 +118,28 @@
       return this._makeRequest(url, data, async);
     }
 
-    getAllMessages(type, orderBy = 'date', onlyRead = '0', async = false) {
-      const url = `https://api.ecoledirecte.com/v3/${globalThis.accountType}/${this.id}/messages.awp?verbe=get&force=true&typeRecuperation=${type}&orderBy=${orderBy}&order=desc&onlyRead=${onlyRead}&getAll=1`;
+    getAllMessages(accountType, type, orderBy = 'date', onlyRead = '0', async = false) {
+      const url = `https://api.ecoledirecte.com/v3/${accountType}/${this.id}/messages.awp?verbe=get&force=true&typeRecuperation=${type}&orderBy=${orderBy}&order=desc&onlyRead=${onlyRead}&getAll=1`;
       const data = 'data={}';
 
       const messages = this._makeRequest(url, data, async);
       return messages ? messages.messages[type] : null;
     }
 
-    getArchivedMessages(orderBy = 'date', onlyRead = '0', async = false) {
-      return this.getAllMessages('archived', orderBy, onlyRead, async);
+    getArchivedMessages(accountType, orderBy = 'date', onlyRead = '0', async = false) {
+      return this.getAllMessages(accountType, 'archived', orderBy, onlyRead, async);
     }
 
-    getDraftedMessages(orderBy = 'date', onlyRead = '0', async = false) {
-      return this.getAllMessages('draft', orderBy, onlyRead, async);
+    getDraftedMessages(accountType, orderBy = 'date', onlyRead = '0', async = false) {
+      return this.getAllMessages(accountType, 'draft', orderBy, onlyRead, async);
     }
 
-    getReceivedMessages(orderBy = 'date', onlyRead = '0', async = false) {
-      return this.getAllMessages('received', orderBy, onlyRead, async);
+    getReceivedMessages(accountType, orderBy = 'date', onlyRead = '0', async = false) {
+      return this.getAllMessages(accountType, 'received', orderBy, onlyRead, async);
     }
 
-    readMessage(messageId, async = false) {
-      const url = `https://api.ecoledirecte.com/v3/${globalThis.accountType}/${this.id}/messages/${messageId}.awp?verbe=get&mode=destinataire`;
+    readMessage(accountType, messageId, async = false) {
+      const url = `https://api.ecoledirecte.com/v3/${accountType}/${this.id}/messages/${messageId}.awp?verbe=get&mode=destinataire`;
       const data = 'data={}';
       return this._makeRequest(url, data, async);
     }

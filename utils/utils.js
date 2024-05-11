@@ -152,27 +152,12 @@
     let dateDebutArr = [];
     let dateFinArr = [];
 
-    // let oldDateDebutArr = []
-    // let oldDateFinArr = []
-
-    let dataPeriodes = globalThis.Notes.dataPeriodes;
-    // let oldDataPeriodes = globalThis.Notes.oldDataPeriodes
+    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 
     for (let i = 0; i < dataPeriodes.length; i++) {
       dateDebutArr.push(dataPeriodes[i].dateDebut.kmlcConvertToTimestamp());
       dateFinArr.push(dataPeriodes[i].dateFin.kmlcConvertToTimestamp());
     }
-    // for (let i = 0; i < oldDataPeriodes.length; i++) {
-    // oldDateDebutArr.push(oldDataPeriodes[i].dateDebut.kmlcConvertToTimestamp())
-    // oldDateFinArr.push(oldDataPeriodes[i].dateFin.kmlcConvertToTimestamp())
-    // }
-
-    // oldDateDebutArr.sort(function(a, b) {
-    // return a - b;
-    // })
-    // oldDateFinArr.sort(function(a, b) {
-    // return b - a;
-    // })
 
     dateDebutArr.sort(function (a, b) {
       return a - b;
@@ -195,9 +180,9 @@
     let dummy = [...simulationNote];
     let newYear = getNewYear();
 
-    // console.log(dummy)
+    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 
-    let dataPeriodes = globalThis.Notes.dataPeriodes;
+    // console.log(dummy)
 
     let userContent = simulationNote.find((item) => {
       if (item) if (item.id) return item.id == id;
@@ -404,9 +389,9 @@
     let isOldObjectif = false;
     let newYear = getNewYear();
 
-    // console.log(dummy)
+    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 
-    let dataPeriodes = globalThis.Notes.dataPeriodes;
+    // console.log(dummy)
 
     let userContent = objectifMoyenne.find((item) => {
       if (item) if (item.id) return item.id == id;
@@ -517,6 +502,29 @@
     await setData('objectifMoyenne', objectifMoyenne);
   }
 
+  function getToken() {
+    if (window.sessionStorage.credentials)
+      return JSON.parse(window.sessionStorage.credentials).payload.authToken
+        ? JSON.parse(window.sessionStorage.credentials).payload.authToken
+        : NaN;
+
+    return NaN;
+  }
+
+  function getAccountType() {
+    if (window.sessionStorage.accounts)
+      return JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte ==
+        "'E'"
+        ? 'eleves'
+        : 'familles';
+
+    return NaN;
+  }
+
+  function getUserId() {
+    return window.location.pathname.split('/')[2];
+  }
+
   exports({
     fragmentFromString,
     numToDate,
@@ -526,6 +534,9 @@
     getData,
     getNewYear,
     initUserSimulationNote,
-    initUserObjectif
+    initUserObjectif,
+    getToken,
+    getAccountType,
+    getUserId
   }).to('./utils/utils.js');
 })();

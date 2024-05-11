@@ -19,7 +19,6 @@ if (location.protocol.includes('-extension:')) {
   }
 } else {
   browser = window.chrome || window.browser || window.msBrowser || window.browserPolyfill;
-  globalThis.Notes = {};
 }
 
 var exports, imports;

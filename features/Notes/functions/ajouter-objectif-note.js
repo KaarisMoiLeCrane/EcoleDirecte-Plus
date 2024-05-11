@@ -1,5 +1,12 @@
 (() => {
-  function ajouterObjectifNote(subjectNameOrElement, meanObjectifValue, gradeId, tooltipSetParentAttributeName, tooltipParentAttributeName, tooltipAttributeName) {
+  function ajouterObjectifNote(
+    subjectNameOrElement,
+    meanObjectifValue,
+    gradeId,
+    tooltipSetParentAttributeName,
+    tooltipParentAttributeName,
+    tooltipAttributeName
+  ) {
     let subjectAverage = false;
 
     if (subjectNameOrElement instanceof HTMLElement) {
@@ -39,16 +46,17 @@
 
       const meanSubjectValue = parseFloat(
         subjectAverage.textContent
-          .split(" ")[0]
+          .split(' ')[0]
           .replace(/[()\/\s]/g, '')
           .replace(',', '.')
           .replace(/[^\d+\-*/.\s]/g, '')
       ); // Complete cleaning
       let tooltipClass = ' kmlc-tooltip-red';
 
-      // console.log(matiereNote)
-
-      if (meanSubjectValue > meanObjectifValue) {
+      if (isNaN(meanSubjectValue)) {
+        backgroundColor = '';
+        tooltipClass = ' kmlc-tooltip-blue';
+      } else if (meanSubjectValue > meanObjectifValue) {
         backgroundColor = ' background-color: rgb(0, 255, 0, 0.5);';
         tooltipClass = ' kmlc-tooltip-green';
       } else if (meanSubjectValue < meanObjectifValue) {
@@ -70,14 +78,14 @@
       if (!subjectAverage.parentElement.getAttribute(tooltipSetParentAttributeName)) {
         // console.log("objectif 2", backgroundColor, gradeValue, matiereNote)
 
-        subjectAverage.parentElement.className += " " + tooltipParentAttributeName;
+        subjectAverage.parentElement.className += ' ' + tooltipParentAttributeName;
 
         const tooltipElement = subjectAverage.cloneNode(true);
         tooltipElement.className += tooltipClass;
         tooltipElement.textContent = 'Objectif de ' + meanObjectifValue;
-        tooltipElement.setAttribute("style", "font-weight: 400;")
+        tooltipElement.setAttribute('style', 'font-weight: 400;');
         tooltipElement.setAttribute(tooltipAttributeName, 'true');
-        tooltipElement.removeAttribute('kmlc-moyenne')
+        tooltipElement.removeAttribute('kmlc-moyenne');
         tooltipElement.removeAttribute('kmlc-moyenne-g');
 
         subjectAverage.parentElement.appendChild(tooltipElement);
@@ -93,7 +101,7 @@
         );
         tooltipElement.className = tooltipClass;
         tooltipElement.textContent = 'Objectif de ' + meanObjectifValue;
-        tooltipElement.setAttribute("style", "font-weight: 400;")
+        tooltipElement.setAttribute('style', 'font-weight: 400;');
         tooltipElement.setAttribute(tooltipAttributeName, 'true');
 
         subjectAverage.parentElement.setAttribute('style', backgroundColor);

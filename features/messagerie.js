@@ -1,5 +1,6 @@
 (() => {
   const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
+  const getAccountType = imports('getAccountType').from('./utils/utils.js');
 
   function main(id, token) {
     // Wait for the button "Actualiser" (refresh button) in the top
@@ -18,8 +19,9 @@
           buttonReadAll.innerHTML = '<span style="font-weight: bold;">Tout lire</span>';
 
           buttonReadAll.onclick = function () {
+            const accountType = getAccountType();
             const account = new EcoleDirecte(id, token);
-            const receivedMessages = account.getReceivedMessages();
+            const receivedMessages = account.getReceivedMessages(accountType);
             // When we receive all the messages we open all of them
 
             if (receivedMessages.length) {
@@ -29,7 +31,7 @@
 
               for (let i = 0; i < receivedMessages.length; i++) {
                 setTimeout(() => {
-                  const readedMessageDatas = account.readMessage(receivedMessages[i].id);
+                  const readedMessageDatas = account.readMessage(accountType, receivedMessages[i].id);
                 }, 100);
               }
 

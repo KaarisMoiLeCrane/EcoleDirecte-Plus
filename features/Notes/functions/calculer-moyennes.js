@@ -1,5 +1,6 @@
 (() => {
   function calculerMoyennes(num,
+    globalQuotient,
     displayCalculatedMeansValues = false,
     attributeGlobalMean = '',
     styleGlobalMean = '',
@@ -66,12 +67,12 @@
       let summedGrades = 0.0;
       let totalSubjectGradeCoefficients = 0.0;
 
-      // For each grades of the suject, get his coefficient and his quotient and we calculate everything. We convert the grade to be /20 or something else (globalThis.quotient) and we multiply it with his coefficient. We add the coefficient to the coeffNoteTot
+      // For each grades of the suject, get his coefficient and his quotient and we calculate everything. We convert the grade to be /20 or something else (globalQuotient) and we multiply it with his coefficient. We add the coefficient to the coeffNoteTot
       for (let j = 0; j < allSubjectGrades.length; j++) {
         const subjectGrade = allSubjectGrades[j];
 
         let gradeCoefficient = 1.0;
-        let gradeQuotient = globalThis.quotient;
+        let gradeQuotient = globalQuotient;
         let gradeValue = 0.0;
         let significative = false;
         let skip = !false;
@@ -121,7 +122,7 @@
               );
               skip = !true;
             } else {
-              gradeQuotient = globalThis.quotient;
+              gradeQuotient = globalQuotient;
               skip = !true;
             }
           }
@@ -185,12 +186,12 @@
         // console.log(6, matNote, matiereNotes[j].childNodes[0].nodeValue)
 
         // If there is a grade (0 is a grade but nothing and a grade between two parentheses is not a grade). matNote is a string so ``if ("0" && "0.0")`` is true
-        console.log(gradeValue, gradeQuotient, gradeCoefficient); ///////////////////////////////////////////////////////////////////////////////////////
+        // console.log(gradeValue, gradeQuotient, gradeCoefficient); ///////////////////////////////////////////////////////////////////////////////////////
         if (gradeValue) {
           // console.log(6.1, matNote)
 
-          // Convert the grade to /20 or something else (globalThis.quotient)
-          gradeValue = (parseFloat(gradeValue) * globalThis.quotient) / gradeQuotient;
+          // Convert the grade to /20 or something else (globalQuotient)
+          gradeValue = (parseFloat(gradeValue) * globalQuotient) / gradeQuotient;
           // console.log(6.2, matNote, coeff)
 
           // Multiply it with the coefficient of the grade, add it to the average value of the subject and add the coefficient with the total of coefficients of the subject

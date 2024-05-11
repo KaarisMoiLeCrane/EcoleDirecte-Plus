@@ -15,8 +15,8 @@
     './features/Notes/functions/modifier-note.js'
   );
 
-  function modifierNoteSimulation() {
-    console.log(1829281902899)
+  function modifierNoteSimulation(userId, globalQuotient) {
+    console.log(1829281902899);
     // If the table in the bottom was changed and then we add the text "Note modifiée"
     const tableCaptionTitleElement = document.querySelector('table caption');
     if (
@@ -76,7 +76,7 @@
           let gradeId = gradeElement.parentElement.getAttribute('id');
           if (!gradeId) gradeId = false;
 
-          await changePopupInnerHTML(popup, blur, gradeId, gradeElement);
+          await changePopupInnerHTML(userId, popup, blur, globalQuotient, gradeId, gradeElement);
 
           // Fermer la popup
           function closePopup() {
@@ -129,15 +129,15 @@
         false
       );
     }
-    reloadNoteSimulation();
+    reloadNoteSimulation(userId, globalQuotient);
   }
 
-  async function changePopupInnerHTML(popup, blur, gradeId, gradeElement) {
-    await initUserSimulationNote(globalThis.userId);
+  async function changePopupInnerHTML(userId, popup, blur, globalQuotient, gradeId, gradeElement) {
+    await initUserSimulationNote(userId);
     const simulationNote = await getData('simulationNote');
 
     const userContent = simulationNote.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const gradeSubject =
@@ -185,7 +185,7 @@
         .replace(/[^\d+\-*/.\s]/g, '');
     }
     if (gradeId) {
-      gradeSave = true;
+      gradeSave = 'checked';
     }
 
     popupHTML +=
@@ -212,7 +212,7 @@
       gradeQuotient +
       `">
     </li>
-	<input type="checkbox" class="kmlc-checkbox" id="kmlc-modification-grade-simulation-button-save" checked=` +
+	<input type="checkbox" class="kmlc-checkbox" id="kmlc-modification-grade-simulation-button-save"` +
       gradeSave +
       `>
 	<label for="kmlc-modification-grade-simulation-button-save" class="kmlc-modification-checkbox-label">Sauvegarder</label>
@@ -359,7 +359,7 @@
               .textContent.replace(/[()\/\s]/g, '')
               .replace(',', '.')
               .replace(/[^\d+\-*/.\s]/g, '');
-          else newGradeQuotient = globalThis.quotient;
+          else newGradeQuotient = globalQuotient;
 
           skip += 1;
         } else {
@@ -373,7 +373,7 @@
                 .replace(/[^\d+\-*/.\s]/g, '')
             )
               skip += 1;
-          if (newGradeQuotient == globalThis.quotient) skip += 1;
+          if (newGradeQuotient == globalQuotient) skip += 1;
         }
 
         // If pass == 4 it means that no changes have to be done
@@ -385,6 +385,7 @@
           newGradeValue,
           newGradeCoefficient,
           newGradeQuotient,
+          globalQuotient,
           dateNow,
           gradeElement,
           gradeId,
@@ -410,11 +411,11 @@
         e.stopPropagation();
         e.preventDefault();
 
-        await initUserSimulationNote(globalThis.userId);
+        await initUserSimulationNote(userId);
         const simulationNote = await getData('simulationNote');
 
         const userContent = simulationNote.find((item) => {
-          if (item) if (item.id) return item.id == globalThis.userId;
+          if (item) if (item.id) return item.id == userId;
         });
 
         const indexOfUserContent = simulationNote.indexOf(userContent);
@@ -428,7 +429,7 @@
         simulationNote[indexOfUserContent] = userContent;
 
         await setData('simulationNote', simulationNote);
-        await initUserSimulationNote(globalThis.userId);
+        await initUserSimulationNote(userId);
 
         const allSimulationSubjectMeansElements = Array.from(
           document.querySelectorAll('*')
@@ -481,7 +482,9 @@
         e.preventDefault();
 
         blur.click();
-        calculerMoyennes(5,
+        calculerMoyennes(
+          5,
+          globalQuotient,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',
@@ -512,17 +515,20 @@
     gradeValue,
     gradeCoefficient,
     gradeQuotient,
+    globalQuotient,
     gradeModificationId,
     gradeElement,
     gradeId,
     save
   ) {
-    let go = modifierNote(11,
+    let go = modifierNote(
+      11,
       subjectGrade,
       gradeTitle,
       gradeValue,
       gradeCoefficient,
       gradeQuotient,
+      globalQuotient,
       gradeModificationId,
       gradeElement,
       gradeId,
@@ -533,11 +539,11 @@
     if (!gradeId) return;
 
     if (go) {
-      await initUserSimulationNote(globalThis.userId);
+      await initUserSimulationNote(userId);
       const simulationNote = await getData('simulationNote');
 
       const userContent = simulationNote.find((item) => {
-        if (item) if (item.id) return item.id == globalThis.userId;
+        if (item) if (item.id) return item.id == userId;
       });
 
       const indexOfUserContent = simulationNote.indexOf(userContent);
@@ -604,12 +610,12 @@
     }
   }
 
-  async function reloadNoteSimulation() {
-    await initUserSimulationNote(globalThis.userId);
+  async function reloadNoteSimulation(userId, globalQuotient) {
+    await initUserSimulationNote(userId);
     const simulationNote = await getData('simulationNote');
 
     const userContent = simulationNote.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const subjectGrades = document.querySelectorAll("[class *= 'nommatiere'] > b");
@@ -619,7 +625,7 @@
 
     // console.log(userContent)
 
-    const addedAndEditedGradesListDatas = []
+    const addedAndEditedGradesListDatas = [];
 
     if (userContent.periodes) {
       for (let i = 0; i < userContent.periodes.length; i++) {
@@ -631,7 +637,7 @@
         ) {
           for (let j = 0; j < subjectGrades.length; j++) {
             // console.log(periodeElm.getAttribute("dateDebut"), userContent.periodes[j].dateDebut, periodeElm.getAttribute("dateFin"), userContent.periodes[j].dateFin)
-          
+
             const gradesData =
               userContent.periodes[i].notes.modifier[subjectGrades[j].textContent];
             // console.log(notesMatiere, nomMatieres[i].textContent, userContent)
@@ -656,7 +662,7 @@
                 id: gradeId,
                 idModification: gradeModificationId,
                 save: save
-              })
+              });
             }
           }
         }
@@ -670,12 +676,14 @@
         calculateGlobalMean = true;
       }
 
-      modifierNote(12,
+      modifierNote(
+        12,
         addedAndEditedGradesListDatas[i].subjectName,
         addedAndEditedGradesListDatas[i].title,
         addedAndEditedGradesListDatas[i].value,
         addedAndEditedGradesListDatas[i].coefficient,
         addedAndEditedGradesListDatas[i].quotient,
+        globalQuotient,
         addedAndEditedGradesListDatas[i].idModification,
         false,
         addedAndEditedGradesListDatas[i].id,

@@ -2,11 +2,17 @@
 var lastUrl = location.href;
 
 const watchAnyObject = imports('watchAnyObject').from('./utils/utils.js');
+const getToken = imports('getToken').from('./utils/utils.js');
+const getUserId = imports('getUserId').from('./utils/utils.js');
 
 const CahierDeTexte = {main: imports('main').from('./features/cahierdetexte.js')};
 const EmploiDuTemps = {main: imports('main').from('./features/emploidutemps.js')};
 const Messagerie = {main: imports('main').from('./features/messagerie.js')};
-const Design = {main: imports('main').from('./features/design.js')};
+// const Design = {
+//   main: imports('main').from('./features/design.js'),
+//   login: imports('login').from('./features/design.js')
+// };
+const Design = imports('*').from('./features/design.js');
 const Notes = {main: imports('main').from('./features/notes.js')};
 
 // This part of the code is the core of the code
@@ -32,13 +38,14 @@ new MutationObserver(() => {
 });
 
 function main(num) {
+  if (lastUrl.includes('/login')) Design.login();
+
   if (!lastUrl.includes('/login')) {
     // Get the token of the account and the id of the aimed student
-    globalThis.token = getToken();
-    globalThis.accountType = getAccountType();
-    globalThis.userId = window.location.pathname.split('/')[2];
+    const token = getToken();
+    const userId = getUserId();
 
-    // console.log(globalThis.userId)
+    // console.log(userId)
 
     // Apply the visual changes
     window.onload = () => {
@@ -49,48 +56,48 @@ function main(num) {
     // loop2();
 
     // If there is a token and the user is on the schedule or the text book or the grades then we wait for a specific element to load and then we apply the changes
-    // console.log(globalThis.token, window.location.href)
-    if (globalThis.token && window.location.href.includes('CahierDeTexte')) {
-      if (globalThis.userId != undefined) {
+    // console.log(token, window.location.href)
+    if (token && window.location.href.includes('CahierDeTexte')) {
+      if (userId != undefined) {
         document.kmlcWaitForElement('.all-devoirs').then(() => {
           if (document.querySelector('.sidebar:hover'))
             document.getElementById('main-part').classList.add('sidebarhover');
 
-          CahierDeTexte.main(globalThis.userId, globalThis.token);
+          CahierDeTexte.main(userId, token);
         });
       }
     }
 
-    if (globalThis.token && window.location.href.includes('EmploiDuTemps')) {
-      if (globalThis.userId != undefined) {
+    if (token && window.location.href.includes('EmploiDuTemps')) {
+      if (userId != undefined) {
         document.kmlcWaitForElement('.dhx_cal_data > div:nth-child(7)').then(() => {
           document.getElementById('main-part').classList.remove('sidebarhover');
 
-          EmploiDuTemps.main(globalThis.userId, globalThis.token);
+          EmploiDuTemps.main(userId, token);
         });
       }
     }
 
-    if (globalThis.token && window.location.href.includes('Notes')) {
-      if (globalThis.userId != undefined) {
+    if (token && window.location.href.includes('Notes')) {
+      if (userId != undefined) {
         document.kmlcWaitForElement('td.discipline').then(() => {
           if (document.querySelector('.sidebar:hover'))
             document.getElementById('main-part').classList.add('sidebarhover');
 
-          Notes.main(globalThis.userId, globalThis.token);
+          Notes.main(userId, token);
         });
       }
     }
 
-    if (globalThis.token && window.location.href.includes('Messagerie')) {
-      if (globalThis.userId != undefined) {
+    if (token && window.location.href.includes('Messagerie')) {
+      if (userId != undefined) {
         document
           .kmlcWaitForElement('[class *= btn-group] > button:not([class *= dropdown])')
           .then(() => {
             if (document.querySelector('.sidebar:hover'))
               document.getElementById('main-part').classList.add('sidebarhover');
 
-            Messagerie.main(globalThis.userId, globalThis.token);
+            Messagerie.main(userId, token);
           });
       }
     }
@@ -109,7 +116,6 @@ function loop() {
     ['setItem', 'getItem', 'removeItem'],
     (method, key, ...args) => {
       if ((method == 'setItem' && key == 'accounts') || key == 'credentials') {
-        globalThis.token = getToken();
         let prom = new Promise((resolve) => {
           new MutationObserver((mutations, observer) => {
             for (let mutation of mutations) {
@@ -228,22 +234,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     sendResponse({token: getToken(), id: window.location.pathname.split('/')[2]});
   }
 });
-
-function getToken() {
-  if (window.sessionStorage.credentials)
-    return JSON.parse(window.sessionStorage.credentials).payload.authToken
-      ? JSON.parse(window.sessionStorage.credentials).payload.authToken
-      : NaN;
-
-  return NaN;
-}
-
-function getAccountType() {
-  if (window.sessionStorage.accounts)
-    return JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte ==
-      "'E'"
-      ? 'eleves'
-      : 'familles';
-
-  return NaN;
-}

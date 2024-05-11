@@ -9,6 +9,7 @@
     gradeValue,
     gradeCoefficient,
     gradeQuotient,
+    globalQuotient,
     gradeModificationId,
     gradeElement = false,
     gradeId = false,
@@ -164,6 +165,7 @@
     // We calculate the averages
     if (calulateGlobalMean) {
       calculerMoyennes(8,
+        globalQuotient,
         true,
         'kmlc-simu-modifier-moyenne-g',
         'border-bottom: 1px solid green; color: green;',

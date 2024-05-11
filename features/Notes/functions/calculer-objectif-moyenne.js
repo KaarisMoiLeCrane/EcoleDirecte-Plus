@@ -3,7 +3,7 @@
     './features/Notes/functions/ajouter-objectif-note.js'
   );
 
-  function calculerObjectifNote(goalsMeans) {
+  function calculerObjectifNote(userId, goalsMeans) {
     const globalMeanGoalId = Date.now()
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const actualPeriodeElement = document.querySelector(
@@ -20,7 +20,7 @@
         .replaceAll(' ', '_');
 
       const userContent = goalsMeans.find((item) => {
-        if (item) if (item.id) return item.id == globalThis.userId;
+        if (item) if (item.id) return item.id == userId;
       });
 
       // console.log(userContent)

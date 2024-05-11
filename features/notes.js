@@ -4,6 +4,7 @@
 
     const rang = imports('rang').from('./features/Notes/rang.js');
     const coeff = imports('coeff').from('./features/Notes/coeff.js');
+    const ajouterNoteId = imports('ajouterNoteId').from('./features/Notes/ajouter-note-id.js');
 
     const calculerMoyennes = imports('calculerMoyennes').from(
       './features/Notes/functions/calculer-moyennes.js'
@@ -28,21 +29,24 @@
 
     // When we receive all the grades datas we save them and send them
     const gradesData = account.getAllGrades();
-    globalThis.quotient = parseFloat(gradesData.parametrage.moyenneSur);
+    const globalQuotient = parseFloat(gradesData.parametrage.moyenneSur);
+    const dataPeriodes = gradesData.periodes;
 
-    globalThis.Notes.dataPeriodes = gradesData.periodes;
+    exports({dataPeriodes}).to('./features/notes.js')
 
     document.kmlcWaitForElement("[class *= 'tab-content']").then((elm) => {
       let periode = document.querySelector('#onglets-periodes > ul > li.active.nav-item');
       periode = Array.from(periode.parentNode.children).indexOf(periode);
 
-      setPeriodesInfos(globalThis.Notes.dataPeriodes);
+      setPeriodesInfos(dataPeriodes);
 
       rang(gradesData);
       coeff(gradesData);
+      ajouterNoteId(gradesData)
 
       calculerMoyennes(
         1,
+        globalQuotient,
         true,
         'kmlc-moyenne-g',
         '',
@@ -52,12 +56,12 @@
         ":not([class *= 'simu'])"
       );
 
-      charts(gradesData);
+      charts(gradesData, globalQuotient);
 
-      modifierNoteSimulation();
-      ajouterNoteSimulation();
+      modifierNoteSimulation(id, globalQuotient);
+      ajouterNoteSimulation(id, globalQuotient);
 
-      objectifSetup();
+      objectifSetup(id);
 
       variationMoyenne(periode, gradesData);
     });
@@ -79,13 +83,15 @@
             );
             periode = Array.from(periode.parentNode.children).indexOf(periode);
 
-            setPeriodesInfos(globalThis.Notes.dataPeriodes);
+            setPeriodesInfos(dataPeriodes);
 
             rang(gradesData);
             coeff(gradesData);
+            ajouterNoteId(gradesData)
 
             calculerMoyennes(
               2,
+              globalQuotient,
               true,
               'kmlc-moyenne-g',
               '',
@@ -95,12 +101,12 @@
               ":not([class *= 'simu'])"
             );
 
-            charts(gradesData);
+            charts(gradesData, globalQuotient);
 
-            modifierNoteSimulation();
-            ajouterNoteSimulation();
+            modifierNoteSimulation(id, globalQuotient);
+            ajouterNoteSimulation(id, globalQuotient);
 
-            objectifSetup();
+            objectifSetup(id);
 
             variationMoyenne(periode, gradesData);
           }
@@ -146,9 +152,25 @@
             );
             elmPeriodes[i].setAttribute('codePeriode', periodes[j].codePeriode);
 
-            if (periodes[j].codePeriode.includes('R'))
+            if (periodes[j].codePeriode.includes('R')) {
               elmPeriodes[i].setAttribute('R', 'true');
-            else elmPeriodes[i].setAttribute('R', 'false');
+              elmPeriodes[i].setAttribute('X', 'false');
+              elmPeriodes[i].setAttribute('Z', 'false');
+            } else if (periodes[j].codePeriode.replace(/[0-9]/g, '').length > 1) {
+              elmPeriodes[i].setAttribute('R', 'false');
+              elmPeriodes[i].setAttribute('X', 'true');
+              elmPeriodes[i].setAttribute('Z', 'false');
+            } else {
+              elmPeriodes[i].setAttribute('R', 'false');
+              elmPeriodes[i].setAttribute('X', 'false');
+              elmPeriodes[i].setAttribute('Z', 'false');
+            }
+
+            if (periodes[j].codePeriode.includes('Z')) {
+              elmPeriodes[i].setAttribute('R', 'false');
+              elmPeriodes[i].setAttribute('X', 'false');
+              elmPeriodes[i].setAttribute('Z', 'true');
+            }
 
             break;
           }

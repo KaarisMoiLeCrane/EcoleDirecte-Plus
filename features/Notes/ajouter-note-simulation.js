@@ -15,7 +15,7 @@
     './features/Notes/functions/calculer-moyennes.js'
   );
 
-  function ajouterNoteSimulation() {
+  function ajouterNoteSimulation(userId, globalQuotient) {
     // Selector to get the "Evaluations" button
     const buttonSelector = 'ul.nav-pills > li.active';
 
@@ -77,7 +77,7 @@
           popup = popupDatas[0];
           blur = popupDatas[1];
 
-          await changePopupInnerHTML(popup, blur);
+          await changePopupInnerHTML(userId, popup, blur, globalQuotient);
 
           // Fermer la popup
           function closePopup() {
@@ -135,11 +135,11 @@
       activeButton.parentElement.insertBefore(buttonAddGrade, activeButton);
     }
 
-    reloadNoteSimulation();
+    reloadNoteSimulation(userId, globalQuotient);
   }
 
-  async function changePopupInnerHTML(popup, blur) {
-    await initUserSimulationNote(globalThis.userId);
+  async function changePopupInnerHTML(userId, popup, blur, globalQuotient) {
+    await initUserSimulationNote(userId);
     const simulationNote = await getData('simulationNote');
 
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
@@ -161,7 +161,7 @@
         .replaceAll(' ', '_');
 
       const userContent = simulationNote.find((item) => {
-        if (item) if (item.id) return item.id == globalThis.userId;
+        if (item) if (item.id) return item.id == userId;
       });
 
       // console.log(userContent)
@@ -271,18 +271,18 @@
           inputBoxes[i].value = '';
         }
 
-        await initUserSimulationNote(globalThis.userId);
+        await initUserSimulationNote(userId);
         const simulationNote = await getData('simulationNote');
 
         // console.log(simulationNote)
 
         const userContent = simulationNote.find((item) => {
-          if (item) if (item.id) return item.id == globalThis.userId;
+          if (item) if (item.id) return item.id == userId;
         });
 
         const index = simulationNote.indexOf(userContent);
 
-        const newUserContent = {id: globalThis.userId, periodes: []};
+        const newUserContent = {id: userId, periodes: []};
 
         if (!simulationNote[index]) simulationNote.push(newUserContent);
         else simulationNote[index] = newUserContent;
@@ -290,9 +290,9 @@
         // console.log(dummy, userContent, index, simulationNote)
 
         await setData('simulationNote', simulationNote);
-        await initUserSimulationNote(globalThis.userId);
+        await initUserSimulationNote(userId);
 
-        await changePopupInnerHTML(popup);
+        await changePopupInnerHTML(userId, popup, blur, globalQuotient);
 
         const allSimulationElements = Array.from(document.querySelectorAll('*')).filter(
           (element) => {
@@ -325,6 +325,7 @@
 
         blur.click();
         calculerMoyennes(3,
+          globalQuotient,
           true,
           'kmlc-simu-moyenne-g',
           'color: green;',
@@ -333,6 +334,7 @@
           true
         );
         calculerMoyennes(4,
+          globalQuotient,
           true,
           'kmlc-simu-modifier-moyenne-g',
           'border-bottom: 1px solid green; color: green;',
@@ -388,7 +390,7 @@
           if (gradeCoefficient == '' || gradeCoefficient == null) gradeCoefficient = '1';
 
           if (gradeQuotient == '' || gradeQuotient == null || gradeQuotient)
-            gradeQuotient = globalThis.quotient;
+            gradeQuotient = globalQuotient;
 
           const dateNow = Date.now();
 
@@ -398,6 +400,7 @@
             gradeValue,
             gradeCoefficient,
             gradeQuotient,
+            globalQuotient,
             dateNow,
             saveGrade
           );
@@ -417,6 +420,7 @@
     gradeValue,
     gradeCoefficient,
     gradeQuotient,
+    globalQuotient,
     gradeId,
     saveGrade
   ) {
@@ -426,6 +430,7 @@
       gradeValue,
       gradeCoefficient,
       gradeQuotient,
+      globalQuotient,
       gradeId,
       saveGrade,
       false // Calculate global mean
@@ -433,10 +438,10 @@
 
     if (!saveGrade) return;
 
-    await initUserSimulationNote(globalThis.userId);
+    await initUserSimulationNote(userId);
     const simulationNote = await getData('simulationNote');
     const userContent = simulationNote.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const index = simulationNote.indexOf(userContent);
@@ -486,12 +491,12 @@
     await setData('simulationNote', simulationNote);
   }
 
-  async function reloadNoteSimulation() {
-    await initUserSimulationNote(globalThis.userId);
+  async function reloadNoteSimulation(userId, globalQuotient) {
+    await initUserSimulationNote(userId);
 
     const simulationNote = await getData('simulationNote');
     const userContent = simulationNote.find((item) => {
-      if (item) if (item.id) return item.id == globalThis.userId;
+      if (item) if (item.id) return item.id == userId;
     });
 
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
@@ -555,6 +560,7 @@
         addedGradesListDatas[i].value,
         addedGradesListDatas[i].coefficient,
         addedGradesListDatas[i].quotient,
+        globalQuotient,
         addedGradesListDatas[i].id,
         addedGradesListDatas[i].save,
         calculateGlobalMean
