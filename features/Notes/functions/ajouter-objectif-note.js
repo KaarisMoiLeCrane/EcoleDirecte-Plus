@@ -51,17 +51,17 @@
           .replace(',', '.')
           .replace(/[^\d+\-*/.\s]/g, '')
       ); // Complete cleaning
-      let tooltipClass = ' kmlc-tooltip-red';
+      let tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
 
       if (isNaN(meanSubjectValue)) {
         backgroundColor = '';
-        tooltipClass = ' kmlc-tooltip-blue';
+        tooltipClass = ' kmlc-tooltip kmlc-tooltip-blue';
       } else if (meanSubjectValue > meanObjectifValue) {
         backgroundColor = ' background-color: rgb(0, 255, 0, 0.5);';
-        tooltipClass = ' kmlc-tooltip-green';
+        tooltipClass = ' kmlc-tooltip kmlc-tooltip-green';
       } else if (meanSubjectValue < meanObjectifValue) {
         backgroundColor = ' background-color: rgb(255, 0, 0, 0.5);';
-        tooltipClass = ' kmlc-tooltip-red';
+        tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
       } else {
         backgroundColor = ' background-color: rgb(255, 255, 255);';
         tooltipClass = '';
@@ -72,7 +72,7 @@
         meanObjectifValue.toString().split('.')[0]
       ) {
         backgroundColor = ' background-color: rgb(255, 127.5, 0, 0.5);';
-        tooltipClass = ' kmlc-tooltip-orange';
+        tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
       }
 
       if (!subjectAverage.parentElement.getAttribute(tooltipSetParentAttributeName)) {

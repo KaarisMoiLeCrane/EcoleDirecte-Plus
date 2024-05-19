@@ -88,16 +88,16 @@
     //   globalMeanElement.textContent.split(' ')[0]
     // );
 
-    // let tooltipClass = ' kmlc-tooltip-red';
+    // let tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
 
     // // console.log(matiereNote)
 
     // if (globalMean > calculatedSubjectGoalGlobalMean) {
     //   backgroundColor = ' background-color: rgb(0, 255, 0, 0.5);';
-    //   tooltipClass = ' kmlc-tooltip-green';
+    //   tooltipClass = ' kmlc-tooltip kmlc-tooltip-green';
     // } else if (globalMean < calculatedSubjectGoalGlobalMean) {
     //   backgroundColor = ' background-color: rgb(255, 0, 0, 0.5);';
-    //   tooltipClass = ' kmlc-tooltip-red';
+    //   tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
     // } else {
     //   backgroundColor = ' background-color: rgb(255, 255, 255);';
     //   tooltipClass = '';
@@ -108,7 +108,7 @@
     //   calculatedSubjectGoalGlobalMean.toString().split('.')[0]
     // ) {
     //   backgroundColor = ' background-color: rgb(255, 127.5, 0, 0.5);';
-    //   tooltipClass = ' kmlc-tooltip-orange';
+    //   tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
     // }
 
     // if (!globalMeanElement.parentElement.getAttribute('kmlc-global-mean-objectif-set')) {

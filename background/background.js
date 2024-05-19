@@ -1,3 +1,10 @@
+/*/
+ *
+ * Notification project on pause for the moment (new 2FA system)
+ * Request listener soon
+ * 
+ */
+
 try {
   importScripts('/setup.js');
   importScripts('/vendor/ecoledirecte.js');

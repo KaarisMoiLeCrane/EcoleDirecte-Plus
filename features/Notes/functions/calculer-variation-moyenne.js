@@ -105,15 +105,15 @@
     if (calculatedVariationValue > 0.2) {
       variationStyle = 'background-color: rgb(0, 255, 0, 0.250); border-radius: 3px;';
       variationImpact = 'très positive';
-      tooltipClass = ' kmlc-tooltip-green';
+      tooltipClass = ' kmlc-tooltip kmlc-tooltip-green';
     } else if (calculatedVariationValue <= 0.2 && calculatedVariationValue > 0) {
       variationStyle = 'background-color: rgb(255, 127.5, 0, 0.250); border-radius: 3px;';
       variationImpact = 'positive';
-      tooltipClass = ' kmlc-tooltip-orange';
+      tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
     } else {
       variationStyle = 'background-color: rgb(255, 0, 0, 0.250); border-radius: 3px;';
       variationImpact = 'négative';
-      tooltipClass = ' kmlc-tooltip-red';
+      tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
     }
 
     if (addVariation) {
