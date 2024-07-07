@@ -1,11 +1,3 @@
-(() => {
-  function popup() {
-    // If the css isn't loaded in the page we add it
-    if (!document.getElementById('kmlc_css_popup')) {
-      const styleSheet = document.createElement('style');
-      styleSheet.type = 'text/css';
-      styleSheet.id = 'kmlc_css_popup';
-      styleSheet.innerText = `
 /* Animation d'ouverture et de fermeture de la popup */
 @keyframes kmlc-popupOpenAnimation {
   from {
@@ -63,6 +55,10 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.kmlc-input:focus {
+  backdrop-filter: blur(0px);
 }
 
 .kmlc-blur {
@@ -134,12 +130,3 @@
 .kmlc-checkbox-label {
   margin-left: 5px;
 }
-`;
-
-      document.head.appendChild(styleSheet);
-      // The new css is loaded
-    }
-  }
-
-  exports({popup}).to('./features/Design/popup.js');
-})();

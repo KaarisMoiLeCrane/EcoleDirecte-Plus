@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "author": "Kaaris_Moi_Le_Crane",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "notifications", "activeTab"],
   "host_permissions": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"],
 
   "icons": {
@@ -15,63 +15,81 @@
     "128": "/assets/images/icons/icon_128.png"
   },
 
+  "background": {
+    "service_worker": "/popup/chromeExtensionPopupDevTools-BackgroundScript.js"
+  },
+
+  "action": {
+    "default_popup": "/popup/popup.html",
+    "default_icon": {
+      "16": "/assets/images/icons/icon_16.png",
+      "24": "/assets/images/icons/icon_24.png",
+      "32": "/assets/images/icons/icon_32.png",
+      "48": "/assets/images/icons/icon_48.png",
+      "128": "/assets/images/icons/icon_128.png"
+    }
+  },
+
   "content_scripts": [
     {
       "all_frames": true,
       "js": [
         "/setup.js",
-        
-				"/vendor/ecoledirecte.js",
+        "/popup/chromeExtensionPopupDevTools-ContentScript.js",
+
+        "/vendor/ecoledirecte.js",
         "/vendor/chart.js",
         "/utils/functions.js",
         "/utils/utils.js",
 
-
-				"/features/CahierDeTexte/homework-status.js",
+        "/features/CahierDeTexte/homework-status.js",
         "/features/CahierDeTexte/homework-refresh.js",
-				"/features/cahierdetexte.js",
+        "/features/cahierdetexte.js",
 
-        
         "/features/EmploiDuTemps/homework-status.js",
         "/features/emploidutemps.js",
 
+        "/features/Notes/rank.js",
+        "/features/Notes/coefficient.js",
+        "/features/Notes/add-grade-id.js",
 
-        "/features/Notes/rang.js",
-        "/features/Notes/coeff.js",
-
-        "/features/Notes/functions/calculer-moyennes.js",
+        "/features/Notes/functions/calculate-means.js",
 
         "/features/Notes/charts.js",
 
-        "/features/Notes/functions/calculer-variation-moyenne.js",
-        "/features/Notes/variation-moyenne.js",
+        "/features/Notes/functions/calculate-mean-value-impact.js",
+        "/features/Notes/mean-variation-value.js",
 
-        "/features/Notes/functions/modifier-note.js",
-        "/features/Notes/modifier-note-simulation.js",
-        
-        "/features/Notes/functions/ajouter-note.js",
-        "/features/Notes/ajouter-note-simulation.js",
-        
-        "/features/Notes/functions/ajouter-objectif-note.js",
-        "/features/Notes/functions/calculer-objectif-moyenne.js",
-        "/features/Notes/objectif.js",
+        "/features/Notes/functions/edit-grade.js",
+        "/features/Notes/edit-grade-simulation.js",
 
+        "/features/Notes/functions/add-grade.js",
+        "/features/Notes/add-grade-simulation.js",
+
+        "/features/Notes/functions/add-grade-goal.js",
+        "/features/Notes/functions/calculate-global-mean-goal.js",
+        "/features/Notes/goal.js",
 
         "/features/notes.js",
 
-
         "/features/Design/sidebar.js",
         "/features/Design/credit.js",
-        "/features/Design/popup.js",
-        "/features/Design/tooltip.js",
-        
-        "/features/design.js",
+        "/features/Design/add-popup-style.js",
+        "/features/Design/add-tooltip-style.js",
+        "/features/Design/login-style.js",
 
+        "/features/design.js",
 
         "/features/messagerie.js",
 
-
         "/main.js"
+      ],
+      "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
+    }, {
+      "all_frames": true,
+      "world": "MAIN",
+      "js": [
+        "/handler/tokenChangeHandler.js"
       ],
       "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
     }

@@ -33,7 +33,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus">
-    <img src="/assets/images/icons/icon_128.png" alt="Logo" width="80" height="80">
+    <img src="/assets/images/icons/icon_128.png" alt="Logo" width="128" height="128">
   </a>
 
 <h3 align="center">EcoleDirecte Plus</h3>
@@ -126,9 +126,10 @@ Consultes [Contribution](#contribution)
 - [x] Rétablir le menu contextuel quand l'utilisateur réalise un clique gauche sur une note
 - [x] Ajouter à quel point la moyenne d'une matière influe sur la moyenne générale
 - [x] Refonte du design des objectifs (ajout des tooltips et des pop-ups)
-- [ ] Une nouvelle refonte du code pour une meilleure optimisation
-- [x] Refonte complète du code pour remplacer certains codes par un module  (création de imports/exports (import/export personnalisé et adapté pour les content scripts))
+- [x] Une nouvelle refonte du code pour une meilleure optimisation
+- [x] Refonte complète du code pour remplacer certains codes par un module (création de imports/exports (import/export personnalisé et adapté pour les content scripts))
 - [x] Portage des requêtes HTTPS vers le background et création d'un ecoledirecte.js (fonctions propres à EcoleDirecte)
+- [ ] Système de notification (ne verra probablement pas le jour)
 
 Consultes les [issues ouvertes](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) pour une liste complète des fonctionnalités demander (et les problèmes déjà connus).
 
@@ -156,7 +157,7 @@ Si vous avez une suggestion qui rendrait cela meilleur, veuillez forker le dép�
 <!-- LICENSE -->
 ## Licence
 
-Distribué sous la licence Apache 2.0. Consultes `LICENSE` pour plus d'information.
+Distribué sous la licence `GPL 3.0`. Consultes `LICENSE` pour plus d'information.
 
 <p align="right">(<a href="#readme-top">retour en haut</a>)</p>
 
