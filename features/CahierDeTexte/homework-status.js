@@ -1,172 +1,114 @@
 (() => {
   const numToDate = imports('numToDate').from('./utils/utils.js');
 
+  /**
+   * Main function to refresh the status of homework.
+   * @param {Object} homeworks - The homework data indexed by date.
+   */
   function homeworkStatus(homeworks) {
-    // For each day with homeworks
+    if (Object.entries(homeworks).length == 0) return;
+
     const homeworksDates = Object.keys(homeworks);
 
+    // Wait for the elements with homework dates to be available
     document.kmlcWaitForElement('h3[class *= date]').then(() => {
-      for (let i = 0; i < homeworksDates.length; i++) {
-        const homeworksDate = homeworksDates[i];
-        // Get the date of each homework displayed on the homework section
-        const cahierDeTexteDates = document.querySelectorAll('h3[class *= date]');
+      homeworksDates.forEach((homeworksDate) => {
+        if (homeworks[homeworksDate].length != 0) {
+          const cahierDeTexteDates = document.querySelectorAll('h3[class *= date]');
+          homeworks[homeworksDate].forEach((homework) => {
+            const {backgroundColor, symbol} = getHomeworkStyle(homework);
 
-        // For each day with homeworks we will check if each homework is done or not
-        for (let j = 0; j < homeworks[homeworksDate].length; j++) {
-          const homework = homeworks[homeworksDate][j];
-          const backgroundColor =
-            homework.effectue == true
-              ? 'background-color: rgb(0, 255, 0, 0.5);'
-              : homework.effectue == false
-              ? 'background-color: rgb(255, 127.5, 0, 0.5);'
-              : '';
-
-          const symbol =
-            homework.effectue == true
-              ? ' /✓\\'
-              : homework.effectue == false
-              ? ' /!\\'
-              : ' /ERROR\\';
-
-          /*
-          if (dev[date][i].effectue == true) {
-            // Homework done
-  
-            // Green color with 0.5 opacity
-            backgroundColor = 'background-color: rgb(0, 255, 0, 0.5);';
-            symbol = ' /✓\\';
-          } else if (dev[date][i].effectue == false) {
-            // Homework not done
-  
-            // Red color with 0.5 opacity
-            backgroundColor = 'background-color: rgb(255, 127.5, 0, 0.5);';
-            symbol = ' /!\\';
-          } else {
-            // We never know
-  
-            backgroundColor = '';
-            symbol = ' /ERROR\\ ';
-          }
-          */
-
-          // For each homeworks check until we find the correct date and then apply the changes
-          for (let k = 0; k < cahierDeTexteDates.length; k++) {
-            /*
-            console.log(
-              123,
-              (
-                devDateCDT[j].textContent.split(' ')[1] +
-                ' ' +
-                devDateCDT[j].textContent.split(' ')[2]
-              ).toLowerCase(),
-              (
-                parseInt(date.split('-')[2]) +
-                ' ' +
-                numToDate(date.split('-')[1]).norm
-              ).toLowerCase()
-            );
-            */
-            if (
-              (
-                cahierDeTexteDates[k].textContent.split(' ')[1] +
-                ' ' +
-                cahierDeTexteDates[k].textContent.split(' ')[2]
-              ).toLowerCase() ==
-              (
-                parseInt(homeworksDate.split('-')[2]) +
-                ' ' +
-                numToDate(homeworksDate.split('-')[1]).norm
-              ).toLowerCase()
-            ) {
-              // Change the background color of the card containing the specific date
-              if (cahierDeTexteDates[k].parentElement.getAttribute('style')) {
-                if (
-                  !cahierDeTexteDates[k].parentElement
-                    .getAttribute('style')
-                    .includes('background-color: rgb(255, 127.5, 0, 0.0);')
-                ) {
-                  cahierDeTexteDates[k].parentElement.setAttribute(
-                    'style',
-                    cahierDeTexteDates[k].parentElement
-                      .getAttribute('style')
-                      .replace('background-color: rgb(0, 255, 0, 0.0);', '') +
-                      backgroundColor.replace('0.5', '0.0')
-                  );
-                  cahierDeTexteDates[k].parentElement.parentElement.setAttribute(
-                    'style',
-                    cahierDeTexteDates[k].parentElement
-                      .getAttribute('style')
-                      .replace('background-color: rgb(0, 255, 0, 0.5);', '') +
-                      backgroundColor
-                  );
-                }
-              } else {
-                cahierDeTexteDates[k].parentElement.setAttribute(
-                  'style',
-                  backgroundColor.replace('0.5', '0.0')
-                );
-                cahierDeTexteDates[k].parentElement.parentElement.setAttribute(
-                  'style',
-                  backgroundColor
-                );
+            cahierDeTexteDates.forEach((cahierDeTexteDate) => {
+              if (isMatchingDate(cahierDeTexteDate, homeworksDate)) {
+                updateDateStyle(cahierDeTexteDate, backgroundColor);
+                updateHomeworkSymbol(cahierDeTexteDate, homework, symbol);
               }
-
-              // Search for the correct subject and then add the correct symbol for the subject
-              let cahierDeTexteHomeworkSubject = cahierDeTexteDates[
-                k
-              ].parentElement.parentElement.kmlcGetElementsByContentText(
-                ' ' + homework.matiere
-              ).startsWith;
-
-              if (cahierDeTexteHomeworkSubject[0]) {
-                cahierDeTexteHomeworkSubject =
-                  cahierDeTexteHomeworkSubject[cahierDeTexteHomeworkSubject.length - 1];
-                if (!cahierDeTexteHomeworkSubject.outerHTML.includes(symbol)) {
-                  // Change the background color of the card containing the homework of a specific date
-                  const subjectCard =
-                    cahierDeTexteHomeworkSubject.parentElement.parentElement;
-
-                  subjectCard.outerHTML = subjectCard.outerHTML.replace(
-                    ' ' + homework.matiere.kmlcHtmlEncode(),
-                    symbol + ' ' + homework.matiere.kmlcHtmlEncode()
-                  );
-
-                  /*
-                  if (matCard.getAttribute('style')) {
-                    if (
-                      matCard
-                        .getAttribute('style')
-                        .includes('background-color: rgb(255, 127.5, 0, 0.5);')
-                    ) {
-                      matCard.setAttribute(
-                        'style',
-                        matCard
-                          .getAttribute('style')
-                          .replace('background-color: rgb(255, 127.5, 0, 0.5);', '') +
-                          backgroundColor
-                      );
-                    } else {
-                      matCard.setAttribute(
-                        'style',
-                        matCard
-                          .getAttribute('style')
-                          .replace('background-color: rgb(0, 255, 0, 0.5);', '') +
-                          backgroundColor
-                      );
-                    }
-                  } else {
-                    matCard.setAttribute('style', backgroundColor);
-                  }
-
-                  console.log(matCard, mat, dev[date][i]);
-                  */
-                }
-              }
-            }
-          }
+            });
+          });
         }
-      }
+      });
     });
+  }
+
+  /**
+   * Get the background color and symbol based on the homework status.
+   * @param {Object} homework - The homework object.
+   * @returns {Object} - The background color and symbol.
+   */
+  function getHomeworkStyle(homework) {
+    let backgroundColor, symbol;
+    if (homework.effectue === true) {
+      backgroundColor = 'rgb(0, 255, 0, 0.5);';
+      symbol = ' /✓\\';
+    } else if (homework.effectue === false) {
+      backgroundColor = 'rgb(255, 127.5, 0, 0.5);';
+      symbol = ' /!\\';
+    } else {
+      backgroundColor = '';
+      symbol = ' /ERROR\\';
+    }
+    return {backgroundColor, symbol};
+  }
+
+  /**
+   * Check if the date in the DOM matches the homework date.
+   * @param {HTMLElement} element - The DOM element containing the date.
+   * @param {string} homeworksDate - The date string from the homeworks object.
+   * @returns {boolean} - True if the dates match, false otherwise.
+   */
+  function isMatchingDate(element, homeworksDate) {
+    const dateText = element.textContent.split(' ');
+    const scheduleDate = `${dateText[1]} ${dateText[2]}`.toLowerCase();
+    const homeworkDate = `${parseInt(homeworksDate.split('-')[2])} ${
+      numToDate(homeworksDate.split('-')[1]).norm
+    }`.toLowerCase();
+    return scheduleDate === homeworkDate;
+  }
+
+  /**
+   * Update the background color of the element containing the date.
+   * @param {HTMLElement} element - The DOM element containing the date.
+   * @param {string} backgroundColor - The background color to be applied.
+   */
+  function updateDateStyle(element, backgroundColor) {
+    const parentElement = element.parentElement;
+    parentElement.style.backgroundColor = backgroundColor.replace('0.5', '0.0');
+    parentElement.parentElement.style.backgroundColor = backgroundColor;
+    if (debug)
+      console.log('[DEBUG]', 'updateDateStyle', 'Updated date style', {
+        element,
+        backgroundColor
+      });
+  }
+
+  /**
+   * Update the symbol for the homework based on its status.
+   * @param {HTMLElement} dateElement - The DOM element containing the date.
+   * @param {Object} homework - The homework object.
+   * @param {string} symbol - The symbol to be added for the homework.
+   */
+  function updateHomeworkSymbol(dateElement, homework, symbol) {
+    let cahierDeTexteHomeworkSubject =
+      dateElement.parentElement.parentElement.kmlcGetElementsByContentText(
+        ' ' + homework.matiere
+      ).startsWith;
+
+    if (cahierDeTexteHomeworkSubject[0]) {
+      cahierDeTexteHomeworkSubject =
+        cahierDeTexteHomeworkSubject[cahierDeTexteHomeworkSubject.length - 1];
+      if (!cahierDeTexteHomeworkSubject.outerHTML.includes(symbol)) {
+        const subjectCard = cahierDeTexteHomeworkSubject.parentElement.parentElement;
+        subjectCard.outerHTML = subjectCard.outerHTML.replace(
+          ' ' + homework.matiere.kmlcHtmlEncode(),
+          symbol + ' ' + homework.matiere.kmlcHtmlEncode()
+        );
+        if (debug)
+          console.log('[DEBUG]', 'updateHomeworkSymbol', 'Updated homework symbol', {
+            subjectCard,
+            symbol
+          });
+      }
+    }
   }
 
   exports({homeworkStatus}).to('./features/CahierDeTexte/homework-status.js');

@@ -1,104 +1,127 @@
 (() => {
   const numToDate = imports('numToDate').from('./utils/utils.js');
 
-  function homeworkStatus(homeworks) {
-    // For each day with homeworks
+  /**
+   * Main function to refresh the status of homework.
+   * @param {Object} homeworks - The homework data indexed by date.
+   */
+  function homeworkStatus(homeworks, num) {
+    if (Object.entries(homeworks).length == 0) return;
+
     const homeworksDates = Object.keys(homeworks);
-    for (let i = 0; i < homeworksDates.length; i++) {
-      const homeworksDate = homeworksDates[i];
+
+    homeworksDates.forEach((homeworksDate) => {
       document
         .kmlcWaitForElement('div [class *= dhx_scale_holder]:nth-child(7)')
         .then(() => {
-          // Get the date of each day displayed in the schedule
-          const scheduleDates = document.querySelectorAll('[class *= dhx_scale_bar]');
+          if (homeworks[homeworksDate].length != 0) {
+            const scheduleDates = document.querySelectorAll('[class *= dhx_scale_bar]');
+            homeworks[homeworksDate].forEach((homework) => {
+              const {backgroundColor, symbol} = getHomeworkStyle(homework);
 
-          // For each day with homeworks we will check if each homework is done or not
-          for (let j = 0; j < homeworks[homeworksDate].length; j++) {
-            const homework = homeworks[homeworksDate][j];
-            const backgroundColor =
-              homework.effectue == true
-                ? 'background-color: rgb(0, 255, 0, 0.5);'
-                : homework.effectue == false
-                ? 'background-color: rgb(255, 127.5, 0, 0.5);'
-                : '';
-            const symbol =
-              homework.effectue == true
-                ? ' /✓\\'
-                : homework.effectue == false
-                ? ' /!\\'
-                : ' /ERROR\\';
-
-            /*
-        if (dev[homeworksDate][i].effectue == true) {
-          // Homework done
-
-          // Green color with 0.5 opacity
-          backgroundColor = ' background-color: rgb(0, 255, 0, 0.5);';
-          symbol = '/✓\\ ';
-        } else if (dev[homeworksDate][i].effectue == false) {
-          // Homework not done
-
-          // Red color with 0.5 opacity
-          backgroundColor = ' background-color: rgb(255, 127.5, 0, 0.5);';
-          symbol = '/!\\ ';
-        } else {
-          // We never know
-
-          backgroundColor = '';
-          symbol = '/ERROR\\ ';
-        }
-        */
-
-            // For each homeworks check until we find the correct date and then apply the changes
-            for (let k = 0; k < scheduleDates.length; k++) {
-              const scheduleDate = scheduleDates[k];
-              if (
-                (
-                  scheduleDate.textContent.split(' ')[1] +
-                  ' ' +
-                  scheduleDate.textContent.split(' ')[2]
-                ).toLowerCase() ==
-                (
-                  parseInt(homeworksDate.split('-')[2]) +
-                  ' ' +
-                  numToDate(homeworksDate.split('-')[1]).abrv
-                ).toLowerCase()
-              ) {
-                // Change the background color of the date of the homework
-                if (scheduleDate.getAttribute('style')) {
-                  if (
-                    !scheduleDate
-                      .getAttribute('style')
-                      .includes('background-color: rgb(255, 127.5, 0, 0.5);')
-                  )
-                    scheduleDate.setAttribute(
-                      'style',
-                      scheduleDate
-                        .getAttribute('style')
-                        .replace('background-color: rgb(0, 255, 0, 0.5);', '') +
-                        backgroundColor
+              scheduleDates.forEach((scheduleDate) => {
+                if (isMatchingDate(scheduleDate, homeworksDate)) {
+                  if (debug)
+                    console.log(
+                      '[DEBUG]',
+                      'homeworkStatus',
+                      'Homeworks matching the date ' + scheduleDate.textContent,
+                      {
+                        num,
+                        homeworks
+                      }
                     );
-                } else {
-                  scheduleDate.setAttribute('style', backgroundColor);
+                  updateDateStyle(scheduleDate, backgroundColor);
+                  updateHomeworkSymbols(scheduleDate, homework, symbol);
                 }
-
-                // Search for the correct subject and then add the correct symbol for the subject
-                const subjects = document
-                  .querySelectorAll('div [class *= dhx_scale_holder]')
-                  [k].kmlcGetElementsByContentText(homework.matiere).startsWith;
-                if (subjects) {
-                  for (let l = 0; l < subjects.length; l++) {
-                    if (!subjects[l].outerHTML.includes(symbol))
-                      subjects[l].outerHTML = subjects[l].outerHTML.replace(
-                        homework.matiere.kmlcHtmlEncode(),
-                        symbol + '<br>' + homework.matiere.kmlcHtmlEncode()
-                      );
-                  }
-                }
-              }
-            }
+              });
+            });
           }
         });
+    });
+  }
+
+  /**
+   * Get the background color and symbol based on the homework status.
+   * @param {Object} homework - The homework object.
+   * @returns {Object} - The background color and symbol.
+   */
+  function getHomeworkStyle(homework) {
+    let backgroundColor, symbol;
+    if (homework.effectue === true) {
+      backgroundColor = 'rgb(0, 255, 0, 0.5);';
+      symbol = ' /✓\\';
+    } else if (homework.effectue === false) {
+      backgroundColor = 'rgb(255, 127.5, 0, 0.5);';
+      symbol = ' /!\\';
+    } else {
+      backgroundColor = '';
+      symbol = ' /ERROR\\';
+    }
+    return {backgroundColor, symbol};
+  }
+
+  /**
+   * Check if the date in the DOM matches the homework date.
+   * @param {HTMLElement} element - The DOM element containing the date.
+   * @param {string} homeworksDate - The date string from the homeworks object.
+   * @returns {boolean} - True if the dates match, false otherwise.
+   */
+  function isMatchingDate(element, homeworksDate) {
+    const dateText = element.textContent.split(' ');
+    const scheduleDate = `${dateText[1]} ${dateText[2]}`.toLowerCase();
+    const homeworkDate = `${parseInt(homeworksDate.split('-')[2])} ${
+      numToDate(homeworksDate.split('-')[1]).abrv
+    }`.toLowerCase();
+    return scheduleDate === homeworkDate;
+  }
+
+  /**
+   * Update the background color of the element containing the date.
+   * @param {HTMLElement} element - The DOM element containing the date.
+   * @param {string} backgroundColor - The background color to be applied.
+   */
+  function updateDateStyle(element, backgroundColor) {
+    element.style.backgroundColor = backgroundColor;
+    if (debug)
+      console.log('[DEBUG] updateDateStyle', 'Updated date style', {
+        element,
+        backgroundColor
+      });
+  }
+
+  /**
+   * Update the symbols for the homework based on its status.
+   * @param {HTMLElement} dateElement - The DOM element containing the date.
+   * @param {Object} homework - The homework object.
+   * @param {string} symbol - The symbol to be added for the homework.
+   */
+  function updateHomeworkSymbols(dateElement, homework, symbol) {
+    const subjects = document
+      .querySelectorAll('div [class *= dhx_scale_holder]')
+      .item([...dateElement.parentElement.children].indexOf(dateElement))
+      .kmlcGetElementsByContentText(homework.matiere).startsWith;
+    if (debug)
+      console.log(
+        '[DEBUG] updateHomeworkSymbols',
+        'Subjects retrieved for homework symbol change',
+        {subjects, homework}
+      );
+
+    if (subjects) {
+      subjects.forEach((subject) => {
+        if (!subject.outerHTML.includes(symbol)) {
+          subject.outerHTML = subject.outerHTML.replace(
+            homework.matiere.kmlcHtmlEncode(),
+            `${symbol}<br>${homework.matiere.kmlcHtmlEncode()}`
+          );
+          if (debug)
+            console.log('[DEBUG] updateHomeworkSymbols', 'Updated homework symbol', {
+              subject,
+              symbol
+            });
+        }
+      });
     }
   }
 

@@ -1,11 +1,17 @@
-// CSS (only) stolen from https://github.com/Bastian-Noel/CustomDirecte (with a little bit of changes)
-
 (() => {
+  // Importing the necessary utility function for creating DOM fragments from strings
   const fragmentFromString = imports('fragmentFromString').from('./utils/utils.js');
 
-  function sidebar() {
-    // If the css isn't loaded in the page we add it
+  /**
+   * Function to load CSS stylesheets for the sidebar if not already loaded
+   */
+  function loadCSS() {
+    // Load external CSS for boxicons
     if (!document.getElementById('kmlc_css_1')) {
+      if (debug)
+        console.log('[DEBUG] loadCSS', 'CSS Load', 'Loading external boxicons CSS', {
+          id: 'kmlc_css_1'
+        });
       const styleSheet = document.createElement('link');
       styleSheet.rel = 'stylesheet';
       styleSheet.id = 'kmlc_css_1';
@@ -13,11 +19,24 @@
       document.head.appendChild(styleSheet);
     }
 
+    // Load custom internal CSS
     if (!document.getElementById('kmlc_css_2')) {
+      if (debug)
+        console.log('[DEBUG] loadCSS', 'CSS Load', 'Loading internal custom CSS', {
+          id: 'kmlc_css_2'
+        });
       const styleSheet = document.createElement('style');
       styleSheet.type = 'text/css';
       styleSheet.id = 'kmlc_css_2';
       styleSheet.innerText = `
+body::-webkit-scrollbar {
+  display: none;  /* Hide scrollbar for WebKit (Chrome, Safari) */
+}
+body {
+  scrollbar-width: auto;  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
 #newMenu {
   position: absolute;
   top: 0;
@@ -280,20 +299,45 @@ header .image-text .profession {
   font-size: 11px;
   transition: all .5s;
 }
-`;
-
+      `;
       document.head.appendChild(styleSheet);
-      // The new css is loaded
     }
+  }
 
-    // The file design.css can be removed but It's more easier to do css in a css file
+  /**
+   * Function to handle mouseover event on the sidebar
+   */
+  function handleMouseOver() {
+    // Hide scroll bars when mouse is over the sidebar
+    if (!window.location.href.includes('EmploiDuTemps')) {
+      document.getElementById('main-part').classList.add('sidebarhover');
+    }
+    document.querySelector('.menu-bar').style.overflow = 'hidden';
+    document.querySelector('.menu').style.overflow = 'hidden';
+  }
 
+  /**
+   * Function to handle mouseout event on the sidebar
+   */
+  function handleMouseOut() {
+    // Restore scroll bars when mouse is out of the sidebar
+    document.getElementById('main-part').classList.remove('sidebarhover');
+    document.getElementById('main-part').classList.add('sidebarnothover');
+  }
+
+  /**
+   * Function to initialize the sidebar
+   */
+  function initializeSidebar() {
     // If the newMenu id (id set when newMenu is loaded) doesn't exist we will apply our navigation bar changes
     if (
       !document.querySelector('#newMenu') &&
       document.querySelector('#container-menu')
     ) {
-      // console.log("newMenu not found")
+      if (debug)
+        console.log('[DEBUG] initializeSidebar', 'Sidebar Init', 'Initializing sidebar', {
+          id: 'newMenu'
+        });
 
       // Get the element containing all the persons in the account displayed in the navigation bar
       let navigationBarPersons = document.querySelector('#container-menu');
@@ -313,29 +357,11 @@ header .image-text .profession {
       navigationBarPersons.removeAttribute('id');
       navigationBarPersons.setAttribute('class', 'sidebar');
 
-      // When the mouse is over the newMenu we remove all the scroll bars
-      document.querySelector('#newMenu').onmouseover = function () {
-        // It can be commented users with a low-end pc can experience lags
-        if (!window.location.href.includes('EmploiDuTemps'))
-          document.getElementById('main-part').classList.add('sidebarhover');
+      // Set up mouseover and mouseout event handlers
+      document.querySelector('#newMenu').onmouseover = handleMouseOver;
+      document.querySelector('#newMenu').onmouseout = handleMouseOut;
 
-        document.querySelector('.menu-bar').style.overflowY = 'hidden';
-        document.querySelector('.menu').style.overflowY = 'hidden';
-        document.querySelector('.menu-bar').style.overflowX = 'hidden';
-        document.querySelector('.menu').style.overflowX = 'hidden';
-
-        // Checking if the scroll bar is needed or not
-        //if (document.querySelector(".menu-bar").scrollHeight == document.querySelector(".menu-bar").clientHeight) {
-        //document.querySelector(".menu-bar").style.overflowY = "scroll";
-        //}
-      };
-      document.querySelector('#newMenu').onmouseout = function () {
-        // It can be commented because users with a low-end pc can experience lags
-        document.getElementById('main-part').classList.remove('sidebarhover');
-        document.getElementById('main-part').classList.add('sidebarnothover');
-      };
-
-      // Recover the logged account name and the message under it (in the old navgation bar) and add them to the new header. It's located in the top of the old navigation bar
+      // Recover the logged account name and the message under it (in the old navigation bar) and add them to the new header.
       let header = [];
       header.push(
         '<header><div class="image-text"><div class="text logo-text"><span class="name">' +
@@ -348,60 +374,53 @@ header .image-text .profession {
       // Get all the persons displayed in the navigation bar
       let edMenu = document.querySelectorAll('ed-menu');
 
-      for (let i = 0; i < document.querySelectorAll('ed-menu').length; i++) {
+      for (let i = 0; i < edMenu.length; i++) {
         // Get all the sections in the navigation bar of each person in the account and append them directly under the new menu-bar in the DOM
-        let roleMenu = document.querySelectorAll('ul[role = menu]')[i];
+        let roleMenu = document.querySelectorAll('ul[role="menu"]')[i];
         roleMenu.parentElement.parentElement.appendChild(roleMenu);
 
         // Removing the blue rectangle wrapping all the sections
         document.querySelector('.ed-menu-list-wrapper').remove();
 
-        // Get the new location of the sections in the DOM and get each buttons that let the user to go from a section to another one
-        roleMenu = document.querySelectorAll('ul[role = menu]')[i];
+        // Get the new location of the sections in the DOM and get each button that let the user go from one section to another one
         let button = roleMenu.querySelectorAll('li');
 
         for (let j = 0; j < button.length; j++) {
           // Append the HTML "a" element containing the link to the section of the button directly under the button in the DOM
           button[j].appendChild(button[j].querySelector('a'));
 
-          // Adding his role
+          // Adding role attribute
           button[j].role = 'menuitem';
 
-          // We delete the element that contain the old HTML "a" element
+          // Delete the element that contains the old HTML "a" element
           button[j].querySelector('ed-menu-block-item').remove();
 
-          // Editing the new HTML "a" element, adding the new icon and the text associated to the button
+          // Editing the new HTML "a" element, adding the new icon and the text associated with the button
           let a = button[j].querySelector('a');
+          a.setAttribute(
+            'class',
+            (a.getAttribute('class') || '').replace(' nav-link', '') + ' nav-link'
+          );
+          a.setAttribute(
+            'style',
+            (a.getAttribute('style') || '').replace(
+              ' text-decoration:none !important',
+              ''
+            ) + ' text-decoration:none !important'
+          );
 
-          // We replace with nothing and add the exact same thing that we replaced to avoid duplicate
-          if (a.getAttribute('class')) {
-            a.setAttribute(
-              'class',
-              a.getAttribute('class').replace(' nav-link', '') + ' nav-link'
-            );
-          } else {
-            a.setAttribute('class', 'nav-link');
-          }
-
-          if (a.getAttribute('style')) {
-            a.setAttribute(
-              'style',
-              a.getAttribute('style').replace(' text-decoration:none !important', '') +
-                ' text-decoration:none !important'
-            );
-          } else {
-            a.setAttribute('style', 'text-decoration:none !important');
-          }
-
-          let i = a.querySelector('i');
-          i.setAttribute('class', 'icon iconED ' + i.getAttribute('class'));
+          let icon = a.querySelector('i');
+          icon.setAttribute('class', 'icon iconED ' + icon.getAttribute('class'));
 
           let span = a.querySelector('span');
-          span.setAttribute('class', span.getAttribute('class') + ' text nav-text');
+          span.setAttribute(
+            'class',
+            (span.getAttribute('class') || '') + ' text nav-text'
+          );
         }
 
-        // Append the picture associated to each person of the account
-        if (i > 0)
+        // Append the picture associated with each person of the account
+        if (i > 0) {
           header.push(
             '<header><div class="image-text"><span class="image"><img title="Photo de profile" src=' +
               edMenu[i].parentElement.parentElement
@@ -411,18 +430,21 @@ header .image-text .profession {
               edMenu[i].parentElement.parentElement.querySelector('.overlay').innerText +
               '</span></div></div></header>'
           );
+        }
 
         // Adding classes
         roleMenu.parentElement.setAttribute('class', 'menu');
         roleMenu.parentElement.querySelector('a').remove();
         roleMenu.parentElement.parentElement.setAttribute('class', 'menu-bar');
-        roleMenu.setAttribute('class', roleMenu.getAttribute('class') + ' menu-links');
+        roleMenu.setAttribute(
+          'class',
+          (roleMenu.getAttribute('class') || '') + ' menu-links'
+        );
       }
 
-      // If there is more than one person in the account
+      // Handle multiple accounts
       if (edMenu.length > 1) {
         for (let i = 1; i < edMenu.length; i++) {
-          // Append the menu wrapping all the sections of each person after the picture associated to them and remove the last parts of the old navigation bar associated to the person
           edMenu[0].children[0].appendChild(edMenu[i].children[0].children[0]);
           edMenu[i].remove();
         }
@@ -430,7 +452,7 @@ header .image-text .profession {
 
       document.querySelector('.ed-espace-title').remove();
 
-      // Adding a new HTML "LI" element to add some spaces between the first and second person in the navigation bar
+      // Adding new HTML "LI" elements to add spaces between the first and second person in the navigation bar
       let menu = document.querySelector('.sidebar').querySelectorAll('.menu');
       menu[0].parentElement.insertBefore(fragmentFromString(header[0]), menu[0]);
 
@@ -438,13 +460,10 @@ header .image-text .profession {
       ul.role = 'menu';
       let li = document.createElement('LI');
       li.role = 'menuitem';
-      li.title = 'space';
-
       ul.appendChild(li);
-
       menu[0].kmlcInsertAfter(ul);
 
-      // Adding after each person in the account a new HTML "LI" element to add some spaces between each person in the navigation bar
+      // Adding spaces between each person in the navigation bar
       for (let i = 1; i < menu.length; i++) {
         menu[i].parentElement.insertBefore(fragmentFromString(header[i]), menu[i]);
 
@@ -453,85 +472,43 @@ header .image-text .profession {
         let li = document.createElement('LI');
         li.role = 'menuitem';
         li.title = 'category';
-
         ul.appendChild(li);
-
         menu[i].kmlcInsertAfter(ul);
       }
 
-      // For each HTML "header" element with no class so for each person associated text and picture, if someone click on it, it will hide (or show) the menu wrapping all sections associated with the person
-      for (let i = 0; i < document.querySelectorAll('header:not([class])').length; i++) {
-        document.querySelectorAll('header:not([class])')[i].children[0].onclick =
-          function () {
-            if (this.parentElement.nextElementSibling.style.visibility != 'hidden') {
-              this.parentElement.nextElementSibling.style.visibility = 'hidden';
-              this.parentElement.nextElementSibling.style.marginLeft = '-9999px';
-              this.parentElement.nextElementSibling.style.position = 'absolute';
-            } else {
-              this.parentElement.nextElementSibling.style.marginLeft = '';
-              this.parentElement.nextElementSibling.style.visibility = '';
-              this.parentElement.nextElementSibling.style.position = '';
-            }
-          };
-      }
+      // Toggle visibility of menu sections when header is clicked
+      document.querySelectorAll('header:not([class])').forEach((header) => {
+        header.children[0].onclick = function () {
+          let sibling = this.parentElement.nextElementSibling;
+          sibling.style.visibility =
+            sibling.style.visibility === 'hidden' ? '' : 'hidden';
+          sibling.style.marginLeft =
+            sibling.style.marginLeft === '-9999px' ? '' : '-9999px';
+          sibling.style.position =
+            sibling.style.position === 'absolute' ? '' : 'absolute';
+        };
+      });
 
-      loop();
+      startLoop();
     }
+  }
 
+  /**
+   * Function to start the loop for dynamic updates
+   */
+  function startLoop() {
     if (document.querySelector('.sidebar')) {
       // Replace all ed-menu-badge class with menu-badge class
-      for (let i = 0; i < document.getElementsByClassName('ed-menu-badge').length; i++)
-        document.getElementsByClassName('ed-menu-badge')[i].className = document
-          .getElementsByClassName('ed-menu-badge')
-          [i].className.replace('ed-menu-badge', 'menu-badge');
+      document.querySelectorAll('.ed-menu-badge').forEach((el) => {
+        el.className = el.className.replace('ed-menu-badge', 'menu-badge');
+      });
 
-      // Remove from all elements the class ed-menu
-      if (document.querySelectorAll('div.menu.ed-menu'))
-        for (let i = 0; i < document.querySelectorAll('div.menu.ed-menu').length; i++)
-          document.querySelectorAll('div.menu.ed-menu')[i].classList.remove('ed-menu');
+      // Remove ed-menu class from elements
+      document.querySelectorAll('div.menu.ed-menu').forEach((el) => {
+        el.classList.remove('ed-menu');
+      });
 
-      if (!document.getElementById('kmlc_css_3')) {
-        let sidebarWidth = document.querySelector('.sidebar').offsetWidth;
-        if (sidebarWidth > 280) sidebarWidth = 280;
-
-        let styleSheet3 = document.createElement('style');
-        styleSheet3.type = 'text/css';
-        styleSheet3.id = 'kmlc_css_3';
-        styleSheet3.innerText =
-          `
-.sidebar {
-  width: ` +
-          sidebarWidth +
-          `px;
-}` +
-          `
-
-#main-part.sidebarhover {
-  margin-left: ` +
-          (sidebarWidth - 10) +
-          `px !important;
-  width: calc(100vw - ` +
-          (sidebarWidth - 10) +
-          `px) !important;
-  transition: var(--tran-05);
-}`;
-
-        document.head.appendChild(styleSheet3);
-        // We get the sidebar width and then we add it to the width style
-      }
-
-      if (!document.getElementById('kmlc_css_4')) {
-        let styleSheet4 = document.createElement('style');
-        styleSheet4.type = 'text/css';
-        styleSheet4.id = 'kmlc_css_4';
-        styleSheet4.innerText = `
-.sidebar:not(:hover) {
-  width: 88px;
-}`;
-
-        document.head.appendChild(styleSheet4);
-        // After getting the sidebar width we set the closed sidebar width
-      }
+      setSidebarWidthStyles();
 
       document.onreadystatechange = function () {
         if (document.readyState === 'interactive' || document.readyState === 'complete') {
@@ -543,14 +520,80 @@ header .image-text .profession {
     }
   }
 
-  function replaceEdMenuBadge() {
-    // Replace all ed-menu-badge class with menu-badge class
-    if (document.getElementsByClassName('ed-menu-badge'))
-      for (let i = 0; i < document.getElementsByClassName('ed-menu-badge').length; i++)
-        document.getElementsByClassName('ed-menu-badge')[i].className = document
-          .getElementsByClassName('ed-menu-badge')
-          [i].className.replace('ed-menu-badge', 'menu-badge');
+  /**
+   * Function to set sidebar width styles
+   */
+  function setSidebarWidthStyles() {
+    let sidebarWidth = document.querySelector('.sidebar').offsetWidth;
+    sidebarWidth = Math.min(sidebarWidth, 280);
+
+    if (!document.getElementById('kmlc_css_3')) {
+      if (debug)
+        console.log(
+          '[DEBUG] setSidebarWidthStyles',
+          'CSS Load',
+          'Setting sidebar width styles',
+          {
+            id: 'kmlc_css_3',
+            width: sidebarWidth
+          }
+        );
+      const styleSheet3 = document.createElement('style');
+      styleSheet3.type = 'text/css';
+      styleSheet3.id = 'kmlc_css_3';
+      styleSheet3.innerText = `
+        .sidebar {
+          width: ${sidebarWidth}px;
+        }
+        #main-part.sidebarhover {
+          margin-left: ${sidebarWidth - 10}px !important;
+          width: calc(100vw - ${sidebarWidth - 10}px) !important;
+          transition: var(--tran-05);
+        }
+      `;
+      document.head.appendChild(styleSheet3);
+    }
+
+    if (!document.getElementById('kmlc_css_4')) {
+      if (debug)
+        console.log(
+          '[DEBUG] setSidebarWidthStyles',
+          'CSS Load',
+          'Setting closed sidebar width',
+          {
+            id: 'kmlc_css_4',
+            width: 88
+          }
+        );
+      const styleSheet4 = document.createElement('style');
+      styleSheet4.type = 'text/css';
+      styleSheet4.id = 'kmlc_css_4';
+      styleSheet4.innerText = `
+        .sidebar:not(:hover) {
+          width: 88px;
+        }
+      `;
+      document.head.appendChild(styleSheet4);
+    }
   }
 
+  /**
+   * Function to replace all instances of ed-menu-badge class with menu-badge class
+   */
+  function replaceEdMenuBadge() {
+    document.querySelectorAll('.ed-menu-badge').forEach((el) => {
+      el.className = el.className.replace('ed-menu-badge', 'menu-badge');
+    });
+  }
+
+  /**
+   * Main function to initialize and set up the sidebar
+   */
+  function sidebar() {
+    loadCSS();
+    initializeSidebar();
+  }
+
+  // Exporting the sidebar function to be used in other modules
   exports({sidebar}).to('./features/Design/sidebar.js');
 })();

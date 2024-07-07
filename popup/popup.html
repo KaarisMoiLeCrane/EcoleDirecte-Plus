@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chrome Extension Popup DevTools</title>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+  <script src="popup.js"></script>
+</head>
+<body>
+  <div class="button-container">
+    <h2>Chrome Extension Popup DevTools</h2>
+    <p>Select the property key:</p>
+    <select id="selectData"></select>
+    <button id="logData">Log Data</button>
+    <button id="clearData">Clear Data</button>
+    <button id="reloadExtension">Reload Extension</button>
+    <button id="activateDebug">Enable debug</button>
+    <button id="sendMessage">Send General Message</button>
+    <div class="message-input">
+      <input type="text" id="messageInput" placeholder="Message to Content or Background" />
+    </div>
+    <ul class="kmlc-list">
+      <li class="kmlc-item">
+        <button id="sendMessageToContentScript">Send to Content</button>
+      </li>
+      <li class="kmlc-item">
+        <button id="sendMessageToBackgroundScript">Send to Background</button>
+      </li>
+    </ul>
+    <div class="pre-container">
+      <pre id="messageContainer"></pre>
+      <button class="copy-button" onclick="copyToClipboard()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10 1.5v1h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5h2v-1a1.5 1.5 0 1 1 3 0zM4.5 3h7a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5zm4.5-.5a.5.5 0 0 0-1 0v1h1v-1z"/>
+        </svg>
+      </button>
+  </div>
+  </div>
+</body>
+</html>

@@ -1,3 +1,12 @@
+(() => {
+  /**
+   * Adds popup styling to the page if not already present.
+   * @param {string} styleId - The ID for the style element.
+   * @param {string} styleContent - The CSS content to be added.
+   */
+  function addPopupStyle(
+    styleId = 'kmlc_css_popup',
+    styleContent = `
 /* Animation d'ouverture et de fermeture de la popup */
 @keyframes kmlc-popupOpenAnimation {
   from {
@@ -55,6 +64,10 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.kmlc-input:focus {
+  backdrop-filter: blur(0px);
 }
 
 .kmlc-blur {
@@ -126,3 +139,37 @@
 .kmlc-checkbox-label {
   margin-left: 5px;
 }
+`
+  ) {
+    // Check if the popup CSS is already loaded
+    if (!document.getElementById(styleId)) {
+      if (debug)
+        console.log('[DEBUG] addPopupStyle', 'Popup CSS not found, proceeding to add', {
+          styleId
+        });
+
+      // Create a new style element
+      const styleSheet = document.createElement('style');
+      styleSheet.type = 'text/css';
+      styleSheet.id = styleId;
+      styleSheet.innerText = styleContent;
+
+      // Append the style element to the head
+      document.head.appendChild(styleSheet);
+      if (debug)
+        console.log('[DEBUG] addPopupStyle', 'Popup CSS added', {styleId, styleContent});
+    } else {
+      if (debug)
+        console.log(
+          '[DEBUG] addPopupStyle',
+          'Popup CSS already exists, no action taken',
+          {
+            styleId
+          }
+        );
+    }
+  }
+
+  // Export the addPopupStyle function as a module
+  exports({addPopupStyle}).to('./features/Design/add-popup-style.js');
+})();
