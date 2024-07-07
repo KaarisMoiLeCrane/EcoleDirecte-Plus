@@ -1,6 +1,6 @@
 (() => {
+  // Importing the required modules
   const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
-
   const homeworkStatus = imports('homeworkStatus').from(
     './features/CahierDeTexte/homework-status.js'
   );
@@ -8,26 +8,61 @@
     './features/CahierDeTexte/homework-refresh.js'
   );
 
+  /**
+   * Main function to initialize the EcoleDirecte account and handle homework data.
+   * @param {string} id - The ID of the user.
+   * @param {string} token - The authentication token.
+   */
   function main(id, token) {
+    if (debug)
+      console.log('[DEBUG]', 'main', 'Initializing EcoleDirecte account.', {id, token});
+
     const account = new EcoleDirecte(id, token);
 
-    // When we receive all the homeworks we save it and send it
+    // Retrieve all homeworks and process them
     const homeworksData = account.getHomeworks();
+    if (debug) console.log('[DEBUG]', 'main', 'Homeworks data retrieved.', homeworksData);
 
+    // Update homework status and refresh the homework view
     homeworkStatus(homeworksData);
     homeworkRefresh(homeworksData);
 
-    // Wait for the button "À venir" in the bottom right
+    // Wait for the "À venir" button in the bottom right and set up a click listener
+    waitForAvenirButton(homeworksData);
+  }
+
+  /**
+   * Waits for the "À venir" button to appear and sets up a click listener.
+   * @param {Object} homeworksData - The data of the homeworks.
+   */
+  function waitForAvenirButton(homeworksData) {
+    if (debug)
+      console.log('[DEBUG]', 'waitForAvenirButton', 'Waiting for "À venir" button.');
+
     document
       .kmlcWaitForElement(
         'ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button'
       )
       .then((buttonAVenir) => {
-        if (buttonAVenir.getAttribute('kmlc-click-listener') != 'true') {
+        if (buttonAVenir.getAttribute('kmlc-click-listener') !== 'true') {
           buttonAVenir.setAttribute('kmlc-click-listener', 'true');
           buttonAVenir.onclick = function () {
+            if (debug)
+              console.log(
+                '[DEBUG]',
+                'waitForAvenirButton',
+                '"À venir" button clicked.',
+                homeworksData
+              );
             homeworkStatus(homeworksData);
           };
+          if (debug)
+            console.log(
+              '[DEBUG]',
+              'waitForAvenirButton',
+              'Click listener added to "À venir" button.',
+              buttonAVenir
+            );
         }
       });
   }

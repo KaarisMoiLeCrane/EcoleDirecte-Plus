@@ -1,15 +1,16 @@
 /*/
  *
- * Notification project on pause for the moment (new 2FA system)
+ * I have no access to EcoleDirecte anymore (so maybe it's over)
+ * Notification project on pause for the moment
  * Request listener soon
- * 
+ *
  */
 
 try {
   importScripts('/setup.js');
   importScripts('/vendor/ecoledirecte.js');
 } catch (e) {
-  // console.log(e);
+  if (debug) console.log(e);
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -21,19 +22,19 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       if (response && response.id && response.token) {
         const {id, token} = response;
 
-        console.log(id, token);
+        if (debug) console.log(id, token);
 
         // Import EcoleDirecte
         const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
 
         // Create an instance of EcoleDirecte
-        const account = new EcoleDirecte('', '', true, );
+        const account = new EcoleDirecte('', '', true);
 
         // Get homeworks data
         try {
           await account.login();
           const homeworksData = await account.getHomeworks();
-          console.log('Homeworks Data:', homeworksData);
+          if (debug) console.log('Homeworks Data:', homeworksData);
         } catch (error) {
           // console.error('Error fetching homeworks:', error);
         }
@@ -55,7 +56,7 @@ function createNotification(title, message) {
     iconUrl: '/assets/images/icons/icon_128.png'
   };
   browser.notifications.create('notificationName-' + date, opt, function () {
-    console.log('created!');
+    if (debug) console.log('created!');
   });
 
   setTimeout(function () {

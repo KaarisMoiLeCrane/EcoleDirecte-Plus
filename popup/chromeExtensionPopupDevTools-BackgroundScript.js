@@ -1,14 +1,31 @@
-chrome.runtime.onMessage.addListener(function (receivedData, sender, sendResponse) {
-	if (receivedData && receivedData.messageForBackgroundScript) {
-		console.log("[Background Script] Received:", receivedData.message, receivedData.payload);
-		chrome.runtime.sendMessage({ message: "Message Received from Background Script 5/5", payload: receivedData.payload, messageForPopupScript: true });
-	}
-	if (receivedData && receivedData.generalMessage) {
-		console.log("[Background Script] Received a General Message:", receivedData.message, receivedData.payload);
-		chrome.runtime.sendMessage({ message: "General Message Received from Background Script 5/5", payload: receivedData.payload, messageForPopupScript: true });
-	}
-	if (receivedData && !receivedData.messageForPopupScript && !receivedData.messageForContentScript && !receivedData.messageForBackgroundScript && !receivedData.generalMessage) {
-		console.log("[Background Script] Supposedly Received:",  receivedData);
-		chrome.runtime.sendMessage({ message: "Message Supposedly Received from Background Script 5/5", payload: receivedData, messageForPopupScript: true });
-	}
+// Handle runtime events, such as extension startup and message passing
+chrome.runtime.onInstalled.addListener(function () {
+  console.log('[Background Script] Extension installed.');
+});
+
+// Listener for messages from popup or content scripts
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.toContent || message.toEveryone) {
+    // Send message to content script
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {...message, fromBackground: true});
+    });
+  } else if (message.toBackground) {
+    if (message.fromPopup) {
+      console.log('[Background Script] Message to background from popup:', message);
+    } else {
+      console.log('[Background Script] Message to background from someone:', message);
+    }
+  } else if (message.toEveryone) {
+    if (message.fromPopup) {
+      console.log('[Background Script] General message from popup:', message);
+    } else {
+      console.log('[Background Script] General message from someone:', message);
+    }
+  } else {
+    console.log('[Background Script] Potential message from someone:', message);
+  }
+
+  // Optionally, send a response back
+  // sendResponse('Message received by background script.');
 });

@@ -33,7 +33,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus">
-    <img src="/assets/images/icons/icon_128.png" alt="Logo" width="80" height="80">
+    <img src="/assets/images/icons/icon_128.png" alt="Logo" width="128" height="128">
   </a>
 
 <h3 align="center">EcoleDirecte Plus</h3>
@@ -126,9 +126,10 @@ See [Contributing](#contributing)
 - [x] Restore the context menu when the user performs a left-click on a grade
 - [x] Add how much the subject average affects the overall average
 - [x] Overhaul of the design of the objectives (addition of tooltips and pop-ups)
-- [ ] A new code overhaul for better optimization
+- [x] A new code overhaul for better optimization
 - [x] Complete code overhaul to replace certain codes with a module (creation of imports/exports (import/export customised and adapted for content scripts))
 - [x] Porting HTTPS requests to the background and creating an ecoledirecte.js (functions specific to EcoleDirecte)
+- [ ] Notification system (will probably be done)
 
 See the [open issues](https://github.com/KaarisMoiLeCrane/EcoleDirecte-Plus/issues) for a full list of proposed features (and known issues).
 

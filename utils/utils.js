@@ -1,135 +1,104 @@
 (() => {
+  /**
+   * Create a document fragment from an HTML string.
+   * @param {string} strHTML - The HTML string to convert.
+   * @returns {Node} The first child node of the created fragment.
+   */
   function fragmentFromString(strHTML) {
-    return document.createRange().createContextualFragment(strHTML).childNodes[0];
+    const fragment = document.createRange().createContextualFragment(strHTML)
+      .childNodes[0];
+    if (debug) console.log('[DEBUG]', 'fragmentFromString executed', {strHTML, fragment});
+    return fragment;
   }
 
+  /**
+   * Convert a month number to its corresponding French name.
+   * @param {number|string} month - The month number (1-12).
+   * @returns {Object} An object containing the full and abbreviated month names.
+   */
   function numToDate(month) {
-    month = parseInt(month);
+    month = parseInt(month, 10);
+    const months = {
+      1: {norm: 'Janvier', abrv: 'Jan'},
+      2: {norm: 'Février', abrv: 'Fév'},
+      3: {norm: 'Mars', abrv: 'Mar'},
+      4: {norm: 'Avril', abrv: 'Avr'},
+      5: {norm: 'Mai', abrv: 'Mai'},
+      6: {norm: 'Juin', abrv: 'Juin'},
+      7: {norm: 'Juillet', abrv: 'Juil'},
+      8: {norm: 'Août', abrv: 'Aoû'},
+      9: {norm: 'Septembre', abrv: 'Sep'},
+      10: {norm: 'Octobre', abrv: 'Oct'},
+      11: {norm: 'Novembre', abrv: 'Nov'},
+      12: {norm: 'Décembre', abrv: 'Déc'}
+    };
 
-    switch (month) {
-      case 1:
-        return {
-          norm: 'Janvier',
-          abrv: 'Jan'
-        };
-      case 2:
-        return {
-          norm: 'Février',
-          abrv: 'Fév'
-        };
-      case 3:
-        return {
-          norm: 'Mars',
-          abrv: 'Mar'
-        };
-      case 4:
-        return {
-          norm: 'Avril',
-          abrv: 'Avr'
-        };
-      case 5:
-        return {
-          norm: 'Mai',
-          abrv: 'Mai'
-        };
-      case 6:
-        return {
-          norm: 'Juin',
-          abrv: 'Juin'
-        };
-      case 7:
-        return {
-          norm: 'Juillet',
-          abrv: 'Juil'
-        };
-      case 8:
-        return {
-          norm: 'Août',
-          abrv: 'Aoû'
-        };
-      case 9:
-        return {
-          norm: 'Septembre',
-          abrv: 'Sep'
-        };
-      case 10:
-        return {
-          norm: 'Octobre',
-          abrv: 'Oct'
-        };
-      case 11:
-        return {
-          norm: 'Novembre',
-          abrv: 'Nov'
-        };
-      case 12:
-        return {
-          norm: 'Décembre',
-          abrv: 'Déc'
-        };
-      default:
-        console.error(
-          'Enter a number between 1 and 12',
-          '\n',
-          'The value entered was : ',
-          month
-        );
-        return undefined;
+    const result = months[month];
+    if (!result) {
+      // console.error('Invalid month number', {month});
+      return undefined;
     }
+
+    if (debug) console.log('[DEBUG]', 'numToDate executed', {month, result});
+    return result;
   }
 
-  function watchAnyObject(
-    object = {},
-    methods = [],
-    callbackBefore = function () {},
-    callbackAfter = function () {}
-  ) {
-    // May get removed
-    for (let method of methods) {
-      const original = object[method].bind(object);
-      const newMethod = function (...args) {
-        callbackBefore(method, ...args);
-        const result = original.apply(null, args);
-        callbackAfter(method, ...args);
-        return result;
-      };
-      object[method] = newMethod.bind(object);
-    }
-  }
-
+  /**
+   * Initialize a popup with blur effect.
+   * @param {string} popupID - The ID of the popup element.
+   * @param {string} blurID - The ID of the blur element.
+   * @returns {Array<HTMLElement>} An array containing the popup and blur elements.
+   */
   function initPopup(popupID, blurID) {
-    let blur = document.createElement('DIV');
+    const blur = document.createElement('DIV');
     blur.className = 'kmlc-blur';
     blur.id = blurID;
 
-    let popup = document.createElement('DIV');
+    const popup = document.createElement('DIV');
     popup.className = 'kmlc-popup';
     popup.id = popupID;
 
     document.body.appendChild(popup);
     document.body.appendChild(blur);
 
-    popup = document.querySelector('#' + popupID);
-    blur = document.querySelector('#' + blurID);
+    const popupElement = document.querySelector(`#${popupID}`);
+    const blurElement = document.querySelector(`#${blurID}`);
 
-    return [popup, blur];
+    if (debug)
+      console.log('[DEBUG]', 'initPopup executed', {
+        popupID,
+        blurID,
+        popupElement,
+        blurElement
+      });
+    return [popupElement, blurElement];
   }
 
+  /**
+   * Set data in browser storage.
+   * @param {string} key - The storage key.
+   * @param {*} value - The value to store.
+   * @returns {Promise<void>} A promise that resolves when the data is set.
+   */
   async function setData(key, value) {
     return new Promise((resolve, reject) => {
-      const data = {};
-      data[key] = value;
+      const data = {[key]: value};
       browser.storage.sync.set(data, function () {
         if (browser.runtime.lastError) {
           reject(browser.runtime.lastError);
         } else {
-          // console.log(key, value)
+          if (debug) console.log('[DEBUG]', 'setData executed', {key, value});
           resolve();
         }
       });
     });
   }
 
+  /**
+   * Get data from browser storage.
+   * @param {string} key - The storage key.
+   * @returns {Promise<*>} A promise that resolves with the retrieved data.
+   */
   async function getData(key) {
     return new Promise((resolve, reject) => {
       const data = {};
@@ -138,389 +107,169 @@
         if (browser.runtime.lastError) {
           reject(browser.runtime.lastError);
         } else {
-          // console.log(items[key])
+          if (debug) console.log('[DEBUG]', 'getData executed', {key, data, items});
           resolve(items[key]);
         }
       });
     });
   }
 
+  /**
+   * Determine if it's a new year based on the current date and period data.
+   * @returns {boolean} True if it's a new year, otherwise false.
+   */
   function getNewYear() {
-    let newYear = true;
-    let todayMs = Date.now();
-
-    let dateDebutArr = [];
-    let dateFinArr = [];
+    const todayMs = Date.now();
 
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+    const dateDebutArr = dataPeriodes
+      .map((p) => p.dateDebut.kmlcConvertToTimestamp())
+      .sort((a, b) => a - b);
+    const dateFinArr = dataPeriodes
+      .map((p) => p.dateFin.kmlcConvertToTimestamp())
+      .sort((a, b) => b - a);
 
-    for (let i = 0; i < dataPeriodes.length; i++) {
-      dateDebutArr.push(dataPeriodes[i].dateDebut.kmlcConvertToTimestamp());
-      dateFinArr.push(dataPeriodes[i].dateFin.kmlcConvertToTimestamp());
-    }
+    let newYear =
+      todayMs > dateFinArr[0] ||
+      todayMs < dateDebutArr[0] ||
+      !(dateDebutArr[0] <= todayMs && todayMs <= dateFinArr[0]);
 
-    dateDebutArr.sort(function (a, b) {
-      return a - b;
-    });
-    dateFinArr.sort(function (a, b) {
-      return b - a;
-    });
-
-    if (dateDebutArr[0] <= todayMs <= dateFinArr[0]) newYear = false;
-
-    if (todayMs < dateDebutArr[0]) newYear = false;
-
-    if (todayMs > dateFinArr[0]) newYear = true;
-
+    if (debug)
+      console.log('[DEBUG]', 'getNewYear executed', {
+        todayMs,
+        dateDebutArr,
+        dateFinArr,
+        newYear
+      });
     return newYear;
   }
 
-  async function initUserSimulationNote(id) {
-    let simulationNote = await getData('simulationNote');
-    let dummy = [...simulationNote];
-    let newYear = getNewYear();
-
+  /**
+   * Initialize user simulation note data.
+   * @param {string} id - The user ID.
+   */
+  async function initUserGradeSimulation(id) {
+    let gradeSimulation = await getData('gradeSimulation');
+    let dummy = [...gradeSimulation];
+    const newYear = getNewYear();
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 
-    // console.log(dummy)
+    let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
-    let userContent = simulationNote.find((item) => {
-      if (item) if (item.id) return item.id == id;
-    });
-
-    if (userContent) {
-      if (!userContent.periodes) userContent.periodes = [];
-
-      if (!userContent.periodes.length) userContent.periodes = [];
+    if (!userContent.periodes.length || newYear) {
+      userContent.periodes = dataPeriodes.map((p) => ({
+        dateDebut: p.dateDebut.kmlcConvertToTimestamp(),
+        dateFin: p.dateFin.kmlcConvertToTimestamp(),
+        relevee: p.codePeriode.includes('R'),
+        notes: {ajouter: {}, modifier: {}}
+      }));
     } else {
-      if (dummy[0]) if (!dummy[0].id) dummy = [];
-
-      dummy.push({id: id, periodes: []});
-      userContent = dummy[dummy.length - 1];
+      userContent.periodes = userContent.periodes.slice(0, dataPeriodes.length);
+      dataPeriodes.forEach((p, i) => {
+        const isR = p.codePeriode.includes('R');
+        const period = userContent.periodes[i] || {notes: {ajouter: {}, modifier: {}}};
+        period.dateDebut = p.dateDebut.kmlcConvertToTimestamp();
+        period.dateFin = p.dateFin.kmlcConvertToTimestamp();
+        period.relevee = isR;
+        userContent.periodes[i] = period;
+      });
     }
 
-    // console.log(userContent)
-    let index = dummy.indexOf(userContent);
-
-    if (newYear) {
-      userContent.periodes = [];
-
-      for (let i = 0; i < dataPeriodes.length; i++) {
-        let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-
-        userContent.periodes.push({
-          dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
-          dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
-          relevee: isR,
-          notes: {
-            ajouter: {
-              /*
-							"MATHEMATIQUES": {
-								"titre": "Devoir 1",
-								"note": 10,
-								"coeff": 2,
-								"quotient": 20.0,
-								"id": Date.now()
-							},
-							"HISTOIRE-GEOGRAPHIE": {
-								"titre": "Devoir 2",
-								"note": 20,
-								"coeff": 0.5,
-								"quotient": 20.0,
-								"id": Date.now()
-							}
-							*/
-            },
-            modifier: {
-              /*
-							"MATHEMATIQUES": {
-								"titre": "Devoir 1",
-								"note": 10,
-								"coeff": 2,
-								"quotient": 20.0,
-								"id": notes.ajouter["MATHEMATIQUES"][i].id || Date.now(),
-								"position": 0
-							},
-							"HISTOIRE-GEOGRAPHIE": {
-								"titre": "Devoir 2",
-								"note": 20,
-								"coeff": 0.5,
-								"quotient": 20.0,
-								"id": notes.ajouter["HISTOIRE-GEOGRAPHIE"][i].id || Date.now(),
-								"position": 5
-							}
-							*/
-            }
-          }
-        });
-      }
+    const index = dummy.findIndex((item) => item?.id == id);
+    if (index === -1) {
+      dummy.push(userContent);
     } else {
-      if (userContent.periodes.length > dataPeriodes.length) {
-        userContent.periodes.splice(
-          dataPeriodes.length,
-          userContent.periodes.length - dataPeriodes.length
-        );
-      }
-
-      if (userContent.periodes.length < dataPeriodes.length) {
-        for (let i = userContent.periodes.length; i < dataPeriodes.length; i++) {
-          let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-
-          userContent.periodes.push({
-            dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
-            dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
-            relevee: isR,
-            notes: {
-              ajouter: {
-                /*
-								"MATHEMATIQUES": {
-									"titre": "Devoir 1",
-									"note": 10,
-									"coeff": 2,
-									"quotient": 20.0,
-									"id": Date.now()
-								},
-								"HISTOIRE-GEOGRAPHIE": {
-									"titre": "Devoir 2",
-									"note": 20,
-									"coeff": 0.5,
-									"quotient": 20.0,
-									"id": Date.now()
-								}
-								*/
-              },
-              modifier: {
-                /*
-								"MATHEMATIQUES": {
-									"titre": "Devoir 1",
-									"note": 10,
-									"coeff": 2,
-									"quotient": 20.0,
-									"id": notes.ajouter["MATHEMATIQUES"][i].id || Date.now(),
-									"position": 0
-								},
-								"HISTOIRE-GEOGRAPHIE": {
-									"titre": "Devoir 2",
-									"note": 20,
-									"coeff": 0.5,
-									"quotient": 20.0,
-									"id": notes.ajouter["HISTOIRE-GEOGRAPHIE"][i].id || Date.now(),
-									"position": 5
-								}
-								*/
-              }
-            }
-          });
-        }
-      }
-
-      for (let i = 0; i < dataPeriodes.length; i++) {
-        let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-
-        userContent.periodes[i].dateDebut =
-          dataPeriodes[i].dateDebut.kmlcConvertToTimestamp();
-        userContent.periodes[i].dateFin =
-          dataPeriodes[i].dateFin.kmlcConvertToTimestamp();
-        userContent.periodes[i].relevee = isR;
-
-        if (userContent.periodes[i].notes) {
-          if (!userContent.periodes[i].notes.ajouter) {
-            let dummyNotes = {...userContent.periodes[i].notes};
-
-            userContent.periodes[i].notes = {};
-            userContent.periodes[i].notes.ajouter = dummyNotes;
-          }
-        } else {
-          userContent.periodes[i].notes = {
-            ajouter: {
-              /*
-							"MATHEMATIQUES": {
-								"titre": "Devoir 1",
-								"note": 10,
-								"coeff": 2,
-								"quotient": 20.0,
-								"id": Date.now()
-							},
-							"HISTOIRE-GEOGRAPHIE": {
-								"titre": "Devoir 2",
-								"note": 20,
-								"coeff": 0.5,
-								"quotient": 20.0,
-								"id": Date.now()
-							}
-							*/
-            },
-            modifier: {
-              /*
-							"MATHEMATIQUES": {
-								"titre": "Devoir 1",
-								"note": 10,
-								"coeff": 2,
-								"quotient": 20.0,
-								"id": notes.ajouter["MATHEMATIQUES"][i].id || Date.now(),
-								"position": 0
-							},
-							"HISTOIRE-GEOGRAPHIE": {
-								"titre": "Devoir 2",
-								"note": 20,
-								"coeff": 0.5,
-								"quotient": 20.0,
-								"id": notes.ajouter["HISTOIRE-GEOGRAPHIE"][i].id || Date.now(),
-								"position": 5
-							}
-							*/
-            }
-          };
-        }
-
-        if (!userContent.periodes[i].notes.modifier)
-          userContent.periodes[i].notes.modifier = {};
-      }
+      dummy[index] = userContent;
     }
 
-    simulationNote[index] = userContent;
-
-    await setData('simulationNote', simulationNote);
+    await setData('gradeSimulation', dummy);
+    if (debug)
+      console.log('[DEBUG]', 'initUserGradeSimulation executed', {id, userContent});
   }
 
+  /**
+   * Initialize user objective data.
+   * @param {string} id - The user ID.
+   */
   async function initUserObjectif(id) {
     let objectifMoyenne = await getData('objectifMoyenne');
     let dummy = [...objectifMoyenne];
-    let isOldObjectif = false;
-    let newYear = getNewYear();
-
+    const newYear = getNewYear();
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 
-    // console.log(dummy)
+    let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
-    let userContent = objectifMoyenne.find((item) => {
-      if (item) if (item.id) return item.id == id;
-    });
-
-    if (userContent) {
-      if (!userContent.periodes) userContent.periodes = [];
-
-      if (!userContent.periodes.length) userContent.periodes = [];
+    if (newYear) {
+      userContent.periodes = dataPeriodes.map((p) => ({
+        dateDebut: p.dateDebut.kmlcConvertToTimestamp(),
+        dateFin: p.dateFin.kmlcConvertToTimestamp(),
+        relevee: p.codePeriode.includes('R'),
+        objectif: {}
+      }));
     } else {
-      if (dummy[0])
-        if (!dummy[0].id) {
-          dummy = [];
-          isOldObjectif = true;
-        }
-
-      dummy.push({id: id, periodes: []});
-      userContent = dummy[dummy.length - 1];
+      userContent.periodes = userContent.periodes.slice(0, dataPeriodes.length);
+      dataPeriodes.forEach((p, i) => {
+        const isR = p.codePeriode.includes('R');
+        const period = userContent.periodes[i] || {objectif: {}};
+        period.dateDebut = p.dateDebut.kmlcConvertToTimestamp();
+        period.dateFin = p.dateFin.kmlcConvertToTimestamp();
+        period.relevee = isR;
+        userContent.periodes[i] = period;
+      });
     }
 
-    // console.log(userContent)
-    let index = dummy.indexOf(userContent);
-
-    if (isOldObjectif) {
-      for (let i = 0; i < dataPeriodes.length; i++) {
-        // console.log(i)
-        let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-        let objectifData = {
-          /*
-					"MATHEMATIQUES": {
-						"note": 10,
-						"id": Date.now()
-					},
-					"HISTOIRE-GEOGRAPHIE": {
-						"note": 20,
-						"id": Date.now()
-					}
-					*/
-        };
-
-        for (let j = 0; j < objectifMoyenne[id].length; j++) {
-          objectifData[objectifMoyenne[id][j][0]] = {};
-          objectifData[objectifMoyenne[id][j][0]].note =
-            objectifData[objectifMoyenne[id][j][1]];
-          objectifData[objectifMoyenne[id][j][0]].id = Date.now();
-        }
-
-        userContent.periodes.push({
-          dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
-          dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
-          relevee: isR,
-          objectif: objectifData
-        });
-      }
+    const index = dummy.findIndex((item) => item?.id == id);
+    if (index === -1) {
+      dummy.push(userContent);
     } else {
-      if (userContent.periodes.length < dataPeriodes.length) {
-        for (let i = userContent.periodes.length; i < dataPeriodes.length; i++) {
-          let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-
-          userContent.periodes.push({
-            dateDebut: dataPeriodes[i].dateDebut.kmlcConvertToTimestamp(),
-            dateFin: dataPeriodes[i].dateFin.kmlcConvertToTimestamp(),
-            relevee: isR,
-            objectif: {
-              /*
-							"MATHEMATIQUES": {
-								"note": 10,
-								"id": Date.now()
-							},
-							"HISTOIRE-GEOGRAPHIE": {
-								"note": 20,
-								"id": Date.now()
-							}
-							*/
-            }
-          });
-        }
-      }
-
-      for (let i = 0; i < dataPeriodes.length; i++) {
-        let isR = dataPeriodes[i].codePeriode.includes('R') ? true : false;
-
-        userContent.periodes[i].dateDebut =
-          dataPeriodes[i].dateDebut.kmlcConvertToTimestamp();
-        userContent.periodes[i].dateFin =
-          dataPeriodes[i].dateFin.kmlcConvertToTimestamp();
-        userContent.periodes[i].relevee = isR;
-
-        if (!userContent.periodes[i].objectif) {
-          userContent.periodes[i].objectif = {
-            /*
-						"MATHEMATIQUES": {
-							"note": 10,
-							"id": Date.now()
-						},
-						"HISTOIRE-GEOGRAPHIE": {
-							"note": 20,
-							"id": Date.now()
-						}
-						*/
-          };
-        }
-      }
+      dummy[index] = userContent;
     }
 
-    objectifMoyenne[index] = userContent;
-
-    await setData('objectifMoyenne', objectifMoyenne);
+    await setData('objectifMoyenne', dummy);
+    if (debug) console.log('[DEBUG]', 'initUserObjectif executed', {id, userContent});
   }
 
+  /**
+   * Get the token of the account.
+   * @returns {number|string} The token.
+   */
   function getToken() {
-    if (window.sessionStorage.credentials)
-      return JSON.parse(window.sessionStorage.credentials).payload.authToken
-        ? JSON.parse(window.sessionStorage.credentials).payload.authToken
-        : NaN;
+    let json;
+    if (window.sessionStorage.credentials) {
+      try {
+        json = JSON.parse(window.sessionStorage.credentials).payload.authToken;
+      } catch (e) {
+        json = NaN;
+      }
+    }
+
+    return json ? json : NaN;
+  }
+
+  /**
+   * Get the logged account type.
+   * @param {number|string} id - The user ID.
+   * @returns {number|string} The account type.
+   */
+  function getAccountType(id) {
+    if (window.sessionStorage.accounts) {
+      const accountSessionData = JSON.parse(window.sessionStorage.accounts).payload
+        .accounts[0];
+
+      if (accountSessionData.id != parseInt(id)) {
+        return 'eleves';
+      } else {
+        return accountSessionData.typeCompte == "'E'" ? 'eleves' : 'familles';
+      }
+    }
 
     return NaN;
   }
 
-  function getAccountType() {
-    if (window.sessionStorage.accounts)
-      return JSON.parse(window.sessionStorage.accounts).payload.accounts[0].typeCompte ==
-        "'E'"
-        ? 'eleves'
-        : 'familles';
-
-    return NaN;
-  }
-
+  /**
+   * Get the actual user ID.
+   * @returns {string} The user ID.
+   */
   function getUserId() {
     return window.location.pathname.split('/')[2];
   }
@@ -528,12 +277,11 @@
   exports({
     fragmentFromString,
     numToDate,
-    watchAnyObject,
     initPopup,
     setData,
     getData,
     getNewYear,
-    initUserSimulationNote,
+    initUserGradeSimulation,
     initUserObjectif,
     getToken,
     getAccountType,

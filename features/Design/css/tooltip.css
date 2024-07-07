@@ -1,11 +1,3 @@
-(() => {
-  function tooltip() {
-    // If the css isn't loaded in the page we add it
-    if (!document.getElementById('kmlc_css_tooltip')) {
-      const styleSheet = document.createElement('style');
-      styleSheet.type = 'text/css';
-      styleSheet.id = 'kmlc_css_tooltip';
-      styleSheet.innerText = `
 :root {
   --tooltip-green: rgba(0, 255, 0, 1);
   --tooltip-orange: rgba(255, 127.5, 0, 1);
@@ -20,7 +12,7 @@
   --tooltip-text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
 }
 
-.kmlc-note-parent, .kmlc-global-mean-parent {
+.kmlc-tooltip-parent, .kmlc-global-mean-parent {
   position: relative;
   transition: all 0.2s var(--transition-timing);
 }
@@ -54,7 +46,7 @@
   transition: all 0.3s var(--transition-timing);
 }
 
-.kmlc-note-parent:hover .kmlc-tooltip, .kmlc-global-mean-parent:hover .kmlc-tooltip {
+.kmlc-tooltip-parent:hover .kmlc-tooltip, .kmlc-global-mean-parent:hover .kmlc-tooltip {
   top: -30px;
   opacity: 1;
   visibility: visible;
@@ -91,13 +83,4 @@
 
 .kmlc-tooltip-blue::before {
   background: var(--tooltip-blue);
-}      
-`;
-
-      document.head.appendChild(styleSheet);
-      // The new css is loaded
-    }
-  }
-
-  exports({tooltip}).to('./features/Design/tooltip.js');
-})();
+}

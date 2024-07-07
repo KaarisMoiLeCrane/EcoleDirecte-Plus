@@ -1,182 +1,232 @@
 (() => {
+  const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
+
+  const rank = imports('rank').from('./features/Notes/rank.js');
+  const coefficient = imports('coefficient').from('./features/Notes/coefficient.js');
+  const addGradeId = imports('addGradeId').from('./features/Notes/add-grade-id.js');
+
+  const calculateMeans = imports('calculateMeans').from(
+    './features/Notes/functions/calculate-means.js'
+  );
+
+  const charts = imports('charts').from('./features/Notes/charts.js');
+
+  const meanVariationValue = imports('meanVariationValue').from(
+    './features/Notes/mean-variation-value.js'
+  );
+
+  const editGradeSimulation = imports('editGradeSimulation').from(
+    './features/Notes/edit-grade-simulation.js'
+  );
+  const addGradeSimulation = imports('addGradeSimulation').from(
+    './features/Notes/add-grade-simulation.js'
+  );
+
+  const goalSetup = imports('goalSetup').from('./features/Notes/goal.js');
+
+  /**
+   * Main function to set up the notes management.
+   * @param {string} id - The ID of the user.
+   * @param {string} token - The authentication token.
+   */
   function main(id, token) {
-    const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
-
-    const rang = imports('rang').from('./features/Notes/rang.js');
-    const coeff = imports('coeff').from('./features/Notes/coeff.js');
-    const ajouterNoteId = imports('ajouterNoteId').from('./features/Notes/ajouter-note-id.js');
-
-    const calculerMoyennes = imports('calculerMoyennes').from(
-      './features/Notes/functions/calculer-moyennes.js'
-    );
-
-    const charts = imports('charts').from('./features/Notes/charts.js');
-
-    const variationMoyenne = imports('variationMoyenne').from(
-      './features/Notes/variation-moyenne.js'
-    );
-
-    const modifierNoteSimulation = imports('modifierNoteSimulation').from(
-      './features/Notes/modifier-note-simulation.js'
-    );
-    const ajouterNoteSimulation = imports('ajouterNoteSimulation').from(
-      './features/Notes/ajouter-note-simulation.js'
-    );
-
-    const objectifSetup = imports('objectifSetup').from('./features/Notes/objectif.js');
+    if (debug)
+      console.log('[DEBUG]', 'main', 'Initializing notes management.', {id, token});
 
     const account = new EcoleDirecte(id, token);
 
-    // When we receive all the grades datas we save them and send them
+    // Fetch all grades data and set up the environment
     const gradesData = account.getAllGrades();
-    const globalQuotient = parseFloat(gradesData.parametrage.moyenneSur);
+    if (debug) console.log('[DEBUG]', 'main', 'Fetched all grades data.', gradesData);
+
+    const globalQuotient = parseFloat(gradesData.parametrage?.moyenneSur);
+
+    if (!globalQuotient) return
+
     const dataPeriodes = gradesData.periodes;
 
-    exports({dataPeriodes}).to('./features/notes.js')
+    exports({dataPeriodes}).to('./features/notes.js');
 
     document.kmlcWaitForElement("[class *= 'tab-content']").then((elm) => {
-      let periode = document.querySelector('#onglets-periodes > ul > li.active.nav-item');
-      periode = Array.from(periode.parentNode.children).indexOf(periode);
-
+      let periode = getCurrentActivePeriod();
       setPeriodesInfos(dataPeriodes);
 
-      rang(gradesData);
-      coeff(gradesData);
-      ajouterNoteId(gradesData)
-
-      calculerMoyennes(
-        1,
-        globalQuotient,
-        true,
-        'kmlc-moyenne-g',
-        '',
-        'kmlc-moyenne',
-        '',
-        true,
-        ":not([class *= 'simu'])"
-      );
-
-      charts(gradesData, globalQuotient);
-
-      modifierNoteSimulation(id, globalQuotient);
-      ajouterNoteSimulation(id, globalQuotient);
-
-      objectifSetup(id);
-
-      variationMoyenne(periode, gradesData);
+      executeModules(gradesData, globalQuotient, periode, id);
     });
-    // console.log(1)
-    var notesObserver = new MutationObserver(function (mutations) {
-      // console.log(2)
+
+    setupMutationObserver(gradesData, globalQuotient, id);
+  }
+
+  /**
+   * Retrieves the current active period index.
+   * @returns {number} The index of the current active period.
+   */
+  function getCurrentActivePeriod() {
+    let periode = document.querySelector('#onglets-periodes > ul > li.active.nav-item');
+    return Array.from(periode.parentNode.children).indexOf(periode);
+  }
+
+  /**
+   * Executes the various modules related to notes management.
+   * @param {object} gradesData - The grades data.
+   * @param {number} globalQuotient - The global quotient for calculations.
+   * @param {number} periode - The current active period index.
+   * @param {string} id - The ID of the user.
+   */
+  function executeModules(gradesData, globalQuotient, periode, id) {
+    if (debug)
+      console.log('[DEBUG]', 'executeModules', 'Executing modules.', {
+        gradesData,
+        globalQuotient,
+        periode,
+        id
+      });
+
+    rank(gradesData);
+    coefficient(gradesData);
+    addGradeId(gradesData);
+
+    calculateMeans(
+      1,
+      globalQuotient,
+      true,
+      'kmlc-moyenne-g',
+      '',
+      'kmlc-moyenne',
+      '',
+      true,
+      ":not([class *= 'simu'])"
+    );
+
+    charts(gradesData, globalQuotient);
+
+    addGradeSimulation(id, globalQuotient);
+    editGradeSimulation(id, globalQuotient);
+
+    goalSetup(id);
+
+    meanVariationValue(periode, gradesData);
+  }
+
+  /**
+   * Sets up the mutation observer to handle dynamic changes in the notes.
+   * @param {object} gradesData - The grades data.
+   * @param {number} globalQuotient - The global quotient for calculations.
+   * @param {string} id - The ID of the user.
+   */
+  function setupMutationObserver(gradesData, globalQuotient, id) {
+    const notesObserver = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         try {
-          // console.log(mutation.target)
-          // if (mutation.target.children[0].innerText == "Moyennes" || mutation.target.children[0].innerText == "Evaluations") {
           if (
-            mutation.target.children[0].innerText == 'Evaluations' &&
+            mutation.target.children[0]?.innerText == 'Evaluations' &&
             mutation.target.children[0].nodeName == 'SPAN'
           ) {
-            // console.log(mutation.target.children[0])
+            if (debug)
+              console.log(
+                '[DEBUG]',
+                'setupMutationObserver',
+                'Detected Evaluations change.',
+                mutation
+              );
 
-            let periode = document.querySelector(
-              '#onglets-periodes > ul > li.active.nav-item'
-            );
-            periode = Array.from(periode.parentNode.children).indexOf(periode);
+            let periode = getCurrentActivePeriod();
+            setPeriodesInfos(gradesData.periodes);
 
-            setPeriodesInfos(dataPeriodes);
-
-            rang(gradesData);
-            coeff(gradesData);
-            ajouterNoteId(gradesData)
-
-            calculerMoyennes(
-              2,
-              globalQuotient,
-              true,
-              'kmlc-moyenne-g',
-              '',
-              'kmlc-moyenne',
-              '',
-              true,
-              ":not([class *= 'simu'])"
-            );
-
-            charts(gradesData, globalQuotient);
-
-            modifierNoteSimulation(id, globalQuotient);
-            ajouterNoteSimulation(id, globalQuotient);
-
-            objectifSetup(id);
-
-            variationMoyenne(periode, gradesData);
+            executeModules(gradesData, globalQuotient, periode, id);
           }
         } catch (e) {
-          // console.log(e)
+          if (debug)
+            console.log(
+              '[DEBUG]',
+              'setupMutationObserver',
+              'Error during mutation handling.',
+              e
+            );
         }
       });
     });
 
     executeNotesObserver(notesObserver);
+  }
 
-    function executeNotesObserver(observer) {
-      // Wait for the parent containing the table that isn't modified or removed when something in the table change
-      document.kmlcWaitForElement('.eleve-note').then((elm) => {
-        // console.log(789)
-        observer.observe(elm, {
-          characterData: false,
-          attributes: true,
-          attributeFilter: ['class'],
-          childList: true,
-          subtree: true
-        });
+  /**
+   * Executes the notes observer to monitor changes in the notes table.
+   * @param {MutationObserver} observer - The mutation observer instance.
+   */
+  function executeNotesObserver(observer) {
+    document.kmlcWaitForElement('.eleve-note').then((elm) => {
+      observer.observe(elm, {
+        characterData: false,
+        attributes: true,
+        attributeFilter: ['class'],
+        childList: true,
+        subtree: true
       });
-    }
+      if (debug)
+        console.log(
+          '[DEBUG]',
+          'executeNotesObserver',
+          'Observer set up on .eleve-note.',
+          elm
+        );
+    });
+  }
 
-    function setPeriodesInfos(periodes) {
-      let elmPeriodes = document.querySelectorAll(
-        "ul[class *= 'tabs'] > li > [class *= 'nav-link']"
-      );
+  /**
+   * Sets period information attributes to the period elements.
+   * @param {object[]} periodes - Array of period data objects.
+   */
+  function setPeriodesInfos(periodes) {
+    let elmPeriodes = document.querySelectorAll(
+      "ul[class *= 'tabs'] > li > [class *= 'nav-link']"
+    );
 
-      for (let i = 0; i < elmPeriodes.length; i++) {
-        if (elmPeriodes[i].getAttribute('dateDebut')) continue;
+    elmPeriodes.forEach((elmPeriode, i) => {
+      if (elmPeriode.getAttribute('dateDebut')) return;
 
-        for (let j = 0; j < periodes.length; j++) {
-          if (periodes[j].periode == elmPeriodes[i].textContent) {
-            elmPeriodes[i].setAttribute(
-              'dateDebut',
-              periodes[j].dateDebut.kmlcConvertToTimestamp()
-            );
-            elmPeriodes[i].setAttribute(
-              'dateFin',
-              periodes[j].dateFin.kmlcConvertToTimestamp()
-            );
-            elmPeriodes[i].setAttribute('codePeriode', periodes[j].codePeriode);
+      periodes.forEach((periode, index) => {
+        if (periode.periode == elmPeriode.textContent) {
+          let dateDebut = periode.dateDebut.kmlcConvertToTimestamp();
+          let dateFin = periode.dateFin.kmlcConvertToTimestamp();
 
-            if (periodes[j].codePeriode.includes('R')) {
-              elmPeriodes[i].setAttribute('R', 'true');
-              elmPeriodes[i].setAttribute('X', 'false');
-              elmPeriodes[i].setAttribute('Z', 'false');
-            } else if (periodes[j].codePeriode.replace(/[0-9]/g, '').length > 1) {
-              elmPeriodes[i].setAttribute('R', 'false');
-              elmPeriodes[i].setAttribute('X', 'true');
-              elmPeriodes[i].setAttribute('Z', 'false');
-            } else {
-              elmPeriodes[i].setAttribute('R', 'false');
-              elmPeriodes[i].setAttribute('X', 'false');
-              elmPeriodes[i].setAttribute('Z', 'false');
+          elmPeriode.setAttribute('dateDebut', dateDebut);
+          elmPeriode.setAttribute('dateFin', dateFin);
+          elmPeriode.setAttribute('codePeriode', periode.codePeriode);
+          elmPeriode.setAttribute('islast', 'false');
+
+          if (periode.codePeriode.includes('R')) {
+            elmPeriode.setAttribute('R', 'true');
+            elmPeriode.setAttribute('X', 'false');
+            elmPeriode.setAttribute('Z', 'false');
+          } else if (periode.codePeriode.replace(/[0-9]/g, '').length > 1) {
+            elmPeriode.setAttribute('R', 'false');
+            elmPeriode.setAttribute('X', 'true');
+            elmPeriode.setAttribute('Z', 'false');
+          } else {
+            elmPeriode.setAttribute('R', 'false');
+            elmPeriode.setAttribute('X', 'false');
+            elmPeriode.setAttribute('Z', 'false');
+          }
+
+          if (periode.codePeriode.includes('Z')) {
+            elmPeriode.setAttribute('R', 'false');
+            elmPeriode.setAttribute('X', 'false');
+            elmPeriode.setAttribute('Z', 'true');
+            elmPeriode.setAttribute('islast', 'true');
+          }
+
+          if (!periode.codePeriode.includes('R') && periodes[index + 1]) {
+            if (
+              dateDebut == periodes[index + 1].dateDebut.kmlcConvertToTimestamp() &&
+              dateFin == periodes[index + 1].dateFin.kmlcConvertToTimestamp()
+            ) {
+              elmPeriode.setAttribute('islast', 'true');
             }
-
-            if (periodes[j].codePeriode.includes('Z')) {
-              elmPeriodes[i].setAttribute('R', 'false');
-              elmPeriodes[i].setAttribute('X', 'false');
-              elmPeriodes[i].setAttribute('Z', 'true');
-            }
-
-            break;
           }
         }
-      }
-    }
+      });
+    });
   }
 
   exports({main}).to('./features/notes.js');

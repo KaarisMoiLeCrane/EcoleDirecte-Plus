@@ -1,12 +1,17 @@
 (() => {
-  function rang(note) {
-    // If there is already an element with the class "Rang", it means that the category "Rang" exist. If not, we apply our changes
+  /**
+   * Adds a "RANG" column to the gradebook if it doesn't already exist.
+   * @param {Object} note - Grade data containing information about subjects.
+   */
+  function rank(note) {
+    // If there is no "Rang" column, proceed to add it
     if (!document.querySelector("th[class *= 'rang ng-star-inserted']")) {
       const meanColumnTitleClass = "'relevemoyenne ng-star-inserted'";
       const meanColumnTitleElement = document.querySelector(
         'th[class *= ' + meanColumnTitleClass + ']'
       );
-      // We clone the "MOYENNES" element and append it to his parent (the top part of the table) and then modify the text to "RANG"
+
+      // Clone the "MOYENNES" element and modify it to "RANG"
       const rankColumnTitleElement = meanColumnTitleElement.cloneNode(true);
       rankColumnTitleElement.innerText = 'Rang';
       rankColumnTitleElement.setAttribute('class', 'rang ng-star-inserted');
@@ -16,16 +21,14 @@
         meanColumnTitleElement.parentElement.querySelector('[class = graph]')
       );
 
-      // console.log(1, document.querySelector("th[class *= 'coef ng-star-inserted']"))
+      if (debug) console.log('[DEBUG]', 'rank', 'Added "Rang" column to the gradebook.');
 
       // Get the means of each subject (each row of the column "MOYENNES")
       const subjectMeansColumn = document.querySelectorAll(
         'td[class *= ' + meanColumnTitleClass + ']'
       );
 
-      // console.log(1.1, p)
-
-      // For each means element, we duplicate it to place it visually under the new "RANG" column
+      // Iterate over each mean element to add ranking information
       for (let i = 0; i < subjectMeansColumn.length; i++) {
         const subjectMeanElementToRank = subjectMeansColumn[i].cloneNode(true);
         const actualPeriode = document.querySelector('ul.nav-tabs > li.active');
@@ -33,7 +36,6 @@
           actualPeriode
         );
 
-        // console.log(2, periode)
         const rankCase = subjectMeanElementToRank.children[0]
           ? subjectMeanElementToRank.children[0]
           : subjectMeanElementToRank;
@@ -44,7 +46,7 @@
         const workForce = userSubjectsDatas.effectif;
         rankCase.innerText = userRank + '/' + workForce;
 
-        // For each element we add the class "text-center"
+        // Add the class "text-center" to each ranking element
         subjectMeanElementToRank.className =
           subjectMeanElementToRank.className.replace('relevemoyenne', 'rang') +
           ' text-center';
@@ -55,8 +57,13 @@
           )
         );
       }
+
+      if (debug)
+        console.log('[DEBUG]', 'rank', 'Added ranking information to each subject.');
+    } else {
+      if (debug) console.log('[DEBUG]', 'rank', '"RANG" column already exists.');
     }
   }
 
-  exports({rang}).to('./features/Notes/rang.js');
+  exports({rank}).to('./features/Notes/rank.js');
 })();

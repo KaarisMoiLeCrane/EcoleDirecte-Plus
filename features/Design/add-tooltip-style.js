@@ -1,3 +1,12 @@
+(() => {
+  /**
+   * Adds tooltip styling to the page if not already present.
+   * @param {string} styleId - The ID for the style element.
+   * @param {string} styleContent - The CSS content to be added.
+   */
+  function addTooltipStyle(
+    styleId = 'kmlc_css_tooltip',
+    styleContent = `
 :root {
   --tooltip-green: rgba(0, 255, 0, 1);
   --tooltip-orange: rgba(255, 127.5, 0, 1);
@@ -12,7 +21,7 @@
   --tooltip-text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
 }
 
-.kmlc-note-parent, .kmlc-global-mean-parent {
+.kmlc-tooltip-parent, .kmlc-global-mean-parent {
   position: relative;
   transition: all 0.2s var(--transition-timing);
 }
@@ -46,7 +55,7 @@
   transition: all 0.3s var(--transition-timing);
 }
 
-.kmlc-note-parent:hover .kmlc-tooltip, .kmlc-global-mean-parent:hover .kmlc-tooltip {
+.kmlc-tooltip-parent:hover .kmlc-tooltip, .kmlc-global-mean-parent:hover .kmlc-tooltip {
   top: -30px;
   opacity: 1;
   visibility: visible;
@@ -84,3 +93,42 @@
 .kmlc-tooltip-blue::before {
   background: var(--tooltip-blue);
 }
+`
+  ) {
+    // Check if the tooltip CSS is already loaded
+    if (!document.getElementById(styleId)) {
+      if (debug)
+        console.log(
+          '[DEBUG] addTooltipStyle',
+          'Tooltip CSS not found, proceeding to add',
+          {
+            styleId
+          }
+        );
+
+      // Create a new style element
+      const styleSheet = document.createElement('style');
+      styleSheet.type = 'text/css';
+      styleSheet.id = styleId;
+      styleSheet.innerText = styleContent;
+
+      // Append the style element to the head
+      document.head.appendChild(styleSheet);
+      if (debug)
+        console.log('[DEBUG] addTooltipStyle', 'Tooltip CSS added', {
+          styleId,
+          styleContent
+        });
+    } else {
+      if (debug)
+        console.log(
+          '[DEBUG] addTooltipStyle',
+          'Tooltip CSS already exists, no action taken',
+          {styleId}
+        );
+    }
+  }
+
+  // Export the addTooltipStyle function as a module
+  exports({addTooltipStyle}).to('./features/Design/add-tooltip-style.js');
+})();

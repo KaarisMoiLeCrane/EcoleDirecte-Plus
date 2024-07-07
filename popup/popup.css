@@ -57,7 +57,7 @@ button:hover {
 
 select {
   padding: 5px;
-  width: 100%;
+  max-width: 80%;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
@@ -91,19 +91,72 @@ p {
   color: #888;
 }
 
-#messageContainer {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #ecf0f1;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: left;
-  font-size: 12px;
-  max-height: 100px;
-  overflow-y: auto;
-}
-
 #sendMessageToContentScript,
 #sendMessageToBackgroundScript {
   width: 170px; /* Adjust the width to your preference */
+}
+
+pre {
+  background-color: #2e2e2e;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 5px;
+  overflow: auto;
+  font-family: monospace; /* Monospaced font for consistency */
+  line-height: 1.5; /* Line height for readability */
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 14px;
+  max-width: 350px;
+  position: relative;
+}
+
+/* Syntax highlighting */
+pre .key {
+  color: #f92672;
+}
+
+pre .string {
+  color: #a6e22e;
+}
+
+pre .number {
+  color: #ae81ff;
+}
+
+pre .boolean {
+  color: #66d9ef;
+}
+
+pre .null {
+  color: #fd971f;
+}
+
+pre .brace {
+  color: #f8f8f2;
+}
+
+.pre-container {
+  position: relative;
+  display: inline-block;
+}
+
+.copy-button {
+  position: absolute;
+  background-color: #2e2e2e;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  bottom: -10px;
+  right: -4px;
+}
+
+.copy-button:hover {
+  background-color: #222121;
 }
