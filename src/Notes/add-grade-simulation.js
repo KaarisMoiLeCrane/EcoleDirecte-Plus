@@ -139,7 +139,7 @@
   function addPopupEventListeners(popup, blur) {
     blur.addEventListener('click', function (event) {
       if (event.target.classList.contains('kmlc-blur')) {
-        closePopup(popup, blur);
+        closePopup();
       }
     });
 
@@ -161,7 +161,7 @@
     popup.addEventListener('animationend', function (event) {
       if (event.animationName === 'kmlc-popupCloseAnimation') {
         popup.style.setProperty('display', 'none');
-        blur.style.setProperty('background-color', 'none');
+        blur.style.setProperty('display', 'none');
         popup.classList.remove('kmlc-popup-close');
         blur.classList.remove('kmlc-blur-close');
       }
@@ -173,18 +173,13 @@
         'Event listeners added to popup and blur',
         {popup, blur}
       );
-  }
 
-  /**
-   * Closes the popup and blur elements.
-   * @param {HTMLElement} popup - The popup element.
-   * @param {HTMLElement} blur - The blur element.
-   */
-  function closePopup(popup, blur) {
-    popup.classList.add('kmlc-popup-close');
-    blur.classList.add('kmlc-blur-close');
-    if (debug)
-      console.log('[DEBUG]', 'closePopup', 'Popup and blur closing', {popup, blur});
+    function closePopup() {
+      popup.classList.add('kmlc-popup-close');
+      blur.classList.add('kmlc-blur-close');
+      if (debug)
+        console.log('[DEBUG]', 'closePopup', 'Popup and blur closing', {popup, blur});
+    }
   }
 
   /**
