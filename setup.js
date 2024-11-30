@@ -70,9 +70,9 @@ exports = (...args) => ({
   }
 });
 
-// exports({main, login}).to('./features/design.js');
-// exports({main}).to('./features/design.js'); exports({login}).to('./features/design.js');
-// exports(main).to('./features/design.js');
+// exports({main, login}).to('./src/design.js');
+// exports({main}).to('./src/design.js'); exports({login}).to('./src/design.js');
+// exports(main).to('./src/design.js');
 
 /**
  * Imports variables from a specified namespace.
@@ -109,13 +109,13 @@ imports = (...args) => ({
 });
 
 // const Design = {
-//   main: imports('main').from('./features/design.js'),
-//   login: imports('login').from('./features/design.js')
+//   main: imports('main').from('./src/design.js'),
+//   login: imports('login').from('./src/design.js')
 // };
-// const Design = imports('*').from('./features/design.js');
+// const Design = imports('*').from('./src/design.js');
 //
-// const DesignMain = imports('main').from('./features/design.js');
-// const {design, login} = imports('*').from('./features/design.js');
+// const DesignMain = imports('main').from('./src/design.js');
+// const {design, login} = imports('*').from('./src/design.js');
 
 // Listen for changes in browser storage and update debug status accordingly
 browser.storage.onChanged.addListener((changes, namespace) => {

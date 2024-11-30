@@ -1,7 +1,7 @@
 {
   "name": "EcoleDirecte FEATURES +",
   "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Kaaris_Moi_Le_Crane",
   "manifest_version": 3,
   "permissions": ["storage", "tabs", "notifications", "activeTab"],
@@ -16,11 +16,11 @@
   },
 
   "background": {
-    "service_worker": "/popup/chromeExtensionPopupDevTools-BackgroundScript.js"
+    "service_worker": "/options/chromeExtensionPopupDevTools-BackgroundScript.js"
   },
 
   "action": {
-    "default_popup": "/popup/popup.html",
+    "default_popup": "/options/popup.html",
     "default_icon": {
       "16": "/assets/images/icons/icon_16.png",
       "24": "/assets/images/icons/icon_24.png",
@@ -35,52 +35,53 @@
       "all_frames": true,
       "js": [
         "/setup.js",
-        "/popup/chromeExtensionPopupDevTools-ContentScript.js",
+        "/options/chromeExtensionPopupDevTools-ContentScript.js",
 
         "/vendor/ecoledirecte.js",
         "/vendor/chart.js",
         "/utils/functions.js",
         "/utils/utils.js",
 
-        "/features/CahierDeTexte/homework-status.js",
-        "/features/CahierDeTexte/homework-refresh.js",
-        "/features/cahierdetexte.js",
+        "/src/CahierDeTexte/homework-status.js",
+        "/src/CahierDeTexte/homework-refresh.js",
+        "/src/cahierdetexte.js",
 
-        "/features/EmploiDuTemps/homework-status.js",
-        "/features/emploidutemps.js",
+        "/src/EmploiDuTemps/homework-status.js",
+        "/src/emploidutemps.js",
 
-        "/features/Notes/rank.js",
-        "/features/Notes/coefficient.js",
-        "/features/Notes/add-grade-id.js",
+        "/src/Notes/rank.js",
+        "/src/Notes/coefficient.js",
+        "/src/Notes/add-grade-id.js",
 
-        "/features/Notes/functions/calculate-means.js",
+        "/src/Notes/functions/calculate-means.js",
 
-        "/features/Notes/charts.js",
+        "/src/Notes/charts.js",
 
-        "/features/Notes/functions/calculate-mean-value-impact.js",
-        "/features/Notes/mean-variation-value.js",
+        "/src/Notes/functions/calculate-mean-value-impact.js",
+        "/src/Notes/mean-variation-value.js",
 
-        "/features/Notes/functions/edit-grade.js",
-        "/features/Notes/edit-grade-simulation.js",
+        "/src/Notes/functions/edit-grade.js",
+        "/src/Notes/edit-grade-simulation.js",
 
-        "/features/Notes/functions/add-grade.js",
-        "/features/Notes/add-grade-simulation.js",
+        "/src/Notes/functions/add-grade.js",
+        "/src/Notes/add-grade-simulation.js",
 
-        "/features/Notes/functions/add-grade-goal.js",
-        "/features/Notes/functions/calculate-global-mean-goal.js",
-        "/features/Notes/goal.js",
+        "/src/Notes/functions/add-grade-goal.js",
+        "/src/Notes/functions/calculate-global-mean-goal.js",
+        "/src/Notes/goal.js",
 
-        "/features/notes.js",
+        "/src/notes.js",
 
-        "/features/Design/sidebar.js",
-        "/features/Design/credit.js",
-        "/features/Design/add-popup-style.js",
-        "/features/Design/add-tooltip-style.js",
-        "/features/Design/login-style.js",
+        "/src/Design/cleaner.js",
+        "/src/Design/sidebar.js",
+        "/src/Design/credit.js",
+        "/src/Design/add-popup-style.js",
+        "/src/Design/add-tooltip-style.js",
+        "/src/Design/login-style.js",
 
-        "/features/design.js",
+        "/src/design.js",
 
-        "/features/messagerie.js",
+        "/src/messagerie.js",
 
         "/main.js"
       ],

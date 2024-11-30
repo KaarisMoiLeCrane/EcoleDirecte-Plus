@@ -121,7 +121,7 @@
   function getNewYear() {
     const todayMs = Date.now();
 
-    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
     const dateDebutArr = dataPeriodes
       .map((p) => p.dateDebut.kmlcConvertToTimestamp())
       .sort((a, b) => a - b);
@@ -152,7 +152,7 @@
     let gradeSimulation = await getData('gradeSimulation');
     let dummy = [...gradeSimulation];
     const newYear = getNewYear();
-    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
@@ -195,7 +195,7 @@
     let objectifMoyenne = await getData('objectifMoyenne');
     let dummy = [...objectifMoyenne];
     const newYear = getNewYear();
-    const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 

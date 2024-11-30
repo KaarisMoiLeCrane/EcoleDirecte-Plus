@@ -3,11 +3,11 @@
   const {getToken, getUserId} = imports('*').from('./utils/utils.js');
 
   // Feature imports
-  const CahierDeTexte = {main: imports('main').from('./features/cahierdetexte.js')};
-  const EmploiDuTemps = {main: imports('main').from('./features/emploidutemps.js')};
-  const Messagerie = {main: imports('main').from('./features/messagerie.js')};
-  const Design = imports('*').from('./features/design.js');
-  const Notes = {main: imports('main').from('./features/notes.js')};
+  const CahierDeTexte = {main: imports('main').from('./src/cahierdetexte.js')};
+  const EmploiDuTemps = {main: imports('main').from('./src/emploidutemps.js')};
+  const Messagerie = {main: imports('main').from('./src/messagerie.js')};
+  const Design = imports('*').from('./src/design.js');
+  const Notes = {main: imports('main').from('./src/notes.js')};
 
   let lastUrl = window.location.href;
 
@@ -29,16 +29,7 @@
     if (url !== lastUrl) {
       lastUrl = url;
       main(1);
-      removeEdMenuClass();
     }
-  }
-
-  /**
-   * Removes 'ed-menu' CSS class from all menu elements.
-   */
-  function removeEdMenuClass() {
-    const menuElements = document.querySelectorAll('div.menu.ed-menu');
-    menuElements.forEach((element) => element.classList.remove('ed-menu'));
   }
 
   /**
