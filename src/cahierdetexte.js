@@ -39,32 +39,32 @@
     if (debug)
       console.log('[DEBUG]', 'waitForAvenirButton', 'Waiting for "À venir" button.');
 
-    document
-      .kmlcWaitForElement(
-        'ed-cdt-eleve-onglets > ul > li.secondary.onglet-secondary > button'
-      )
-      .then((buttonAVenir) => {
-        if (buttonAVenir.getAttribute('kmlc-click-listener') !== 'true') {
-          buttonAVenir.setAttribute('kmlc-click-listener', 'true');
-          buttonAVenir.onclick = function () {
+    document.kmlcWaitForElement('ed-cdt-eleve-onglets').then((divOnglets) => {
+      divOnglets
+        .kmlcWaitForElement("[class *= 'secondary'] > button")
+        .then((buttonAVenir) => {
+          if (buttonAVenir.getAttribute('kmlc-click-listener') !== 'true') {
+            buttonAVenir.setAttribute('kmlc-click-listener', 'true');
+            buttonAVenir.onclick = function () {
+              if (debug)
+                console.log(
+                  '[DEBUG]',
+                  'waitForAvenirButton',
+                  '"À venir" button clicked.',
+                  homeworksData
+                );
+              homeworkStatus(homeworksData);
+            };
             if (debug)
               console.log(
                 '[DEBUG]',
                 'waitForAvenirButton',
-                '"À venir" button clicked.',
-                homeworksData
+                'Click listener added to "À venir" button.',
+                buttonAVenir
               );
-            homeworkStatus(homeworksData);
-          };
-          if (debug)
-            console.log(
-              '[DEBUG]',
-              'waitForAvenirButton',
-              'Click listener added to "À venir" button.',
-              buttonAVenir
-            );
-        }
-      });
+          }
+        });
+    });
   }
 
   exports({main}).to('./src/cahierdetexte.js');
