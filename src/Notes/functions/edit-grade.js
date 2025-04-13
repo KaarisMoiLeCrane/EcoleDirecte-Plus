@@ -210,7 +210,7 @@
       gradeElement.appendChild(coefficientElement);
       gradeElement.querySelector(
         'sup'
-      ).outerHTML = `<sup class="coef ng-star-inserted"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+      ).outerHTML = `<sup class="coef"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
     }
 
     const gradeElementQuotient = gradeElement.querySelector('sub');
@@ -222,7 +222,7 @@
       gradeElement.appendChild(quotientElement);
       gradeElement.querySelector(
         'sub'
-      ).outerHTML = `<sub class="quotient ng-star-inserted"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+      ).outerHTML = `<sub class="quotient"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
     }
   }
 

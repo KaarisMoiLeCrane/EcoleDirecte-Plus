@@ -285,7 +285,7 @@
         }
       } else {
         const overallAverageElement = document.createElement('tr');
-        overallAverageElement.innerHTML = `<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
+        overallAverageElement.innerHTML = `<tr><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
 
         document.querySelector('table.ed-table tbody').appendChild(overallAverageElement);
       }

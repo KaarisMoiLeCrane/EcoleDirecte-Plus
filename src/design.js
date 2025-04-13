@@ -52,10 +52,7 @@
 
     // Select the necessary elements
     let infoContainer = document.querySelector("[class *= 'info-container']");
-    let header = document
-      .querySelector('#login')
-      .querySelector('img')
-      .closest('.text-center');
+    let header = true
     let loginContainer = document.querySelector("[class *= 'login-container']");
 
     loginStyle(

@@ -56,7 +56,7 @@
    */
   function removeResizePageClass() {
     const menuElements = document
-      .querySelector('#main-part')
+      // .querySelector('#main')
       .querySelectorAll('.resizePage');
     menuElements.forEach((element) => element.classList.remove('resizePage'));
   }

@@ -67,10 +67,10 @@
    */
   function coefficient(gradesData) {
     const coefColumnExists = document.querySelector(
-      "th[class *= 'coef ng-star-inserted']"
+      "th[class *= 'coef']"
     );
     if (!coefColumnExists) {
-      const meanColumnClass = 'relevemoyenne ng-star-inserted';
+      const meanColumnClass = 'relevemoyenne';
       const meanColumnTitleElement = document.querySelector(
         `th[class *= '${meanColumnClass}']`
       );
@@ -83,7 +83,7 @@
       insertColumn(
         meanColumnTitleElement,
         'COEF.',
-        'coef ng-star-inserted',
+        'coef',
         meanColumnTitleElement.parentElement.querySelector(
           `[class *= '${meanColumnClass}']`
         )

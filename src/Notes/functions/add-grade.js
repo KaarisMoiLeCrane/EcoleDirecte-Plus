@@ -77,7 +77,7 @@
 
           const classNewGradeElement =
             document.querySelector('button.note')?.className ||
-            'btn text-normal note margin-whitespace no-background no-padding ng-star-inserted';
+            'btn text-normal note margin-whitespace no-background no-padding';
           if (debug)
             console.log(
               '[DEBUG]',
@@ -88,10 +88,10 @@
 
           newGradeElement.outerHTML = `
             <button type="button" kmlc-simulation-grades="true" id="${gradeId}" class="${classNewGradeElement}" title="${gradeTitle}" save="${saveGrade}">
-              <span class="valeur ng-star-inserted" style="color: green;">
+              <span class="valeur" style="color: green;">
                 ${gradeValue}
-                <sup class="coef ng-star-inserted"> (${gradePower}) </sup>
-                <sub class="coef ng-star-inserted"> /${gradeQuotient} </sub>
+                <sup class="coef"> (${gradePower}) </sup>
+                <sub class="coef"> /${gradeQuotient} </sub>
               </span>
             </button>
           `;

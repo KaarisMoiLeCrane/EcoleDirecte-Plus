@@ -16,10 +16,7 @@
     // Check if the custom login style has already been applied
     if (!document.querySelector('[kmlc_login]')) {
       if (debug)
-        console.log(
-          '[DEBUG] loginStyle',
-          'Custom login style not found, proceeding to apply'
-        );
+        console.log('[DEBUG] loginStyle', 'Custom login style not found, proceeding to apply');
 
       if (debug)
         console.log('[DEBUG] loginStyle', 'Elements selected', {
@@ -31,7 +28,7 @@
       if (infoContainer && header && loginContainer) {
         // Remove the info container and header elements
         infoContainer.remove();
-        header.remove();
+        // header.remove();
         if (debug)
           console.log('[DEBUG] loginStyle', 'Removed info container and header', {
             infoContainerSelector,
@@ -56,10 +53,7 @@
       }
     } else {
       if (debug)
-        console.log(
-          '[DEBUG] loginStyle',
-          'Custom login style already applied, no action taken'
-        );
+        console.log('[DEBUG] loginStyle', 'Custom login style already applied, no action taken');
     }
   }
 

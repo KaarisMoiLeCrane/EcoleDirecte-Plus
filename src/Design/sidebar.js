@@ -410,7 +410,7 @@ header .image-text .profession {
             ) + ' text-decoration:none !important'
           );
 
-          let icon = a.querySelector('i');
+          let icon = a.querySelector('i, fa-icon');
           icon.setAttribute('class', 'icon iconED ' + icon.getAttribute('class'));
 
           let span = a.querySelector('span');
