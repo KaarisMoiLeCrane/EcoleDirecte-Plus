@@ -171,9 +171,5 @@
   }
 
   // Export the addPopupStyle function as a module
-<<<<<<<< HEAD:src/Design/add-popup-style.js
   exports({addPopupStyle}).to('./src/Design/add-popup-style.js');
-========
-  exports({addPopupStyle}).to('./features/Design/add-popup-style.js');
->>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/add-popup-style.js
 })();

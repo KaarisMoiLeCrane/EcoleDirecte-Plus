@@ -201,7 +201,6 @@ Object.prototype.kmlcSize = function () {
       sizeInfo
     });
   return sizeInfo;
-<<<<<<< HEAD
 };
 
 /**
@@ -244,6 +243,4 @@ Object.prototype.kmlcReplaceElementNode = function (newTag, preserveChildren = t
       }
     );
   return newNode;
-=======
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05
 };

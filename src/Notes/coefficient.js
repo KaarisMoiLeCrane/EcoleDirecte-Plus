@@ -28,7 +28,6 @@
    * @param {string} newClassName - The class name for the new column.
    */
   function cloneAndModifyElements(elements, gradesData, periodIndex, newClassName) {
-<<<<<<< HEAD:src/Notes/coefficient.js
     let indexPhaseChange = 0;
     for (const [index, element] of elements.entries()) {
       if (
@@ -43,12 +42,6 @@
           index + indexPhaseChange
         ].coef;
 
-=======
-    for (const [index, element] of elements.entries()) {
-      const clonedElement = element.cloneNode(true);
-      const coefValue =
-        gradesData.periodes[periodIndex].ensembleMatieres.disciplines[index].coef;
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/coefficient.js
       clonedElement.innerText = coefValue;
       clonedElement.className = `${element.className.replace(
         'relevemoyenne',
@@ -74,17 +67,10 @@
    */
   function coefficient(gradesData) {
     const coefColumnExists = document.querySelector(
-<<<<<<< HEAD:src/Notes/coefficient.js
       "th[class *= 'coef']"
     );
     if (!coefColumnExists) {
       const meanColumnClass = 'relevemoyenne';
-=======
-      "th[class *= 'coef ng-star-inserted']"
-    );
-    if (!coefColumnExists) {
-      const meanColumnClass = 'relevemoyenne ng-star-inserted';
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/coefficient.js
       const meanColumnTitleElement = document.querySelector(
         `th[class *= '${meanColumnClass}']`
       );
@@ -97,11 +83,7 @@
       insertColumn(
         meanColumnTitleElement,
         'COEF.',
-<<<<<<< HEAD:src/Notes/coefficient.js
         'coef',
-=======
-        'coef ng-star-inserted',
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/coefficient.js
         meanColumnTitleElement.parentElement.querySelector(
           `[class *= '${meanColumnClass}']`
         )
@@ -143,9 +125,5 @@
     }
   }
 
-<<<<<<< HEAD:src/Notes/coefficient.js
   exports({coefficient}).to('./src/Notes/coefficient.js');
-=======
-  exports({coefficient}).to('./features/Notes/coefficient.js');
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/coefficient.js
 })();

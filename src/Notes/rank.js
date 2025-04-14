@@ -5,13 +5,8 @@
    */
   function rank(note) {
     // If there is no "Rang" column, proceed to add it
-<<<<<<< HEAD:src/Notes/rank.js
     if (!document.querySelector("th[class *= 'rang']")) {
       const meanColumnTitleClass = "'relevemoyenne'";
-=======
-    if (!document.querySelector("th[class *= 'rang ng-star-inserted']")) {
-      const meanColumnTitleClass = "'relevemoyenne ng-star-inserted'";
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/rank.js
       const meanColumnTitleElement = document.querySelector(
         'th[class *= ' + meanColumnTitleClass + ']'
       );
@@ -57,20 +52,11 @@
         );
       }
 
-<<<<<<< HEAD:src/Notes/rank.js
       if (debug) console.log('[DEBUG]', 'rank', 'Added ranking information to each subject.');
-=======
-      if (debug)
-        console.log('[DEBUG]', 'rank', 'Added ranking information to each subject.');
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/rank.js
     } else {
       if (debug) console.log('[DEBUG]', 'rank', '"RANG" column already exists.');
     }
   }
 
-<<<<<<< HEAD:src/Notes/rank.js
   exports({rank}).to('./src/Notes/rank.js');
-=======
-  exports({rank}).to('./features/Notes/rank.js');
->>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/rank.js
 })();
