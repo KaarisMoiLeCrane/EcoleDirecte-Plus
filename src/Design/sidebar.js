@@ -313,8 +313,13 @@ header .image-text .profession {
     if (!window.location.href.includes('EmploiDuTemps')) {
       document.getElementById('main-part').classList.add('sidebarhover');
     }
+<<<<<<< HEAD:src/Design/sidebar.js
     document.querySelector('.menu-bar').style.setProperty('overflow', 'hidden');
     document.querySelector('.menu').style.setProperty('background-color', 'hidden');
+=======
+    document.querySelector('.menu-bar').style.overflow = 'hidden';
+    document.querySelector('.menu').style.overflow = 'hidden';
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
   }
 
   /**
@@ -377,7 +382,11 @@ header .image-text .profession {
 
       for (let i = 0; i < edMenu.length; i++) {
         // Get all the sections in the navigation bar of each person in the account and append them directly under the new menu-bar in the DOM
+<<<<<<< HEAD:src/Design/sidebar.js
         let roleMenu = document.querySelectorAll('ul[class *= ed-menu-list]')[i];
+=======
+        let roleMenu = document.querySelectorAll('ul[role="menu"]')[i];
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
         roleMenu.parentElement.parentElement.appendChild(roleMenu);
 
         // Removing the blue rectangle wrapping all the sections
@@ -410,7 +419,11 @@ header .image-text .profession {
             ) + ' text-decoration:none !important'
           );
 
+<<<<<<< HEAD:src/Design/sidebar.js
           let icon = a.querySelector('i, fa-icon');
+=======
+          let icon = a.querySelector('i');
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
           icon.setAttribute('class', 'icon iconED ' + icon.getAttribute('class'));
 
           let span = a.querySelector('span');
@@ -441,7 +454,10 @@ header .image-text .profession {
           'class',
           (roleMenu.getAttribute('class') || '') + ' menu-links'
         );
+<<<<<<< HEAD:src/Design/sidebar.js
         roleMenu.parentElement.kmlcReplaceElementNode('DIV');
+=======
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
       }
 
       // Handle multiple accounts
@@ -482,6 +498,7 @@ header .image-text .profession {
       document.querySelectorAll('header:not([class])').forEach((header) => {
         header.children[0].onclick = function () {
           let sibling = this.parentElement.nextElementSibling;
+<<<<<<< HEAD:src/Design/sidebar.js
           sibling.style.setProperty(
             'visibility',
             sibling.style.visibility === 'hidden' ? '' : 'hidden'
@@ -494,6 +511,14 @@ header .image-text .profession {
             'position',
             sibling.style.position === 'absolute' ? '' : 'absolute'
           );
+=======
+          sibling.style.visibility =
+            sibling.style.visibility === 'hidden' ? '' : 'hidden';
+          sibling.style.marginLeft =
+            sibling.style.marginLeft === '-9999px' ? '' : '-9999px';
+          sibling.style.position =
+            sibling.style.position === 'absolute' ? '' : 'absolute';
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
         };
       });
 
@@ -603,5 +628,9 @@ header .image-text .profession {
   }
 
   // Exporting the sidebar function to be used in other modules
+<<<<<<< HEAD:src/Design/sidebar.js
   exports({sidebar}).to('./src/Design/sidebar.js');
+=======
+  exports({sidebar}).to('./features/Design/sidebar.js');
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Design/sidebar.js
 })();

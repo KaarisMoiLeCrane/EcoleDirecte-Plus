@@ -256,11 +256,16 @@
    * @returns {Object} - Object containing the style, impact, and tooltip class.
    */
   function getVariationStyleAndImpact(value) {
+<<<<<<< HEAD:src/Notes/functions/calculate-mean-value-impact.js
     let style = 'background-color: rgba(255, 255, 255, 0.250); border-radius: 3px;';
+=======
+    let style = 'background-color: rgb(255, 255, 255, 0.250); border-radius: 3px;';
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-mean-value-impact.js
     let impact = 'neutre';
     let tooltipClass = '';
 
     if (value > 0.2) {
+<<<<<<< HEAD:src/Notes/functions/calculate-mean-value-impact.js
       style = 'background-color: rgba(0, 255, 0, 0.250); border-radius: 3px;';
       impact = 'très positive';
       tooltipClass = ' kmlc-tooltip kmlc-tooltip-green';
@@ -270,6 +275,17 @@
       tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
     } else {
       style = 'background-color: rgba(255, 0, 0, 0.250); border-radius: 3px;';
+=======
+      style = 'background-color: rgb(0, 255, 0, 0.250); border-radius: 3px;';
+      impact = 'très positive';
+      tooltipClass = ' kmlc-tooltip kmlc-tooltip-green';
+    } else if (value <= 0.2 && value > 0) {
+      style = 'background-color: rgb(255, 127.5, 0, 0.250); border-radius: 3px;';
+      impact = 'positive';
+      tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
+    } else {
+      style = 'background-color: rgb(255, 0, 0, 0.250); border-radius: 3px;';
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-mean-value-impact.js
       impact = 'négative';
       tooltipClass = ' kmlc-tooltip kmlc-tooltip-red';
     }
@@ -301,6 +317,7 @@
       subjectExcludeLine.parentNode.children
     ).indexOf(subjectExcludeLine);
 
+<<<<<<< HEAD:src/Notes/functions/calculate-mean-value-impact.js
     let elementVariation = element.querySelector('[kmlc-variation]');
 
     if (!elementVariation) {
@@ -316,6 +333,23 @@
         1;*/
       i++
     ) {
+=======
+    for (
+      let i = 0;
+      i <
+      grades.periodes[gradePeriode].ensembleMatieres.disciplines[subjectExcludeLineIndex]
+        .professeurs.length +
+        1;
+      i++
+    ) {
+      let elementVariation = element.querySelector('[kmlc-variation]');
+
+      if (!elementVariation) {
+        element.appendChild(variationElement);
+        elementVariation = element.querySelector('[kmlc-variation]');
+      }
+
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-mean-value-impact.js
       if (element.children[0] !== elementVariation) {
         elementVariation.appendChild(element.children[0]);
       }
@@ -357,6 +391,7 @@
         subjectExcludeLine.parentNode.children
       ).indexOf(subjectExcludeLine);
 
+<<<<<<< HEAD:src/Notes/functions/calculate-mean-value-impact.js
       let elementVariation = element.querySelector('[kmlc-variation]');
 
       if (!elementVariation) {
@@ -373,6 +408,24 @@
           1;*/
         j++
       ) {
+=======
+      for (
+        let j = 0;
+        j <
+        grades.periodes[gradePeriode].ensembleMatieres.disciplines[
+          subjectExcludeLineIndex
+        ].professeurs.length +
+          1;
+        j++
+      ) {
+        let elementVariation = element.querySelector('[kmlc-variation]');
+
+        if (!elementVariation) {
+          element.appendChild(variationElement);
+          elementVariation = element.querySelector('[kmlc-variation]');
+        }
+
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-mean-value-impact.js
         if (element.children[0] !== elementVariation) {
           elementVariation.appendChild(element.children[0]);
         }
@@ -391,6 +444,10 @@
   }
 
   exports({calculateMeanValueImpact}).to(
+<<<<<<< HEAD:src/Notes/functions/calculate-mean-value-impact.js
     './src/Notes/functions/calculate-mean-value-impact.js'
+=======
+    './features/Notes/functions/calculate-mean-value-impact.js'
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-mean-value-impact.js
   );
 })();

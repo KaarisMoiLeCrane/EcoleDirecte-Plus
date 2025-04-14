@@ -121,7 +121,11 @@
       // If old data is not significant, get the value from the current grade
       gradeValue = subjectGrade.childNodes[0].nodeValue;
       significative =
+<<<<<<< HEAD:src/Notes/functions/calculate-means.js
         subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 2;
+=======
+        subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 1;
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-means.js
     }
 
     if (significative) {
@@ -285,7 +289,11 @@
         }
       } else {
         const overallAverageElement = document.createElement('tr');
+<<<<<<< HEAD:src/Notes/functions/calculate-means.js
         overallAverageElement.innerHTML = `<tr><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
+=======
+        overallAverageElement.innerHTML = `<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-means.js
 
         document.querySelector('table.ed-table tbody').appendChild(overallAverageElement);
       }
@@ -419,5 +427,9 @@
     return {calculatedGlobalMeanRound5, calculatedGlobalMeanRound2};
   }
 
+<<<<<<< HEAD:src/Notes/functions/calculate-means.js
   exports({calculateMeans}).to('./src/Notes/functions/calculate-means.js');
+=======
+  exports({calculateMeans}).to('./features/Notes/functions/calculate-means.js');
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-means.js
 })();

@@ -1,7 +1,11 @@
 (() => {
   // Import the calculateMeans function
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD:src/Notes/functions/edit-grade.js
     './src/Notes/functions/calculate-means.js'
+=======
+    './features/Notes/functions/calculate-means.js'
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/edit-grade.js
   );
 
   /**
@@ -210,7 +214,11 @@
       gradeElement.appendChild(coefficientElement);
       gradeElement.querySelector(
         'sup'
+<<<<<<< HEAD:src/Notes/functions/edit-grade.js
       ).outerHTML = `<sup class="coef"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+=======
+      ).outerHTML = `<sup class="coef ng-star-inserted"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/edit-grade.js
     }
 
     const gradeElementQuotient = gradeElement.querySelector('sub');
@@ -222,7 +230,11 @@
       gradeElement.appendChild(quotientElement);
       gradeElement.querySelector(
         'sub'
+<<<<<<< HEAD:src/Notes/functions/edit-grade.js
       ).outerHTML = `<sub class="quotient"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+=======
+      ).outerHTML = `<sub class="quotient ng-star-inserted"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/edit-grade.js
     }
   }
 
@@ -232,11 +244,19 @@
       console.log('[DEBUG]', 'addGreenUnderline', 'Function called', gradeElement);
     const gradeElementStyle = gradeElement.getAttribute('style');
     if (gradeElementStyle) {
+<<<<<<< HEAD:src/Notes/functions/edit-grade.js
       gradeElement.style.setProperty('border-bottom', '1px solid green');
+=======
+      gradeElement.style.borderBottom = '1px solid green';
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/edit-grade.js
     } else {
       gradeElement.setAttribute('style', 'border-bottom: 1px solid green;');
     }
   }
 
+<<<<<<< HEAD:src/Notes/functions/edit-grade.js
   exports({editGrade}).to('./src/Notes/functions/edit-grade.js');
+=======
+  exports({editGrade}).to('./features/Notes/functions/edit-grade.js');
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/edit-grade.js
 })();

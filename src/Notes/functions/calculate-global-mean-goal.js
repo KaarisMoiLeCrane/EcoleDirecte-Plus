@@ -1,7 +1,11 @@
 (() => {
   // Importing necessary functions from other modules
   const addGradeGoal = imports('addGradeGoal').from(
+<<<<<<< HEAD:src/Notes/functions/calculate-global-mean-goal.js
     './src/Notes/functions/add-grade-goal.js'
+=======
+    './features/Notes/functions/add-grade-goal.js'
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-global-mean-goal.js
   );
 
   /**
@@ -21,9 +25,13 @@
     const globalMeanGoalId = Date.now();
 
     // Getting all subject name elements
+<<<<<<< HEAD:src/Notes/functions/calculate-global-mean-goal.js
     const subjectNamesElement = document.querySelectorAll(
       "[class *= 'nommatiere'] > [class *= text-bold]"
     );
+=======
+    const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-global-mean-goal.js
 
     // Getting the active period element
     const actualPeriodeElement = document.querySelector(
@@ -127,6 +135,10 @@
   }
 
   exports({calculateGlobalMeanGoal}).to(
+<<<<<<< HEAD:src/Notes/functions/calculate-global-mean-goal.js
     './src/Notes/functions/calculate-global-mean-goal.js'
+=======
+    './features/Notes/functions/calculate-global-mean-goal.js'
+>>>>>>> 9068a75d3cdd94f0379c58bb4585348227659c05:features/Notes/functions/calculate-global-mean-goal.js
   );
 })();

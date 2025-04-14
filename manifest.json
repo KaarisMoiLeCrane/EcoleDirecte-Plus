@@ -1,98 +1,99 @@
 {
-  "name": "EcoleDirecte DEVELOP +",
-  "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-  "version": "2.1.0",
-  "author": "Kaaris_Moi_Le_Crane",
-  "manifest_version": 3,
-  "permissions": ["storage", "tabs", "notifications", "activeTab"],
-  "host_permissions": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"],
-
-  "icons": {
-    "16": "/assets/images/icons/icon_16.png",
-    "24": "/assets/images/icons/icon_24.png",
-    "32": "/assets/images/icons/icon_32.png",
-    "48": "/assets/images/icons/icon_48.png",
-    "128": "/assets/images/icons/icon_128.png"
-  },
-
-  "background": {
-    "service_worker": "/options/chromeExtensionPopupDevTools-BackgroundScript.js"
-  },
-
-  "action": {
-    "default_popup": "/options/popup.html",
-    "default_icon": {
-      "16": "/assets/images/icons/icon_16.png",
-      "24": "/assets/images/icons/icon_24.png",
-      "32": "/assets/images/icons/icon_32.png",
-      "48": "/assets/images/icons/icon_48.png",
-      "128": "/assets/images/icons/icon_128.png"
-    }
-  },
-
-  "content_scripts": [
-    {
-      "all_frames": true,
-      "js": [
-        "/setup.js",
-        "/options/chromeExtensionPopupDevTools-ContentScript.js",
-
-        "/vendor/ecoledirecte.js",
-        "/vendor/chart.js",
-        "/utils/functions.js",
-        "/utils/utils.js",
-
-        "/src/CahierDeTexte/homework-status.js",
-        "/src/CahierDeTexte/homework-refresh.js",
-        "/src/cahierdetexte.js",
-
-        "/src/EmploiDuTemps/homework-status.js",
-        "/src/emploidutemps.js",
-
-        "/src/Notes/rank.js",
-        "/src/Notes/coefficient.js",
-        "/src/Notes/add-grade-id.js",
-
-        "/src/Notes/functions/calculate-means.js",
-
-        "/src/Notes/charts.js",
-
-        "/src/Notes/functions/calculate-mean-value-impact.js",
-        "/src/Notes/mean-variation-value.js",
-
-        "/src/Notes/functions/edit-grade.js",
-        "/src/Notes/edit-grade-simulation.js",
-
-        "/src/Notes/functions/add-grade.js",
-        "/src/Notes/add-grade-simulation.js",
-
-        "/src/Notes/functions/add-grade-goal.js",
-        "/src/Notes/functions/calculate-global-mean-goal.js",
-        "/src/Notes/goal.js",
-
-        "/src/notes.js",
-
-        "/src/Design/cleaner.js",
-        "/src/Design/sidebar.js",
-        "/src/Design/credit.js",
-        "/src/Design/add-popup-style.js",
-        "/src/Design/add-tooltip-style.js",
-        "/src/Design/login-style.js",
-
-        "/src/design.js",
-
-        "/src/messagerie.js",
-
-        "/main.js"
-      ],
-      "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
-    }, {
-      "all_frames": true,
-      "world": "MAIN",
-      "js": [
-        "/handler/tokenChangeHandler.js"
-      ],
-      "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
-    }
-  ]
-}
+        "name": "EcoleDirecte DEVELOP +",
+        "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
+        "version": "2.1.0",
+        "author": "Kaaris_Moi_Le_Crane",
+        "manifest_version": 3,
+        "permissions": ["storage", "tabs", "notifications", "activeTab"],
+        "host_permissions": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"],
+      
+        "icons": {
+          "16": "/assets/images/icons/icon_16.png",
+          "24": "/assets/images/icons/icon_24.png",
+          "32": "/assets/images/icons/icon_32.png",
+          "48": "/assets/images/icons/icon_48.png",
+          "128": "/assets/images/icons/icon_128.png"
+        },
+      
+        "background": {
+          "service_worker": "/options/chromeExtensionPopupDevTools-BackgroundScript.js"
+        },
+      
+        "action": {
+          "default_popup": "/options/popup.html",
+          "default_icon": {
+            "16": "/assets/images/icons/icon_16.png",
+            "24": "/assets/images/icons/icon_24.png",
+            "32": "/assets/images/icons/icon_32.png",
+            "48": "/assets/images/icons/icon_48.png",
+            "128": "/assets/images/icons/icon_128.png"
+          }
+        },
+      
+        "content_scripts": [
+          {
+            "all_frames": true,
+            "js": [
+              "/setup.js",
+              "/options/chromeExtensionPopupDevTools-ContentScript.js",
+      
+              "/vendor/ecoledirecte.js",
+              "/vendor/chart.js",
+              "/utils/functions.js",
+              "/utils/utils.js",
+      
+              "/src/CahierDeTexte/homework-status.js",
+              "/src/CahierDeTexte/homework-refresh.js",
+              "/src/cahierdetexte.js",
+      
+              "/src/EmploiDuTemps/homework-status.js",
+              "/src/emploidutemps.js",
+      
+              "/src/Notes/rank.js",
+              "/src/Notes/coefficient.js",
+              "/src/Notes/add-grade-id.js",
+      
+              "/src/Notes/functions/calculate-means.js",
+      
+              "/src/Notes/charts.js",
+      
+              "/src/Notes/functions/calculate-mean-value-impact.js",
+              "/src/Notes/mean-variation-value.js",
+      
+              "/src/Notes/functions/edit-grade.js",
+              "/src/Notes/edit-grade-simulation.js",
+      
+              "/src/Notes/functions/add-grade.js",
+              "/src/Notes/add-grade-simulation.js",
+      
+              "/src/Notes/functions/add-grade-goal.js",
+              "/src/Notes/functions/calculate-global-mean-goal.js",
+              "/src/Notes/goal.js",
+      
+              "/src/notes.js",
+      
+              "/src/Design/cleaner.js",
+              "/src/Design/sidebar.js",
+              "/src/Design/credit.js",
+              "/src/Design/add-popup-style.js",
+              "/src/Design/add-tooltip-style.js",
+              "/src/Design/login-style.js",
+      
+              "/src/design.js",
+      
+              "/src/messagerie.js",
+      
+              "/main.js"
+            ],
+            "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
+          }, {
+            "all_frames": true,
+            "world": "MAIN",
+            "js": [
+              "/handler/tokenChangeHandler.js"
+            ],
+            "matches": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"]
+          }
+        ]
+      }
+      
