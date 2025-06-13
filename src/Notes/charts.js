@@ -57,7 +57,7 @@
    */
   function getActualPeriodData() {
     const actualPeriodeElement = document.querySelector(
-      "ul[class*='tabs'] > li > [class*='nav-link active']"
+      "ul[class*='tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     return {
@@ -122,16 +122,15 @@
               .replace(/[^\d+\-*/.\s]/g, '')
               .trim()
           );
-          if (tempNote) {
+
+          if (!isNaN(tempNote)) {
             grade.valeur = tempNote;
             grade.noteSur = Number(grade.noteSur);
             grade.coef = Number(grade.coef);
 
             for (let j = 0; j < gradesDataDuplicate.periodes.length; j++) {
               if (
-                gradesDataDuplicate.periodes[j].codePeriode.includes(
-                  actualPeriod.actualCodePeriode
-                )
+                gradesDataDuplicate.periodes[j].codePeriode.includes(actualPeriod.actualCodePeriode)
               ) {
                 for (
                   let k = 0;
@@ -139,13 +138,11 @@
                   k++
                 ) {
                   if (
-                    gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k]
-                      .discipline == grade.libelleMatiere
+                    gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k].discipline ==
+                    grade.libelleMatiere
                   ) {
                     grade.subjectCoef =
-                      gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[
-                        k
-                      ].coef;
+                      gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k].coef;
                   }
                 }
                 break;
@@ -158,8 +155,7 @@
       }
     });
 
-    if (debug)
-      console.log('[DEBUG]', 'cleanGradesData', 'Cleaned grades data', {gradesDataClean});
+    if (debug) console.log('[DEBUG]', 'cleanGradesData', 'Cleaned grades data', {gradesDataClean});
     return gradesDataClean;
   }
 
@@ -206,10 +202,7 @@
 
         tempGradesSortBySubject[gradeSubjectName].push(gradesDataClean[j]);
         ascendingGradesValue.push([
-          (
-            (gradesDataClean[j].valeur * globalQuotient) /
-            gradesDataClean[j].noteSur
-          ).toFixed(2),
+          ((gradesDataClean[j].valeur * globalQuotient) / gradesDataClean[j].noteSur).toFixed(2),
           gradesDataClean[j].coef
         ]);
       }
@@ -219,8 +212,7 @@
       ascendingGradesValue.sort((a, b) => a[0] - b[0]);
 
       gradesRangeEvolution.push(
-        ascendingGradesValue[ascendingGradesValue.length - 1][0] -
-          ascendingGradesValue[0][0]
+        ascendingGradesValue[ascendingGradesValue.length - 1][0] - ascendingGradesValue[0][0]
       );
       gradesFirstQuartileEvolution.push(
         ascendingGradesValue[Math.round((ascendingGradesValue.length + 3) / 4) - 1][0]
@@ -286,15 +278,11 @@
       gradesVarianceEvolution.push(
         (gradesSumOfSquaredValuesEvolution[i] / sumOfAllSubjectCoefficients).toFixed(2)
       );
-      gradesStandardDeviationEvolution.push(
-        Math.sqrt(gradesVarianceEvolution[i]).toFixed(2)
-      );
+      gradesStandardDeviationEvolution.push(Math.sqrt(gradesVarianceEvolution[i]).toFixed(2));
     }
 
     gradesDataClean.forEach((grade) => {
-      allGradesValueOnly.push(
-        ((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2)
-      );
+      allGradesValueOnly.push(((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2));
     });
 
     if (debug)
@@ -356,9 +344,7 @@
       xAxisLabelValues.push(i.toString());
     }
 
-    const actualGlobalMeanForChart = new Array(allGradesValueOnly.length).fill(
-      globalMean
-    );
+    const actualGlobalMeanForChart = new Array(allGradesValueOnly.length).fill(globalMean);
 
     const curveDatasets = createCurveDatasets({
       allGradesValueOnly,
@@ -559,8 +545,7 @@
                 const tooltipItem = tooltipItems[i];
                 if (tooltipItem.dataset.label == 'Moyenne générale') continue;
 
-                const gradeData =
-                  gradesCoefficientQuotientAndSubject[tooltipItem.dataIndex];
+                const gradeData = gradesCoefficientQuotientAndSubject[tooltipItem.dataIndex];
                 const gradeCoefficient = gradeData[0];
                 const gradeQuotient = gradeData[1];
                 const gradeSubject = gradeData[2];
@@ -711,12 +696,10 @@
           labels: {
             filter: (legendItem, chartData) => legendItem.datasetIndex !== 1,
             generateLabels: (chart) => {
-              const maxLeftDistanceValue =
-                document.querySelector('#chart-bar').width / 2 - 31;
+              const maxLeftDistanceValue = document.querySelector('#chart-bar').width / 2 - 41;
               const maxWidthLegendBox = 41;
               const gradient = chart.ctx.createLinearGradient(
-                (maxLeftDistanceValue * document.querySelector('html').clientWidth) /
-                  1920,
+                (maxLeftDistanceValue * document.querySelector('html').clientWidth) / 1920,
                 0,
                 ((maxLeftDistanceValue + maxWidthLegendBox) *
                   document.querySelector('html').clientWidth) /
@@ -724,8 +707,7 @@
                 0
               );
 
-              let gradientColorsPercentage =
-                (percentageRed / effectifPercentage).toFixed(2) - 0.1;
+              let gradientColorsPercentage = (percentageRed / effectifPercentage).toFixed(2) - 0.1;
               if (gradientColorsPercentage < 0) gradientColorsPercentage = 0;
               gradient.addColorStop(0.0, 'rgba(255, 0, 0, 1)');
               gradient.addColorStop(gradientColorsPercentage, 'rgba(255, 0, 0, 1)');

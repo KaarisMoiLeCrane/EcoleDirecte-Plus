@@ -233,7 +233,7 @@
         '[class *= nommatiere] > [class *= text-bold]'
       ).textContent;
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
     if (debug)
       console.log(
@@ -752,7 +752,7 @@
       const userContent = gradeSimulation.find((item) => item?.id === userId);
       const indexOfUserContent = gradeSimulation.indexOf(userContent);
       const actualPeriodeElement = document.querySelector(
-        "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+        "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
       );
 
       if (debug)
@@ -834,7 +834,7 @@
       "[class *= 'nommatiere'] > [class *= text-bold]"
     );
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     if (debug)

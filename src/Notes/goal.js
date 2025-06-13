@@ -149,7 +149,7 @@
     );
     const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     let popupHTML = `
@@ -432,7 +432,7 @@
     const userContent = findUserContent(meansGoals, userId);
     const indexOfUserContent = meansGoals.indexOf(userContent);
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     updateUserContentWithGoal(
@@ -528,7 +528,7 @@
       "[class *= 'nommatiere'] > [class *= text-bold]"
     );
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     updateSubjectsWithGoals(userContent, subjectNames, actualPeriodeElement);

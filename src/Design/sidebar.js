@@ -349,6 +349,7 @@ header .image-text .profession {
       // Creating the new navigation bar
       let newParent = document.createElement('div');
       newParent.setAttribute('id', 'newMenu');
+      newParent.setAttribute('style', 'z-index: 1;');
 
       // Replace the navigationBarPersons in the DOM with the newParent/new navigation bar, and append navigationBarPersons in the new navigation bar
       oldParent.replaceChild(newParent, navigationBarPersons);
@@ -479,7 +480,7 @@ header .image-text .profession {
       }
 
       // Toggle visibility of menu sections when header is clicked
-      document.querySelectorAll('header:not([class])').forEach((header) => {
+      document.querySelectorAll('header:not([class]):not([id])').forEach((header) => {
         header.children[0].onclick = function () {
           let sibling = this.parentElement.nextElementSibling;
           sibling.style.setProperty(
