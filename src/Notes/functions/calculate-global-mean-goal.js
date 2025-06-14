@@ -27,7 +27,7 @@
 
     // Getting the active period element
     const actualPeriodeElement = document.querySelector(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     // Array to store subject goals and coefficients

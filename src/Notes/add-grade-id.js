@@ -5,7 +5,7 @@
    */
   function addGradeId(gradesData) {
     const actualPeriodeElement = document.querySelector(
-      "ul[class*='tabs'] > li > [class*='nav-link active']"
+      "ul[class*='tabs'] > li > [class*='nav-link'][class*='active']"
     );
 
     const actualCodePeriode = actualPeriodeElement.getAttribute('codePeriode');
