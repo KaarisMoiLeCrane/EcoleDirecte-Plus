@@ -21,8 +21,12 @@ Node.prototype.kmlcInsertAfter = function (newNode) {
   } else {
     // Append the new node if no next sibling
     this.parentNode.appendChild(newNode);
+<<<<<<< HEAD
     if (debug)
       console.log('[DEBUG]', 'kmlcInsertAfter', 'Node appended as last child', {newNode});
+=======
+    if (debug) console.log('[DEBUG]', 'kmlcInsertAfter', 'Node appended as last child', {newNode});
+>>>>>>> features
   }
 };
 
@@ -58,12 +62,19 @@ Node.prototype.kmlcGetElementsByContentText = function (text) {
   );
 
   if (debug)
+<<<<<<< HEAD
     console.log(
       '[DEBUG]',
       'kmlcGetElementsByContentText',
       'Elements filtered by content text',
       {text, result: obj}
     );
+=======
+    console.log('[DEBUG]', 'kmlcGetElementsByContentText', 'Elements filtered by content text', {
+      text,
+      result: obj
+    });
+>>>>>>> features
   return obj;
 };
 
@@ -73,8 +84,12 @@ Node.prototype.kmlcGetElementsByContentText = function (text) {
  * @returns {Promise} - A promise that resolves with the found element or rejects if aborted.
  */
 Node.prototype.kmlcWaitForElement = function (selector) {
+<<<<<<< HEAD
   if (debug)
     console.log('[DEBUG]', 'kmlcWaitForElement', 'Waiting for element', {selector});
+=======
+  if (debug) console.log('[DEBUG]', 'kmlcWaitForElement', 'Waiting for element', {selector});
+>>>>>>> features
 
   let willCallback = null;
   let observer = null;
@@ -105,12 +120,18 @@ Node.prototype.kmlcWaitForElement = function (selector) {
         observer.disconnect();
       }
       if (debug)
+<<<<<<< HEAD
         console.log(
           '[DEBUG]',
           'kmlcWaitForElement-abortFunction',
           'Wait for element aborted',
           {selector}
         );
+=======
+        console.log('[DEBUG]', 'kmlcWaitForElement-abortFunction', 'Wait for element aborted', {
+          selector
+        });
+>>>>>>> features
       reject();
     };
 
@@ -139,8 +160,12 @@ Node.prototype.kmlcWaitForElement = function (selector) {
  * @returns {string} - The HTML encoded string.
  */
 String.prototype.kmlcHtmlEncode = function () {
+<<<<<<< HEAD
   if (debug)
     console.log('[DEBUG]', 'kmlcHtmlEncode', 'Encoding string to HTML', {original: this});
+=======
+  if (debug) console.log('[DEBUG]', 'kmlcHtmlEncode', 'Encoding string to HTML', {original: this});
+>>>>>>> features
 
   let p = document.createElement('p');
   p.textContent = this;
@@ -180,8 +205,12 @@ String.prototype.kmlcConvertToTimestamp = function () {
  * @returns {Object} - An object containing the size in various units and storage information.
  */
 Object.prototype.kmlcSize = function () {
+<<<<<<< HEAD
   if (debug)
     console.log('[DEBUG]', 'kmlcSize', 'Calculating object size', {object: this});
+=======
+  if (debug) console.log('[DEBUG]', 'kmlcSize', 'Calculating object size', {object: this});
+>>>>>>> features
 
   const bytes = new TextEncoder().encode(JSON.stringify(this)).length;
   const kiloBytes = bytes / 1024;
@@ -201,4 +230,75 @@ Object.prototype.kmlcSize = function () {
       sizeInfo
     });
   return sizeInfo;
+<<<<<<< HEAD
+=======
+};
+
+/**
+ * Replaces an element node with a new element.
+ * @param {string} newTag - The new tag name of the element (e.g., 'div', 'span').
+ * @param {boolean} [preserveChildren=true] - Whether to keep the children of the old node in the new one.
+ */
+Object.prototype.kmlcReplaceElementNode = function (newTag, preserveChildren = true) {
+  if (!(this instanceof HTMLElement)) {
+    console.error('Provided node is not a valid HTMLElement.');
+    return;
+  }
+
+  // Create the new element
+  const newNode = document.createElement(newTag);
+
+  // Copy attributes from oldNode to newNode
+  [...this.attributes].forEach((attr) => {
+    newNode.setAttribute(attr.name, attr.value);
+  });
+
+  // Optionally, move children to the new node
+  if (preserveChildren) {
+    while (this.firstChild) {
+      newNode.appendChild(this.firstChild);
+    }
+  }
+
+  // Replace the node with the new one in the DOM
+  this.parentNode.replaceChild(newNode, this);
+
+  if (debug)
+    console.log(
+      '[DEBUG]',
+      'kmlcReplaceElementNode',
+      `Replaced <${this.tagName.toLowerCase()}> with <${newTag}>.`,
+      {
+        element: this,
+        newTag
+      }
+    );
+  return newNode;
+};
+
+/**
+ * Convert a timestamp to a formatted date string.
+ * @returns {string} The formatted date string in French locale.
+ */
+Date.prototype.timestampToDate = function () {
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
+
+  return this.toLocaleString('fr-FR', options);
+};
+
+/**
+ * Capitalize the first letter of a string.
+ * @returns {string} The capitalized string.
+ */
+String.prototype.capitalizeFirstLetter = function () {
+  return this[0].toUpperCase() + this.slice(1);
+>>>>>>> features
 };

@@ -5,8 +5,12 @@
    * @returns {Node} The first child node of the created fragment.
    */
   function fragmentFromString(strHTML) {
+<<<<<<< HEAD
     const fragment = document.createRange().createContextualFragment(strHTML)
       .childNodes[0];
+=======
+    const fragment = document.createRange().createContextualFragment(strHTML).childNodes[0];
+>>>>>>> features
     if (debug) console.log('[DEBUG]', 'fragmentFromString executed', {strHTML, fragment});
     return fragment;
   }
@@ -121,7 +125,11 @@
   function getNewYear() {
     const todayMs = Date.now();
 
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> features
     const dateDebutArr = dataPeriodes
       .map((p) => p.dateDebut.kmlcConvertToTimestamp())
       .sort((a, b) => a - b);
@@ -152,7 +160,11 @@
     let gradeSimulation = await getData('gradeSimulation');
     let dummy = [...gradeSimulation];
     const newYear = getNewYear();
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> features
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
@@ -183,8 +195,12 @@
     }
 
     await setData('gradeSimulation', dummy);
+<<<<<<< HEAD
     if (debug)
       console.log('[DEBUG]', 'initUserGradeSimulation executed', {id, userContent});
+=======
+    if (debug) console.log('[DEBUG]', 'initUserGradeSimulation executed', {id, userContent});
+>>>>>>> features
   }
 
   /**
@@ -195,7 +211,11 @@
     let objectifMoyenne = await getData('objectifMoyenne');
     let dummy = [...objectifMoyenne];
     const newYear = getNewYear();
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> features
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
@@ -253,8 +273,12 @@
    */
   function getAccountType(id) {
     if (window.sessionStorage.accounts) {
+<<<<<<< HEAD
       const accountSessionData = JSON.parse(window.sessionStorage.accounts).payload
         .accounts[0];
+=======
+      const accountSessionData = JSON.parse(window.sessionStorage.accounts).payload.accounts[0];
+>>>>>>> features
 
       if (accountSessionData.id != parseInt(id)) {
         return 'eleves';

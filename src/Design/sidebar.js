@@ -45,6 +45,7 @@ body {
   min-height: 100%;
   overflow: hidden;
   transition: all .5s;
+  margin-left: -78px !important;
 }
 
 #menu-header.none {
@@ -312,8 +313,13 @@ header .image-text .profession {
     if (!window.location.href.includes('EmploiDuTemps')) {
       document.getElementById('main-part').classList.add('sidebarhover');
     }
+<<<<<<< HEAD:features/Design/sidebar.js
     document.querySelector('.menu-bar').style.overflow = 'hidden';
     document.querySelector('.menu').style.overflow = 'hidden';
+=======
+    document.querySelector('.menu-bar').style.setProperty('overflow', 'hidden');
+    document.querySelector('.menu').style.setProperty('background-color', 'hidden');
+>>>>>>> features:src/Design/sidebar.js
   }
 
   /**
@@ -348,6 +354,7 @@ header .image-text .profession {
       // Creating the new navigation bar
       let newParent = document.createElement('div');
       newParent.setAttribute('id', 'newMenu');
+      newParent.setAttribute('style', 'z-index: 1;');
 
       // Replace the navigationBarPersons in the DOM with the newParent/new navigation bar, and append navigationBarPersons in the new navigation bar
       oldParent.replaceChild(newParent, navigationBarPersons);
@@ -376,7 +383,11 @@ header .image-text .profession {
 
       for (let i = 0; i < edMenu.length; i++) {
         // Get all the sections in the navigation bar of each person in the account and append them directly under the new menu-bar in the DOM
+<<<<<<< HEAD:features/Design/sidebar.js
         let roleMenu = document.querySelectorAll('ul[role="menu"]')[i];
+=======
+        let roleMenu = document.querySelectorAll('ul[class *= ed-menu-list]')[i];
+>>>>>>> features:src/Design/sidebar.js
         roleMenu.parentElement.parentElement.appendChild(roleMenu);
 
         // Removing the blue rectangle wrapping all the sections
@@ -409,7 +420,11 @@ header .image-text .profession {
             ) + ' text-decoration:none !important'
           );
 
+<<<<<<< HEAD:features/Design/sidebar.js
           let icon = a.querySelector('i');
+=======
+          let icon = a.querySelector('i, fa-icon');
+>>>>>>> features:src/Design/sidebar.js
           icon.setAttribute('class', 'icon iconED ' + icon.getAttribute('class'));
 
           let span = a.querySelector('span');
@@ -440,6 +455,10 @@ header .image-text .profession {
           'class',
           (roleMenu.getAttribute('class') || '') + ' menu-links'
         );
+<<<<<<< HEAD:features/Design/sidebar.js
+=======
+        roleMenu.parentElement.kmlcReplaceElementNode('DIV');
+>>>>>>> features:src/Design/sidebar.js
       }
 
       // Handle multiple accounts
@@ -477,6 +496,7 @@ header .image-text .profession {
       }
 
       // Toggle visibility of menu sections when header is clicked
+<<<<<<< HEAD:features/Design/sidebar.js
       document.querySelectorAll('header:not([class])').forEach((header) => {
         header.children[0].onclick = function () {
           let sibling = this.parentElement.nextElementSibling;
@@ -486,6 +506,23 @@ header .image-text .profession {
             sibling.style.marginLeft === '-9999px' ? '' : '-9999px';
           sibling.style.position =
             sibling.style.position === 'absolute' ? '' : 'absolute';
+=======
+      document.querySelectorAll('header:not([class]):not([id])').forEach((header) => {
+        header.children[0].onclick = function () {
+          let sibling = this.parentElement.nextElementSibling;
+          sibling.style.setProperty(
+            'visibility',
+            sibling.style.visibility === 'hidden' ? '' : 'hidden'
+          );
+          sibling.style.setProperty(
+            'margin-left',
+            sibling.style.marginLeft === '-9999px' ? '' : '-9999px'
+          );
+          sibling.style.setProperty(
+            'position',
+            sibling.style.position === 'absolute' ? '' : 'absolute'
+          );
+>>>>>>> features:src/Design/sidebar.js
         };
       });
 
@@ -595,5 +632,9 @@ header .image-text .profession {
   }
 
   // Exporting the sidebar function to be used in other modules
+<<<<<<< HEAD:features/Design/sidebar.js
   exports({sidebar}).to('./features/Design/sidebar.js');
+=======
+  exports({sidebar}).to('./src/Design/sidebar.js');
+>>>>>>> features:src/Design/sidebar.js
 })();

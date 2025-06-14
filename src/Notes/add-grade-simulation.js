@@ -5,9 +5,15 @@
   const initUserGradeSimulation = imports('initUserGradeSimulation').from(
     './utils/utils.js'
   );
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
   const addGrade = imports('addGrade').from('./features/Notes/functions/add-grade.js');
   const calculateMeans = imports('calculateMeans').from(
     './features/Notes/functions/calculate-means.js'
+=======
+  const addGrade = imports('addGrade').from('./src/Notes/functions/add-grade.js');
+  const calculateMeans = imports('calculateMeans').from(
+    './src/Notes/functions/calculate-means.js'
+>>>>>>> features:src/Notes/add-grade-simulation.js
   );
 
   /**
@@ -28,11 +34,19 @@
   function checkAndAddGradeSimulationText() {
     if (
       !document.querySelector('[kmlc-legend-grade-text]') &&
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
       document.querySelector('table caption')
     ) {
       const legendGradeSimulationElement = createLegendGradeSimulationElement();
       document
         .querySelector('table caption')
+=======
+      document.querySelector('[class *= bloc][class *= bloc-legende]')
+    ) {
+      const legendGradeSimulationElement = createLegendGradeSimulationElement();
+      document
+        .querySelector('[class *= bloc][class *= bloc-legende]')
+>>>>>>> features:src/Notes/add-grade-simulation.js
         .parentElement.kmlcGetElementsByContentText('(note)')
         .startsWith[0].kmlcInsertAfter(legendGradeSimulationElement);
       if (debug)
@@ -53,7 +67,11 @@
    */
   function createLegendGradeSimulationElement() {
     const legendElement = document
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
       .querySelector('table caption')
+=======
+      .querySelector('[class *= bloc-legende]')
+>>>>>>> features:src/Notes/add-grade-simulation.js
       .parentElement.kmlcGetElementsByContentText('(note)')
       .startsWith[0].cloneNode(true);
     legendElement.setAttribute('kmlc-legend-grade-text', 'true');
@@ -139,7 +157,11 @@
   function addPopupEventListeners(popup, blur) {
     blur.addEventListener('click', function (event) {
       if (event.target.classList.contains('kmlc-blur')) {
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
         closePopup(popup, blur);
+=======
+        closePopup();
+>>>>>>> features:src/Notes/add-grade-simulation.js
       }
     });
 
@@ -160,8 +182,13 @@
 
     popup.addEventListener('animationend', function (event) {
       if (event.animationName === 'kmlc-popupCloseAnimation') {
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
         popup.style.display = 'none';
         blur.style.display = 'none';
+=======
+        popup.style.setProperty('display', 'none');
+        blur.style.setProperty('display', 'none');
+>>>>>>> features:src/Notes/add-grade-simulation.js
         popup.classList.remove('kmlc-popup-close');
         blur.classList.remove('kmlc-blur-close');
       }
@@ -173,6 +200,7 @@
         'Event listeners added to popup and blur',
         {popup, blur}
       );
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
   }
 
   /**
@@ -185,6 +213,15 @@
     blur.classList.add('kmlc-blur-close');
     if (debug)
       console.log('[DEBUG]', 'closePopup', 'Popup and blur closing', {popup, blur});
+=======
+
+    function closePopup() {
+      popup.classList.add('kmlc-popup-close');
+      blur.classList.add('kmlc-blur-close');
+      if (debug)
+        console.log('[DEBUG]', 'closePopup', 'Popup and blur closing', {popup, blur});
+    }
+>>>>>>> features:src/Notes/add-grade-simulation.js
   }
 
   /**
@@ -203,9 +240,17 @@
         gradeSimulation
       });
 
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+    const subjectNames = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+    const actualPeriodeElement = document.querySelector(
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/add-grade-simulation.js
     );
     if (debug)
       console.log(
@@ -577,7 +622,11 @@
     const userContent = gradeSimulation.find((item) => item?.id === userId);
     const index = gradeSimulation.indexOf(userContent);
     const actualPeriodeElement = document.querySelector(
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/add-grade-simulation.js
     );
 
     if (debug)
@@ -652,9 +701,17 @@
     const gradeSimulation = await getData('gradeSimulation');
     const userContent = gradeSimulation.find((item) => item?.id === userId);
 
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+    const subjectNames = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+    const actualPeriodeElement = document.querySelector(
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/add-grade-simulation.js
     );
     const addedGradesListDatas = [];
 
@@ -726,5 +783,9 @@
     }
   }
 
+<<<<<<< HEAD:features/Notes/add-grade-simulation.js
   exports({addGradeSimulation}).to('./features/Notes/add-grade-simulation.js');
+=======
+  exports({addGradeSimulation}).to('./src/Notes/add-grade-simulation.js');
+>>>>>>> features:src/Notes/add-grade-simulation.js
 })();

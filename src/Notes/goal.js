@@ -5,10 +5,17 @@
   const setData = imports('setData').from('./utils/utils.js');
   const initUserObjectif = imports('initUserObjectif').from('./utils/utils.js');
   const addGradeGoal = imports('addGradeGoal').from(
+<<<<<<< HEAD:features/Notes/goal.js
     './features/Notes/functions/add-grade-goal.js'
   );
   const calculateGlobalMeanGoal = imports('calculateGlobalMeanGoal').from(
     './features/Notes/functions/calculate-global-mean-goal.js'
+=======
+    './src/Notes/functions/add-grade-goal.js'
+  );
+  const calculateGlobalMeanGoal = imports('calculateGlobalMeanGoal').from(
+    './src/Notes/functions/calculate-global-mean-goal.js'
+>>>>>>> features:src/Notes/goal.js
   );
 
   /**
@@ -113,8 +120,13 @@
 
     popup.addEventListener('animationend', function (event) {
       if (event.animationName === 'kmlc-popupCloseAnimation') {
+<<<<<<< HEAD:features/Notes/goal.js
         popup.style.display = 'none';
         blur.style.display = 'none';
+=======
+        popup.style.setProperty('display', 'none');
+        blur.style.setProperty('display', 'none');
+>>>>>>> features:src/Notes/goal.js
         popup.classList.remove('kmlc-popup-close');
         blur.classList.remove('kmlc-blur-close');
         if (debug)
@@ -144,10 +156,19 @@
         }
       );
 
+<<<<<<< HEAD:features/Notes/goal.js
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+    const subjectNamesElement = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+    const meansGoals = await getData('objectifMoyenne');
+    const actualPeriodeElement = document.querySelector(
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/goal.js
     );
 
     let popupHTML = `
@@ -430,7 +451,11 @@
     const userContent = findUserContent(meansGoals, userId);
     const indexOfUserContent = meansGoals.indexOf(userContent);
     const actualPeriodeElement = document.querySelector(
+<<<<<<< HEAD:features/Notes/goal.js
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/goal.js
     );
 
     updateUserContentWithGoal(
@@ -522,9 +547,17 @@
     const goalsMeans = await getData('objectifMoyenne');
 
     const userContent = findUserContent(goalsMeans, userId);
+<<<<<<< HEAD:features/Notes/goal.js
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
+=======
+    const subjectNames = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+    const actualPeriodeElement = document.querySelector(
+      "ul[class *= 'tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/goal.js
     );
 
     updateSubjectsWithGoals(userContent, subjectNames, actualPeriodeElement);
@@ -597,5 +630,9 @@
     return meansGoals.find((item) => item && item.id === userId) || null;
   }
 
+<<<<<<< HEAD:features/Notes/goal.js
   exports({goalSetup}).to('./features/Notes/goal.js');
+=======
+  exports({goalSetup}).to('./src/Notes/goal.js');
+>>>>>>> features:src/Notes/goal.js
 })();

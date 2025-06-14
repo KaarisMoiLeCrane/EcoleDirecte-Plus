@@ -5,8 +5,13 @@
    */
   function rank(note) {
     // If there is no "Rang" column, proceed to add it
+<<<<<<< HEAD:features/Notes/rank.js
     if (!document.querySelector("th[class *= 'rang ng-star-inserted']")) {
       const meanColumnTitleClass = "'relevemoyenne ng-star-inserted'";
+=======
+    if (!document.querySelector("th[class *= 'rang']")) {
+      const meanColumnTitleClass = "'relevemoyenne'";
+>>>>>>> features:src/Notes/rank.js
       const meanColumnTitleElement = document.querySelector(
         'th[class *= ' + meanColumnTitleClass + ']'
       );
@@ -14,7 +19,7 @@
       // Clone the "MOYENNES" element and modify it to "RANG"
       const rankColumnTitleElement = meanColumnTitleElement.cloneNode(true);
       rankColumnTitleElement.innerText = 'Rang';
-      rankColumnTitleElement.setAttribute('class', 'rang ng-star-inserted');
+      rankColumnTitleElement.setAttribute('class', 'rang');
 
       meanColumnTitleElement.parentElement.insertBefore(
         rankColumnTitleElement,
@@ -32,38 +37,40 @@
       for (let i = 0; i < subjectMeansColumn.length; i++) {
         const subjectMeanElementToRank = subjectMeansColumn[i].cloneNode(true);
         const actualPeriode = document.querySelector('ul.nav-tabs > li.active');
-        const actualPeriodeIndex = [...actualPeriode.parentElement.children].indexOf(
-          actualPeriode
-        );
+        const actualPeriodeIndex = [...actualPeriode.parentElement.children].indexOf(actualPeriode);
 
         const rankCase = subjectMeanElementToRank.children[0]
           ? subjectMeanElementToRank.children[0]
           : subjectMeanElementToRank;
 
-        const userSubjectsDatas =
-          note.periodes[actualPeriodeIndex].ensembleMatieres.disciplines[i];
+        const userSubjectsDatas = note.periodes[actualPeriodeIndex].ensembleMatieres.disciplines[i];
         const userRank = userSubjectsDatas.rang;
         const workForce = userSubjectsDatas.effectif;
         rankCase.innerText = userRank + '/' + workForce;
 
         // Add the class "text-center" to each ranking element
         subjectMeanElementToRank.className =
-          subjectMeanElementToRank.className.replace('relevemoyenne', 'rang') +
-          ' text-center';
+          subjectMeanElementToRank.className.replace('relevemoyenne', 'rang') + ' text-center';
         subjectMeansColumn[i].parentElement.insertBefore(
           subjectMeanElementToRank,
-          subjectMeansColumn[i].parentElement.querySelector(
-            "[class *= 'graph text-center']"
-          )
+          subjectMeansColumn[i].parentElement.querySelector("[class *= 'graph text-center']")
         );
       }
 
+<<<<<<< HEAD:features/Notes/rank.js
       if (debug)
         console.log('[DEBUG]', 'rank', 'Added ranking information to each subject.');
+=======
+      if (debug) console.log('[DEBUG]', 'rank', 'Added ranking information to each subject.');
+>>>>>>> features:src/Notes/rank.js
     } else {
       if (debug) console.log('[DEBUG]', 'rank', '"RANG" column already exists.');
     }
   }
 
+<<<<<<< HEAD:features/Notes/rank.js
   exports({rank}).to('./features/Notes/rank.js');
+=======
+  exports({rank}).to('./src/Notes/rank.js');
+>>>>>>> features:src/Notes/rank.js
 })();

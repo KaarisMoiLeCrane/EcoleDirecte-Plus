@@ -1,10 +1,17 @@
 (() => {
   // Importing necessary functions from other modules
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD:features/Notes/functions/add-grade.js
     './features/Notes/functions/calculate-means.js'
   );
   const editGradeSimulation = imports('editGradeSimulation').from(
     './features/Notes/edit-grade-simulation.js'
+=======
+    './src/Notes/functions/calculate-means.js'
+  );
+  const editGradeSimulation = imports('editGradeSimulation').from(
+    './src/Notes/edit-grade-simulation.js'
+>>>>>>> features:src/Notes/functions/add-grade.js
   );
 
   /**
@@ -77,7 +84,11 @@
 
           const classNewGradeElement =
             document.querySelector('button.note')?.className ||
+<<<<<<< HEAD:features/Notes/functions/add-grade.js
             'btn text-normal note margin-whitespace no-background no-padding ng-star-inserted';
+=======
+            'btn text-normal note margin-whitespace no-background no-padding';
+>>>>>>> features:src/Notes/functions/add-grade.js
           if (debug)
             console.log(
               '[DEBUG]',
@@ -88,10 +99,17 @@
 
           newGradeElement.outerHTML = `
             <button type="button" kmlc-simulation-grades="true" id="${gradeId}" class="${classNewGradeElement}" title="${gradeTitle}" save="${saveGrade}">
+<<<<<<< HEAD:features/Notes/functions/add-grade.js
               <span class="valeur ng-star-inserted" style="color: green;">
                 ${gradeValue}
                 <sup class="coef ng-star-inserted"> (${gradePower}) </sup>
                 <sub class="coef ng-star-inserted"> /${gradeQuotient} </sub>
+=======
+              <span class="valeur" style="color: green;">
+                ${gradeValue}
+                <sup class="coef"> (${gradePower}) </sup>
+                <sub class="coef"> /${gradeQuotient} </sub>
+>>>>>>> features:src/Notes/functions/add-grade.js
               </span>
             </button>
           `;
@@ -135,5 +153,9 @@
     if (debug) console.log('[DEBUG]', 'addGrade', 'Note simulation modified');
   }
 
+<<<<<<< HEAD:features/Notes/functions/add-grade.js
   exports({addGrade}).to('./features/Notes/functions/add-grade.js');
+=======
+  exports({addGrade}).to('./src/Notes/functions/add-grade.js');
+>>>>>>> features:src/Notes/functions/add-grade.js
 })();

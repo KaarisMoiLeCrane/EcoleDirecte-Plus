@@ -1,6 +1,10 @@
 (() => {
   const calculateMeanValueImpact = imports('calculateMeanValueImpact').from(
+<<<<<<< HEAD:features/Notes/mean-variation-value.js
     './features/Notes/functions/calculate-mean-value-impact.js'
+=======
+    './src/Notes/functions/calculate-mean-value-impact.js'
+>>>>>>> features:src/Notes/mean-variation-value.js
   );
 
   /**
@@ -32,5 +36,9 @@
     }
   }
 
+<<<<<<< HEAD:features/Notes/mean-variation-value.js
   exports({meanVariationValue}).to('./features/Notes/mean-variation-value.js');
+=======
+  exports({meanVariationValue}).to('./src/Notes/mean-variation-value.js');
+>>>>>>> features:src/Notes/mean-variation-value.js
 })();

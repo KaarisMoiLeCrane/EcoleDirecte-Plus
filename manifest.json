@@ -1,10 +1,14 @@
 {
   "name": "EcoleDirecte +",
   "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Kaaris_Moi_Le_Crane",
   "manifest_version": 3,
+<<<<<<< HEAD
   "permissions": ["storage", "tabs", "activeTab"],
+=======
+  "permissions": ["storage", "tabs", "notifications", "activeTab"],
+>>>>>>> features
   "host_permissions": ["*://*.ecoledirecte.com/*", "*://ecoledirecte.com/*"],
 
   "icons": {
@@ -16,11 +20,19 @@
   },
 
   "background": {
+<<<<<<< HEAD
     "service_worker": "/popup/chromeExtensionPopupDevTools-BackgroundScript.js"
   },
 
   "action": {
     "default_popup": "/popup/popup.html",
+=======
+    "service_worker": "/options/chromeExtensionPopupDevTools-BackgroundScript.js"
+  },
+
+  "action": {
+    "default_popup": "/options/popup.html",
+>>>>>>> features
     "default_icon": {
       "16": "/assets/images/icons/icon_16.png",
       "24": "/assets/images/icons/icon_24.png",
@@ -35,13 +47,18 @@
       "all_frames": true,
       "js": [
         "/setup.js",
+<<<<<<< HEAD
         "/popup/chromeExtensionPopupDevTools-ContentScript.js",
+=======
+        "/options/chromeExtensionPopupDevTools-ContentScript.js",
+>>>>>>> features
 
         "/vendor/ecoledirecte.js",
         "/vendor/chart.js",
         "/utils/functions.js",
         "/utils/utils.js",
 
+<<<<<<< HEAD
         "/features/CahierDeTexte/homework-status.js",
         "/features/CahierDeTexte/homework-refresh.js",
         "/features/cahierdetexte.js",
@@ -54,9 +71,30 @@
         "/features/Notes/add-grade-id.js",
 
         "/features/Notes/functions/calculate-means.js",
+=======
+        "/src/CahierDeTexte/homework-status.js",
+        "/src/CahierDeTexte/homework-refresh.js",
+        "/src/cahierdetexte.js",
 
-        "/features/Notes/charts.js",
+        "/src/EmploiDuTemps/homework-status.js",
+        "/src/emploidutemps.js",
 
+        "/src/Notes/rank.js",
+        "/src/Notes/coefficient.js",
+        "/src/Notes/add-grade-id.js",
+
+        "/src/Notes/functions/calculate-means.js",
+
+        "/src/Notes/charts.js",
+
+        "/src/Notes/functions/calculate-mean-value-impact.js",
+        "/src/Notes/mean-variation-value.js",
+>>>>>>> features
+
+        "/src/Notes/functions/edit-grade.js",
+        "/src/Notes/edit-grade-simulation.js",
+
+<<<<<<< HEAD
         "/features/Notes/functions/calculate-mean-value-impact.js",
         "/features/Notes/mean-variation-value.js",
 
@@ -69,9 +107,25 @@
         "/features/Notes/functions/add-grade-goal.js",
         "/features/Notes/functions/calculate-global-mean-goal.js",
         "/features/Notes/goal.js",
+=======
+        "/src/Notes/functions/add-grade.js",
+        "/src/Notes/add-grade-simulation.js",
 
-        "/features/notes.js",
+        "/src/Notes/functions/add-grade-goal.js",
+        "/src/Notes/functions/calculate-global-mean-goal.js",
+        "/src/Notes/goal.js",
 
+        "/src/notes.js",
+>>>>>>> features
+
+        "/src/Design/cleaner.js",
+        "/src/Design/sidebar.js",
+        "/src/Design/credit.js",
+        "/src/Design/add-popup-style.js",
+        "/src/Design/add-tooltip-style.js",
+        "/src/Design/login-style.js",
+
+<<<<<<< HEAD
         "/features/Design/sidebar.js",
         "/features/Design/credit.js",
         "/features/Design/add-popup-style.js",
@@ -81,6 +135,11 @@
         "/features/design.js",
 
         "/features/messagerie.js",
+=======
+        "/src/design.js",
+
+        "/src/messagerie.js",
+>>>>>>> features
 
         "/main.js"
       ],

@@ -1,7 +1,11 @@
 (() => {
   // Import the calculateMeans function
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD:features/Notes/functions/edit-grade.js
     './features/Notes/functions/calculate-means.js'
+=======
+    './src/Notes/functions/calculate-means.js'
+>>>>>>> features:src/Notes/functions/edit-grade.js
   );
 
   /**
@@ -210,7 +214,11 @@
       gradeElement.appendChild(coefficientElement);
       gradeElement.querySelector(
         'sup'
+<<<<<<< HEAD:features/Notes/functions/edit-grade.js
       ).outerHTML = `<sup class="coef ng-star-inserted"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+=======
+      ).outerHTML = `<sup class="coef"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+>>>>>>> features:src/Notes/functions/edit-grade.js
     }
 
     const gradeElementQuotient = gradeElement.querySelector('sub');
@@ -222,7 +230,11 @@
       gradeElement.appendChild(quotientElement);
       gradeElement.querySelector(
         'sub'
+<<<<<<< HEAD:features/Notes/functions/edit-grade.js
       ).outerHTML = `<sub class="quotient ng-star-inserted"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+=======
+      ).outerHTML = `<sub class="quotient"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+>>>>>>> features:src/Notes/functions/edit-grade.js
     }
   }
 
@@ -232,11 +244,19 @@
       console.log('[DEBUG]', 'addGreenUnderline', 'Function called', gradeElement);
     const gradeElementStyle = gradeElement.getAttribute('style');
     if (gradeElementStyle) {
+<<<<<<< HEAD:features/Notes/functions/edit-grade.js
       gradeElement.style.borderBottom = '1px solid green';
+=======
+      gradeElement.style.setProperty('border-bottom', '1px solid green');
+>>>>>>> features:src/Notes/functions/edit-grade.js
     } else {
       gradeElement.setAttribute('style', 'border-bottom: 1px solid green;');
     }
   }
 
+<<<<<<< HEAD:features/Notes/functions/edit-grade.js
   exports({editGrade}).to('./features/Notes/functions/edit-grade.js');
+=======
+  exports({editGrade}).to('./src/Notes/functions/edit-grade.js');
+>>>>>>> features:src/Notes/functions/edit-grade.js
 })();

@@ -5,7 +5,11 @@
    */
   function addGradeId(gradesData) {
     const actualPeriodeElement = document.querySelector(
+<<<<<<< HEAD:features/Notes/add-grade-id.js
       "ul[class*='tabs'] > li > [class*='nav-link active']"
+=======
+      "ul[class*='tabs'] > li > [class*='nav-link'][class*='active']"
+>>>>>>> features:src/Notes/add-grade-id.js
     );
 
     const actualCodePeriode = actualPeriodeElement.getAttribute('codePeriode');
@@ -128,5 +132,9 @@
     });
   }
 
+<<<<<<< HEAD:features/Notes/add-grade-id.js
   exports({addGradeId}).to('./features/Notes/add-grade-id.js');
+=======
+  exports({addGradeId}).to('./src/Notes/add-grade-id.js');
+>>>>>>> features:src/Notes/add-grade-id.js
 })();

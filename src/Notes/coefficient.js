@@ -28,10 +28,27 @@
    * @param {string} newClassName - The class name for the new column.
    */
   function cloneAndModifyElements(elements, gradesData, periodIndex, newClassName) {
+<<<<<<< HEAD:features/Notes/coefficient.js
     for (const [index, element] of elements.entries()) {
       const clonedElement = element.cloneNode(true);
       const coefValue =
         gradesData.periodes[periodIndex].ensembleMatieres.disciplines[index].coef;
+=======
+    let indexPhaseChange = 0;
+    for (const [index, element] of elements.entries()) {
+      if (
+        gradesData.periodes[periodIndex].ensembleMatieres.disciplines[
+          index + indexPhaseChange
+        ].codeMatiere == ''
+      )
+        indexPhaseChange += 1;
+      const clonedElement = element.cloneNode(true);
+      const coefValue =
+        gradesData.periodes[periodIndex].ensembleMatieres.disciplines[
+          index + indexPhaseChange
+        ].coef;
+
+>>>>>>> features:src/Notes/coefficient.js
       clonedElement.innerText = coefValue;
       clonedElement.className = `${element.className.replace(
         'relevemoyenne',
@@ -57,10 +74,17 @@
    */
   function coefficient(gradesData) {
     const coefColumnExists = document.querySelector(
+<<<<<<< HEAD:features/Notes/coefficient.js
       "th[class *= 'coef ng-star-inserted']"
     );
     if (!coefColumnExists) {
       const meanColumnClass = 'relevemoyenne ng-star-inserted';
+=======
+      "th[class *= 'coef']"
+    );
+    if (!coefColumnExists) {
+      const meanColumnClass = 'relevemoyenne';
+>>>>>>> features:src/Notes/coefficient.js
       const meanColumnTitleElement = document.querySelector(
         `th[class *= '${meanColumnClass}']`
       );
@@ -73,7 +97,11 @@
       insertColumn(
         meanColumnTitleElement,
         'COEF.',
+<<<<<<< HEAD:features/Notes/coefficient.js
         'coef ng-star-inserted',
+=======
+        'coef',
+>>>>>>> features:src/Notes/coefficient.js
         meanColumnTitleElement.parentElement.querySelector(
           `[class *= '${meanColumnClass}']`
         )
@@ -115,5 +143,9 @@
     }
   }
 
+<<<<<<< HEAD:features/Notes/coefficient.js
   exports({coefficient}).to('./features/Notes/coefficient.js');
+=======
+  exports({coefficient}).to('./src/Notes/coefficient.js');
+>>>>>>> features:src/Notes/coefficient.js
 })();
