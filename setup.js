@@ -70,21 +70,9 @@ exports = (...args) => ({
   }
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// exports({main, login}).to('./features/design.js');
-// exports({main}).to('./features/design.js'); exports({login}).to('./features/design.js');
-// exports(main).to('./features/design.js');
-=======
 // exports({main, login}).to('./src/design.js');
 // exports({main}).to('./src/design.js'); exports({login}).to('./src/design.js');
 // exports(main).to('./src/design.js');
->>>>>>> features
-=======
-// exports({main, login}).to('./src/design.js');
-// exports({main}).to('./src/design.js'); exports({login}).to('./src/design.js');
-// exports(main).to('./src/design.js');
->>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
 /**
  * Imports variables from a specified namespace.
@@ -121,21 +109,6 @@ imports = (...args) => ({
 });
 
 // const Design = {
-<<<<<<< HEAD
-<<<<<<< HEAD
-//   main: imports('main').from('./features/design.js'),
-//   login: imports('login').from('./features/design.js')
-=======
-//   main: imports('main').from('./src/design.js'),
-//   login: imports('login').from('./src/design.js')
->>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
-// };
-// const Design = imports('*').from('./src/design.js');
-//
-<<<<<<< HEAD
-// const DesignMain = imports('main').from('./features/design.js');
-// const {design, login} = imports('*').from('./features/design.js');
-=======
 //   main: imports('main').from('./src/design.js'),
 //   login: imports('login').from('./src/design.js')
 // };
@@ -143,11 +116,6 @@ imports = (...args) => ({
 //
 // const DesignMain = imports('main').from('./src/design.js');
 // const {design, login} = imports('*').from('./src/design.js');
->>>>>>> features
-=======
-// const DesignMain = imports('main').from('./src/design.js');
-// const {design, login} = imports('*').from('./src/design.js');
->>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
 // Listen for changes in browser storage and update debug status accordingly
 browser.storage.onChanged.addListener((changes, namespace) => {
