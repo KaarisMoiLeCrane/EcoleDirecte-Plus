@@ -5,9 +5,7 @@
   const coefficient = imports('coefficient').from('./src/Notes/coefficient.js');
   const addGradeId = imports('addGradeId').from('./src/Notes/add-grade-id.js');
 
-  const calculateMeans = imports('calculateMeans').from(
-    './src/Notes/functions/calculate-means.js'
-  );
+  const calculateMeans = imports('calculateMeans').from('./src/Notes/functions/calculate-means.js');
 
   const charts = imports('charts').from('./src/Notes/charts.js');
 
@@ -30,8 +28,7 @@
    * @param {string} token - The authentication token.
    */
   function main(id, token) {
-    if (debug)
-      console.log('[DEBUG]', 'main', 'Initializing notes management.', {id, token});
+    if (debug) console.log('[DEBUG]', 'main', 'Initializing notes management.', {id, token});
 
     const account = new EcoleDirecte(id, token);
 
@@ -41,7 +38,7 @@
 
     const globalQuotient = parseFloat(gradesData.parametrage?.moyenneSur);
 
-    if (!globalQuotient) return
+    if (!globalQuotient) return;
 
     const dataPeriodes = gradesData.periodes;
 
@@ -137,12 +134,7 @@
           }
         } catch (e) {
           if (debug)
-            console.log(
-              '[DEBUG]',
-              'setupMutationObserver',
-              'Error during mutation handling.',
-              e
-            );
+            console.log('[DEBUG]', 'setupMutationObserver', 'Error during mutation handling.', e);
         }
       });
     });
@@ -164,12 +156,7 @@
         subtree: true
       });
       if (debug)
-        console.log(
-          '[DEBUG]',
-          'executeNotesObserver',
-          'Observer set up on .eleve-note.',
-          elm
-        );
+        console.log('[DEBUG]', 'executeNotesObserver', 'Observer set up on .eleve-note.', elm);
     });
   }
 
@@ -178,9 +165,7 @@
    * @param {object[]} periodes - Array of period data objects.
    */
   function setPeriodesInfos(periodes) {
-    let elmPeriodes = document.querySelectorAll(
-      "ul[class *= 'tabs'] > li > [class *= 'nav-link']"
-    );
+    let elmPeriodes = document.querySelectorAll("ul[class *= 'tabs'] > li > [class *= 'nav-link']");
 
     elmPeriodes.forEach((elmPeriode, i) => {
       if (elmPeriode.getAttribute('dateDebut')) return;
@@ -194,6 +179,9 @@
           elmPeriode.setAttribute('dateFin', dateFin);
           elmPeriode.setAttribute('codePeriode', periode.codePeriode);
           elmPeriode.setAttribute('islast', 'false');
+          if (elmPeriode.parentElement.classList.contains('active'))
+            elmPeriode.style.setProperty('z-index', 1);
+          else elmPeriode.style.setProperty('z-index', 2);
 
           if (periode.codePeriode.includes('R')) {
             elmPeriode.setAttribute('R', 'true');
@@ -223,6 +211,30 @@
             ) {
               elmPeriode.setAttribute('islast', 'true');
             }
+          }
+
+          if (!elmPeriode.className.includes('kmlc-tooltip-parent')) {
+            let tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
+            let DateDebut = new Date(dateDebut);
+            let DateFin = new Date(dateFin);
+
+            const variationTooltipElement = document.createElement('SPAN');
+            variationTooltipElement.innerHTML =
+              'Du ' + DateDebut.timestampToDate() + '<br/>' + 'au ' + DateFin.timestampToDate();
+            variationTooltipElement.className = tooltipClass;
+
+            elmPeriode.className += ' kmlc-tooltip-parent';
+            elmPeriode.appendChild(variationTooltipElement);
+
+            elmPeriode.parentElement.addEventListener('click', (e) => {
+              // Set all periods to z-index 2
+              elmPeriodes.forEach((elm) => {
+                elm.style.setProperty('z-index', 2);
+              });
+
+              // Set clicked period to z-index 1
+              elmPeriode.style.setProperty('z-index', 1);
+            });
           }
         }
       });

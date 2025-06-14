@@ -5,8 +5,7 @@
    * @returns {Node} The first child node of the created fragment.
    */
   function fragmentFromString(strHTML) {
-    const fragment = document.createRange().createContextualFragment(strHTML)
-      .childNodes[0];
+    const fragment = document.createRange().createContextualFragment(strHTML).childNodes[0];
     if (debug) console.log('[DEBUG]', 'fragmentFromString executed', {strHTML, fragment});
     return fragment;
   }
@@ -183,8 +182,7 @@
     }
 
     await setData('gradeSimulation', dummy);
-    if (debug)
-      console.log('[DEBUG]', 'initUserGradeSimulation executed', {id, userContent});
+    if (debug) console.log('[DEBUG]', 'initUserGradeSimulation executed', {id, userContent});
   }
 
   /**
@@ -253,8 +251,7 @@
    */
   function getAccountType(id) {
     if (window.sessionStorage.accounts) {
-      const accountSessionData = JSON.parse(window.sessionStorage.accounts).payload
-        .accounts[0];
+      const accountSessionData = JSON.parse(window.sessionStorage.accounts).payload.accounts[0];
 
       if (accountSessionData.id != parseInt(id)) {
         return 'eleves';
