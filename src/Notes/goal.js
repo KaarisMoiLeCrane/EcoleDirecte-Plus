@@ -5,6 +5,7 @@
   const setData = imports('setData').from('./utils/utils.js');
   const initUserObjectif = imports('initUserObjectif').from('./utils/utils.js');
   const addGradeGoal = imports('addGradeGoal').from(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/goal.js
     './features/Notes/functions/add-grade-goal.js'
   );
@@ -16,6 +17,12 @@
   const calculateGlobalMeanGoal = imports('calculateGlobalMeanGoal').from(
     './src/Notes/functions/calculate-global-mean-goal.js'
 >>>>>>> features:src/Notes/goal.js
+=======
+    './src/Notes/functions/add-grade-goal.js'
+  );
+  const calculateGlobalMeanGoal = imports('calculateGlobalMeanGoal').from(
+    './src/Notes/functions/calculate-global-mean-goal.js'
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
   );
 
   /**
@@ -120,6 +127,7 @@
 
     popup.addEventListener('animationend', function (event) {
       if (event.animationName === 'kmlc-popupCloseAnimation') {
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/goal.js
         popup.style.display = 'none';
         blur.style.display = 'none';
@@ -127,6 +135,10 @@
         popup.style.setProperty('display', 'none');
         blur.style.setProperty('display', 'none');
 >>>>>>> features:src/Notes/goal.js
+=======
+        popup.style.setProperty('display', 'none');
+        blur.style.setProperty('display', 'none');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         popup.classList.remove('kmlc-popup-close');
         blur.classList.remove('kmlc-blur-close');
         if (debug)
@@ -156,8 +168,14 @@
         }
       );
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/goal.js
     const subjectNamesElement = document.querySelectorAll("[class *= 'nommatiere'] > b");
+=======
+    const subjectNamesElement = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     const meansGoals = await getData('objectifMoyenne');
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
@@ -547,8 +565,14 @@
     const goalsMeans = await getData('objectifMoyenne');
 
     const userContent = findUserContent(goalsMeans, userId);
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/goal.js
     const subjectNames = document.querySelectorAll("[class *= 'nommatiere'] > b");
+=======
+    const subjectNames = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
 =======
@@ -630,9 +654,13 @@
     return meansGoals.find((item) => item && item.id === userId) || null;
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/goal.js
   exports({goalSetup}).to('./features/Notes/goal.js');
 =======
   exports({goalSetup}).to('./src/Notes/goal.js');
 >>>>>>> features:src/Notes/goal.js
+=======
+  exports({goalSetup}).to('./src/Notes/goal.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

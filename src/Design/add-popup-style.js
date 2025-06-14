@@ -172,8 +172,18 @@
 
   // Export the addPopupStyle function as a module
 <<<<<<<< HEAD:features/Design/add-popup-style.js
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:features/Design/add-popup-style.js
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
   exports({addPopupStyle}).to('./features/Design/add-popup-style.js');
 ========
   exports({addPopupStyle}).to('./src/Design/add-popup-style.js');
 >>>>>>>> features:src/Design/add-popup-style.js
+<<<<<<< HEAD
+=======
+========
+  exports({addPopupStyle}).to('./src/Design/add-popup-style.js');
+>>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604:src/Design/add-popup-style.js
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

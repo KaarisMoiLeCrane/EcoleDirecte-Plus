@@ -57,7 +57,11 @@
    */
   function getActualPeriodData() {
     const actualPeriodeElement = document.querySelector(
+<<<<<<< HEAD
       "ul[class*='tabs'] > li > [class*='nav-link'][class*='active']"
+=======
+      "ul[class*='tabs'] > li > [class*='nav-link active']"
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     );
 
     return {
@@ -122,15 +126,25 @@
               .replace(/[^\d+\-*/.\s]/g, '')
               .trim()
           );
+<<<<<<< HEAD
 
           if (!isNaN(tempNote)) {
+=======
+          if (tempNote) {
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
             grade.valeur = tempNote;
             grade.noteSur = Number(grade.noteSur);
             grade.coef = Number(grade.coef);
 
             for (let j = 0; j < gradesDataDuplicate.periodes.length; j++) {
               if (
+<<<<<<< HEAD
                 gradesDataDuplicate.periodes[j].codePeriode.includes(actualPeriod.actualCodePeriode)
+=======
+                gradesDataDuplicate.periodes[j].codePeriode.includes(
+                  actualPeriod.actualCodePeriode
+                )
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
               ) {
                 for (
                   let k = 0;
@@ -138,11 +152,21 @@
                   k++
                 ) {
                   if (
+<<<<<<< HEAD
                     gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k].discipline ==
                     grade.libelleMatiere
                   ) {
                     grade.subjectCoef =
                       gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k].coef;
+=======
+                    gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[k]
+                      .discipline == grade.libelleMatiere
+                  ) {
+                    grade.subjectCoef =
+                      gradesDataDuplicate.periodes[j].ensembleMatieres.disciplines[
+                        k
+                      ].coef;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
                   }
                 }
                 break;
@@ -155,7 +179,12 @@
       }
     });
 
+<<<<<<< HEAD
     if (debug) console.log('[DEBUG]', 'cleanGradesData', 'Cleaned grades data', {gradesDataClean});
+=======
+    if (debug)
+      console.log('[DEBUG]', 'cleanGradesData', 'Cleaned grades data', {gradesDataClean});
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     return gradesDataClean;
   }
 
@@ -202,7 +231,14 @@
 
         tempGradesSortBySubject[gradeSubjectName].push(gradesDataClean[j]);
         ascendingGradesValue.push([
+<<<<<<< HEAD
           ((gradesDataClean[j].valeur * globalQuotient) / gradesDataClean[j].noteSur).toFixed(2),
+=======
+          (
+            (gradesDataClean[j].valeur * globalQuotient) /
+            gradesDataClean[j].noteSur
+          ).toFixed(2),
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
           gradesDataClean[j].coef
         ]);
       }
@@ -212,7 +248,12 @@
       ascendingGradesValue.sort((a, b) => a[0] - b[0]);
 
       gradesRangeEvolution.push(
+<<<<<<< HEAD
         ascendingGradesValue[ascendingGradesValue.length - 1][0] - ascendingGradesValue[0][0]
+=======
+        ascendingGradesValue[ascendingGradesValue.length - 1][0] -
+          ascendingGradesValue[0][0]
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       );
       gradesFirstQuartileEvolution.push(
         ascendingGradesValue[Math.round((ascendingGradesValue.length + 3) / 4) - 1][0]
@@ -278,11 +319,23 @@
       gradesVarianceEvolution.push(
         (gradesSumOfSquaredValuesEvolution[i] / sumOfAllSubjectCoefficients).toFixed(2)
       );
+<<<<<<< HEAD
       gradesStandardDeviationEvolution.push(Math.sqrt(gradesVarianceEvolution[i]).toFixed(2));
     }
 
     gradesDataClean.forEach((grade) => {
       allGradesValueOnly.push(((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2));
+=======
+      gradesStandardDeviationEvolution.push(
+        Math.sqrt(gradesVarianceEvolution[i]).toFixed(2)
+      );
+    }
+
+    gradesDataClean.forEach((grade) => {
+      allGradesValueOnly.push(
+        ((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2)
+      );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     });
 
     if (debug)
@@ -344,7 +397,13 @@
       xAxisLabelValues.push(i.toString());
     }
 
+<<<<<<< HEAD
     const actualGlobalMeanForChart = new Array(allGradesValueOnly.length).fill(globalMean);
+=======
+    const actualGlobalMeanForChart = new Array(allGradesValueOnly.length).fill(
+      globalMean
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     const curveDatasets = createCurveDatasets({
       allGradesValueOnly,
@@ -545,7 +604,12 @@
                 const tooltipItem = tooltipItems[i];
                 if (tooltipItem.dataset.label == 'Moyenne générale') continue;
 
+<<<<<<< HEAD
                 const gradeData = gradesCoefficientQuotientAndSubject[tooltipItem.dataIndex];
+=======
+                const gradeData =
+                  gradesCoefficientQuotientAndSubject[tooltipItem.dataIndex];
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
                 const gradeCoefficient = gradeData[0];
                 const gradeQuotient = gradeData[1];
                 const gradeSubject = gradeData[2];
@@ -696,10 +760,19 @@
           labels: {
             filter: (legendItem, chartData) => legendItem.datasetIndex !== 1,
             generateLabels: (chart) => {
+<<<<<<< HEAD
               const maxLeftDistanceValue = document.querySelector('#chart-bar').width / 2 - 41;
               const maxWidthLegendBox = 41;
               const gradient = chart.ctx.createLinearGradient(
                 (maxLeftDistanceValue * document.querySelector('html').clientWidth) / 1920,
+=======
+              const maxLeftDistanceValue =
+                document.querySelector('#chart-bar').width / 2 - 31;
+              const maxWidthLegendBox = 41;
+              const gradient = chart.ctx.createLinearGradient(
+                (maxLeftDistanceValue * document.querySelector('html').clientWidth) /
+                  1920,
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
                 0,
                 ((maxLeftDistanceValue + maxWidthLegendBox) *
                   document.querySelector('html').clientWidth) /
@@ -707,7 +780,12 @@
                 0
               );
 
+<<<<<<< HEAD
               let gradientColorsPercentage = (percentageRed / effectifPercentage).toFixed(2) - 0.1;
+=======
+              let gradientColorsPercentage =
+                (percentageRed / effectifPercentage).toFixed(2) - 0.1;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
               if (gradientColorsPercentage < 0) gradientColorsPercentage = 0;
               gradient.addColorStop(0.0, 'rgba(255, 0, 0, 1)');
               gradient.addColorStop(gradientColorsPercentage, 'rgba(255, 0, 0, 1)');

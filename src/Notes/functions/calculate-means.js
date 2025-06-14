@@ -121,11 +121,15 @@
       // If old data is not significant, get the value from the current grade
       gradeValue = subjectGrade.childNodes[0].nodeValue;
       significative =
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/calculate-means.js
         subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 1;
 =======
         subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 2;
 >>>>>>> features:src/Notes/functions/calculate-means.js
+=======
+        subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 2;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     }
 
     if (significative) {
@@ -289,11 +293,15 @@
         }
       } else {
         const overallAverageElement = document.createElement('tr');
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/calculate-means.js
         overallAverageElement.innerHTML = `<tr class="ng-star-inserted"><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
 =======
         overallAverageElement.innerHTML = `<tr><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
 >>>>>>> features:src/Notes/functions/calculate-means.js
+=======
+        overallAverageElement.innerHTML = `<tr><td colspan="2" class="text-right moyennegeneralelibelle">Moyenne générale</td><td colspan="2" class="moyennegenerale-valeur"><span ${attributeGlobalMean}="true" style="${styleGlobalMean}">${overallAverageHTML}</span></td></tr>`;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
         document.querySelector('table.ed-table tbody').appendChild(overallAverageElement);
       }
@@ -427,9 +435,13 @@
     return {calculatedGlobalMeanRound5, calculatedGlobalMeanRound2};
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/calculate-means.js
   exports({calculateMeans}).to('./features/Notes/functions/calculate-means.js');
 =======
   exports({calculateMeans}).to('./src/Notes/functions/calculate-means.js');
 >>>>>>> features:src/Notes/functions/calculate-means.js
+=======
+  exports({calculateMeans}).to('./src/Notes/functions/calculate-means.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

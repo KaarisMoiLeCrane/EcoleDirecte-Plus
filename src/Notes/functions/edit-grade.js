@@ -1,11 +1,15 @@
 (() => {
   // Import the calculateMeans function
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/edit-grade.js
     './features/Notes/functions/calculate-means.js'
 =======
     './src/Notes/functions/calculate-means.js'
 >>>>>>> features:src/Notes/functions/edit-grade.js
+=======
+    './src/Notes/functions/calculate-means.js'
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
   );
 
   /**
@@ -214,11 +218,15 @@
       gradeElement.appendChild(coefficientElement);
       gradeElement.querySelector(
         'sup'
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/edit-grade.js
       ).outerHTML = `<sup class="coef ng-star-inserted"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
 =======
       ).outerHTML = `<sup class="coef"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
 >>>>>>> features:src/Notes/functions/edit-grade.js
+=======
+      ).outerHTML = `<sup class="coef"> (${gradeCoefficient}) <span class="margin-whitespace"></span></sup>`;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     }
 
     const gradeElementQuotient = gradeElement.querySelector('sub');
@@ -230,11 +238,15 @@
       gradeElement.appendChild(quotientElement);
       gradeElement.querySelector(
         'sub'
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/edit-grade.js
       ).outerHTML = `<sub class="quotient ng-star-inserted"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
 =======
       ).outerHTML = `<sub class="quotient"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
 >>>>>>> features:src/Notes/functions/edit-grade.js
+=======
+      ).outerHTML = `<sub class="quotient"> /${gradeQuotient} <span class="margin-whitespace"></span></sub>`;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     }
   }
 
@@ -244,19 +256,27 @@
       console.log('[DEBUG]', 'addGreenUnderline', 'Function called', gradeElement);
     const gradeElementStyle = gradeElement.getAttribute('style');
     if (gradeElementStyle) {
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/edit-grade.js
       gradeElement.style.borderBottom = '1px solid green';
 =======
       gradeElement.style.setProperty('border-bottom', '1px solid green');
 >>>>>>> features:src/Notes/functions/edit-grade.js
+=======
+      gradeElement.style.setProperty('border-bottom', '1px solid green');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     } else {
       gradeElement.setAttribute('style', 'border-bottom: 1px solid green;');
     }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/edit-grade.js
   exports({editGrade}).to('./features/Notes/functions/edit-grade.js');
 =======
   exports({editGrade}).to('./src/Notes/functions/edit-grade.js');
 >>>>>>> features:src/Notes/functions/edit-grade.js
+=======
+  exports({editGrade}).to('./src/Notes/functions/edit-grade.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

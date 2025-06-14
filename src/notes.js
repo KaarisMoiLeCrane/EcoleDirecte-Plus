@@ -5,7 +5,13 @@
   const coefficient = imports('coefficient').from('./src/Notes/coefficient.js');
   const addGradeId = imports('addGradeId').from('./src/Notes/add-grade-id.js');
 
+<<<<<<< HEAD
   const calculateMeans = imports('calculateMeans').from('./src/Notes/functions/calculate-means.js');
+=======
+  const calculateMeans = imports('calculateMeans').from(
+    './src/Notes/functions/calculate-means.js'
+  );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
   const charts = imports('charts').from('./src/Notes/charts.js');
 
@@ -28,7 +34,12 @@
    * @param {string} token - The authentication token.
    */
   function main(id, token) {
+<<<<<<< HEAD
     if (debug) console.log('[DEBUG]', 'main', 'Initializing notes management.', {id, token});
+=======
+    if (debug)
+      console.log('[DEBUG]', 'main', 'Initializing notes management.', {id, token});
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     const account = new EcoleDirecte(id, token);
 
@@ -38,7 +49,11 @@
 
     const globalQuotient = parseFloat(gradesData.parametrage?.moyenneSur);
 
+<<<<<<< HEAD
     if (!globalQuotient) return;
+=======
+    if (!globalQuotient) return
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     const dataPeriodes = gradesData.periodes;
 
@@ -134,7 +149,16 @@
           }
         } catch (e) {
           if (debug)
+<<<<<<< HEAD
             console.log('[DEBUG]', 'setupMutationObserver', 'Error during mutation handling.', e);
+=======
+            console.log(
+              '[DEBUG]',
+              'setupMutationObserver',
+              'Error during mutation handling.',
+              e
+            );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         }
       });
     });
@@ -156,7 +180,16 @@
         subtree: true
       });
       if (debug)
+<<<<<<< HEAD
         console.log('[DEBUG]', 'executeNotesObserver', 'Observer set up on .eleve-note.', elm);
+=======
+        console.log(
+          '[DEBUG]',
+          'executeNotesObserver',
+          'Observer set up on .eleve-note.',
+          elm
+        );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     });
   }
 
@@ -165,7 +198,13 @@
    * @param {object[]} periodes - Array of period data objects.
    */
   function setPeriodesInfos(periodes) {
+<<<<<<< HEAD
     let elmPeriodes = document.querySelectorAll("ul[class *= 'tabs'] > li > [class *= 'nav-link']");
+=======
+    let elmPeriodes = document.querySelectorAll(
+      "ul[class *= 'tabs'] > li > [class *= 'nav-link']"
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     elmPeriodes.forEach((elmPeriode, i) => {
       if (elmPeriode.getAttribute('dateDebut')) return;
@@ -179,9 +218,12 @@
           elmPeriode.setAttribute('dateFin', dateFin);
           elmPeriode.setAttribute('codePeriode', periode.codePeriode);
           elmPeriode.setAttribute('islast', 'false');
+<<<<<<< HEAD
           if (elmPeriode.parentElement.classList.contains('active'))
             elmPeriode.style.setProperty('z-index', 1);
           else elmPeriode.style.setProperty('z-index', 2);
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
           if (periode.codePeriode.includes('R')) {
             elmPeriode.setAttribute('R', 'true');
@@ -212,6 +254,7 @@
               elmPeriode.setAttribute('islast', 'true');
             }
           }
+<<<<<<< HEAD
 
           if (!elmPeriode.className.includes('kmlc-tooltip-parent')) {
             let tooltipClass = ' kmlc-tooltip kmlc-tooltip-orange';
@@ -236,6 +279,8 @@
               elmPeriode.style.setProperty('z-index', 1);
             });
           }
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         }
       });
     });

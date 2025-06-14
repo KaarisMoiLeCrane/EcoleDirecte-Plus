@@ -1,6 +1,7 @@
 (() => {
   // Importing necessary functions from other modules
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/add-grade.js
     './features/Notes/functions/calculate-means.js'
   );
@@ -12,6 +13,12 @@
   const editGradeSimulation = imports('editGradeSimulation').from(
     './src/Notes/edit-grade-simulation.js'
 >>>>>>> features:src/Notes/functions/add-grade.js
+=======
+    './src/Notes/functions/calculate-means.js'
+  );
+  const editGradeSimulation = imports('editGradeSimulation').from(
+    './src/Notes/edit-grade-simulation.js'
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
   );
 
   /**
@@ -84,11 +91,15 @@
 
           const classNewGradeElement =
             document.querySelector('button.note')?.className ||
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/add-grade.js
             'btn text-normal note margin-whitespace no-background no-padding ng-star-inserted';
 =======
             'btn text-normal note margin-whitespace no-background no-padding';
 >>>>>>> features:src/Notes/functions/add-grade.js
+=======
+            'btn text-normal note margin-whitespace no-background no-padding';
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
           if (debug)
             console.log(
               '[DEBUG]',
@@ -99,6 +110,7 @@
 
           newGradeElement.outerHTML = `
             <button type="button" kmlc-simulation-grades="true" id="${gradeId}" class="${classNewGradeElement}" title="${gradeTitle}" save="${saveGrade}">
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/add-grade.js
               <span class="valeur ng-star-inserted" style="color: green;">
                 ${gradeValue}
@@ -110,6 +122,12 @@
                 <sup class="coef"> (${gradePower}) </sup>
                 <sub class="coef"> /${gradeQuotient} </sub>
 >>>>>>> features:src/Notes/functions/add-grade.js
+=======
+              <span class="valeur" style="color: green;">
+                ${gradeValue}
+                <sup class="coef"> (${gradePower}) </sup>
+                <sub class="coef"> /${gradeQuotient} </sub>
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
               </span>
             </button>
           `;
@@ -153,9 +171,13 @@
     if (debug) console.log('[DEBUG]', 'addGrade', 'Note simulation modified');
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/add-grade.js
   exports({addGrade}).to('./features/Notes/functions/add-grade.js');
 =======
   exports({addGrade}).to('./src/Notes/functions/add-grade.js');
 >>>>>>> features:src/Notes/functions/add-grade.js
+=======
+  exports({addGrade}).to('./src/Notes/functions/add-grade.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

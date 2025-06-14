@@ -132,9 +132,13 @@
     });
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/add-grade-id.js
   exports({addGradeId}).to('./features/Notes/add-grade-id.js');
 =======
   exports({addGradeId}).to('./src/Notes/add-grade-id.js');
 >>>>>>> features:src/Notes/add-grade-id.js
+=======
+  exports({addGradeId}).to('./src/Notes/add-grade-id.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

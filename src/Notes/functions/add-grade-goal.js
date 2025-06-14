@@ -180,9 +180,13 @@
   }
 
   // Exporting the addGradeGoal function to be reused in other parts of the application
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/functions/add-grade-goal.js
   exports({addGradeGoal}).to('./features/Notes/functions/add-grade-goal.js');
 =======
   exports({addGradeGoal}).to('./src/Notes/functions/add-grade-goal.js');
 >>>>>>> features:src/Notes/functions/add-grade-goal.js
+=======
+  exports({addGradeGoal}).to('./src/Notes/functions/add-grade-goal.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

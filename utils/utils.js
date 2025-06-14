@@ -126,10 +126,14 @@
     const todayMs = Date.now();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 =======
     const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
 >>>>>>> features
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     const dateDebutArr = dataPeriodes
       .map((p) => p.dateDebut.kmlcConvertToTimestamp())
       .sort((a, b) => a - b);
@@ -161,10 +165,14 @@
     let dummy = [...gradeSimulation];
     const newYear = getNewYear();
 <<<<<<< HEAD
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 =======
     const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
 >>>>>>> features
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 
@@ -212,10 +220,14 @@
     let dummy = [...objectifMoyenne];
     const newYear = getNewYear();
 <<<<<<< HEAD
+<<<<<<< HEAD
     const dataPeriodes = imports('dataPeriodes').from('./features/notes.js');
 =======
     const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
 >>>>>>> features
+=======
+    const dataPeriodes = imports('dataPeriodes').from('./src/notes.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
     let userContent = dummy.find((item) => item?.id == id) || {id, periodes: []};
 

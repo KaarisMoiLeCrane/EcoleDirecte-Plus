@@ -7,6 +7,7 @@
     './utils/utils.js'
   );
   const calculateMeans = imports('calculateMeans').from(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
     './features/Notes/functions/calculate-means.js'
   );
@@ -16,6 +17,11 @@
   );
   const editGrade = imports('editGrade').from('./src/Notes/functions/edit-grade.js');
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+    './src/Notes/functions/calculate-means.js'
+  );
+  const editGrade = imports('editGrade').from('./src/Notes/functions/edit-grade.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 
   /**
    * Modifies the user simulation note by adding event listeners to grades and initializing popup.
@@ -95,17 +101,23 @@
           });
 
           // Display popup
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
           popup.style.width = '80%';
           popup.style.height = '80%';
           blur.style.display = '';
           popup.style.display = '';
 =======
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
           popup.style.setProperty('width', '80%');
           popup.style.setProperty('height', '80%');
           blur.style.setProperty('display', '');
           popup.style.setProperty('display', '');
+<<<<<<< HEAD
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         },
         false
       );
@@ -117,6 +129,7 @@
    * Adds the "Note modifiée" legend to the table caption.
    */
   function addEditedGradeLegend() {
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
     const tableCaptionTitleElement = document.querySelector('table caption');
 =======
@@ -124,6 +137,11 @@
       '[class *= bloc][class *= bloc-legende]'
     );
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+    const tableCaptionTitleElement = document.querySelector(
+      '[class *= bloc][class *= bloc-legende]'
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     if (
       !document.querySelector('[kmlc-legend-edited-grade]') &&
       tableCaptionTitleElement
@@ -195,6 +213,7 @@
    * @param {HTMLElement} blur - The blur element.
    */
   function resetPopup(popup, blur) {
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
     popup.style.display = 'none';
     blur.style.display = 'none';
@@ -202,6 +221,10 @@
     popup.style.setProperty('display', 'none');
     blur.style.setProperty('display', 'none');
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+    popup.style.setProperty('display', 'none');
+    blur.style.setProperty('display', 'none');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     popup.classList.remove('kmlc-popup-close');
     blur.classList.remove('kmlc-blur-close');
     if (debug)
@@ -252,8 +275,12 @@
 
     const gradeSubject =
       gradeElement.parentElement.parentElement.parentElement.querySelector(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
         '[class *= nommatiere] > b'
+=======
+        '[class *= nommatiere] > [class *= text-bold]'
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       ).textContent;
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
@@ -491,11 +518,15 @@
   ) {
     const subjectGrade =
       gradeElement.parentElement.parentElement.parentElement.querySelector(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
         "[class *= 'nommatiere'] > b"
 =======
         "[class *= 'nommatiere'] > [class *= text-bold]"
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+        "[class *= 'nommatiere'] > [class *= text-bold]"
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       ).textContent;
     const dateNow = Date.now();
     if (debug)
@@ -655,15 +686,21 @@
       .querySelectorAll('button[kmlc-simulation-edited-grades]')
       .forEach((element) => {
         const gradeSimulationElement = element.querySelector('[class *= valeur]');
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
         gradeSimulationElement.style.borderBottom =
           gradeSimulationElement.style.borderBottom.replace('1px solid green', '');
 =======
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         gradeSimulationElement.style.setProperty(
           'borderBottom',
           gradeSimulationElement.style.borderBottom.replace('1px solid green', '')
         );
+<<<<<<< HEAD
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         gradeSimulationElement.childNodes[0].textContent =
           ' ' + gradeSimulationElement.getAttribute('initialGrade') + ' ';
         gradeSimulationElement.removeAttribute('initialGrade');
@@ -872,8 +909,14 @@
     await initUserGradeSimulation(userId);
     const gradeSimulation = await getData('gradeSimulation');
     const userContent = gradeSimulation.find((item) => item?.id === userId);
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
     const subjectGrades = document.querySelectorAll("[class *= 'nommatiere'] > b");
+=======
+    const subjectGrades = document.querySelectorAll(
+      "[class *= 'nommatiere'] > [class *= text-bold]"
+    );
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     const actualPeriodeElement = document.querySelector(
       "ul[class *= 'tabs'] > li > [class *= 'nav-link active']"
 =======
@@ -942,9 +985,13 @@
     });
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/edit-grade-simulation.js
   exports({editGradeSimulation}).to('./features/Notes/edit-grade-simulation.js');
 =======
   exports({editGradeSimulation}).to('./src/Notes/edit-grade-simulation.js');
 >>>>>>> features:src/Notes/edit-grade-simulation.js
+=======
+  exports({editGradeSimulation}).to('./src/Notes/edit-grade-simulation.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

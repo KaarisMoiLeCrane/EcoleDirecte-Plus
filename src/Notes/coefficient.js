@@ -28,10 +28,21 @@
    * @param {string} newClassName - The class name for the new column.
    */
   function cloneAndModifyElements(elements, gradesData, periodIndex, newClassName) {
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/coefficient.js
+=======
+    let indexPhaseChange = 0;
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
     for (const [index, element] of elements.entries()) {
+      if (
+        gradesData.periodes[periodIndex].ensembleMatieres.disciplines[
+          index + indexPhaseChange
+        ].codeMatiere == ''
+      )
+        indexPhaseChange += 1;
       const clonedElement = element.cloneNode(true);
       const coefValue =
+<<<<<<< HEAD
         gradesData.periodes[periodIndex].ensembleMatieres.disciplines[index].coef;
 =======
     let indexPhaseChange = 0;
@@ -44,11 +55,16 @@
         indexPhaseChange += 1;
       const clonedElement = element.cloneNode(true);
       const coefValue =
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         gradesData.periodes[periodIndex].ensembleMatieres.disciplines[
           index + indexPhaseChange
         ].coef;
 
+<<<<<<< HEAD
 >>>>>>> features:src/Notes/coefficient.js
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       clonedElement.innerText = coefValue;
       clonedElement.className = `${element.className.replace(
         'relevemoyenne',
@@ -74,6 +90,7 @@
    */
   function coefficient(gradesData) {
     const coefColumnExists = document.querySelector(
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/coefficient.js
       "th[class *= 'coef ng-star-inserted']"
     );
@@ -85,6 +102,12 @@
     if (!coefColumnExists) {
       const meanColumnClass = 'relevemoyenne';
 >>>>>>> features:src/Notes/coefficient.js
+=======
+      "th[class *= 'coef']"
+    );
+    if (!coefColumnExists) {
+      const meanColumnClass = 'relevemoyenne';
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       const meanColumnTitleElement = document.querySelector(
         `th[class *= '${meanColumnClass}']`
       );
@@ -97,11 +120,15 @@
       insertColumn(
         meanColumnTitleElement,
         'COEF.',
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/coefficient.js
         'coef ng-star-inserted',
 =======
         'coef',
 >>>>>>> features:src/Notes/coefficient.js
+=======
+        'coef',
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         meanColumnTitleElement.parentElement.querySelector(
           `[class *= '${meanColumnClass}']`
         )
@@ -143,9 +170,13 @@
     }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Notes/coefficient.js
   exports({coefficient}).to('./features/Notes/coefficient.js');
 =======
   exports({coefficient}).to('./src/Notes/coefficient.js');
 >>>>>>> features:src/Notes/coefficient.js
+=======
+  exports({coefficient}).to('./src/Notes/coefficient.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();

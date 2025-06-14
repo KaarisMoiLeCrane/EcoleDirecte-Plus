@@ -302,3 +302,45 @@ String.prototype.capitalizeFirstLetter = function () {
   return this[0].toUpperCase() + this.slice(1);
 >>>>>>> features
 };
+
+/**
+ * Replaces an element node with a new element.
+ * @param {string} newTag - The new tag name of the element (e.g., 'div', 'span').
+ * @param {boolean} [preserveChildren=true] - Whether to keep the children of the old node in the new one.
+ */
+Object.prototype.kmlcReplaceElementNode = function (newTag, preserveChildren = true) {
+  if (!(this instanceof HTMLElement)) {
+    console.error('Provided node is not a valid HTMLElement.');
+    return;
+  }
+
+  // Create the new element
+  const newNode = document.createElement(newTag);
+
+  // Copy attributes from oldNode to newNode
+  [...this.attributes].forEach((attr) => {
+    newNode.setAttribute(attr.name, attr.value);
+  });
+
+  // Optionally, move children to the new node
+  if (preserveChildren) {
+    while (this.firstChild) {
+      newNode.appendChild(this.firstChild);
+    }
+  }
+
+  // Replace the node with the new one in the DOM
+  this.parentNode.replaceChild(newNode, this);
+
+  if (debug)
+    console.log(
+      '[DEBUG]',
+      'kmlcReplaceElementNode',
+      `Replaced <${this.tagName.toLowerCase()}> with <${newTag}>.`,
+      {
+        element: this,
+        newTag
+      }
+    );
+  return newNode;
+};

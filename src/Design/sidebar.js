@@ -313,6 +313,7 @@ header .image-text .profession {
     if (!window.location.href.includes('EmploiDuTemps')) {
       document.getElementById('main-part').classList.add('sidebarhover');
     }
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Design/sidebar.js
     document.querySelector('.menu-bar').style.overflow = 'hidden';
     document.querySelector('.menu').style.overflow = 'hidden';
@@ -320,6 +321,10 @@ header .image-text .profession {
     document.querySelector('.menu-bar').style.setProperty('overflow', 'hidden');
     document.querySelector('.menu').style.setProperty('background-color', 'hidden');
 >>>>>>> features:src/Design/sidebar.js
+=======
+    document.querySelector('.menu-bar').style.setProperty('overflow', 'hidden');
+    document.querySelector('.menu').style.setProperty('background-color', 'hidden');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
   }
 
   /**
@@ -383,11 +388,15 @@ header .image-text .profession {
 
       for (let i = 0; i < edMenu.length; i++) {
         // Get all the sections in the navigation bar of each person in the account and append them directly under the new menu-bar in the DOM
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Design/sidebar.js
         let roleMenu = document.querySelectorAll('ul[role="menu"]')[i];
 =======
         let roleMenu = document.querySelectorAll('ul[class *= ed-menu-list]')[i];
 >>>>>>> features:src/Design/sidebar.js
+=======
+        let roleMenu = document.querySelectorAll('ul[class *= ed-menu-list]')[i];
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         roleMenu.parentElement.parentElement.appendChild(roleMenu);
 
         // Removing the blue rectangle wrapping all the sections
@@ -420,11 +429,15 @@ header .image-text .profession {
             ) + ' text-decoration:none !important'
           );
 
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Design/sidebar.js
           let icon = a.querySelector('i');
 =======
           let icon = a.querySelector('i, fa-icon');
 >>>>>>> features:src/Design/sidebar.js
+=======
+          let icon = a.querySelector('i, fa-icon');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
           icon.setAttribute('class', 'icon iconED ' + icon.getAttribute('class'));
 
           let span = a.querySelector('span');
@@ -455,10 +468,14 @@ header .image-text .profession {
           'class',
           (roleMenu.getAttribute('class') || '') + ' menu-links'
         );
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Design/sidebar.js
 =======
         roleMenu.parentElement.kmlcReplaceElementNode('DIV');
 >>>>>>> features:src/Design/sidebar.js
+=======
+        roleMenu.parentElement.kmlcReplaceElementNode('DIV');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
       }
 
       // Handle multiple accounts
@@ -500,6 +517,7 @@ header .image-text .profession {
       document.querySelectorAll('header:not([class])').forEach((header) => {
         header.children[0].onclick = function () {
           let sibling = this.parentElement.nextElementSibling;
+<<<<<<< HEAD
           sibling.style.visibility =
             sibling.style.visibility === 'hidden' ? '' : 'hidden';
           sibling.style.marginLeft =
@@ -510,6 +528,8 @@ header .image-text .profession {
       document.querySelectorAll('header:not([class]):not([id])').forEach((header) => {
         header.children[0].onclick = function () {
           let sibling = this.parentElement.nextElementSibling;
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
           sibling.style.setProperty(
             'visibility',
             sibling.style.visibility === 'hidden' ? '' : 'hidden'
@@ -522,7 +542,10 @@ header .image-text .profession {
             'position',
             sibling.style.position === 'absolute' ? '' : 'absolute'
           );
+<<<<<<< HEAD
 >>>>>>> features:src/Design/sidebar.js
+=======
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
         };
       });
 
@@ -632,9 +655,13 @@ header .image-text .profession {
   }
 
   // Exporting the sidebar function to be used in other modules
+<<<<<<< HEAD
 <<<<<<< HEAD:features/Design/sidebar.js
   exports({sidebar}).to('./features/Design/sidebar.js');
 =======
   exports({sidebar}).to('./src/Design/sidebar.js');
 >>>>>>> features:src/Design/sidebar.js
+=======
+  exports({sidebar}).to('./src/Design/sidebar.js');
+>>>>>>> f39ec6928663b192c6c472b9958008db1a3d5604
 })();
