@@ -1,7 +1,7 @@
 {
   "name": "EcoleDirecte FEATURES +",
   "description": "Extension qui améliorera vos prochaines visites sur EcoleDirecte",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "Kaaris_Moi_Le_Crane",
   "manifest_version": 3,
   "permissions": ["storage", "tabs", "notifications", "activeTab"],
@@ -51,7 +51,7 @@
 
         "/src/Notes/rank.js",
         "/src/Notes/coefficient.js",
-        "/src/Notes/add-grade-id.js",
+        "/src/Notes/add-grade-infos.js",
 
         "/src/Notes/functions/calculate-means.js",
 

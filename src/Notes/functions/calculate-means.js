@@ -112,7 +112,7 @@
         subjectGradeOldValue = subjectGradeOldValue.replace(/[^\d+\-.\s]/g, '');
         if (subjectGradeOldValue != '') {
           gradeValue = subjectGradeOldValue;
-          significative = true;
+          significative = subjectGrade.parentElement.getAttribute("significatif") == "true";
         }
       }
     }
@@ -121,7 +121,7 @@
       // If old data is not significant, get the value from the current grade
       gradeValue = subjectGrade.childNodes[0].nodeValue;
       significative =
-        subjectGrade.parentElement.querySelectorAll(':scope > span').length <= 2;
+        subjectGrade.parentElement.getAttribute("significatif") == "true";
     }
 
     if (significative) {
@@ -133,6 +133,15 @@
     } else {
       gradeValue = NaN;
     }
+
+    if (debug)
+      console.log(
+        '[DEBUG]',
+        'getGradeValue',
+        'Function returned',
+        gradeValue,
+        significative
+      );
 
     return gradeValue;
   }

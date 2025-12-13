@@ -3,7 +3,7 @@
    * Adds note IDs to the grade elements in the DOM based on the current period.
    * @param {Object} gradesData - The data containing the grades information.
    */
-  function addGradeId(gradesData) {
+  function addGradeInfos(gradesData) {
     const actualPeriodeElement = document.querySelector(
       "ul[class*='tabs'] > li > [class*='nav-link'][class*='active']"
     );
@@ -19,7 +19,7 @@
     const elementSubjectsGrades = document.querySelectorAll('.notes:has(button)');
 
     if (debug)
-      console.log('[DEBUG] addGradeId', 'Period Information:', {
+      console.log('[DEBUG] addGradeInfos', 'Period Information:', {
         actualCodePeriode,
         actualDateStart,
         actualDateEnd,
@@ -72,7 +72,7 @@
       }
 
       if (debug)
-        console.log('[DEBUG] addGradeId', 'Processed Grade', {
+        console.log('[DEBUG] addGradeInfos', 'Processed Grade', {
           index,
           skip,
           note
@@ -82,7 +82,7 @@
     if (gradesDataClean.length) {
       const sortedGrades = sortGradesBySubject(gradesDataClean);
 
-      if (debug) console.log('[DEBUG] addGradeId', 'Sorted Grades', sortedGrades);
+      if (debug) console.log('[DEBUG] addGradeInfos', 'Sorted Grades', sortedGrades);
 
       assignGradeIdsToElements(sortedGrades, elementSubjectsGrades);
     }
@@ -123,10 +123,11 @@
       if (subjectGrades) {
         subjectGrades.forEach((grade, index) => {
           elementSubjectGrades.children[index].setAttribute('id', grade.id);
+          elementSubjectGrades.children[index].setAttribute('significatif', !grade.nonSignificatif);
         });
       }
     });
   }
 
-  exports({addGradeId}).to('./src/Notes/add-grade-id.js');
+  exports({addGradeInfos}).to('./src/Notes/add-grade-infos.js');
 })();

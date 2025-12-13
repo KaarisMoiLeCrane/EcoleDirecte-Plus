@@ -3,7 +3,7 @@
 
   const rank = imports('rank').from('./src/Notes/rank.js');
   const coefficient = imports('coefficient').from('./src/Notes/coefficient.js');
-  const addGradeId = imports('addGradeId').from('./src/Notes/add-grade-id.js');
+  const addGradeInfos = imports('addGradeInfos').from('./src/Notes/add-grade-infos.js');
 
   const calculateMeans = imports('calculateMeans').from('./src/Notes/functions/calculate-means.js');
 
@@ -81,7 +81,7 @@
 
     rank(gradesData);
     coefficient(gradesData);
-    addGradeId(gradesData);
+    addGradeInfos(gradesData);
 
     calculateMeans(
       1,
