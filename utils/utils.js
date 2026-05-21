@@ -271,6 +271,78 @@
     return window.location.pathname.split('/')[2];
   }
 
+  
+  function duplicateCSSClass(sourceClass, targetClass) {
+    const formatSelector = (selector) => (selector.startsWith('.') ? selector : `.${selector}`);
+    const source = formatSelector(sourceClass);
+    const target = formatSelector(targetClass);
+
+    // Search a reference element in the DOM to calculate the variables
+    // If it doesn't exist, we use document.documentElement as a fallback
+    const refElement = document.querySelector(source) || document.documentElement;
+    const computedStyles = window.getComputedStyle(refElement);
+
+    const styleSheets = window.document.styleSheets;
+    let isSuccess = false;
+
+    for (let i = 0; i < styleSheets.length; i++) {
+      const sheet = styleSheets[i];
+      let rules;
+
+      try {
+        rules = sheet.cssRules || sheet.rules;
+      } catch (error) {
+        continue;
+      }
+
+      if (!rules) continue;
+
+      for (let x = 0; x < rules.length; x++) {
+        const rule = rules[x];
+
+        if (rule?.selectorText?.includes(source)) {
+          let styles = rule.style.cssText;
+
+          if (!styles) continue;
+
+          // Replacement of CSS variables (var(--name) or var(--name, fallback))
+          const varRegex = /var\(\s*(--[^,\s)]+)(?:,\s*([^)]+))?\s*\)/g;
+
+          styles = styles.replace(varRegex, (match, varName, fallback) => {
+            // We recover the calculated value of the variable
+            let resolvedValue = computedStyles.getPropertyValue(varName.trim()).trim();
+
+            // If variable is empty but there is a fallback (we use it)
+            if (!resolvedValue && fallback) {
+              resolvedValue = fallback.trim();
+            }
+
+            // Retrun the found value, or the original text if unresolvable
+            return resolvedValue ? resolvedValue : match;
+          });
+
+          const myRe = new RegExp(`${source}:([^, ]+)`);
+          const extrExp = myRe.exec(rule.selectorText);
+
+          const newRule =
+            extrExp == null ? `${target} { ${styles} }` : `${target}:${extrExp[1]} { ${styles} }`;
+
+          try {
+            sheet.insertRule(newRule, rules.length);
+            isSuccess = true;
+          } catch (error) {
+            console.error(
+              `[duplicateCSSClass] Impossible d'insérer la règle pour ${target} :`,
+              error
+            );
+          }
+        }
+      }
+    }
+
+    return isSuccess;
+  }
+
   exports({
     fragmentFromString,
     numToDate,
@@ -282,6 +354,7 @@
     initUserObjectif,
     getToken,
     getAccountType,
-    getUserId
+    getUserId,
+    duplicateCSSClass
   }).to('./utils/utils.js');
 })();

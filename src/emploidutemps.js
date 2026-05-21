@@ -1,10 +1,10 @@
 (() => {
   const EcoleDirecte = imports('EcoleDirecte').from('./vendor/ecoledirecte.js');
-  const homeworkStatus = imports('homeworkStatus').from(
-    './src/EmploiDuTemps/homework-status.js'
-  );
+  const homeworkStatus = imports('homeworkStatus').from('./src/EmploiDuTemps/homework-status.js');
+  const duplicateCSSClass = imports('duplicateCSSClass').from('./utils/utils.js');
 
   let backdropScript = true;
+  let calDataID = null;
 
   /**
    * Main function to initialize the application.
@@ -37,16 +37,16 @@
    * @param {Object} homeworksData - Data containing homeworks.
    */
   function emploidutempsMain(homeworksData, num) {
-    homeworkStatus(homeworksData, num);
-
     // Add button to view homework
-    document.kmlcWaitForElement('#export-pdf').then((buttonExportPDF) => {
+    document.kmlcWaitForElement('[data-icon="file-pdf"]').then((buttonExportPDF) => {
       if (!document.querySelector('#devoirs')) {
         createHomeworkButton(buttonExportPDF, homeworksData);
       }
     });
 
     // Add event listeners to schedule navigation buttons
+    homeworkStatus(homeworksData, num);
+
     addNavigationButtonListener('.dhx_cal_prev_button', homeworksData);
     addNavigationButtonListener('.dhx_cal_next_button', homeworksData);
     addTodayButtonListener('#view-today', homeworksData);
@@ -58,33 +58,29 @@
    * @param {Object} homeworksData - Data containing homeworks.
    */
   function createHomeworkButton(buttonExportPDF, homeworksData) {
+    duplicateCSSClass('.dhx_cal_today_button', 'kmlc_button_style');
+
     const devButton = document.createElement('div');
     devButton.setAttribute('id', 'devoirs');
-    devButton.setAttribute(
-      'style',
-      'left: 125px; cursor:pointer; background-color:none; background-repeat:no-repeat; height:30px; text-align:center; font-size:inherit; font-weight:700; color:#747473; right:123px; background-image:none; background-position:-62px 0; width:80px; border:1px solid #cecece; border-radius:5px; text-decoration:none; text-transform:none; line-height:30px; margin:0; padding:0; box-sizing:content-box;'
-    );
+    devButton.setAttribute('class', 'kmlc_button_style');
     devButton.innerText = 'Devoirs';
     devButton.onclick = function () {
       this.innerText = 'Devoirs';
       const x = scrollX;
       const y =
-        scrollY +
-        document.querySelector('div.dhx_cal_header').getBoundingClientRect().y +
-        1;
+        scrollY + document.querySelector('div.dhx_cal_header').getBoundingClientRect().y + 1;
       scrollTo(x, y);
 
       homeworkStatus(homeworksData, 2);
     };
     if (!document.querySelector('#devoirs')) {
-      buttonExportPDF.parentElement.insertBefore(devButton, buttonExportPDF);
+      buttonExportPDF.parentElement.parentElement.parentElement.insertBefore(
+        devButton,
+        buttonExportPDF.parentElement.parentElement
+      );
     }
     if (debug)
-      console.log(
-        '[DEBUG]',
-        'createHomeworkButton',
-        'Homework button created and inserted'
-      );
+      console.log('[DEBUG]', 'createHomeworkButton', 'Homework button created and inserted');
   }
 
   /**
@@ -100,7 +96,19 @@
           e.stopPropagation();
           e.preventDefault();
 
-          waitForScheduleUpdate(homeworksData);
+          document.kmlcWaitForElement('.dhx_cal_event[data-event-id]').then(() => {
+            let calData = document
+              .querySelector('div.dhx_cal_data')
+              .querySelectorAll('[data-event-id]');
+
+            try {
+              calDataID = calData[calData.length - 1].getAttribute('data-event-id') || calDataID;
+            } catch (e) {}
+
+            waitForScheduleUpdate(homeworksData);
+          });
+
+          homeworkStatus(homeworksData, 4);
         });
         if (debug)
           console.log(
@@ -125,10 +133,21 @@
           e.stopPropagation();
           e.preventDefault();
 
-          waitForScheduleUpdate(homeworksData);
+          document.kmlcWaitForElement('.dhx_cal_event[data-event-id]').then(() => {
+            let calData = document
+              .querySelector('div.dhx_cal_data')
+              .querySelectorAll('[data-event-id]');
+
+            try {
+              calDataID = calData[calData.length - 1].getAttribute('data-event-id') || calDataID;
+            } catch (e) {}
+
+            waitForScheduleUpdate(homeworksData);
+          });
+
+          homeworkStatus(homeworksData, 5);
         });
-        if (debug)
-          console.log('[DEBUG]', 'addTodayButtonListener', 'Today button listener added');
+        if (debug) console.log('[DEBUG]', 'addTodayButtonListener', 'Today button listener added');
       }
     });
   }
@@ -143,7 +162,7 @@
         for (const mutation of mutations) {
           for (const removedNode of mutation.removedNodes) {
             try {
-              if (removedNode?.getAttribute('aria-label')?.includes('Dim')) {
+              if (removedNode && removedNode.getAttribute('data-event-id') == calDataID) {
                 observer.disconnect();
                 resolve();
               }
@@ -165,8 +184,14 @@
     });
 
     prom.then(() => {
-      document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then(() => {
-        homeworkStatus(homeworksData, 3);
+      document.kmlcWaitForElement('.dhx_cal_event[data-event-id]').then((courseElement) => {
+        let calData = courseElement.getAttribute('data-event-id');
+        try {
+          calDataID = calData[calData.length - 1].getAttribute('data-event-id') || calDataID;
+        } catch (e) {}
+        document.kmlcWaitForElement('div.dhx_scale_holder:nth-child(7)').then((courseElement) => {
+          homeworkStatus(homeworksData, 3);
+        });
       });
     });
   }
@@ -187,9 +212,7 @@
     if (backdropScript) {
       backdropScript = false;
       document
-        .kmlcWaitForElement(
-          "div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])"
-        )
+        .kmlcWaitForElement("div[class *= 'ng-tns'][class *= 'ng-busy']:not([class *= 'backdrop'])")
         .then(() => {
           const prom = new Promise((resolve) => {
             new MutationObserver((mutations, observer) => {

@@ -87,11 +87,11 @@
             );
 
           newGradeElement.outerHTML = `
-            <button type="button" kmlc-simulation-grades="true" id="${gradeId}" class="${classNewGradeElement}" title="${gradeTitle}" save="${saveGrade}">
+            <button type="button" kmlc-simulation-grades="true" id="${gradeId}" class="${classNewGradeElement}" title="${gradeTitle}" save="${saveGrade}" significatif="true">
               <span class="valeur" style="color: green;">
                 ${gradeValue}
                 <sup class="coef"> (${gradePower}) </sup>
-                <sub class="coef"> /${gradeQuotient} </sub>
+                <sub class="quotien"> /${gradeQuotient} </sub>
               </span>
             </button>
           `;
@@ -118,7 +118,7 @@
       );
 
       if (document.querySelector('[kmlc-simulation-edited-grades]')) {
-        if (debug) console.log('[DEBUG]', 'addGrade', 'Calculating modifier averages');
+        if (debug) console.log('[DEBUG]', 'addGrade', 'Calculating modified means');
         calculateMeans(
           7,
           globalQuotient,

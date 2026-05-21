@@ -125,8 +125,8 @@
 
           if (!isNaN(tempNote)) {
             grade.valeur = tempNote;
-            grade.noteSur = Number(grade.noteSur);
-            grade.coef = Number(grade.coef);
+            grade.noteSur = parseFloat(grade.noteSur.replace(/[()\/\s]/g, '').replace(',', '.'));
+            grade.coef = parseFloat(grade.coef.replace(/[()\/\s]/g, '').replace(',', '.'));
 
             for (let j = 0; j < gradesDataDuplicate.periodes.length; j++) {
               if (
@@ -180,6 +180,7 @@
     const gradesStandardDeviationEvolution = [];
     const gradesCoefficientQuotientAndSubject = [];
     const allGradesValueOnly = [];
+    const allGradesValueConvertedOnly = [];
 
     gradesDataClean.forEach((grade, i) => {
       const ascendingGradesValue = [];
@@ -282,11 +283,17 @@
     }
 
     gradesDataClean.forEach((grade) => {
-      allGradesValueOnly.push(((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2));
+      allGradesValueConvertedOnly.push([
+        ((grade.valeur * globalQuotient) / grade.noteSur).toFixed(2),
+        grade.libelleMatiere,
+        grade.devoir
+      ]);
+      allGradesValueOnly.push(grade.valeur);
     });
 
     if (debug)
       console.log('[DEBUG]', 'prepareChartData', 'Prepared chart data', {
+        allGradesValueConvertedOnly,
         allGradesValueOnly,
         gradesRangeEvolution,
         gradesFirstQuartileEvolution,
@@ -302,6 +309,7 @@
       });
 
     return {
+      allGradesValueConvertedOnly,
       allGradesValueOnly,
       gradesRangeEvolution,
       gradesFirstQuartileEvolution,
@@ -325,6 +333,7 @@
    */
   function renderCharts(chartData, globalMean, globalQuotient) {
     const {
+      allGradesValueConvertedOnly,
       allGradesValueOnly,
       gradesRangeEvolution,
       gradesFirstQuartileEvolution,
@@ -340,13 +349,14 @@
     } = chartData;
 
     const xAxisLabelValues = [];
-    for (let i = 1; i <= allGradesValueOnly.length; i++) {
+    for (let i = 1; i <= allGradesValueConvertedOnly.length; i++) {
       xAxisLabelValues.push(i.toString());
     }
 
-    const actualGlobalMeanForChart = new Array(allGradesValueOnly.length).fill(globalMean);
+    const actualGlobalMeanForChart = new Array(allGradesValueConvertedOnly.length).fill(globalMean);
 
     const curveDatasets = createCurveDatasets({
+      allGradesValueConvertedOnly,
       allGradesValueOnly,
       globalMeanEvolution,
       actualGlobalMeanForChart,
@@ -367,7 +377,11 @@
         labels: xAxisLabelValues,
         datasets: curveDatasets
       },
-      options: createCurveOptions(globalQuotient, gradesCoefficientQuotientAndSubject)
+      options: createCurveOptions(
+        allGradesValueOnly,
+        globalQuotient,
+        gradesCoefficientQuotientAndSubject
+      )
     };
 
     const chartCurve = new Chart(
@@ -375,7 +389,7 @@
       datasCurve
     );
 
-    renderBarChart(allGradesValueOnly, globalMean);
+    renderBarChart(allGradesValueConvertedOnly, globalMean);
   }
 
   /**
@@ -385,6 +399,7 @@
    */
   function createCurveDatasets(data) {
     const {
+      allGradesValueConvertedOnly,
       allGradesValueOnly,
       globalMeanEvolution,
       actualGlobalMeanForChart,
@@ -406,7 +421,10 @@
     return [
       {
         label: 'Notes',
-        data: allGradesValueOnly,
+        data: Array.from(
+          allGradesValueConvertedOnly,
+          (allGradeValueConvertedOnly) => allGradeValueConvertedOnly[0]
+        ),
         borderColor: 'rgb(0, 0, 0)',
         tension: tension,
         pointRadius: radius,
@@ -526,7 +544,11 @@
    * @param {Array} gradesCoefficientQuotientAndSubject - Array of grades coefficient, quotient, and subject data.
    * @returns {Object} The curve chart options.
    */
-  function createCurveOptions(globalQuotient, gradesCoefficientQuotientAndSubject) {
+  function createCurveOptions(
+    allGradesValueOnly,
+    globalQuotient,
+    gradesCoefficientQuotientAndSubject
+  ) {
     return {
       responsive: true,
       plugins: {
@@ -554,10 +576,9 @@
                 if (gradeQuotient == globalQuotient) {
                   return `Matière: ${gradeSubject}\nTitre: ${gradeTitle}\nCoefficient: ${gradeCoefficient}\nNote sur: ${gradeQuotient}`;
                 } else {
-                  return `Matière: ${gradeSubject}\nTitre: ${gradeTitle}\nCoefficient: ${gradeCoefficient}\nNote sur: ${gradeQuotient}\nRevient à: ${(
-                    (Number(tooltipItem.raw) * globalQuotient) /
-                    gradeQuotient
-                  ).toFixed(2)}/${globalQuotient}`;
+                  return `Matière: ${gradeSubject}\nTitre: ${gradeTitle}\nCoefficient: ${gradeCoefficient}\nNote sur: ${gradeQuotient}\nInitialement à: ${
+                    allGradesValueOnly[tooltipItem.dataIndex]
+                  }/${gradeQuotient}`;
                 }
               }
             }
@@ -585,20 +606,20 @@
 
   /**
    * Renders the bar chart.
-   * @param {Array} allGradesValueOnly - Array of all grades values.
+   * @param {Array} allGradesValueConvertedOnly - Array of all grades values.
    * @param {number} globalMean - The global mean value.
    */
-  function renderBarChart(allGradesValueOnly, globalMean) {
+  function renderBarChart(allGradesValueConvertedOnly, globalMean) {
     let tempRegroupSameGrades = [];
-    allGradesValueOnly.forEach((grade) => {
-      if (!tempRegroupSameGrades[grade]) {
-        tempRegroupSameGrades[grade] = [];
+    allGradesValueConvertedOnly.forEach((grade) => {
+      if (!tempRegroupSameGrades[grade[0]]) {
+        tempRegroupSameGrades[grade[0]] = [];
       }
-      tempRegroupSameGrades[grade].push(grade);
+      tempRegroupSameGrades[grade[0]].push(grade);
     });
 
-    let gradesList = Object.values(tempRegroupSameGrades).sort((a, b) => a[0] - b[0]);
-    const labelsBar = gradesList.map((grade) => grade[0].toString());
+    let gradesList = Object.values(tempRegroupSameGrades).sort((a, b) => a[0][0] - b[0][0]);
+    const labelsBar = gradesList.map((grade) => grade[0][0].toString());
 
     labelsBar.sort((a, b) => a - b);
 
@@ -637,10 +658,9 @@
     });
 
     const barsColor = Object.values(tempBarsColor);
-    tempRegroupSameGradesLength.sort((a, b) => a - b);
+    tempRegroupSameGradesLength.sort((a, b) => b - a);
 
-    const globalMeanBarLength =
-      tempRegroupSameGradesLength[tempRegroupSameGradesLength.length - 1] || 1;
+    const globalMeanBarLength = tempRegroupSameGradesLength[0] || 1;
     const globalMeanBar = Array(eachGradeNumber.length).fill(0);
     globalMeanBar[indexOfMean] = globalMeanBarLength;
 
@@ -666,7 +686,13 @@
           }
         ]
       },
-      options: createBarChartOptions(effectifPercentage, percentageRed, percentageOrange)
+      options: createBarChartOptions(
+        effectifPercentage,
+        percentageRed,
+        percentageOrange,
+        gradesList,
+        indexOfMean
+      )
     };
 
     chartBar = new Chart(document.getElementById('chart-bar').getContext('2d'), datasBar);
@@ -680,7 +706,13 @@
    * @param {number} percentageOrange - The percentage of orange bars.
    * @returns {Object} The bar chart options.
    */
-  function createBarChartOptions(effectifPercentage, percentageRed, percentageOrange) {
+  function createBarChartOptions(
+    effectifPercentage,
+    percentageRed,
+    percentageOrange,
+    gradesList,
+    indexOfMean
+  ) {
     return {
       responsive: true,
       plugins: {
@@ -740,6 +772,36 @@
                   datasetIndex: meta.index
                 };
               });
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            footer: function (tooltipItems) {
+              if (debug)
+                console.log(
+                  '[DEBUG]',
+                  'createBarChartOptions',
+                  'Logging the tooltipItems footer parameter.',
+                  tooltipItems
+                );
+
+              for (let i = 0; i < tooltipItems.length; i++) {
+                const tooltipItem = tooltipItems[i];
+                if (tooltipItem.dataset.label == 'Moyenne générale') continue;
+
+                let actualIndex = tooltipItem.dataIndex;
+                if (actualIndex > indexOfMean) actualIndex--;
+
+                const gradeData = gradesList[actualIndex];
+                let message = '';
+
+                gradeData.forEach((gradeDataContent) => {
+                  message += `\nMatière: ${gradeDataContent[1]}\nTravail: ${gradeDataContent[2]}`;
+                });
+
+                return message;
+              }
             }
           }
         }

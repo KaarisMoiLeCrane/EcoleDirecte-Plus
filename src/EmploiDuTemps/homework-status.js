@@ -11,33 +11,31 @@
     const homeworksDates = Object.keys(homeworks);
 
     homeworksDates.forEach((homeworksDate) => {
-      document
-        .kmlcWaitForElement('div [class *= dhx_scale_holder]:nth-child(7)')
-        .then(() => {
-          if (homeworks[homeworksDate].length != 0) {
-            const scheduleDates = document.querySelectorAll('[class *= dhx_scale_bar]');
-            homeworks[homeworksDate].forEach((homework) => {
-              const {backgroundColor, symbol} = getHomeworkStyle(homework);
+      document.kmlcWaitForElement('div [class *= dhx_cal_event][data-event-id]').then(() => {
+        if (homeworks[homeworksDate].length != 0) {
+          const scheduleDates = document.querySelectorAll('[class *= dhx_scale_bar]');
+          homeworks[homeworksDate].forEach((homework) => {
+            const {backgroundColor, symbol} = getHomeworkStyle(homework);
 
-              scheduleDates.forEach((scheduleDate) => {
-                if (isMatchingDate(scheduleDate, homeworksDate)) {
-                  if (debug)
-                    console.log(
-                      '[DEBUG]',
-                      'homeworkStatus',
-                      'Homeworks matching the date ' + scheduleDate.textContent,
-                      {
-                        num,
-                        homeworks
-                      }
-                    );
-                  updateDateStyle(scheduleDate, backgroundColor);
-                  updateHomeworkSymbols(scheduleDate, homework, symbol);
-                }
-              });
+            scheduleDates.forEach((scheduleDate) => {
+              if (isMatchingDate(scheduleDate, homeworksDate)) {
+                if (debug)
+                  console.log(
+                    '[DEBUG]',
+                    'homeworkStatus',
+                    'Homeworks matching the date ' + scheduleDate.textContent,
+                    {
+                      num,
+                      homeworks
+                    }
+                  );
+                updateDateStyle(scheduleDate, backgroundColor);
+                updateHomeworkSymbols(scheduleDate, homework, symbol);
+              }
             });
-          }
-        });
+          });
+        }
+      });
     });
   }
 

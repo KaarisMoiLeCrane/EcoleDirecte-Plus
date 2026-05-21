@@ -36,7 +36,7 @@
     const gradesData = account.getAllGrades();
     if (debug) console.log('[DEBUG]', 'main', 'Fetched all grades data.', gradesData);
 
-    const globalQuotient = parseFloat(gradesData.parametrage?.moyenneSur);
+    const globalQuotient = parseFloat(gradesData?.parametrage?.moyenneSur);
 
     if (!globalQuotient) return;
 
